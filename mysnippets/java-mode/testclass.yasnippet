@@ -1,0 +1,15 @@
+# -*- mode: snippet -*-
+# name: test class ...
+# key: tcls
+# --
+package ${1:`(java-package))`};
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.After;
+
+public class ${1:`(file-name-nondirectory (file-name-sans-extension (buffer-file-name)))`} {
+       $0
+}

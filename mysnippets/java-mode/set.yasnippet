@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: set
+# key: set
+# group: collection
+# --
+public void set${1:Foo}( ${2:String} ${1:$(concat (downcase (substring text
+0 1)) (substring text 1))} ) {
+    this.${1:$(concat (downcase (substring text 0 1)) (substring text 1))} = ${1:$(concat (downcase (substring text 0 1)) (substring text 1))};
+} 
