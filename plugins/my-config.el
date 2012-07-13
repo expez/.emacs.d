@@ -28,6 +28,7 @@
 ;; Line numbering
 (global-linum-mode 1)
 
+(setq compilation-ask-about-save nil)
 ;;compile window smaller:
 (setq compilation-window-height 20) ;;Not entirely sure I like this.
 ;;Close compilation window if compile was succesful.
@@ -38,8 +39,8 @@
             ;;there were errors
             (message "Compilation errors, press C-c n to visit")
 
-          ;;no errors, make the compilation window go away in 1 second
-          ;;(run-at-time 1 nil 'delete-windows-on buf)
+          ;;no errors, make the compilation window go away in 2 second
+          (run-at-time 1 nil 'delete-windows-on buf)
           (run-at-time 1 nil 'kill-buffer buf)
 
           (message "Compilation succesful!"))))
@@ -61,7 +62,7 @@
 (setq show-paren-style 'parenthesis) ;; highlight parenthsis, 'expression would only highlight entire exp within paren.
 
 ;; Set parenface
-;;(set-face-foreground 'paren-face "grey30")
+(set-face-foreground 'paren-face "grey30")
 
 ;; Initial message for scratch buffer.
 (setq initial-scratch-message
@@ -278,21 +279,21 @@ refTeX-plug-into-AUCTeX t)
 
 
 (defun my-LaTeX-mode-hook ()
-(visual-line-mode 1)
-(flyspell-mode 1)
-(LaTeX-math-mode 1)
-(turn-on-reftex)
-(setq reftex-plug-into-AUCTeX t)
-(TeX-source-correlate-mode 1)
-(setq TeX-source-correlate-start-server t)
-(setq TeX-view-program-list '(("Evince" "evince --page-index=%(outpage) %o")))
-(setq TeX-view-program-selection '((output-pdf "Evince")))
-(local-set-key (kbd "C-x c") 'TeX-command-master)
-(local-set-key (kbd "C-c s") 'LaTeX-section)
-(local-set-key (kbd "C-c e") 'LaTeX-environment)
-(local-set-key (kbd "C-c i") 'LaTeX-insert-item)
-(local-set-key (kbd "C-c f") 'TeX-font)
-(local-set-key (kbd "C-,") 'beginning-of-buffer))
+  (visual-line-mode 1)
+  (flyspell-mode 1)
+  (LaTeX-math-mode 1)
+  (turn-on-reftex)
+  (setq reftex-plug-into-AUCTeX t)
+  (TeX-source-correlate-mode 1)
+  (setq TeX-source-correlate-start-server t)
+  (setq TeX-view-program-list '(("Evince" "evince --page-index=%(outpage) %o")))
+  (setq TeX-view-program-selection '((output-pdf "Evince")))
+  (local-set-key (kbd "C-x c") 'TeX-command-master)
+  (local-set-key (kbd "C-c s") 'LaTeX-section)
+  (local-set-key (kbd "C-c e") 'LaTeX-environment)
+  (local-set-key (kbd "C-c i") 'LaTeX-insert-item)
+  (local-set-key (kbd "C-c f") 'TeX-font)
+  (local-set-key (kbd "C-,") 'beginning-of-buffer))
 
 (add-hook 'LaTeX-mode-hook 'my-LaTeX-mode-hook)
 
@@ -300,5 +301,36 @@ refTeX-plug-into-AUCTeX t)
 (lambda () (push-mark (point) t))) ;until it's fixed in Maramalade
 
 ;;Haskell mode
-(add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
-(add-hook 'haskell-mode-hook 'turn-on-haskell-simple-indent)
+
+(defun haskell-style ()
+  "Sets the current buffer to use Haskell Style. Meant to be
+  added to `haskell-mode-hook'"
+  (interactive)
+  (setq tab-width 4
+        haskell-indentation-layout-offset 4
+        haskell-indentation-left-offset 4
+        haskell-indentation-ifte-offset 4
+        haskell-hoogle-command "hoogle"))
+;; haskell-hoogle-command to "hoogle" uses local command line hoogle (cabal install hoogle)
+;; setting this variable to "nil" would use haskell.org/hoogle in browser.
+(defun my-haskell-mode-hook ()
+   (turn-on-haskell-doc-mode)
+   (turn-on-haskell-simple-indent)
+   (haskell-style)
+   (define-key haskell-mode-map "\C-ch" 'haskell-hoogle)
+   (setq whitespace-style '(face lines-tail))
+   (setq default-hpaste-nick "Expez"))
+
+(add-hook 'haskell-mode-hook 'my-haskell-mode-hook)
+(setq electric-pair-pairs '(
+                (?\" . ?\")
+                (?\{ . ?\})
+			    (?\' . ?\')))
+
+(setq-default indent-tabs-mode nil)
+(setq-default tab-width 4)
+(setq indent-line-function 'insert-tab)
+
+(setq hippie-expand-try-functions-list (cons 'yas/hippie-try-expand hippie-expand-try-functions-list))
+
+(column-number-mode 1)

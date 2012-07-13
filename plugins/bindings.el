@@ -41,7 +41,7 @@
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 (global-set-key (kbd "C-x r v") 'register-list)
 (global-set-key "\C-c\C-u" 'whole-line-or-region-comment-dwim)
-;;(global-set-key (kbd "C-<tab>") 'hippie-expand)
+(global-set-key (kbd "C-<tab>") 'hippie-expand)
 (define-key minibuffer-local-map (kbd "C-<tab>") 'hippie-expand)
 (global-set-key (kbd "M-S-k") 'kill-sentence)
 ;; easy spell check
@@ -62,7 +62,7 @@
 (global-set-key (kbd "C-x a r") 'align-regexp)
 (global-set-key (kbd "M-p") 'scroll-up-line)
 (global-set-key (kbd "M-n") 'scroll-down-line)
-(setq yas/trigger-key "<C-tab>")
+
 (global-set-key (kbd "M-g c") 'goto-char)
 (global-set-key (kbd "M-g M-c") 'goto-char)
 (define-key yas/minor-mode-map (kbd "TAB") nil)

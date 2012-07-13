@@ -10,7 +10,7 @@
 (package-initialize)
 
 (defvar my-packages '(ace-jump-mode auctex bookmark+ dired+ dropdown-list ghc ghci-completion gist
-				    haskell-mode iy-go-to-char lisppaste magit magithub paredit
+				    iy-go-to-char lisppaste magit magithub paredit
 				    pastebin parenface register-list session smex unbound undo-tree whole-line-or-region
 				    workgroups yasnippet)
   "A list of packages to ensure are installed at launch.")
@@ -24,7 +24,11 @@
 (require 'highlight-tags-mode)
 (require 'workgroups)
 (require 'yasnippet)
+(require 'parenface)
+(require 'hpaste)
 (load-library "efuncs") ;; elisp functions.
 (load-library "my-config") ;; One-off variable settings.
 (load-library "bindings") ;; Keyboard bindings and aliases.
 (load-library "customize") ;;The stuff from customize lives in here.
+
+(load "~/.emacs.d/plugins/haskell-mode/haskell-site-file")
