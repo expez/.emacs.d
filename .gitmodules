@@ -1,0 +1,6 @@
+[submodule "plugins/helm"]
+	path = plugins/helm
+	url = git://github.com/emacs-helm/helm.git
+[submodule "plugins/helm-descbinds"]
+	path = plugins/helm-descbinds
+	url = git://github.com/emacs-helm/helm-descbinds.git
