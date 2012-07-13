@@ -59,7 +59,7 @@
 
 (show-paren-mode 1) ;; highlight parenthesis.
 (setq show-paren-delay 0)
-(setq show-paren-style 'parenthesis) ;; highlight parenthsis, 'expression would only highlight entire exp within paren.
+(setq show-paren-style 'parenthesis) ;; highlight parenthesis, 'expression would only highlight entire exp within paren.
 
 ;; Set parenface
 (set-face-foreground 'paren-face "grey30")
@@ -102,7 +102,6 @@
 (if (eq system-type 'windows-nt)
     (set-default-font
      "-outline-Consolas-normal-r-normal-normal-14-97-96-96-c-*-iso8859-1"))
-
 
 (if (eq system-type 'gnu/linux)
     (set-default-font "Inconsolata-12"))
@@ -153,7 +152,6 @@ version-control t)
 "remove extra paren when expanding line in paredit"
 (if (and paredit-mode (equal (substring str -1) ")"))
 (progn (backward-delete-char 1) (forward-char))))
-
 
 ;;Turn on the undo tree.
 (global-undo-tree-mode 1)
@@ -334,3 +332,9 @@ refTeX-plug-into-AUCTeX t)
 (setq hippie-expand-try-functions-list (cons 'yas/hippie-try-expand hippie-expand-try-functions-list))
 
 (column-number-mode 1)
+
+(setq frame-title-format
+      (list (format "%s %%S: %%j " (system-name))
+        '(buffer-file-name "%f" (dired-directory dired-directory "%b"))))
+
+(add-to-list 'auto-mode-alist '("\\.cmd\\'" . ntcmd-mode))
