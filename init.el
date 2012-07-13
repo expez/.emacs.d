@@ -10,7 +10,7 @@
 (package-initialize)
 
 (defvar my-packages '(ace-jump-mode auctex bookmark+ dired+ dropdown-list ghc ghci-completion gist
-				    haskell-mode iy-go-to-char lisppaste magit magithub paredit
+				    haskell-mode iy-go-to-char expand-region lisppaste magit magithub paredit
 				    pastebin parenface register-list session smex unbound undo-tree whole-line-or-region
 				    workgroups yasnippet)
   "A list of packages to ensure are installed at launch.")

@@ -302,3 +302,9 @@ refTeX-plug-into-AUCTeX t)
 ;;Haskell mode
 (add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
 (add-hook 'haskell-mode-hook 'turn-on-haskell-simple-indent)
+
+(setq frame-title-format
+      (list (format "%s %%S: %%j " (system-name))
+        '(buffer-file-name "%f" (dired-directory dired-directory "%b"))))
+
+(add-to-list 'auto-mode-alist '("\\.cmd\\'" . ntcmd-mode))

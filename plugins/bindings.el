@@ -20,6 +20,7 @@
 (global-set-key (kbd "M--") 'toggle-letter-case)
 ;;Swap a bunch of bindings around.
 (global-set-key [f5] 'call-last-kbd-macro)
+(global-set-key (kbd "C-a" ) 'smart-line-beginning)
 (global-set-key "\C-x\C-c" 'whole-line-or-region-kill-ring-save)
 (global-set-key "\C-w" 'backward-kill-word)
 (global-set-key (kbd "M-w") 'backward-kill-line)
@@ -67,3 +68,4 @@
 (global-set-key (kbd "M-g M-c") 'goto-char)
 (define-key yas/minor-mode-map (kbd "TAB") nil)
 (define-key yas/minor-mode-map (kbd "<tab>") nil)
+(global-set-key (kbd "M-m") 'er/expand-region)
