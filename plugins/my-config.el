@@ -338,3 +338,5 @@ refTeX-plug-into-AUCTeX t)
         '(buffer-file-name "%f" (dired-directory dired-directory "%b"))))
 
 (add-to-list 'auto-mode-alist '("\\.cmd\\'" . ntcmd-mode))
+
+(add-hook 'after-init-hook 'session-initialize)

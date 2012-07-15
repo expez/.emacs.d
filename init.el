@@ -10,10 +10,8 @@
 (package-initialize)
 
 (defvar my-packages '(ace-jump-mode auctex bookmark+ dired+ dropdown-list ghc ghci-completion gist
-
-				    iy-go-to-char expand-region lisppaste magit magithub paredit
-				    pastebin parenface register-list session smex unbound undo-tree whole-line-or-region
-				    workgroups yasnippet)
+				    expand-region lisppaste lorem-ipsum magit magithub move-text paredit
+				    pastebin parenface register-list session smex unbound undo-tree whole-line-or-region workgroups yasnippet)
   "A list of packages to ensure are installed at launch.")
 
 (dolist (p my-packages)
@@ -33,3 +31,4 @@
 (load-library "customize") ;;The stuff from customize lives in here.
 
 (load "~/.emacs.d/plugins/haskell-mode/haskell-site-file")
+(add-to-list 'load-path "~/.emacs.d/plugins/helm")
