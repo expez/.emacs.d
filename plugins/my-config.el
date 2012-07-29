@@ -1,4 +1,5 @@
-(load-theme 'Darkerthanblack t)
+;;(Load-Theme 'Darkerthanblack t)
+(load-theme 'tomorrow-night-bright t)
 
 (setq ;; scrolling
   scroll-margin 0                        ;; do smooth scrolling, ...
@@ -313,16 +314,20 @@ refTeX-plug-into-AUCTeX t)
 ;; setting this variable to "nil" would use haskell.org/hoogle in browser.
 (defun my-haskell-mode-hook ()
    (turn-on-haskell-doc-mode)
+   (glasses-mode 1)
    (turn-on-haskell-simple-indent)
+   (turn-on-haskell-font-lock)
    (haskell-style)
    (define-key haskell-mode-map "\C-ch" 'haskell-hoogle)
    (setq whitespace-style '(face lines-tail))
+   (white-space-mode 1)
    (setq default-hpaste-nick "Expez"))
 
 (add-hook 'haskell-mode-hook 'my-haskell-mode-hook)
 (setq electric-pair-pairs '(
                 (?\" . ?\")
                 (?\{ . ?\})
+                (?\[ . ?\])
 			    (?\' . ?\')))
 
 (setq-default indent-tabs-mode nil)
@@ -340,3 +345,31 @@ refTeX-plug-into-AUCTeX t)
 (add-to-list 'auto-mode-alist '("\\.cmd\\'" . ntcmd-mode))
 
 (add-hook 'after-init-hook 'session-initialize)
+
+;;Evil mode
+;;(evil-mode 1)
+;;(setq evil-default-cursor t)
+;;(setq evil-want-visual-char-semi-exclusive t)
+;;(global-surround-mode 1)
+;;(setq evil-normal-state-cursor 'hollow)
+;;(setq evil-insert-state-cursor '("red" hbar))
+
+(key-chord-mode 1)
+ ;;(setq recentf-auto-cleanup 'never) ;; disable before we start recentf! If using Tramp a lot.
+(recentf-mode t)
+(setq recentf-max-saved-items 100)
+
+;; full screen magit-status
+
+(defadvice magit-status (around magit-fullscreen activate)
+  (window-configuration-to-register :magit-fullscreen)
+  ad-do-it
+  (delete-other-windows))
+
+(defun magit-quit-session ()
+  "Restores the previous window configuration and kills the magit buffer"
+  (interactive)
+  (kill-buffer)
+  (jump-to-register :magit-fullscreen))
+
+(define-key magit-status-mode-map (kbd "q") 'magit-quit-session)
