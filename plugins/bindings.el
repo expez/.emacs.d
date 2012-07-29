@@ -4,6 +4,7 @@
 (defalias 'mbf 'move-buffer-file)
 (defalias 'qr 'query-replace)
 (defalias 'qrr 'query-replace-regexp)
+(defalias 'rb 'revert-buffer)
 
 ;;Ergomacs bindings for movement
 (global-set-key (kbd "M-l") 'forward-char)
@@ -69,3 +70,17 @@
 (define-key yas/minor-mode-map (kbd "TAB") nil)
 (define-key yas/minor-mode-map (kbd "<tab>") nil)
 (global-set-key (kbd "M-m") 'er/expand-region)
+
+;; Windmove
+
+(global-set-key (kbd "<left>")  'windmove-left)
+(global-set-key (kbd "<up>")    'windmove-up)
+(global-set-key (kbd "<right>") 'windmove-right)
+(global-set-key (kbd "<down>")  'windmove-down)
+
+;;Evil mode
+
+(evil-ex-define-cmd "n[ew]" 'evil-window-new)
+(key-chord-define-global "lj" 'evil-normal-state)
+(key-chord-define-global "qr" 'query-replace-regexp)
+(global-set-key (kbd "C-x C-r") 'ido-recentf-open)
