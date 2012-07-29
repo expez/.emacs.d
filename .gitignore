@@ -4,3 +4,4 @@ url/
 var/
 auto-save-list/
 plugins/.#*
+*.el~
