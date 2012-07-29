@@ -10,3 +10,6 @@
 [submodule "plugins/evil"]
 	path = plugins/evil
 	url = https://github.com/bretthoerner/evil.git
+[submodule "plugins/evil-surround"]
+	path = plugins/evil-surround
+	url = https://github.com/timcharper/evil-surround.git
