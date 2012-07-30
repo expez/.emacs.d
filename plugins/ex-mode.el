@@ -521,6 +521,14 @@ the current position of point, then move it to the beginning of the line."
     (when (eq pt (point))
       (beginning-of-line))))
 
+(defadvice load (after give-my-keybindings-priority)
+  "Try to ensure that my keybindings always have priority."
+  (if (not (eq (car (car minor-mode-map-alist)) 'ex-mode))
+      (let ((mykeys (assq 'ex-mode minor-mode-map-alist)))
+        (assq-delete-all 'ex-mode minor-mode-map-alist)
+        (add-to-list 'minor-mode-map-alist mykeys))))
+(ad-activate 'load)
+
 (defvar ex-mode-keymap
   (let ((map (make-sparse-keymap)))
 
@@ -596,16 +604,10 @@ the current position of point, then move it to the beginning of the line."
     map)
   "Keymap containing all my bindings. ")
 
-;; (define-globalized-minor-mode global-ex-mode
-;;   ex-mode turn-on-ex-mode)
-
 (defun turn-on-ex-mode ()
   (interactive)
   "Enable 'ex-mode'"
-  (ex-mode 1)
-  (setq emulation-mode-map-alists
-        (delq ',ex-mode-keymap emulation-mode-map-alists))
-        (push ex-mode-keymap emulation-mode-map-alists))
+  (ex-mode 1))
 
 
 (define-minor-mode ex-mode
@@ -613,7 +615,7 @@ the current position of point, then move it to the beginning of the line."
   :global t
   :init-value nil
   :keymap ex-mode-keymap
-  :lighter ""
+  :lighter " Ex"
 
   ;; Minor mode body
   (defalias 'rfb 'rename-file-and-buffer)
