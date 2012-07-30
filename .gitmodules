@@ -13,3 +13,6 @@
 [submodule "plugins/evil-surround"]
 	path = plugins/evil-surround
 	url = https://github.com/timcharper/evil-surround.git
+[submodule "plugins/ido-hacks"]
+	path = plugins/ido-hacks
+	url = https://github.com/scottjad/ido-hacks

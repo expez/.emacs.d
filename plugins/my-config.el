@@ -373,3 +373,7 @@ refTeX-plug-into-AUCTeX t)
   (jump-to-register :magit-fullscreen))
 
 (define-key magit-status-mode-map (kbd "q") 'magit-quit-session)
+
+(ido-hacks-mode 1)
+
+(turn-on-ex-mode)

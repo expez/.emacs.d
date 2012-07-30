@@ -11,17 +11,21 @@
 
 (defvar my-packages '(ace-jump-mode auctex bookmark+ dired+ dropdown-list ghc ghci-completion gist
 				    expand-region lisppaste key-chord lorem-ipsum magit magithub move-text paredit
-				    pastebin parenface register-list session smex unbound undo-tree whole-line-or-region workgroups yasnippet)
+				    pastebin parenface register-list session unbound undo-tree whole-line-or-region workgroups yasnippet)
   "A list of packages to ensure are installed at launch.")
 
 (dolist (p my-packages)
   (when (not (package-installed-p p))
     (package-install p)))
 
-(add-to-list 'load-path "~/.emacs.d/plugins")
-(add-to-list 'load-path "~/.emacs.d/plugins/helm")
-(add-to-list 'load-path "~/.emacs.d/plugins/evil")
-(add-to-list 'load-path "~/.emacs.d/plugins/evil-surround")
+(let ((default-directory "~/.emacs.d/plugins/"))
+      (setq load-path
+            (append
+             (let ((load-path (copy-sequence load-path))) ;; Shadow
+               (append
+                (copy-sequence (normal-top-level-add-to-load-path '(".")))
+                (normal-top-level-add-subdirs-to-load-path)))
+             load-path)))
 
 (require 'highlight-tags-mode)
 (require 'workgroups)
@@ -32,10 +36,9 @@
 (require 'surround)
 (require 'relative-linum)
 (require 'magit)
-
-(load-library "efuncs") ;; elisp functions.
+(require 'ido-hacks)
+(require 'ex-mode)
 (load-library "my-config") ;; One-off variable settings.
-(load-library "bindings") ;; Keyboard bindings and aliases.
 (load-library "customize") ;;The stuff from customize lives in here.
 
 (load "~/.emacs.d/plugins/haskell-mode/haskell-site-file")
