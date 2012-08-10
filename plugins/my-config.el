@@ -1,4 +1,4 @@
-;;(Load-Theme 'Darkerthanblack t)
+;;(load-theme 'Darkerthanblack t)
 (load-theme 'tomorrow-night-bright t)
 
 (setq ;; scrolling
@@ -234,7 +234,7 @@ ediff."
 (add-hook 'ediff-before-setup-hook 'my-ediff-bsh)
 (add-hook 'ediff-after-setup-windows-hook 'my-ediff-ash 'append)
 (add-hook 'ediff-quit-hook 'my-ediff-qh)
-
+(add-hook 'ediff-cleanup-hook (lambda () (ediff-janitor nil nil)))
 
 ;; Workgroups
 (workgroups-mode 1)
@@ -320,7 +320,7 @@ refTeX-plug-into-AUCTeX t)
    (haskell-style)
    (define-key haskell-mode-map "\C-ch" 'haskell-hoogle)
    (setq whitespace-style '(face lines-tail))
-   (white-space-mode 1)
+   (whitespace-mode 1)
    (setq default-hpaste-nick "Expez"))
 
 (add-hook 'haskell-mode-hook 'my-haskell-mode-hook)
@@ -377,3 +377,15 @@ refTeX-plug-into-AUCTeX t)
 (ido-hacks-mode 1)
 
 (turn-on-ex-mode)
+
+(defun give-my-keybindings-priority ()
+  "Try to ensure that my keybindings always have priority."
+  (if (not (eq (car (car minor-mode-map-alist)) 'ex-mode))
+      (let ((mykeys (assq 'ex-mode minor-mode-map-alist)))
+        (assq-delete-all 'ex-mode minor-mode-map-alist)
+        (add-to-list 'minor-mode-map-alist mykeys))))
+
+(add-hook 'buffer-list-update-hook 'give-my-keybindings-priority)
+
+(add-hook 'git-commit-mode-hook 'turn-on-flyspell)
+(add-hook 'server-done-hook (lambda nil (kill-buffer nil)))

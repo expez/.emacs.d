@@ -521,14 +521,6 @@ the current position of point, then move it to the beginning of the line."
     (when (eq pt (point))
       (beginning-of-line))))
 
-(defadvice load (after give-my-keybindings-priority)
-  "Try to ensure that my keybindings always have priority."
-  (if (not (eq (car (car minor-mode-map-alist)) 'ex-mode))
-      (let ((mykeys (assq 'ex-mode minor-mode-map-alist)))
-        (assq-delete-all 'ex-mode minor-mode-map-alist)
-        (add-to-list 'minor-mode-map-alist mykeys))))
-(ad-activate 'load)
-
 (defvar ex-mode-keymap
   (let ((map (make-sparse-keymap)))
 
@@ -628,7 +620,7 @@ the current position of point, then move it to the beginning of the line."
   (define-key minibuffer-local-map (kbd "C-<tab>") 'hippie-expand)
   (define-key yas/minor-mode-map (kbd "TAB") nil)
   (define-key yas/minor-mode-map (kbd "<tab>") nil)
-  (key-chord-define-global "lj" 'evil-normal-state)
+;;(key-chord-define-global "lj" 'evil-normal-state)
   (key-chord-define-global "qr" 'query-replace-regexp))
 
 (provide 'ex-mode)

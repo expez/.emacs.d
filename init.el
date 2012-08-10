@@ -10,7 +10,7 @@
 (package-initialize)
 
 (defvar my-packages '(ace-jump-mode auctex bookmark+ dired+ dropdown-list ghc ghci-completion gist
-				    expand-region lisppaste key-chord lorem-ipsum magit magithub move-text paredit
+				    expand-region git-commit lisppaste key-chord lorem-ipsum magit magithub move-text paredit
 				    pastebin parenface register-list session unbound undo-tree whole-line-or-region workgroups yasnippet)
   "A list of packages to ensure are installed at launch.")
 
