@@ -5,3 +5,4 @@ var/
 auto-save-list/
 plugins/.#*
 *.el~
+.#init.el
