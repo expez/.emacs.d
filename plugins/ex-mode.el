@@ -470,9 +470,6 @@ This is to update existing buffers after a Git pull of their underlying files."
   (auto-complete-mode 1))
 (add-hook 'ielm-mode-hook 'ielm-auto-complete)
 
-
-;;Following two sections stolen from Julien Danjou
-;; elisp
 (defcustom elisp-programming-major-modes
   '(emacs-lisp-mode
     lisp-interaction-mode
@@ -521,6 +518,24 @@ the current position of point, then move it to the beginning of the line."
     (when (eq pt (point))
       (beginning-of-line))))
 
+(defun string/ends-with (s ending)
+  "Return non-nil if string S ends with ENDING."
+  (let ((elength (length ending)))
+    (string= (substring s (- 0 elength)) ending)))
+
+(defun open-all-files-with-extension (dir extension)
+  "Open all files below dir with the given extension."
+  (interactive "DBase directory: \nsExtension: ")
+  (let* ((list (directory-files dir t "^[^.]"))
+         (files (remove-if 'file-directory-p list))
+         (dirs (remove-if-not 'file-directory-p list)))
+    (dolist (file files)
+      (if (string/ends-with file extension)
+          (find-file-noselect file)))
+    (dolist (dir dirs)
+       (find-file-noselect dir)
+       (open-all-files-with-extension dir extension))))
+
 (defvar ex-mode-keymap
   (let ((map (make-sparse-keymap)))
 
@@ -549,7 +564,6 @@ the current position of point, then move it to the beginning of the line."
     (define-key map (kbd "C-x C-k") 'kill-region)
     (define-key map (kbd "C-,") 'beginning-of-buffer)
     (define-key map (kbd "C-.") 'end-of-buffer)
-    (define-key map (kbd "C-a") 'back-to-indentation)
     (define-key map (kbd "C-x g") 'goto-line)
     (define-key map (kbd "C-x G") 'goto-char)
     (define-key map (kbd "C-x c") 'compile)
@@ -613,6 +627,7 @@ the current position of point, then move it to the beginning of the line."
   (defalias 'rfb 'rename-file-and-buffer)
   (defalias 'mbf 'move-buffer-file)
   (defalias 'rb 'revert-buffer)
+  (defalias 'oaf 'open-all-files-with-extension)
 
   ;;Evil mode
   (evil-ex-define-cmd "n[ew]" 'evil-window-new)
@@ -621,6 +636,7 @@ the current position of point, then move it to the beginning of the line."
   (define-key yas/minor-mode-map (kbd "TAB") nil)
   (define-key yas/minor-mode-map (kbd "<tab>") nil)
 ;;(key-chord-define-global "lj" 'evil-normal-state)
-  (key-chord-define-global "qr" 'query-replace-regexp))
+  (key-chord-define-global "qr" 'query-replace-regexp)
+  (key-chord-define-global "mc" 'moccur))
 
 (provide 'ex-mode)
