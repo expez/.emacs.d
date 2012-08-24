@@ -2,11 +2,13 @@
 # key: htest
 #expand-env: ((yas/indent-line 'nil) )
 # --
-import HUnit
-import System
+module Main where
+
+import Test.HUnit
+import System.Exit
 import $1
 
-${2:test1} = $0"add numbers" ~: 5 ~=? (3 + 2)
+${2:test1} = "$0test label" ~: 5 ~=? (3 + 2)
 
 myTestList =
     TestList [
@@ -19,7 +21,7 @@ main = do c <- h
           putStr $ show c
           let errs = errors c
               fails = failures c
-          System.exitWith (codeGet errs fails)
+          exitWith (codeGet errs fails)
 
 codeGet errs fails
  | fails > 0       = ExitFailure 2
@@ -27,5 +29,6 @@ codeGet errs fails
  | otherwise       = ExitSuccess
 
 -- Local Variables:
--- compile-command: "ghc --make -o `(file-name-sans-extension (buffer-name))` -i/home/expez/src/haskell/libraries `(buffer-name)` && ./`(file-name-sans-extension (buffer-name))`"
+-- compile-command: "ghc --make -o `(file-name-sans-extension (buffer-name))` -i~/src/lib/haskell \
+-- `(buffer-name)` && ./`(file-name-sans-extension (buffer-name))`"
 -- End:

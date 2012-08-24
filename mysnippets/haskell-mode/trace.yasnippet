@@ -2,4 +2,4 @@
 # name: trace
 # key: trace
 # --
-${1:myfun} $0a b | trace ("myfun " ++ show a ++ " " ++ show b) False = undefined
+${1:myfun} ${2:a} ${3:b} | trace ("$1 " ++ show $2 ++ " " ++ show $3) False = undefined
