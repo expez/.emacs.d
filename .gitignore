@@ -6,3 +6,5 @@ auto-save-list/
 plugins/.#*
 *.el~
 .#init.el
+clang-complete
+auto-complete-clang-async.el
