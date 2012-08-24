@@ -605,6 +605,7 @@ the current position of point, then move it to the beginning of the line."
     (define-key map (kbd "C-x C-r")'ido-recentf-open)
     (define-key map (kbd "M-<up>") 'move-line-up)
     (define-key map (kbd "M-<down>") 'move-line-down)
+    (define-key map (kbd "M-<backspace>") 'delete-indentation)
 
 
     map)
@@ -637,6 +638,6 @@ the current position of point, then move it to the beginning of the line."
   (define-key yas/minor-mode-map (kbd "<tab>") nil)
 ;;(key-chord-define-global "lj" 'evil-normal-state)
   (key-chord-define-global "qr" 'query-replace-regexp)
-  (key-chord-define-global "mc" 'moccur))
+  (key-chord-define-global "qm" 'moccur))
 
 (provide 'ex-mode)
