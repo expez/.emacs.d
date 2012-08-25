@@ -11,7 +11,7 @@
 
 (defvar my-packages '(ace-jump-mode auto-complete auctex bookmark+ dired+ dropdown-list ghc ghci-completion gist
 				    expand-region git-commit lisppaste key-chord lorem-ipsum magit magithub move-text paredit
-				    pastebin parenface register-list session unbound undo-tree whole-line-or-region workgroups yasnippet)
+				    parenface register-list session unbound undo-tree whole-line-or-region workgroups yasnippet)
   "A list of packages to ensure are installed at launch.")
 
 (dolist (p my-packages)
@@ -31,16 +31,17 @@
 (require 'auto-complete-config)
 (require 'color-moccur)
 (require 'evil)
+(require 'parenface)
 (require 'ex-mode)
 (require 'highlight-tags-mode)
 (require 'hpaste)
 (require 'ido-hacks)
 (require 'magit)
-(require 'parenface)
 (require 'relative-linum)
 (require 'surround)
 (require 'workgroups)
 (require 'yasnippet)
+(require 'pastebin)
 
 (load-library "my-config") ;; One-off variable settings.
 (load-library "customize") ;;The stuff from customize lives in here.

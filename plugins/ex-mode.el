@@ -14,46 +14,23 @@
   (iswitchb-make-buflist iswitchb-default)
   (setq iswitchb-rescan t))
 
-;;This has been replaced by whole-line-or-region.el
-;;The following will paste a copied line above the current line regardless of the position of point:
-;; (defadvice kill-ring-save (around slick-copy activate)
-;;   "When called interactively with no active region, copy a single line instead."
-;;   (if (or (use-region-p) (not (called-interactively-p)))
-;;       ad-do-it
-;;     (kill-new (buffer-substring (line-beginning-position)
-;; 				(line-beginning-position 2))
-;; 	      nil '(yank-line))
-;;     (message "Copied line")))
-
-;; (defadvice kill-region (around slick-copy activate)
-;;   "When called interactively with no active region, kill a single line instead."
-;;   (if (or (use-region-p) (not (called-interactively-p)))
-;;       ad-do-it
-;;     (kill-new (filter-buffer-substring (line-beginning-position)
-;; 				       (line-beginning-position 2) t)
-;; 	      nil '(yank-line))))
-
-;; (defun yank-line (string)
-;;   "Insert STRING above the current line."
-;;   (beginning-of-line)
-;;   (unless (= (elt string (1- (length string))) ?\n)
-;;     (save-excursion (insert "\n")))
-;;   (insert string))
-;;thus, a line can be copied by M-w C-y.
-
 (defun rename-file-and-buffer (new-name)
- "Renames both current buffer and file it's visiting to NEW-NAME." (interactive "sNew name: ")
- (let ((name (buffer-name))
-	(filename (buffer-file-name)))
- (if (not filename)
-	(message "Buffer '%s' is not visiting a file!" name)
- (if (get-buffer new-name)
-	 (message "A buffer named '%s' already exists!" new-name)
-	(progn 	 (rename-file name new-name 1) 	 (rename-buffer new-name) 	 (set-visited-file-name new-name) 	 (set-buffer-modified-p nil)))))) ;;
+  "Renames both current buffer and file it's visiting to NEW-NAME."
+  (interactive "sNew name: ")
+  (let ((name (buffer-name))
+        (filename (buffer-file-name)))
+    (if (not filename)
+        (message "Buffer '%s' is not visiting a file!" name)
+      (if (get-buffer new-name)
+          (message "A buffer named '%s' already exists!" new-name)
+        (progn (rename-file name new-name 1)
+               (rename-buffer new-name) (set-visited-file-name new-name)
+               (set-buffer-modified-p nil))))))
 
 
 (defun move-buffer-file (dir)
- "Moves both current buffer and file it's visiting to DIR." (interactive "DNew directory: ")
+ "Moves both current buffer and file it's visiting to DIR."
+ (interactive "DNew directory: ")
  (let* ((name (buffer-name))
 	 (filename (buffer-file-name))
 	 (dir
@@ -63,21 +40,28 @@
 
  (if (not filename)
 	(message "Buffer '%s' is not visiting a file!" name)
- (progn 	(copy-file filename newname 1) 	(delete-file filename) 	(set-visited-file-name newname) (set-buffer-modified-p nil) 	t))))
+ (progn
+   (copy-file filename newname 1)
+   (delete-file filename)
+   (set-visited-file-name newname)
+   (set-buffer-modified-p nil) t))))
 
 (defun swap-windows ()
- "If you have 2 windows, it swaps them." (interactive) (cond ((not (= (count-windows) 2)) (message "You need exactly 2 windows to do this."))
- (t
- (let* ((w1 (first (window-list)))
-	 (w2 (second (window-list)))
-	 (b1 (window-buffer w1))
-	 (b2 (window-buffer w2))
-	 (s1 (window-start w1))
-	 (s2 (window-start w2)))
- (set-window-buffer w1 b2)
- (set-window-buffer w2 b1)
- (set-window-start w1 s2)
- (set-window-start w2 s1)))))
+  "If you have 2 windows, it swaps them."
+  (interactive)
+  (cond ((not (= (count-windows) 2))
+         (message "You need exactly 2 windows to do this."))
+        (t
+         (let* ((w1 (first (window-list)))
+                (w2 (second (window-list)))
+                (b1 (window-buffer w1))
+                (b2 (window-buffer w2))
+                (s1 (window-start w1))
+                (s2 (window-start w2)))
+           (set-window-buffer w1 b2)
+           (set-window-buffer w2 b1)
+           (set-window-start w1 s2)
+           (set-window-start w2 s1)))))
 
 (defun ant-compile ()
   "Traveling up the path, find build.xml file and run compile."
@@ -158,21 +142,22 @@ prefix argument, the process's buffer is displayed."
   (if (equal filename nil)
       nil
     (let ((candidate nil)
-	  (filename (file-name-nondirectory filename)))
+          (filename (file-name-nondirectory filename)))
       (save-excursion
-	(dolist (buffer (buffer-list))
-	  (with-current-buffer buffer
-	    (let ((name (buffer-name))
-		  (file buffer-file-name))
-	      (if (and file (string-match "\\.tex$" file))
-		  (progn
-		    (goto-char (point-min))
-		    (if (re-search-forward (concat "\\\\input{" filename "}") nil t)
-			(setq candidate file))
-		    (if (re-search-forward (concat "\\\\include{" (file-name-sans-extension filename) "}") nil t)
-			(setq candidate file))))))))
+        (dolist (buffer (buffer-list))
+          (with-current-buffer buffer
+            (let ((name (buffer-name))
+                  (file buffer-file-name))
+              (if (and file (string-match "\\.tex$" file))
+                  (progn
+                    (goto-char (point-min))
+                    (if (re-search-forward (concat "\\\\input{" filename "}") nil t)
+                        (setq candidate file))
+                    (if (re-search-forward (concat "\\\\include{"
+                                                   (file-name-sans-extension filename) "}") nil t)
+                        (setq candidate file))))))))
       (if candidate
-	  (message "TeX master document: %s" (file-name-nondirectory candidate)))
+          (message "TeX master document: %s" (file-name-nondirectory candidate)))
       candidate)))
 
 (defun delete-current-file ()
@@ -237,10 +222,7 @@ If the file is emacs lisp, run the byte compiled version if appropriate."
             ("js" . "js")
             ("sh" . "bash")
             ("ml" . "ocaml")
-            ("vbs" . "cscript")
-                                        ;            ("pov" . "/usr/local/bin/povray +R2 +A0.1 +J1.2 +Am2 +Q9 +H480 +W640")
-            )
-          )
+            ("vbs" . "cscript")))
 
     (setq fName (buffer-file-name))
     (setq fSuffix (file-name-extension fName))
@@ -389,7 +371,7 @@ Toggles between: “all lower”, “Init Caps”, “ALL CAPS”."
   (ispell-word)
   )
 
-(defun fd-switch-dictionary()
+(defun fd-switckh-dictionary()
   (interactive)
   (let* ((dic ispell-current-dictionary)
     	 (change (if (string= dic "norwegian") "english" "norwegian")))
@@ -478,12 +460,16 @@ This is to update existing buffers after a Git pull of their underlying files."
 
 (dolist (mode elisp-programming-major-modes)
   (add-hook
-   (intern (concat (symbol-name mode) "-hook")) 'turn-on-eldoc-mode))
+   (intern (concat (symbol-name mode) "-hook"))
+   (lambda ()
+     (turn-on-eldoc-mode)
+     (rainbow-delimiters-mode 0)
+     (set-face-foreground 'paren-face "grey30"))))
 
 (defcustom programming-language-major-modes
   '(prog-mode     ; This is the mode perl, makefile, lisp-mode, scheme-mode,
-                                        ; emacs-lisp-mode, sh-mode, java-mode, c-mode, c++-mode,
-                                        ; python-mode inherits from.
+                  ; emacs-lisp-mode, sh-mode, java-mode, c-mode, c++-mode,
+                  ; python-mode inherits from.
     lua-mode
     cmake-mode
     tex-mode                            ; LaTeX inherits
@@ -505,8 +491,13 @@ This is to update existing buffers after a Git pull of their underlying files."
          1
          '(:box (:color "grey10" :line-width 2) :background "red" :bold t :foreground "yellow")
          prepend)))
+     (rainbow-mode 1)
+     (rainbow-delimiters-mode 1)
      (setq show-trailing-whitespace t)
-     (flyspell-prog-mode))))
+     (flyspell-prog-mode)
+     (setq whitespace-style '(face lines-tail))
+     (whitespace-mode 1)
+     (glasses-mode 1))))
 
 
 (defun smart-line-beginning ()

@@ -259,11 +259,7 @@ ediff."
 
 
 (defun my-org-mode-hook ()
-(local-set-key (kbd "C-,") 'beginning-of-buffer)
-(local-set-key "\M-up" 'windmove-up)
-(local-set-key "\M-right" 'windmove-right)
-(local-set-key "\M-left" 'windmove-left)
-(local-set-key "\M-down" 'windmove-down))
+  (local-set-key (kbd "C-,") 'beginning-of-buffer))
 
 (add-hook 'org-mode-hook 'my-org-mode-hook)
 
@@ -311,29 +307,28 @@ refTeX-plug-into-AUCTeX t)
         haskell-hoogle-command nil))
 ;; haskell-hoogle-command to "hoogle" uses local command line hoogle (cabal install hoogle)
 ;; setting this variable to "nil" would use haskell.org/hoogle in browser.
+
 (defun my-haskell-mode-hook ()
-   (turn-on-haskell-doc-mode)
-   (glasses-mode 1)
-   (turn-on-haskell-simple-indent)
-   (turn-on-haskell-font-lock)
-   (haskell-style)
-   (define-key haskell-mode-map "\C-ch" 'haskell-hoogle)
-   (define-key haskell-mode-map "\C-cai" 'haskell-align-imports)
+  (turn-on-haskell-doc-mode)
+  (turn-on-haskell-simple-indent)
+  (turn-on-haskell-font-lock)
+  (haskell-style)
+  (define-key haskell-mode-map "\C-ch" 'haskell-hoogle)
+  (define-key haskell-mode-map "\C-cai" 'haskell-align-imports)
 
-   (define-key haskell-mode-map (kbd "C-<left>")
-   (lambda ()
-   (interactive)
-   (haskell-move-nested -1)))
+  (define-key haskell-mode-map (kbd "C-<left>")
+    (lambda ()
+      (interactive)
+      (haskell-move-nested -1)))
 
-   (define-key haskell-mode-map (kbd "C-<right>")
-   (lambda ()
-   (interactive)
-   (haskell-move-nested 1)))
+  (define-key haskell-mode-map (kbd "C-<right>")
+    (lambda ()
+      (interactive)
+      (haskell-move-nested 1)))
 
-   (setq whitespace-style '(face lines-tail))
-   (whitespace-mode 1)
-   (setq default-hpaste-nick "Expez"))
+  (setq default-hpaste-nick "Expez"))
 
+(add-hook 'haskell-mode-hook 'my-haskell-mode-hook)
 
 (defun hasktags ()
   "regenerate TAGS file using hasktags in the project root (found by TAGS file)"
@@ -351,8 +346,6 @@ refTeX-plug-into-AUCTeX t)
 				my/ac-source-haskell))
 	     nil))
 
-
-(add-hook 'haskell-mode-hook 'my-haskell-mode-hook)
 (setq electric-pair-pairs '(
                 (?\" . ?\")
                 (?\{ . ?\})
@@ -362,21 +355,27 @@ refTeX-plug-into-AUCTeX t)
 (setq-default tab-width 4)
 (setq indent-line-function 'insert-tab)
 
-
 ;; Auto-complete
 (add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
 (ac-config-default)
 
 (defun ac-cc-mode-setup ()
   (setq clang-complete-executable "~/.emacs.d/plugins/clang-complete")
-  (setq ac-sources '(ac-source-clang-async))
-  (launch-completion-proc)
-)
+  (add-to-list 'ac-sources '(ac-source-clang-async))
+  (launch-completion-proc))
 
 (defun my-ac-config ()
   (add-hook 'c-mode-common-hook 'ac-cc-mode-setup)
   (add-hook 'auto-complete-mode-hook 'ac-common-setup)
-  (global-auto-complete-mode t))
+  (global-auto-complete-mode t)
+  (setq ac-auto-start 2)
+  (setq ac-quick-help-delay 0.5)
+  (setq ac-auto-show-menu 0.1)
+  (setq ac-fuzzy-enable t)
+  (add-hook 'emacs-lisp-mode-hook 'ac-emacs-lisp-mode-setup)
+  (add-hook 'ruby-mode-hook 'ac-ruby-mode-setup)
+  (add-hook 'css-mode-hook 'ac-css-mode-setup)
+  (ac-flyspell-workaround))
 
 (my-ac-config)
 
@@ -644,3 +643,9 @@ refTeX-plug-into-AUCTeX t)
 (add-hook 'server-done-hook (lambda nil (kill-buffer nil)))
 
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
+
+;; cc-mode
+(c-add-style "ex"
+             '("linux"
+               (c-offsets-alist
+                (c-basic-offset . 2))))
