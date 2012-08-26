@@ -27,6 +27,9 @@
                 (normal-top-level-add-subdirs-to-load-path)))
              load-path)))
 
+(setq custom-file "~/.emacs.d/plugins/customize.el")
+(load custom-file)
+
 (require 'auto-complete-clang-async)
 (require 'auto-complete-config)
 (require 'color-moccur)

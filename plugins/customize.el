@@ -7,6 +7,8 @@
  '(auto-image-file-mode t)
  '(fringe-mode (cons 8 0) nil (fringe))
  '(glasses-face (quote bold))
+ '(glasses-original-separator "")
+ '(glasses-separate-capital-groups nil)
  '(glasses-separator ""))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
