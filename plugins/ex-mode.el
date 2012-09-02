@@ -559,7 +559,8 @@ the current position of point, then move it to the beginning of the line."
     (define-key map (kbd "C-x G") 'goto-char)
     (define-key map (kbd "C-x c") 'compile)
     (define-key map (kbd "C-x s") 'shell)
-    (define-key map (kbd "C-c n") 'next-error)
+    (define-key map (kbd "M-n") 'next-error)
+    (define-key map (kbd "M-p") 'previous-error)
     (define-key map (kbd "C-z") 'open-line)
     (define-key map (kbd "C-x C-b") 'ibuffer)
     (define-key map (kbd "C-x r v") 'register-list)
@@ -573,16 +574,16 @@ the current position of point, then move it to the beginning of the line."
     (define-key map (kbd "M-<f8>") 'flyspell-check-next-highlighted-word)
 
     (define-key map (kbd "C-c q") 'save-buffers-kill-terminal)
-    (define-key map [insert] 'overwrite-mode) ; [Ins]
-    (define-key map [kp-insert] 'overwrite-mode) ; [Ins]
+    (define-key map [insert] 'overwrite-mode)
+    (define-key map [kp-insert] 'overwrite-mode)
     (define-key map (kbd "C-x v t") 'vc-create-tag)
     (define-key map (kbd "C-x v s") 'magit-status)
     (define-key map (kbd "C-ø") 'push-mark-command)
-    (define-key map (kbd "M-ø") 'exchange-point-and-mark)
+    (define-key map (kbd "M-ø") 'pop-global-mark)
     (define-key map (kbd "C-æ") 'ace-jump-mode)
     (define-key map (kbd "C-x a r") 'align-regexp)
-    (define-key map (kbd "M-p") 'scroll-up-line)
-    (define-key map (kbd "M-n") 'scroll-down-line)
+    (define-key map (kbd "M-S-p") 'scroll-down-line)
+    (define-key map (kbd "M-S-n") 'scroll-up-line)
     (define-key map (kbd "M-g c") 'goto-char)
     (define-key map (kbd "M-g M-c") 'goto-char)
     (define-key map (kbd "M-m") 'er/expand-region)
@@ -594,8 +595,8 @@ the current position of point, then move it to the beginning of the line."
     (define-key map (kbd "<right>") 'windmove-right)
     (define-key map (kbd "<down>") 'windmove-down)
     (define-key map (kbd "C-x C-r")'ido-recentf-open)
-    (define-key map (kbd "M-<up>") 'move-line-up)
-    (define-key map (kbd "M-<down>") 'move-line-down)
+    (define-key map (kbd "M-<up>") 'move-text-up)
+    (define-key map (kbd "M-<down>") 'move-text-down)
     (define-key map (kbd "M-<backspace>") 'delete-indentation)
 
 
@@ -609,7 +610,7 @@ the current position of point, then move it to the beginning of the line."
 
 
 (define-minor-mode ex-mode
-  "Turns on all my key-bindings"
+  "Turns on all my key-bindings and activate all functions."
   :global t
   :init-value nil
   :keymap ex-mode-keymap

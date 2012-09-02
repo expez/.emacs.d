@@ -171,9 +171,6 @@ version-control t)
 yas/ido-prompt
 yas/completing-prompt))
 
-;;Enable Smex
-(smex-initialize)
-
 ;;Enable images
 (auto-image-file-mode 1)
 
