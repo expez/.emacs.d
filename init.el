@@ -2,7 +2,9 @@
 (require 'package)
 ;; Set package archives.
 
-(setq package-archives '("melpa" . "http://melpa.milkbox.net/packages/" ))
+(setq package-archives '(("melpa" . "http://melpa.milkbox.net/packages/" )
+			 ("marmalade" . "http://marmalade-repo.org/packages/")
+			 ("gnu" . "http://elpa.gnu.org/packages/")))
 ;; (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
 ;;                           ("marmalade" . "http://marmalade-repo.org/packages/")
 ;;                           ("melpa" . "http://melpa.milkbox.net/packages/")))
@@ -13,9 +15,9 @@
 
 (defvar my-packages '(ace-jump-mode auto-complete auctex bookmark+ dired+
                                     dropdown-list ghc ghci-completion gist
-                                    expand-region git-commit lisppaste key-chord
+                                    expand-region git-commit key-chord
                                     lorem-ipsum magit magithub move-text paredit
-                                    parenface register-list session unbound
+                                    parenface rainbow-delimiters rainbow-mode register-list unbound
                                     undo-tree whole-line-or-region workgroups
                                     yasnippet)
   "A list of packages to ensure are installed at launch.")

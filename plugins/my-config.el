@@ -164,7 +164,7 @@ version-control t)
 ;; (setq w3m-default-display-inline-image t)
 
 ;;Yasnippet
-(yas/initialize)
+(yas-global-mode 1)
 (setq yas/root-directory "~/.emacs.d/mysnippets")
 (yas/load-directory yas/root-directory)
 (setq yas/prompt-functions '(yas/dropdown-prompt
@@ -592,8 +592,6 @@ refTeX-plug-into-AUCTeX t)
         '(buffer-file-name "%f" (dired-directory dired-directory "%b"))))
 
 (add-to-list 'auto-mode-alist '("\\.cmd\\'" . ntcmd-mode))
-
-(add-hook 'after-init-hook 'session-initialize)
 
 ;;Evil mode
 ;;(evil-mode 1)

@@ -626,8 +626,8 @@ the current position of point, then move it to the beginning of the line."
   (evil-ex-define-cmd "n[ew]" 'evil-window-new)
 
   (define-key minibuffer-local-map (kbd "C-<tab>") 'hippie-expand)
-  (define-key yas/minor-mode-map (kbd "TAB") nil)
-  (define-key yas/minor-mode-map (kbd "<tab>") nil)
+  (define-key yas-keymap (kbd "TAB") nil)
+  (define-key yas-keymap (kbd "<tab>") nil)
 ;;(key-chord-define-global "lj" 'evil-normal-state)
   (key-chord-define-global "qr" 'query-replace-regexp)
   (key-chord-define-global "qm" 'moccur))
