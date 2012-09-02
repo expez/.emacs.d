@@ -1,18 +1,1 @@
-[submodule "plugins/helm"]
-	path = plugins/helm
-	url = git://github.com/emacs-helm/helm.git
-[submodule "plugins/helm-descbinds"]
-	path = plugins/helm-descbinds
-	url = git://github.com/emacs-helm/helm-descbinds.git
-[submodule "plugins/haskell-mode"]
-	path = plugins/haskell-mode
-	url = https://github.com/haskell/haskell-mode
-[submodule "plugins/evil"]
-	path = plugins/evil
-	url = https://github.com/bretthoerner/evil.git
-[submodule "plugins/evil-surround"]
-	path = plugins/evil-surround
-	url = https://github.com/timcharper/evil-surround.git
-[submodule "plugins/ido-hacks"]
-	path = plugins/ido-hacks
-	url = https://github.com/scottjad/ido-hacks
+

@@ -14,18 +14,20 @@
 (package-initialize)
 
 (defvar my-packages '(ace-jump-mode auto-complete auctex bookmark+ dired+
-                                    dropdown-list ghc ghci-completion gist
-                                    expand-region git-commit key-chord
+                                    dropdown-list evil evil-surround evil-leader
+                                    expand-region ghc ghci-completion gist
+                                    git-commit haskell-mode key-chord
                                     lorem-ipsum magit magithub move-text paredit
-                                    parenface rainbow-delimiters rainbow-mode register-list unbound
-                                    undo-tree whole-line-or-region workgroups
-                                    yasnippet)
+                                    parenface rainbow-delimiters rainbow-mode
+                                    register-list unbound undo-tree
+                                    whole-line-or-region workgroups  yasnippet)
   "A list of packages to ensure are installed at launch.")
 
 (dolist (p my-packages)
   (when (not (package-installed-p p))
     (package-install p)))
 
+;; Add everything in and below plugins to load-path.
 (let ((default-directory "~/.emacs.d/plugins/"))
       (setq load-path
             (append
