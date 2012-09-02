@@ -13,8 +13,9 @@
   (package-refresh-contents))
 (package-initialize)
 
+;;add evil-surround when it is added to melpa.
 (defvar my-packages '(ace-jump-mode auto-complete auctex bookmark+ dired+
-                                    dropdown-list evil evil-surround evil-leader
+                                    dropdown-list evil evil-numbers evil-leader
                                     expand-region ghc ghci-completion gist
                                     git-commit haskell-mode key-chord
                                     lorem-ipsum magit magithub move-text paredit
@@ -51,7 +52,6 @@
 (require 'ido-hacks)
 (require 'magit)
 (require 'relative-linum)
-(require 'surround)
 (require 'workgroups)
 (require 'yasnippet)
 (require 'pastebin)
@@ -59,5 +59,4 @@
 
 (load-library "my-config") ;; One-off variable settings.
 (load-library "customize") ;;The stuff from customize lives in here.
-
-(load "~/.emacs.d/plugins/haskell-mode/haskell-site-file")
+	
