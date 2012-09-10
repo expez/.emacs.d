@@ -54,7 +54,6 @@
 (require 'relative-linum)
 (require 'workgroups)
 (require 'yasnippet)
-(require 'pastebin)
 (require 'uniquify)
 
 (load-library "my-config") ;; One-off variable settings.
