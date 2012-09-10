@@ -168,8 +168,8 @@ version-control t)
 (setq yas/root-directory "~/.emacs.d/mysnippets")
 (yas/load-directory yas/root-directory)
 (setq yas/prompt-functions '(yas/dropdown-prompt
-yas/ido-prompt
-yas/completing-prompt))
+                             yas/ido-prompt
+                             yas/completing-prompt))
 
 ;;Enable images
 (auto-image-file-mode 1)
@@ -358,7 +358,8 @@ refTeX-plug-into-AUCTeX t)
 
 (defun ac-cc-mode-setup ()
   (setq clang-complete-executable "~/.emacs.d/plugins/clang-complete")
-  (add-to-list 'ac-sources '(ac-source-clang-async))
+  ;(add-to-list 'ac-sources '(ac-source-clang-async))
+  (setq ac-sources '(ac-source-clang-async))
   (launch-completion-proc))
 
 (defun my-ac-config ()
