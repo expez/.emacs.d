@@ -584,7 +584,8 @@ refTeX-plug-into-AUCTeX t)
 				  )))))
   "Sources for Haskell keywords.")
 
-(setq hippie-expand-try-functions-list (cons 'yas/hippie-try-expand hippie-expand-try-functions-list))
+(setq hippie-expand-try-functions-list
+      (cons 'yas/hippie-try-expand hippie-expand-try-functions-list))
 
 (column-number-mode 1)
 
