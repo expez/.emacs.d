@@ -137,11 +137,11 @@
 `((".*" ,temporary-file-directory t)))
 
 (setq
-backup-by-copying t
-delete-old-versions t
-kept-new-versions 6
-kept-old-versions 2
-version-control t)
+ backup-by-copying t
+ delete-old-versions t
+ kept-new-versions 6
+ kept-old-versions 2
+ version-control t)
 
 ;; Paredit mode
 (add-hook 'emacs-lisp-mode-hook       (lambda () (paredit-mode +1)))
@@ -356,14 +356,13 @@ refTeX-plug-into-AUCTeX t)
 (add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
 (ac-config-default)
 
-(defun ac-cc-mode-setup ()
+(defun ac-c-mode-setup ()
   (setq clang-complete-executable "~/.emacs.d/plugins/clang-complete")
-  ;(add-to-list 'ac-sources '(ac-source-clang-async))
   (setq ac-sources '(ac-source-clang-async))
   (launch-completion-proc))
 
 (defun my-ac-config ()
-  (add-hook 'c-mode-common-hook 'ac-cc-mode-setup)
+  (add-hook 'c-mode-hook 'ac-c-mode-setup)
   (add-hook 'auto-complete-mode-hook 'ac-common-setup)
   (global-auto-complete-mode t)
   (setq ac-auto-start 2)
@@ -646,3 +645,23 @@ refTeX-plug-into-AUCTeX t)
              '("linux"
                (c-offsets-alist
                 (c-basic-offset . 2))))
+
+;; Eclim for java development
+(add-hook 'eclim-mode-hook
+          (lambda ()
+            (add-to-list 'ac-sources 'ac-source-emacs-eclim)
+            (add-to-list 'ac-sources 'ac-source-emacs-eclim-c-dot)))
+
+(add-hook 'java-mode-hook
+	  '(lambda ()
+         (eclim-mode 1)
+         ;; Eclim uses help to display errors
+         (setq help-at-pt-display-when-idle t)
+         (setq eclim-auto-save t)
+         (setq eclim-print-debug-messages t)
+         (setq help-at-pt-timer-delay 0.1)
+         (help-at-pt-set-timer)
+         (java-mode-indent-annotations-setup)
+         (custom-set-variables
+          '(eclim-eclipse-dirs '("/usr/share/eclipse")))
+         (setq c-basic-offset 4)))
