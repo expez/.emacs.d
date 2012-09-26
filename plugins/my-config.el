@@ -132,9 +132,9 @@
 
 ;; Store auto-save files to system's temp directory.
 (setq backup-directory-alist
-`((".*" . ,temporary-file-directory)))
+      `((".*" . ,temporary-file-directory)))
 (setq auto-save-file-name-transforms
-`((".*" ,temporary-file-directory t)))
+      `((".*" ,temporary-file-directory t)))
 
 (setq
  backup-by-copying t
@@ -165,6 +165,8 @@
 
 ;;Yasnippet
 (yas-global-mode 1)
+(setq yas-trigger-key nil)
+(yas/reload-all) ;; Needed to disable trigger key
 (setq yas/root-directory "~/.emacs.d/mysnippets")
 (yas/load-directory yas/root-directory)
 (setq yas/prompt-functions '(yas/dropdown-prompt
@@ -329,7 +331,8 @@ refTeX-plug-into-AUCTeX t)
 
 (defun hasktags ()
   "regenerate TAGS file using hasktags in the project root (found by TAGS file)"
-  (start-process "*generate-hasktags*" "*generate-hasktags*" "generate-hasktags.sh"))
+  (if (eq major-mode 'haskell-mode)
+      (start-process "*generate-hasktags*" "*generate-hasktags*" "generate-hasktags.sh")))
 
 (add-hook 'after-save-hook 'hasktags)
 (setq tags-revert-without-query 1)
@@ -337,10 +340,9 @@ refTeX-plug-into-AUCTeX t)
 (add-hook 'haskell-mode-hook
 	  '(lambda () (auto-complete-mode 1)
 	     (make-local-variable 'ac-sources)
-	     (setq ac-sources '(ac-source-yasnippet
-				ac-source-abbrev
-				ac-source-words-in-buffer
-				my/ac-source-haskell))
+	     (setq ac-sources '(ac-source-abbrev
+                            ac-source-words-in-buffer
+                            my/ac-source-haskell))
 	     nil))
 
 (setq electric-pair-pairs '(
@@ -647,11 +649,6 @@ refTeX-plug-into-AUCTeX t)
                 (c-basic-offset . 2))))
 
 ;; Eclim for java development
-(add-hook 'eclim-mode-hook
-          (lambda ()
-            (add-to-list 'ac-sources 'ac-source-emacs-eclim)
-            (add-to-list 'ac-sources 'ac-source-emacs-eclim-c-dot)))
-
 (add-hook 'java-mode-hook
 	  '(lambda ()
          (eclim-mode 1)
@@ -659,6 +656,7 @@ refTeX-plug-into-AUCTeX t)
          (setq help-at-pt-display-when-idle t)
          (setq eclim-auto-save t)
          (setq eclim-print-debug-messages t)
+         (local-set-key (kbd "M-/") 'eclim-ac-complete)
          (setq help-at-pt-timer-delay 0.1)
          (help-at-pt-set-timer)
          (java-mode-indent-annotations-setup)
