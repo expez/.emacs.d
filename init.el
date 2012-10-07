@@ -41,6 +41,9 @@
 (setq custom-file "~/.emacs.d/plugins/customize.el")
 (load custom-file)
 
+(add-to-list 'load-path (expand-file-name "~/src/emacs-eclim/"))
+(add-to-list 'load-path (expand-file-name "~/src/emacs-eclim/vendor"))
+
 (require 'auto-complete-clang-async)
 (require 'auto-complete-config)
 (require 'color-moccur)
@@ -55,7 +58,10 @@
 (require 'workgroups)
 (require 'yasnippet)
 (require 'uniquify)
+(require 'eclim)
+(require 'eclimd)
+(require 'ac-emacs-eclim-source)
+(require 'java-mode-indent-annotations)
 
 (load-library "my-config") ;; One-off variable settings.
 (load-library "customize") ;;The stuff from customize lives in here.
-	

@@ -132,16 +132,16 @@
 
 ;; Store auto-save files to system's temp directory.
 (setq backup-directory-alist
-`((".*" . ,temporary-file-directory)))
+      `((".*" . ,temporary-file-directory)))
 (setq auto-save-file-name-transforms
-`((".*" ,temporary-file-directory t)))
+      `((".*" ,temporary-file-directory t)))
 
 (setq
-backup-by-copying t
-delete-old-versions t
-kept-new-versions 6
-kept-old-versions 2
-version-control t)
+ backup-by-copying t
+ delete-old-versions t
+ kept-new-versions 6
+ kept-old-versions 2
+ version-control t)
 
 ;; Paredit mode
 (add-hook 'emacs-lisp-mode-hook       (lambda () (paredit-mode +1)))
@@ -165,6 +165,8 @@ version-control t)
 
 ;;Yasnippet
 (yas-global-mode 1)
+(setq yas-trigger-key nil)
+(yas/reload-all) ;; Needed to disable trigger key
 (setq yas/root-directory "~/.emacs.d/mysnippets")
 (yas/load-directory yas/root-directory)
 (setq yas/prompt-functions '(yas/dropdown-prompt
@@ -329,7 +331,8 @@ refTeX-plug-into-AUCTeX t)
 
 (defun hasktags ()
   "regenerate TAGS file using hasktags in the project root (found by TAGS file)"
-  (start-process "*generate-hasktags*" "*generate-hasktags*" "generate-hasktags.sh"))
+  (if (eq major-mode 'haskell-mode)
+      (start-process "*generate-hasktags*" "*generate-hasktags*" "generate-hasktags.sh")))
 
 (add-hook 'after-save-hook 'hasktags)
 (setq tags-revert-without-query 1)
@@ -337,10 +340,9 @@ refTeX-plug-into-AUCTeX t)
 (add-hook 'haskell-mode-hook
 	  '(lambda () (auto-complete-mode 1)
 	     (make-local-variable 'ac-sources)
-	     (setq ac-sources '(ac-source-yasnippet
-				ac-source-abbrev
-				ac-source-words-in-buffer
-				my/ac-source-haskell))
+	     (setq ac-sources '(ac-source-abbrev
+                            ac-source-words-in-buffer
+                            my/ac-source-haskell))
 	     nil))
 
 (setq electric-pair-pairs '(
@@ -356,14 +358,13 @@ refTeX-plug-into-AUCTeX t)
 (add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
 (ac-config-default)
 
-(defun ac-cc-mode-setup ()
+(defun ac-c-mode-setup ()
   (setq clang-complete-executable "~/.emacs.d/plugins/clang-complete")
-  ;(add-to-list 'ac-sources '(ac-source-clang-async))
   (setq ac-sources '(ac-source-clang-async))
   (launch-completion-proc))
 
 (defun my-ac-config ()
-  (add-hook 'c-mode-common-hook 'ac-cc-mode-setup)
+  (add-hook 'c-mode-hook 'ac-c-mode-setup)
   (add-hook 'auto-complete-mode-hook 'ac-common-setup)
   (global-auto-complete-mode t)
   (setq ac-auto-start 2)
@@ -584,7 +585,8 @@ refTeX-plug-into-AUCTeX t)
 				  )))))
   "Sources for Haskell keywords.")
 
-(setq hippie-expand-try-functions-list (cons 'yas/hippie-try-expand hippie-expand-try-functions-list))
+(setq hippie-expand-try-functions-list
+      (cons 'yas/hippie-try-expand hippie-expand-try-functions-list))
 
 (column-number-mode 1)
 
@@ -645,3 +647,19 @@ refTeX-plug-into-AUCTeX t)
              '("linux"
                (c-offsets-alist
                 (c-basic-offset . 2))))
+
+;; Eclim for java development
+(add-hook 'java-mode-hook
+	  '(lambda ()
+         (eclim-mode 1)
+         ;; Eclim uses help to display errors
+         (setq help-at-pt-display-when-idle t)
+         (setq eclim-auto-save t)
+         (setq eclim-print-debug-messages t)
+         (local-set-key (kbd "M-/") 'eclim-ac-complete)
+         (setq help-at-pt-timer-delay 0.1)
+         (help-at-pt-set-timer)
+         (java-mode-indent-annotations-setup)
+         (custom-set-variables
+          '(eclim-eclipse-dirs '("/usr/share/eclipse")))
+         (setq c-basic-offset 4)))
