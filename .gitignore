@@ -8,3 +8,5 @@ plugins/.#*
 .#init.el
 clang-complete
 auto-complete-clang-async.el
+ac-comphist.dat
+.session
