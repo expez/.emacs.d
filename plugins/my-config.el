@@ -663,3 +663,7 @@ refTeX-plug-into-AUCTeX t)
          (custom-set-variables
           '(eclim-eclipse-dirs '("/usr/share/eclipse")))
          (setq c-basic-offset 4)))
+
+(setq shift-select-mode nil)
+;; Cua mode re-actives shift selection, this function fixes that issue.
+(ergoemacs-fix-cua--pre-command-handler-1)
