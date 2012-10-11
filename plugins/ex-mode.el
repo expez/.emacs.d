@@ -605,6 +605,8 @@ the current position of point, then move it to the beginning of the line."
     (define-key map (kbd "M-U") 'backward-paragraph)
     (define-key map (kbd "M-O") 'forward-paragraph)
 
+    (define-key map (kbd "M-h") 'comment-dwim)
+
     (define-key map (kbd "M--") 'toggle-letter-case)
     ;;Swap a bunch of bindings around.
     (define-key map (kbd "C-a") 'smart-line-beginning)
@@ -666,6 +668,8 @@ the current position of point, then move it to the beginning of the line."
     (define-key map (kbd "M-<up>") 'move-text-up)
     (define-key map (kbd "M-<down>") 'move-text-down)
     (define-key map (kbd "M-<backspace>") 'delete-indentation)
+    (define-key map (kbd "M-,") 'pop-tag-mark)
+
 
     map)
   "Keymap containing all my bindings. ")

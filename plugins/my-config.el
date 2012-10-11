@@ -31,7 +31,7 @@
 
 (setq compilation-ask-about-save nil)
 ;;compile window smaller:
-(setq compilation-window-height 20) ;;Not entirely sure I like this.
+(setq compilation-window-height 30) ;;Not entirely sure I like this.
 ;;Close compilation window if compile was succesful.
 (setq compilation-finish-function
       (lambda (buf str)
