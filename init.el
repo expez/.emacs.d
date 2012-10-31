@@ -5,9 +5,6 @@
 (setq package-archives '(("melpa" . "http://melpa.milkbox.net/packages/" )
 			 ("marmalade" . "http://marmalade-repo.org/packages/")
 			 ("gnu" . "http://elpa.gnu.org/packages/")))
-;; (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
-;;                           ("marmalade" . "http://marmalade-repo.org/packages/")
-;;                           ("melpa" . "http://melpa.milkbox.net/packages/")))
 
 (when (not package-archive-contents)
   (package-refresh-contents))
@@ -62,6 +59,7 @@
 (require 'eclimd)
 (require 'ac-emacs-eclim-source)
 (require 'java-mode-indent-annotations)
+(require 'cuda-mode)
 
 (load-library "my-config") ;; One-off variable settings.
 (load-library "customize") ;;The stuff from customize lives in here.
