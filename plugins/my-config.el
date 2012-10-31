@@ -31,7 +31,7 @@
 
 (setq compilation-ask-about-save nil)
 ;;compile window smaller:
-(setq compilation-window-height 20) ;;Not entirely sure I like this.
+(setq compilation-window-height 30) ;;Not entirely sure I like this.
 ;;Close compilation window if compile was succesful.
 (setq compilation-finish-function
       (lambda (buf str)
@@ -663,3 +663,7 @@ refTeX-plug-into-AUCTeX t)
          (custom-set-variables
           '(eclim-eclipse-dirs '("/usr/share/eclipse")))
          (setq c-basic-offset 4)))
+
+(setq shift-select-mode nil)
+;; Cua mode re-actives shift selection, this function fixes that issue.
+(ergoemacs-fix-cua--pre-command-handler-1)
