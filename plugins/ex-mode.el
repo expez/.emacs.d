@@ -605,6 +605,9 @@ the current position of point, then move it to the beginning of the line."
     (define-key map (kbd "M-U") 'backward-paragraph)
     (define-key map (kbd "M-O") 'forward-paragraph)
 
+    (define-key map (kbd "M-J") 'backward-sentence)
+    (define-key map (kbd "M-L") 'forward-sentence)
+
     (define-key map (kbd "M--") 'toggle-letter-case)
     ;;Swap a bunch of bindings around.
     (define-key map (kbd "C-a") 'smart-line-beginning)
@@ -654,7 +657,7 @@ the current position of point, then move it to the beginning of the line."
     (define-key map (kbd "M-g M-c") 'goto-char)
     (define-key map (kbd "M-m") 'er/expand-region)
     (define-key map (kbd "<f5>") 'call-last-kbd-macro)
-    (define-key map (kbd "C-c i") 'ido-goto-symbol)
+    (define-key map (kbd "C-x i") 'ido-goto-symbol)
 
     ;; Windmove
     (define-key map (kbd "<left>") 'windmove-left)
