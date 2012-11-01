@@ -605,6 +605,9 @@ the current position of point, then move it to the beginning of the line."
     (define-key map (kbd "M-U") 'backward-paragraph)
     (define-key map (kbd "M-O") 'forward-paragraph)
 
+    (define-key map (kbd "M-J") 'backward-sentence)
+    (define-key map (kbd "M-L") 'forward-sentence)
+
     (define-key map (kbd "M-h") 'comment-dwim)
 
     (define-key map (kbd "M--") 'toggle-letter-case)
