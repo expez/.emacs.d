@@ -619,7 +619,7 @@ the current position of point, then move it to the beginning of the line."
     (define-key map (kbd "C-z") 'open-line)
     (define-key map (kbd "C-x C-k") 'kill-region)
     (define-key map (kbd "C-,") 'beginning-of-buffer)
-    (define-key map (kbd "C-.") 'end-of-buffer)
+    (define-key map (kbd "C-.") 'end-of-buffer)ii
     (define-key map (kbd "C-x g") 'goto-line)
     (define-key map (kbd "C-x G") 'goto-char)
     (define-key map (kbd "C-x c") 'compile)
@@ -643,12 +643,15 @@ the current position of point, then move it to the beginning of the line."
     (define-key map [kp-insert] 'overwrite-mode)
     (define-key map (kbd "C-x v t") 'vc-create-tag)
     (define-key map (kbd "C-x v s") 'magit-status)
-    (define-key map (kbd "C-'") 'push-mark-command)
+
+    (define-key map (kbd "C-'") 'push-mark)
     (define-key map (kbd "M-'") 'pop-global-mark)
     (define-key map (kbd "C-;") 'ace-jump-mode)
-    (define-key map (kbd "C-ø") 'push-mark-command)
-    (define-key map (kbd "M-ø") 'pop-global-mark)
-    (define-key map (kbd "C-æ") 'ace-jump-mode)
+
+    (define-key map (kbd "C-æ") 'push-mark)
+    (define-key map (kbd "M-æ") 'pop-global-mark)
+    (define-key map (kbd "C-ø") 'ace-jump-mode)
+
     (define-key map (kbd "C-x a r") 'align-regexp)
     (define-key map (kbd "M-N") 'scroll-up-line)
     (define-key map (kbd "M-P") 'scroll-down-line)
@@ -656,7 +659,7 @@ the current position of point, then move it to the beginning of the line."
     (define-key map (kbd "M-g M-c") 'goto-char)
     (define-key map (kbd "M-m") 'er/expand-region)
     (define-key map (kbd "<f5>") 'call-last-kbd-macro)
-    (define-key map (kbd "C-c i") 'ido-goto-symbol)
+    (define-key map (kbd "C-x i") 'ido-goto-symbol)
 
     ;; Windmove
     (define-key map (kbd "<left>") 'windmove-left)
