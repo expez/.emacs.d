@@ -675,3 +675,5 @@ refTeX-plug-into-AUCTeX t)
 
 (setq mediawiki-mode-hook (lambda ()
                             (visual-line-mode 1)))
+
+(setq enable-recursive-minibuffers t)
