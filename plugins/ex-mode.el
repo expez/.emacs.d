@@ -590,6 +590,11 @@ the current position of point, then move it to the beginning of the line."
               (add-to-list 'symbol-names name)
               (add-to-list 'name-and-pos (cons name position))))))))
 
+(defun mediawiki-insert-sub-header ()
+  "Insert subheader  via  == (e.g. == FOO ==.)"
+  (interactive)
+  (mediawiki-insert "===" "==="))
+
 (defvar ex-mode-keymap
   (let ((map (make-sparse-keymap)))
 
@@ -683,6 +688,10 @@ the current position of point, then move it to the beginning of the line."
 (define-key mediawiki-mode-map (kbd "C-c o") 'mediawiki-browse)
 (define-key mediawiki-mode-map (kbd "C-c g") 'mediawiki-reload)
 (define-key mediawiki-mode-map (kbd "C-c <ret>") 'mediawiki-open-page-at-point)
+(define-key mediawiki-mode-map (kbd "C-c <ret>") 'mediawiki-open-page-at-point)
+(define-key mediawiki-mode-map (kbd "C-c C-f C-h") 'mediawiki-insert-header)
+(define-key mediawiki-mode-map (kbd "C-c C-f C-e") 'mediawiki-insert-sub-header)
+
 
 (defun turn-on-ex-mode ()
   (interactive)
