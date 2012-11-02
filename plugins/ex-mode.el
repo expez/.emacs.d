@@ -680,6 +680,10 @@ the current position of point, then move it to the beginning of the line."
     map)
   "Keymap containing all my bindings. ")
 
+(define-key mediawiki-mode-map (kbd "C-c o") 'mediawiki-browse)
+(define-key mediawiki-mode-map (kbd "C-c g") 'mediawiki-reload)
+(define-key mediawiki-mode-map (kbd "C-c <ret>") 'mediawiki-open-page-at-point)
+
 (defun turn-on-ex-mode ()
   (interactive)
   "Enable 'ex-mode'"

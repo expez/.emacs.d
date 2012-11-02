@@ -669,3 +669,6 @@ refTeX-plug-into-AUCTeX t)
 (ergoemacs-fix-cua--pre-command-handler-1)
 
 (setq tramp-default-method "ssh")
+
+(setq mediawiki-mode-hook (lambda ()
+                            (visual-line-mode 1)))
