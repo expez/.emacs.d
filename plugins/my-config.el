@@ -163,6 +163,9 @@
 ;; (autoload 'w3m-browse-url "w3m" "Ask a WWW browser to show a URL." t)
 ;; (setq w3m-default-display-inline-image t)
 
+(setq browse-url-browser-function 'browse-url-generic
+      browse-url-generic-program "conkeror")
+
 ;;Yasnippet
 (yas-global-mode 1)
 (setq yas-trigger-key nil)
