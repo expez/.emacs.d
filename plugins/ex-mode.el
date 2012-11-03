@@ -627,7 +627,7 @@ the current position of point, then move it to the beginning of the line."
     (define-key map (kbd "C-z") 'open-line)
     (define-key map (kbd "C-x C-k") 'kill-region)
     (define-key map (kbd "C-,") 'beginning-of-buffer)
-    (define-key map (kbd "C-.") 'end-of-buffer)ii
+    (define-key map (kbd "C-.") 'end-of-buffer)
     (define-key map (kbd "C-x g") 'goto-line)
     (define-key map (kbd "C-x G") 'goto-char)
     (define-key map (kbd "C-x c") 'compile)
@@ -684,14 +684,6 @@ the current position of point, then move it to the beginning of the line."
 
     map)
   "Keymap containing all my bindings. ")
-
-(define-key mediawiki-mode-map (kbd "C-c o") 'mediawiki-browse)
-(define-key mediawiki-mode-map (kbd "C-c g") 'mediawiki-reload)
-(define-key mediawiki-mode-map (kbd "C-c <ret>") 'mediawiki-open-page-at-point)
-(define-key mediawiki-mode-map (kbd "C-c <ret>") 'mediawiki-open-page-at-point)
-(define-key mediawiki-mode-map (kbd "C-c C-f C-h") 'mediawiki-insert-header)
-(define-key mediawiki-mode-map (kbd "C-c C-f C-e") 'mediawiki-insert-sub-header)
-
 
 (defun turn-on-ex-mode ()
   (interactive)

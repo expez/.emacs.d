@@ -15,9 +15,6 @@
   uniquify-after-kill-buffer-p t
   uniquify-ignore-buffers-re "^\\*")
 
-;;Autopair
-;;(autopair-global-mode 1) ;; enable autopair in all buffers
-
 ;; re-builder
 (setq reb-re-syntax 'string)
 
@@ -657,6 +654,8 @@ refTeX-plug-into-AUCTeX t)
          (eclim-mode 1)
          ;; Eclim uses help to display errors
          (setq help-at-pt-display-when-idle t)
+         (setq eclimd-default-workspace "~/workspace")
+         (setq eclim-executable "/usr/share/eclipse/eclim")
          (setq eclim-auto-save t)
          (setq eclim-print-debug-messages t)
          (local-set-key (kbd "M-/") 'eclim-ac-complete)
@@ -674,6 +673,12 @@ refTeX-plug-into-AUCTeX t)
 (setq tramp-default-method "ssh")
 
 (setq mediawiki-mode-hook (lambda ()
-                            (visual-line-mode 1)))
+                            (visual-line-mode 1)
+			    (define-key mediawiki-mode-map (kbd "C-c o") 'mediawiki-browse)
+			    (define-key mediawiki-mode-map (kbd "C-c g") 'mediawiki-reload)
+			    (define-key mediawiki-mode-map (kbd "C-c <ret>") 'mediawiki-open-page-at-point)
+			    (define-key mediawiki-mode-map (kbd "C-c <ret>") 'mediawiki-open-page-at-point)
+			    (define-key mediawiki-mode-map (kbd "C-c C-f C-h") 'mediawiki-insert-header)
+			    (define-key mediawiki-mode-map (kbd "C-c C-f C-e") 'mediawiki-insert-sub-header)))
 
 (setq enable-recursive-minibuffers t)
