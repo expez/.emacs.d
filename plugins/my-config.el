@@ -129,9 +129,9 @@
 
 ;; Store auto-save files to system's temp directory.
 (setq backup-directory-alist
-      `((".*" . ,temporary-file-directory)))
+     `((".*" . ,temporary-file-directory)))
 (setq auto-save-file-name-transforms
-      `((".*" ,temporary-file-directory t)))
+     `((".*" ,temporary-file-directory t)))
 
 (setq
  backup-by-copying t
@@ -659,6 +659,8 @@ refTeX-plug-into-AUCTeX t)
          (setq eclim-auto-save t)
          (setq eclim-print-debug-messages t)
          (local-set-key (kbd "M-/") 'eclim-ac-complete)
+         (add-to-list 'ac-sources 'ac-source-emacs-eclim)
+         (add-to-list 'ac-sources 'ac-source-emacs-eclim-c-dot)
          (setq help-at-pt-timer-delay 0.1)
          (help-at-pt-set-timer)
          (java-mode-indent-annotations-setup)
