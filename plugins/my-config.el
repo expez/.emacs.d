@@ -142,7 +142,6 @@
 
 ;; Paredit mode
 (add-hook 'emacs-lisp-mode-hook       (lambda () (paredit-mode +1)))
-(add-hook 'lisp-mode-hook             (lambda () (paredit-mode +1)))
 (add-hook 'lisp-interaction-mode-hook (lambda () (paredit-mode +1)))
 (add-hook 'scheme-mode-hook           (lambda () (paredit-mode +1)))
 
@@ -292,7 +291,7 @@ refTeX-plug-into-AUCTeX t)
 (add-hook 'LaTeX-mode-hook 'my-LaTeX-mode-hook)
 
 (add-hook 'ace-jump-mode-before-jump-hook
-(lambda () (push-mark (point) t))) ;until it's fixed in Maramalade
+          (lambda () (push-mark (point) t))) ;until it's fixed in Maramalade
 
 ;;Haskell mode
 (defun haskell-style ()
@@ -338,7 +337,8 @@ refTeX-plug-into-AUCTeX t)
 (setq tags-revert-without-query 1)
 
 (add-hook 'haskell-mode-hook
-	  '(lambda () (auto-complete-mode 1)
+	  (lambda ()
+         (auto-complete-mode 1)
 	     (make-local-variable 'ac-sources)
 	     (setq ac-sources '(ac-source-abbrev
                             ac-source-words-in-buffer
@@ -369,7 +369,7 @@ refTeX-plug-into-AUCTeX t)
   (global-auto-complete-mode t)
   (setq ac-auto-start 2)
   (setq ac-quick-help-delay 0.5)
-  (setq ac-auto-show-menu 0.1)
+  (setq ac-auto-show-menu 0.2)
   (setq ac-fuzzy-enable t)
   (add-hook 'emacs-lisp-mode-hook 'ac-emacs-lisp-mode-setup)
   (add-hook 'ruby-mode-hook 'ac-ruby-mode-setup)
@@ -676,11 +676,36 @@ refTeX-plug-into-AUCTeX t)
 
 (setq mediawiki-mode-hook (lambda ()
                             (visual-line-mode 1)
-			    (define-key mediawiki-mode-map (kbd "C-c o") 'mediawiki-browse)
-			    (define-key mediawiki-mode-map (kbd "C-c g") 'mediawiki-reload)
-			    (define-key mediawiki-mode-map (kbd "C-c <ret>") 'mediawiki-open-page-at-point)
-			    (define-key mediawiki-mode-map (kbd "C-c <ret>") 'mediawiki-open-page-at-point)
-			    (define-key mediawiki-mode-map (kbd "C-c C-f C-h") 'mediawiki-insert-header)
-			    (define-key mediawiki-mode-map (kbd "C-c C-f C-e") 'mediawiki-insert-sub-header)))
+                            (define-key mediawiki-mode-map (kbd "C-c o") 'mediawiki-browse)
+                            (define-key mediawiki-mode-map (kbd "C-c g") 'mediawiki-reload)
+                            (define-key mediawiki-mode-map (kbd "C-c <ret>") 'mediawiki-open-page-at-point)
+                            (define-key mediawiki-mode-map (kbd "C-c <ret>") 'mediawiki-open-page-at-point)
+                            (define-key mediawiki-mode-map (kbd "C-c C-f C-h") 'mediawiki-insert-header)
+                            (define-key mediawiki-mode-map (kbd "C-c C-f C-e") 'mediawiki-insert-sub-header)))
 
 (setq enable-recursive-minibuffers t)
+
+(slime-setup '(slime-repl))
+
+(add-hook 'lisp-mode-hook
+          (lambda ()
+            (paredit-mode +1)
+            (slime-mode 1)
+            (rainbow-delimiters-mode 0)
+            (set-face-foreground 'paren-face "grey30")))
+
+(add-hook 'slime-mode-hook 'set-up-slime-ac)
+(add-hook 'slime-mode-hook 'cliki:start-slime)
+(add-hook 'slime-repl-mode-hook 'set-up-slime-ac)
+(eval-after-load "auto-complete"
+'(add-to-list 'ac-modes 'slime-repl-mode))
+
+
+;; The SBCL binary and command-line arguments
+(setq inferior-lisp-program "/usr/bin/sbcl --noinform")
+
+(defun cliki:start-slime ()
+  (unless (slime-connected-p)
+    (save-excursion (slime))))
+
+(add-hook 'slime-load-hook (lambda () (require 'slime-fuzzy)))
