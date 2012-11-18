@@ -17,9 +17,8 @@
                                     key-chord lorem-ipsum magit magithub
                                     mediawiki move-text paredit parenface
                                     rainbow-delimiters rainbow-mode
-                                    register-list slime slime-fuzzy slime-repl
-                                    unbound undo-tree whole-line-or-region
-                                    workgroups yasnippet)
+                                    register-list unbound undo-tree
+                                    whole-line-or-region workgroups yasnippet)
   "A list of packages to ensure are installed at launch.")
 
 (dolist (p my-packages)
@@ -41,6 +40,7 @@
 
 (add-to-list 'load-path (expand-file-name "~/src/emacs-eclim/"))
 (add-to-list 'load-path (expand-file-name "~/src/emacs-eclim/vendor"))
+(load (expand-file-name "~/quicklisp/slime-helper.el"))
 
 (require 'auto-complete-clang-async)
 (require 'auto-complete-config)

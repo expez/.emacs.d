@@ -685,13 +685,33 @@ refTeX-plug-into-AUCTeX t)
 
 (setq enable-recursive-minibuffers t)
 
-(slime-setup '(slime-repl))
+(defvar electrify-return-match
+  "[\]}\)\"]"
+  "If this regexp matches the text after the cursor, do an \"electric\"
+  return.")
+
+(defun electrify-return-if-match (arg)
+  "If the text after the cursor matches `electrify-return-match' then
+  open and indent an empty line between the cursor and the text.  Move the
+  cursor to the new line."
+  (interactive "P")
+  (let ((case-fold-search nil))
+    (if (looking-at electrify-return-match)
+        (save-excursion (newline-and-indent)))
+    (newline arg)
+    (indent-according-to-mode)))
 
 (add-hook 'lisp-mode-hook
           (lambda ()
             (paredit-mode +1)
+            (slime-setup '(slime-fancy))
             (slime-mode 1)
+            (turn-on-eldoc-mode)
+            (eldoc-add-command
+             'paredit-backward-delete
+             'paredit-close-round)
             (rainbow-delimiters-mode 0)
+            (local-set-key (kbd "RET") 'electrify-return-if-match)
             (set-face-foreground 'paren-face "grey30")))
 
 (add-hook 'slime-mode-hook 'set-up-slime-ac)
@@ -699,7 +719,7 @@ refTeX-plug-into-AUCTeX t)
 (add-hook 'slime-repl-mode-hook 'set-up-slime-ac)
 (eval-after-load "auto-complete"
 '(add-to-list 'ac-modes 'slime-repl-mode))
-
+(add-hook 'slime-repl-mode-hook (lambda () (paredit-mode +1)))
 
 ;; The SBCL binary and command-line arguments
 (setq inferior-lisp-program "/usr/bin/sbcl --noinform")
@@ -708,4 +728,9 @@ refTeX-plug-into-AUCTeX t)
   (unless (slime-connected-p)
     (save-excursion (slime))))
 
-(add-hook 'slime-load-hook (lambda () (require 'slime-fuzzy)))
+;; Stop SLIME's REPL from grabbing DEL,
+;; which is annoying when backspacing over a '('
+(defun override-slime-repl-bindings-with-paredit ()
+  (define-key slime-repl-mode-map
+    (read-kbd-macro paredit-backward-delete-key) nil))
+(add-hook 'slime-repl-mode-hook 'override-slime-repl-bindings-with-paredit)
