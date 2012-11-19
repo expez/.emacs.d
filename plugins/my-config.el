@@ -685,22 +685,6 @@ refTeX-plug-into-AUCTeX t)
 
 (setq enable-recursive-minibuffers t)
 
-(defvar electrify-return-match
-  "[\]}\)\"]"
-  "If this regexp matches the text after the cursor, do an \"electric\"
-  return.")
-
-(defun electrify-return-if-match (arg)
-  "If the text after the cursor matches `electrify-return-match' then
-  open and indent an empty line between the cursor and the text.  Move the
-  cursor to the new line."
-  (interactive "P")
-  (let ((case-fold-search nil))
-    (if (looking-at electrify-return-match)
-        (save-excursion (newline-and-indent)))
-    (newline arg)
-    (indent-according-to-mode)))
-
 (add-hook 'lisp-mode-hook
           (lambda ()
             (paredit-mode +1)
@@ -711,8 +695,12 @@ refTeX-plug-into-AUCTeX t)
              'paredit-backward-delete
              'paredit-close-round)
             (rainbow-delimiters-mode 0)
-            (local-set-key (kbd "RET") 'electrify-return-if-match)
+            (local-set-key (kbd "C-w") 'paredit-backward-kill-word)
+            (local-set-key (kbd "M-J") 'paredit-backward)
+            (local-set-key (kbd "M-L") 'paredit-forward)
+            (local-set-key (kbd "M-H") 'paredit-splice-sexp)
             (set-face-foreground 'paren-face "grey30")))
+
 
 (add-hook 'slime-mode-hook 'set-up-slime-ac)
 (add-hook 'slime-mode-hook 'cliki:start-slime)
@@ -734,3 +722,5 @@ refTeX-plug-into-AUCTeX t)
   (define-key slime-repl-mode-map
     (read-kbd-macro paredit-backward-delete-key) nil))
 (add-hook 'slime-repl-mode-hook 'override-slime-repl-bindings-with-paredit)
+
+(setq auto-mode-alist (cons '("\.cl$" . c-mode) auto-mode-alist))
