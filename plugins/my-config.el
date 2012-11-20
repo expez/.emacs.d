@@ -238,9 +238,6 @@ ediff."
 (workgroups-mode 1)
 (setq wg-prefix-key  (kbd "C-x w"))
 
-;;(wg-load "/path/to/saved/workgroups")  ;;For loading file with saved workgrups.
-
-
 ;;Don't open a new buffer for each opened directory in Dired.
 (put 'dired-find-alternate-file 'disabled nil)
 (setq dired-recursive-copies 'always);;always recursively copy.
