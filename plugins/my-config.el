@@ -1,5 +1,10 @@
 ;;(Load-theme 'Darkerthanblack t)
-(load-theme 'tomorrow-night-bright t)
+;(load-theme 'tomorrow-night-bright t)
+(add-hook 'after-make-frame-functions
+          '(lambda (f)
+             (with-selected-frame f
+               (when (window-system f) (color-theme-solarized-dark)))))
+;(load-theme 'solarized-dark t)
 
 (setq ;; scrolling
   scroll-margin 0                        ;; do smooth scrolling, ...
@@ -148,7 +153,7 @@
 (defadvice he-substitute-string (after he-paredit-fix)
 "remove extra paren when expanding line in paredit"
 (if (and paredit-mode (equal (substring str -1) ")"))
-(progn (backward-delete-char 1) (forward-char))))
+    (progn (backward-delete-char 1) (forward-char))))
 
 ;;Turn on the undo tree.
 (global-undo-tree-mode 1)

@@ -38,14 +38,19 @@
 (setq custom-file "~/.emacs.d/plugins/customize.el")
 (load custom-file)
 
-(add-to-list 'load-path (expand-file-name "~/src/emacs-eclim/"))
-(add-to-list 'load-path (expand-file-name "~/src/emacs-eclim/vendor"))
-(load (expand-file-name "~/quicklisp/slime-helper.el"))
+(if (file-accessible-directory-p "~/src/emacs-eclim")
+    (add-to-list 'load-path (expand-file-name "~/src/emacs-eclim/")))
+
+(if (file-accessible-directory-p (expand-file-name "~/src/emacs-eclim/vendor"))
+    (add-to-list 'load-path (expand-file-name "~/src/emacs-eclim/vendor")))
+
+(if (file-exists-p (expand-file-name "~/quicklisp/slime-helper.el"))
+    (load (expand-file-name "~/quicklisp/slime-helper.el")))
 
 (require 'auto-complete-clang-async)
 (require 'auto-complete-config)
 (require 'color-moccur)
-(require 'evil)
+(require 'color-theme)
 (require 'parenface)
 (require 'ex-mode)
 (require 'highlight-tags-mode)
@@ -61,6 +66,8 @@
 (require 'ac-emacs-eclim-source)
 (require 'java-mode-indent-annotations)
 (require 'cuda-mode)
+(require 'git)
+(require 'git-blame)
 
 (load-library "my-config") ;; One-off variable settings.
 (load-library "customize") ;;The stuff from customize lives in here.
