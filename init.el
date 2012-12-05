@@ -68,6 +68,7 @@
 (require 'cuda-mode)
 (require 'git)
 (require 'git-blame)
+(require 'mediawiki)
 
 (load-library "my-config") ;; One-off variable settings.
 (load-library "customize") ;;The stuff from customize lives in here.

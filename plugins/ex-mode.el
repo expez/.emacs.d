@@ -754,6 +754,13 @@ Shift+<special key> is used (arrows keys, home, end, pgdn, pgup, etc.)."
   (paredit-annotate-functions-with-examples))
 (eval-after-load "paredit" '(add-new-paredit-commands))
 
+(defun kill-region-or-backward-kill-word ()
+  "Call kill region, if region is active, otherwise backward-kill-word"
+    (interactive)
+    (if (and transient-mark-mode mark-active)
+    (kill-region (point) (mark))
+    (backward-kill-word 1)))
+
 (defvar ex-mode-keymap
   (let ((map (make-sparse-keymap)))
 
@@ -778,8 +785,8 @@ Shift+<special key> is used (arrows keys, home, end, pgdn, pgup, etc.)."
     ;;Swap a bunch of bindings around.
     (define-key map (kbd "C-a") 'smart-line-beginning)
     (define-key map (kbd "C-x C-c") 'whole-line-or-region-kill-ring-save)
-    (define-key map (kbd "C-w") 'backward-kill-word)
-    (define-key map (kbd "M-w") 'backward-kill-line)
+    (define-key map (kbd "C-w") 'kill-region-or-backward-kill-word)
+    (define-key map (kbd "M-w") 'whole-line-or-region-kill-ring-save)
     (define-key map (kbd "C-x m") 'ido-hacks-execute-extended-command)
     (define-key map (kbd "C-x C-m") 'ido-hacks-execute-extended-command)
     (define-key map (kbd "C-o") 'undo)
@@ -867,6 +874,7 @@ Shift+<special key> is used (arrows keys, home, end, pgdn, pgup, etc.)."
   ;(evil-ex-define-cmd "n[ew]" 'evil-window-new)
 
   (define-key minibuffer-local-map (kbd "C-<tab>") 'hippie-expand)
+
   ;;(key-chord-define-global "lj" 'evil-normal-state)
   (key-chord-define-global "qr" 'query-replace-regexp)
   (key-chord-define-global "qm" 'moccur))
