@@ -615,7 +615,7 @@ the current position of point, then move it to the beginning of the line."
     (define-key map (kbd "C-a") 'smart-line-beginning)
     (define-key map (kbd "C-x C-c") 'whole-line-or-region-kill-ring-save)
     (define-key map (kbd "C-w") 'backward-kill-word)
-    (define-key map (kbd "M-w") 'backward-kill-line)
+    (define-key map (kbd "M-w") 'backward-kill-sentence)
     (define-key map (kbd "C-x m") 'ido-hacks-execute-extended-command)
     (define-key map (kbd "C-x C-m") 'ido-hacks-execute-extended-command)
     (define-key map (kbd "C-o") 'undo)
@@ -633,7 +633,7 @@ the current position of point, then move it to the beginning of the line."
     (define-key map (kbd "C-x C-b") 'ibuffer)
     (define-key map (kbd "C-x r v") 'register-list)
     (define-key map (kbd "C-<tab>") 'hippie-expand)
-    (define-key map (kbd "M-S-k") 'kill-sentence)
+    (define-key map (kbd "M-K") 'kill-sentence)
     ;; easy spell check
     (define-key map (kbd "<f8>") 'ispell-word)
     ;;(global-set-key (kbd "C-S-<f8>") 'fd-switch-dictionary)
@@ -649,6 +649,8 @@ the current position of point, then move it to the beginning of the line."
     (define-key map (kbd "C-'") 'push-mark-command)
     (define-key map (kbd "M-'") 'pop-global-mark)
     (define-key map (kbd "C-;") 'ace-jump-mode)
+    (define-key map (kbd "M-;") 'ace-jump-mode-pop-mark)
+
     (define-key map (kbd "C-ø") 'push-mark-command)
     (define-key map (kbd "M-ø") 'pop-global-mark)
     (define-key map (kbd "C-æ") 'ace-jump-mode)
