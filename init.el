@@ -12,6 +12,7 @@
 
 ;;add evil-surround when it is added to melpa.
 (defvar my-packages '(ace-jump-mode ac-slime auto-complete auctex bookmark+
+                                    color-theme color-theme-sanityinc-solarized
                                     dired+ dropdown-list expand-region ghc
                                     ghci-completion gist git-commit haskell-mode
                                     key-chord lorem-ipsum magit magithub
