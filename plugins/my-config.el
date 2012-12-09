@@ -1,5 +1,10 @@
 ;;(Load-theme 'Darkerthanblack t)
-(load-theme 'tomorrow-night-bright t)
+;(load-theme 'tomorrow-night-bright t)
+(add-hook 'after-make-frame-functions
+          '(lambda (f)
+             (with-selected-frame f
+               (when (window-system f) (color-theme-solarized-dark)))))
+;(load-theme 'solarized-dark t)
 
 (setq ;; scrolling
   scroll-margin 0                        ;; do smooth scrolling, ...
@@ -14,9 +19,6 @@
   uniquify-separator ":"
   uniquify-after-kill-buffer-p t
   uniquify-ignore-buffers-re "^\\*")
-
-;;Autopair
-;;(autopair-global-mode 1) ;; enable autopair in all buffers
 
 ;; re-builder
 (setq reb-re-syntax 'string)
@@ -132,9 +134,9 @@
 
 ;; Store auto-save files to system's temp directory.
 (setq backup-directory-alist
-      `((".*" . ,temporary-file-directory)))
+     `((".*" . ,temporary-file-directory)))
 (setq auto-save-file-name-transforms
-      `((".*" ,temporary-file-directory t)))
+     `((".*" ,temporary-file-directory t)))
 
 (setq
  backup-by-copying t
@@ -145,14 +147,13 @@
 
 ;; Paredit mode
 (add-hook 'emacs-lisp-mode-hook       (lambda () (paredit-mode +1)))
-(add-hook 'lisp-mode-hook             (lambda () (paredit-mode +1)))
 (add-hook 'lisp-interaction-mode-hook (lambda () (paredit-mode +1)))
 (add-hook 'scheme-mode-hook           (lambda () (paredit-mode +1)))
 
 (defadvice he-substitute-string (after he-paredit-fix)
 "remove extra paren when expanding line in paredit"
 (if (and paredit-mode (equal (substring str -1) ")"))
-(progn (backward-delete-char 1) (forward-char))))
+    (progn (backward-delete-char 1) (forward-char))))
 
 ;;Turn on the undo tree.
 (global-undo-tree-mode 1)
@@ -162,6 +163,9 @@
 ;; (setq browse-url-browser-function 'w3m-browse-url)
 ;; (autoload 'w3m-browse-url "w3m" "Ask a WWW browser to show a URL." t)
 ;; (setq w3m-default-display-inline-image t)
+
+(setq browse-url-browser-function 'browse-url-generic
+      browse-url-generic-program "conkeror")
 
 ;;Yasnippet
 (yas-global-mode 1)
@@ -239,9 +243,6 @@ ediff."
 (workgroups-mode 1)
 (setq wg-prefix-key  (kbd "C-x w"))
 
-;;(wg-load "/path/to/saved/workgroups")  ;;For loading file with saved workgrups.
-
-
 ;;Don't open a new buffer for each opened directory in Dired.
 (put 'dired-find-alternate-file 'disabled nil)
 (setq dired-recursive-copies 'always);;always recursively copy.
@@ -292,7 +293,7 @@ refTeX-plug-into-AUCTeX t)
 (add-hook 'LaTeX-mode-hook 'my-LaTeX-mode-hook)
 
 (add-hook 'ace-jump-mode-before-jump-hook
-(lambda () (push-mark (point) t))) ;until it's fixed in Maramalade
+          (lambda () (push-mark (point) t))) ;until it's fixed in Maramalade
 
 ;;Haskell mode
 (defun haskell-style ()
@@ -338,7 +339,8 @@ refTeX-plug-into-AUCTeX t)
 (setq tags-revert-without-query 1)
 
 (add-hook 'haskell-mode-hook
-	  '(lambda () (auto-complete-mode 1)
+	  (lambda ()
+         (auto-complete-mode 1)
 	     (make-local-variable 'ac-sources)
 	     (setq ac-sources '(ac-source-abbrev
                             ac-source-words-in-buffer
@@ -369,7 +371,7 @@ refTeX-plug-into-AUCTeX t)
   (global-auto-complete-mode t)
   (setq ac-auto-start 2)
   (setq ac-quick-help-delay 0.5)
-  (setq ac-auto-show-menu 0.1)
+  (setq ac-auto-show-menu 0.2)
   (setq ac-fuzzy-enable t)
   (add-hook 'emacs-lisp-mode-hook 'ac-emacs-lisp-mode-setup)
   (add-hook 'ruby-mode-hook 'ac-ruby-mode-setup)
@@ -654,9 +656,13 @@ refTeX-plug-into-AUCTeX t)
          (eclim-mode 1)
          ;; Eclim uses help to display errors
          (setq help-at-pt-display-when-idle t)
+         (setq eclimd-default-workspace "~/workspace")
+         (setq eclim-executable "/usr/share/eclipse/eclim")
          (setq eclim-auto-save t)
          (setq eclim-print-debug-messages t)
          (local-set-key (kbd "M-/") 'eclim-ac-complete)
+         (add-to-list 'ac-sources 'ac-source-emacs-eclim)
+         (add-to-list 'ac-sources 'ac-source-emacs-eclim-c-dot)
          (setq help-at-pt-timer-delay 0.1)
          (help-at-pt-set-timer)
          (java-mode-indent-annotations-setup)
@@ -669,3 +675,54 @@ refTeX-plug-into-AUCTeX t)
 (ergoemacs-fix-cua--pre-command-handler-1)
 
 (setq tramp-default-method "ssh")
+
+(setq mediawiki-mode-hook (lambda ()
+                            (visual-line-mode 1)
+                            (define-key mediawiki-mode-map (kbd "C-c o") 'mediawiki-browse)
+                            (define-key mediawiki-mode-map (kbd "C-c g") 'mediawiki-reload)
+                            (define-key mediawiki-mode-map (kbd "C-c <ret>") 'mediawiki-open-page-at-point)
+                            (define-key mediawiki-mode-map (kbd "C-c <ret>") 'mediawiki-open-page-at-point)
+                            (define-key mediawiki-mode-map (kbd "C-c C-f C-h") 'mediawiki-insert-header)
+                            (define-key mediawiki-mode-map (kbd "C-c C-f C-e") 'mediawiki-insert-sub-header)))
+
+(setq enable-recursive-minibuffers t)
+
+(add-hook 'lisp-mode-hook
+          (lambda ()
+            (paredit-mode +1)
+            (slime-setup '(slime-fancy))
+            (slime-mode 1)
+            (turn-on-eldoc-mode)
+            (eldoc-add-command
+             'paredit-backward-delete
+             'paredit-close-round)
+            (rainbow-delimiters-mode 0)
+            (local-set-key (kbd "C-w") 'paredit-backward-kill-word)
+            (local-set-key (kbd "M-J") 'paredit-backward)
+            (local-set-key (kbd "M-L") 'paredit-forward)
+            (local-set-key (kbd "M-H") 'paredit-splice-sexp)
+            (set-face-foreground 'paren-face "grey30")))
+
+
+(add-hook 'slime-mode-hook 'set-up-slime-ac)
+(add-hook 'slime-mode-hook 'cliki:start-slime)
+(add-hook 'slime-repl-mode-hook 'set-up-slime-ac)
+(eval-after-load "auto-complete"
+'(add-to-list 'ac-modes 'slime-repl-mode))
+(add-hook 'slime-repl-mode-hook (lambda () (paredit-mode +1)))
+
+;; The SBCL binary and command-line arguments
+(setq inferior-lisp-program "/usr/bin/sbcl --noinform")
+
+(defun cliki:start-slime ()
+  (unless (slime-connected-p)
+    (save-excursion (slime))))
+
+;; Stop SLIME's REPL from grabbing DEL,
+;; which is annoying when backspacing over a '('
+(defun override-slime-repl-bindings-with-paredit ()
+  (define-key slime-repl-mode-map
+    (read-kbd-macro paredit-backward-delete-key) nil))
+(add-hook 'slime-repl-mode-hook 'override-slime-repl-bindings-with-paredit)
+
+(setq auto-mode-alist (cons '("\.cl$" . c-mode) auto-mode-alist))

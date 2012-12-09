@@ -10,7 +10,8 @@
  '(glasses-original-separator "")
  '(glasses-separate-capital-groups nil)
  '(glasses-separate-parentheses-p nil)
- '(glasses-separator ""))
+ '(glasses-separator "")
+ '(mediawiki-site-alist (quote (("ExWiki" "http://expez.com/w/" "expez" "" "Main Page")))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

@@ -590,121 +590,10 @@ the current position of point, then move it to the beginning of the line."
               (add-to-list 'symbol-names name)
               (add-to-list 'name-and-pos (cons name position))))))))
 
-(defvar ex-mode-keymap
-  (let ((map (make-sparse-keymap)))
-
-    ;;Ergomacs bindings for movement
-    (define-key map (kbd "M-l") 'forward-char)
-    (define-key map (kbd "M-j") 'backward-char)
-    (define-key map (kbd "M-k") 'next-line)
-    (define-key map (kbd "M-i") 'previous-line)
-
-    (define-key map (kbd "M-u") 'backward-word)
-    (define-key map (kbd "M-o") 'forward-word)
-
-    (define-key map (kbd "M-U") 'backward-paragraph)
-    (define-key map (kbd "M-O") 'forward-paragraph)
-
-    (define-key map (kbd "M-J") 'backward-sentence)
-    (define-key map (kbd "M-L") 'forward-sentence)
-
-    (define-key map (kbd "M-h") 'comment-dwim)
-
-    (define-key map (kbd "M--") 'toggle-letter-case)
-    ;;Swap a bunch of bindings around.
-    (define-key map (kbd "C-a") 'smart-line-beginning)
-    (define-key map (kbd "C-x C-c") 'whole-line-or-region-kill-ring-save)
-    (define-key map (kbd "C-w") 'backward-kill-word)
-    (define-key map (kbd "M-w") 'backward-kill-sentence)
-    (define-key map (kbd "C-x m") 'ido-hacks-execute-extended-command)
-    (define-key map (kbd "C-x C-m") 'ido-hacks-execute-extended-command)
-    (define-key map (kbd "C-o") 'undo)
-    (define-key map (kbd "C-z") 'open-line)
-    (define-key map (kbd "C-x C-k") 'kill-region)
-    (define-key map (kbd "C-,") 'beginning-of-buffer)
-    (define-key map (kbd "C-.") 'end-of-buffer)
-    (define-key map (kbd "C-x g") 'goto-line)
-    (define-key map (kbd "C-x G") 'goto-char)
-    (define-key map (kbd "C-x c") 'compile)
-    (define-key map (kbd "C-x s") 'shell)
-    (define-key map (kbd "M-n") 'next-error)
-    (define-key map (kbd "M-p") 'previous-error)
-    (define-key map (kbd "C-z") 'open-line)
-    (define-key map (kbd "C-x C-b") 'ibuffer)
-    (define-key map (kbd "C-x r v") 'register-list)
-    (define-key map (kbd "C-<tab>") 'hippie-expand)
-    (define-key map (kbd "M-K") 'kill-sentence)
-    ;; easy spell check
-    (define-key map (kbd "<f8>") 'ispell-word)
-    ;;(global-set-key (kbd "C-S-<f8>") 'fd-switch-dictionary)
-    (define-key map (kbd "M-S-<f8>") 'flyspell-buffer)
-    (define-key map (kbd "C-<f8>") 'flyspell-check-previous-highlighted-word)
-    (define-key map (kbd "M-<f8>") 'flyspell-check-next-highlighted-word)
-
-    (define-key map (kbd "C-c q") 'save-buffers-kill-terminal)
-    (define-key map [insert] 'overwrite-mode)
-    (define-key map [kp-insert] 'overwrite-mode)
-    (define-key map (kbd "C-x v t") 'vc-create-tag)
-    (define-key map (kbd "C-x v s") 'magit-status)
-    (define-key map (kbd "C-'") 'push-mark-command)
-    (define-key map (kbd "M-'") 'pop-global-mark)
-    (define-key map (kbd "C-;") 'ace-jump-mode)
-    (define-key map (kbd "M-;") 'ace-jump-mode-pop-mark)
-
-    (define-key map (kbd "C-ø") 'push-mark-command)
-    (define-key map (kbd "M-ø") 'pop-global-mark)
-    (define-key map (kbd "C-æ") 'ace-jump-mode)
-    (define-key map (kbd "C-x a r") 'align-regexp)
-    (define-key map (kbd "M-N") 'scroll-up-line)
-    (define-key map (kbd "M-P") 'scroll-down-line)
-    (define-key map (kbd "M-g c") 'goto-char)
-    (define-key map (kbd "M-g M-c") 'goto-char)
-    (define-key map (kbd "M-m") 'er/expand-region)
-    (define-key map (kbd "<f5>") 'call-last-kbd-macro)
-    (define-key map (kbd "C-x i") 'ido-goto-symbol)
-
-    ;; Windmove
-    (define-key map (kbd "<left>") 'windmove-left)
-    (define-key map (kbd "<up>") 'windmove-up)
-    (define-key map (kbd "<right>") 'windmove-right)
-    (define-key map (kbd "<down>") 'windmove-down)
-
-    (define-key map (kbd "C-x C-r")'ido-recentf-open)
-    (define-key map (kbd "M-<up>") 'move-text-up)
-    (define-key map (kbd "M-<down>") 'move-text-down)
-    (define-key map (kbd "M-<backspace>") 'delete-indentation)
-    (define-key map (kbd "M-,") 'pop-tag-mark)
-
-
-    map)
-  "Keymap containing all my bindings. ")
-
-(defun turn-on-ex-mode ()
+(defun mediawiki-insert-sub-header ()
+  "Insert subheader  via  === (e.g. === FOO ===.)"
   (interactive)
-  "Enable 'ex-mode'"
-  (ex-mode 1))
-
-
-(define-minor-mode ex-mode
-  "Turns on all my key-bindings and activate all functions."
-  :global t
-  :init-value nil
-  :keymap ex-mode-keymap
-  :lighter " Ex"
-
-  ;; Minor mode body
-  (defalias 'rfb 'rename-file-and-buffer)
-  (defalias 'mbf 'move-buffer-file)
-  (defalias 'rb 'revert-buffer)
-  (defalias 'oaf 'open-all-files-with-extension)
-
-  ;;Evil mode
-  (evil-ex-define-cmd "n[ew]" 'evil-window-new)
-
-  (define-key minibuffer-local-map (kbd "C-<tab>") 'hippie-expand)
-  ;;(key-chord-define-global "lj" 'evil-normal-state)
-  (key-chord-define-global "qr" 'query-replace-regexp)
-  (key-chord-define-global "qm" 'moccur))
+  (mediawiki-insert "===" "==="))
 
 (defun eclim-ac-complete ()
   "Query eclim for available completions at point."
@@ -801,7 +690,193 @@ Shift+<special key> is used (arrows keys, home, end, pgdn, pgup, etc.)."
 
   ;; Detect extension of rectangles by mouse or other movement
   (setq cua--buffer-and-point-before-command
-        (if cua--rectangle (cons (current-buffer) (point)))))
- )
+        (if cua--rectangle (cons (current-buffer) (point))))))
+
+(defun paredit-barf-all-the-way-backward ()
+  (interactive)
+  (paredit-split-sexp)
+  (paredit-backward-down)
+  (paredit-splice-sexp))
+
+(defun paredit-barf-all-the-way-forward ()
+  (interactive)
+  (paredit-split-sexp)
+  (paredit-forward-down)
+  (paredit-splice-sexp)
+  (if (eolp) (delete-horizontal-space)))
+
+(defun paredit-slurp-all-the-way-backward ()
+  (interactive)
+  (catch 'done
+    (while (not (bobp))
+      (save-excursion
+        (paredit-backward-up)
+        (if (eq (char-before) ?\()
+            (throw 'done t)))
+      (paredit-backward-slurp-sexp))))
+
+(defun paredit-slurp-all-the-way-forward ()
+  (interactive)
+  (catch 'done
+    (while (not (eobp))
+      (save-excursion
+        (paredit-forward-up)
+        (if (eq (char-after) ?\))
+            (throw 'done t)))
+      (paredit-forward-slurp-sexp))))
+
+(defun add-new-paredit-commands ()
+  "Adds keybindings and documentation for new paredit commands"
+  (nconc paredit-commands
+       '("Extreme Barfage & Slurpage"
+         (("C-M-)")
+          paredit-slurp-all-the-way-forward
+          ("(foo (bar |baz) quux zot)"
+           "(foo (bar |baz quux zot))")
+          ("(a b ((c| d)) e f)"
+           "(a b ((c| d)) e f)"))
+         (("C-M-}" "M-F")
+          paredit-barf-all-the-way-forward
+          ("(foo (bar |baz quux) zot)"
+           "(foo (bar|) baz quux zot)"))
+         (("C-M-(")
+          paredit-slurp-all-the-way-backward
+          ("(foo bar (baz| quux) zot)"
+           "((foo bar baz| quux) zot)")
+          ("(a b ((c| d)) e f)"
+           "(a b ((c| d)) e f)"))
+         (("C-M-{" "M-B")
+          paredit-barf-all-the-way-backward
+          ("(foo (bar baz |quux) zot)"
+           "(foo bar baz (|quux) zot)"))))
+  (paredit-define-keys)
+  (paredit-annotate-mode-with-examples)
+  (paredit-annotate-functions-with-examples))
+(eval-after-load "paredit" '(add-new-paredit-commands))
+
+(defun kill-region-or-backward-kill-word ()
+  "Call kill region, if region is active, otherwise backward-kill-word"
+    (interactive)
+    (if (and transient-mark-mode mark-active)
+    (kill-region (point) (mark))
+    (backward-kill-word 1)))
+
+(defvar ex-mode-keymap
+  (let ((map (make-sparse-keymap)))
+
+    ;;Ergomacs bindings for movement
+    (define-key map (kbd "M-l") 'forward-char)
+    (define-key map (kbd "M-j") 'backward-char)
+    (define-key map (kbd "M-k") 'next-line)
+    (define-key map (kbd "M-i") 'previous-line)
+
+    (define-key map (kbd "M-u") 'backward-word)
+    (define-key map (kbd "M-o") 'forward-word)
+
+    (define-key map (kbd "M-U") 'backward-paragraph)
+    (define-key map (kbd "M-O") 'forward-paragraph)
+
+    (define-key map (kbd "M-J") 'backward-sentence)
+    (define-key map (kbd "M-L") 'forward-sentence)
+
+    (define-key map (kbd "M-h") 'comment-dwim)
+
+    (define-key map (kbd "M--") 'toggle-letter-case)
+    ;;Swap a bunch of bindings around.
+    (define-key map (kbd "C-a") 'smart-line-beginning)
+    (define-key map (kbd "C-x C-c") 'whole-line-or-region-kill-ring-save)
+    (define-key map (kbd "C-w") 'kill-region-or-backward-kill-word)
+    (define-key map (kbd "M-w") 'whole-line-or-region-kill-ring-save)
+    (define-key map (kbd "C-x m") 'ido-hacks-execute-extended-command)
+    (define-key map (kbd "C-x C-m") 'ido-hacks-execute-extended-command)
+    (define-key map (kbd "C-o") 'undo)
+    (define-key map (kbd "C-z") 'open-line)
+    (define-key map (kbd "C-x C-k") 'kill-region)
+    (define-key map (kbd "C-,") 'beginning-of-buffer)
+    (define-key map (kbd "C-.") 'end-of-buffer)
+    (define-key map (kbd "C-x g") 'goto-line)
+    (define-key map (kbd "C-x G") 'goto-char)
+    (define-key map (kbd "C-x c") 'compile)
+    (define-key map (kbd "C-x s") 'shell)
+    (define-key map (kbd "M-n") 'next-error)
+    (define-key map (kbd "M-p") 'previous-error)
+    (define-key map (kbd "C-z") 'open-line)
+    (define-key map (kbd "C-x C-b") 'ibuffer)
+    (define-key map (kbd "C-x r v") 'register-list)
+    (define-key map (kbd "C-<tab>") 'hippie-expand)
+    (define-key map (kbd "M-K") 'kill-sentence)
+    ;; easy spell check
+    (define-key map (kbd "<f8>") 'ispell-word)
+    ;;(global-set-key (kbd "C-S-<f8>") 'fd-switch-dictionary)
+    (define-key map (kbd "M-S-<f8>") 'flyspell-buffer)
+    (define-key map (kbd "C-<f8>") 'flyspell-check-previous-highlighted-word)
+    (define-key map (kbd "M-<f8>") 'flyspell-check-next-highlighted-word)
+
+    (define-key map (kbd "C-c q") 'save-buffers-kill-terminal)
+    (define-key map [insert] 'overwrite-mode)
+    (define-key map [kp-insert] 'overwrite-mode)
+    (define-key map (kbd "C-x v t") 'vc-create-tag)
+    (define-key map (kbd "C-x v s") 'magit-status)
+
+    (define-key map (kbd "C-'") 'push-mark-command)
+    (define-key map (kbd "M-'") 'pop-global-mark)
+    (define-key map (kbd "C-;") 'ace-jump-mode)
+
+    (define-key map (kbd "C-æ") 'push-mark-command)
+    (define-key map (kbd "M-æ") 'pop-global-mark)
+    (define-key map (kbd "C-ø") 'ace-jump-mode)
+
+    (define-key map (kbd "C-x a r") 'align-regexp)
+    (define-key map (kbd "M-N") 'scroll-up-line)
+    (define-key map (kbd "M-P") 'scroll-down-line)
+    (define-key map (kbd "M-g c") 'goto-char)
+    (define-key map (kbd "M-g M-c") 'goto-char)
+    (define-key map (kbd "M-m") 'er/expand-region)
+    (define-key map (kbd "<f5>") 'call-last-kbd-macro)
+    (define-key map (kbd "C-x i") 'ido-goto-symbol)
+
+    ;; Windmove
+    (define-key map (kbd "<left>") 'windmove-left)
+    (define-key map (kbd "<up>") 'windmove-up)
+    (define-key map (kbd "<right>") 'windmove-right)
+    (define-key map (kbd "<down>") 'windmove-down)
+
+    (define-key map (kbd "C-x C-r")'ido-recentf-open)
+    (define-key map (kbd "M-<up>") 'move-text-up)
+    (define-key map (kbd "M-<down>") 'move-text-down)
+    (define-key map (kbd "M-<backspace>") 'delete-indentation)
+    (define-key map (kbd "M-,") 'pop-tag-mark)
+
+
+    map)
+  "Keymap containing all my bindings. ")
+
+(defun turn-on-ex-mode ()
+  (interactive)
+  "Enable 'ex-mode'"
+  (ex-mode 1))
+
+
+(define-minor-mode ex-mode
+  "Turns on all my key-bindings and activate all functions."
+  :global t
+  :init-value nil
+  :keymap ex-mode-keymap
+  :lighter " Ex"
+
+  ;; Minor mode body
+  (defalias 'rfb 'rename-file-and-buffer)
+  (defalias 'mbf 'move-buffer-file)
+  (defalias 'rb 'revert-buffer)
+  (defalias 'oaf 'open-all-files-with-extension)
+
+  ;;Evil mode
+  ;(evil-ex-define-cmd "n[ew]" 'evil-window-new)
+
+  (define-key minibuffer-local-map (kbd "C-<tab>") 'hippie-expand)
+
+  ;;(key-chord-define-global "lj" 'evil-normal-state)
+  (key-chord-define-global "qr" 'query-replace-regexp)
+  (key-chord-define-global "qm" 'moccur))
 
 (provide 'ex-mode)
