@@ -654,6 +654,7 @@ refTeX-plug-into-AUCTeX t)
 (add-hook 'java-mode-hook
 	  '(lambda ()
          (eclim-mode 1)
+         (ac-emacs-eclim-config)
          ;; Eclim uses help to display errors
          (setq help-at-pt-display-when-idle t)
          (setq eclimd-default-workspace "~/workspace")
@@ -661,8 +662,6 @@ refTeX-plug-into-AUCTeX t)
          (setq eclim-auto-save t)
          (setq eclim-print-debug-messages t)
          (local-set-key (kbd "M-/") 'eclim-ac-complete)
-         (add-to-list 'ac-sources 'ac-source-emacs-eclim)
-         (add-to-list 'ac-sources 'ac-source-emacs-eclim-c-dot)
          (setq help-at-pt-timer-delay 0.1)
          (help-at-pt-set-timer)
          (java-mode-indent-annotations-setup)
@@ -676,14 +675,15 @@ refTeX-plug-into-AUCTeX t)
 
 (setq tramp-default-method "ssh")
 
-(setq mediawiki-mode-hook (lambda ()
-                            (visual-line-mode 1)
-                            (define-key mediawiki-mode-map (kbd "C-c o") 'mediawiki-browse)
-                            (define-key mediawiki-mode-map (kbd "C-c g") 'mediawiki-reload)
-                            (define-key mediawiki-mode-map (kbd "C-c <ret>") 'mediawiki-open-page-at-point)
-                            (define-key mediawiki-mode-map (kbd "C-c <ret>") 'mediawiki-open-page-at-point)
-                            (define-key mediawiki-mode-map (kbd "C-c C-f C-h") 'mediawiki-insert-header)
-                            (define-key mediawiki-mode-map (kbd "C-c C-f C-e") 'mediawiki-insert-sub-header)))
+(setq mediawiki-mode-hook
+      (lambda ()
+        (visual-line-mode 1)
+        (turn-off-auto-fill)
+        (define-key mediawiki-mode-map (kbd "C-c o") 'mediawiki-browse)
+        (define-key mediawiki-mode-map (kbd "C-c g") 'mediawiki-reload)
+        (define-key mediawiki-mode-map (kbd "C-c <ret>") 'mediawiki-open-page-at-point)
+        (define-key mediawiki-mode-map (kbd "C-c C-f C-h") 'mediawiki-insert-header)
+        (define-key mediawiki-mode-map (kbd "C-c C-f C-e") 'mediawiki-insert-sub-header)))
 
 (setq enable-recursive-minibuffers t)
 
@@ -702,7 +702,6 @@ refTeX-plug-into-AUCTeX t)
             (local-set-key (kbd "M-L") 'paredit-forward)
             (local-set-key (kbd "M-H") 'paredit-splice-sexp)
             (set-face-foreground 'paren-face "grey30")))
-
 
 (add-hook 'slime-mode-hook 'set-up-slime-ac)
 (add-hook 'slime-mode-hook 'cliki:start-slime)
