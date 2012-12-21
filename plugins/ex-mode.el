@@ -804,7 +804,7 @@ Shift+<special key> is used (arrows keys, home, end, pgdn, pgup, etc.)."
     (define-key map (kbd "C-x C-b") 'ibuffer)
     (define-key map (kbd "C-x r v") 'register-list)
     (define-key map (kbd "C-<tab>") 'hippie-expand)
-    (define-key map (kbd "M-S-k") 'kill-sentence)
+    (define-key map (kbd "M-K") 'kill-sentence)
     ;; easy spell check
     (define-key map (kbd "<f8>") 'ispell-word)
     ;;(global-set-key (kbd "C-S-<f8>") 'fd-switch-dictionary)
