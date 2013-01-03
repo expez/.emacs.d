@@ -725,3 +725,5 @@ refTeX-plug-into-AUCTeX t)
 (add-hook 'slime-repl-mode-hook 'override-slime-repl-bindings-with-paredit)
 
 (setq auto-mode-alist (cons '("\.cl$" . c-mode) auto-mode-alist))
+
+(winner-mode 1)
