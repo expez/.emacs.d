@@ -874,7 +874,7 @@ Shift+<special key> is used (arrows keys, home, end, pgdn, pgup, etc.)."
   ;(evil-ex-define-cmd "n[ew]" 'evil-window-new)
 
   (define-key minibuffer-local-map (kbd "C-<tab>") 'hippie-expand)
-
+  (define-key cua--region-keymap (kbd "C-d") 'cua-delete-char-rectangle)
   ;;(key-chord-define-global "lj" 'evil-normal-state)
   (key-chord-define-global "qr" 'query-replace-regexp)
   (key-chord-define-global "qm" 'moccur))
