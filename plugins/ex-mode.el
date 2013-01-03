@@ -864,11 +864,11 @@ Shift+<special key> is used (arrows keys, home, end, pgdn, pgup, etc.)."
   :keymap ex-mode-keymap
   :lighter " Ex"
 
-  ;; Minor mode body
   (defalias 'rfb 'rename-file-and-buffer)
   (defalias 'mbf 'move-buffer-file)
   (defalias 'rb 'revert-buffer)
   (defalias 'oaf 'open-all-files-with-extension)
+  (defalias 'dbf 'diff-buffer-with-file)
 
   ;;Evil mode
   ;(evil-ex-define-cmd "n[ew]" 'evil-window-new)
