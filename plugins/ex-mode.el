@@ -722,6 +722,19 @@ Shift+<special key> is used (arrows keys, home, end, pgdn, pgup, etc.)."
     (kill-region (point) (mark))
     (backward-kill-word 1)))
 
+(defun give-my-keybindings-priority ()
+  "Try to ensure that my keybindings always have priority."
+  (if (not (eq (car (car minor-mode-map-alist)) 'ex-mode))
+      (let ((mykeys (assq 'ex-mode minor-mode-map-alist))
+            (override-keys-fn
+              (intern (concat (symbol-name major-mode) "-override"))))
+        (assq-delete-all 'ex-mode minor-mode-map-alist)
+        (add-to-list 'minor-mode-map-alist mykeys)
+        (if (functionp override-keys-fn)
+            (funcall override-keys-fn)))))
+
+(add-hook 'buffer-list-update-hook 'give-my-keybindings-priority)
+
 (defvar ex-mode-keymap
   (let ((map (make-sparse-keymap)))
 
@@ -808,6 +821,10 @@ Shift+<special key> is used (arrows keys, home, end, pgdn, pgup, etc.)."
     (define-key map (kbd "M-<backspace>") 'delete-indentation)
     (define-key map (kbd "M-,") 'pop-tag-mark)
 
+    (define-key map (kbd "C-M-l") 'kill-sexp)
+    (define-key map (kbd "C-M-j") 'backward-kill-sexp)
+
+
 
     map)
   "Keymap containing all my bindings. ")
@@ -843,5 +860,11 @@ Shift+<special key> is used (arrows keys, home, end, pgdn, pgup, etc.)."
   ;;(key-chord-define-global "lj" 'evil-normal-state)
   (key-chord-define-global "qr" 'query-replace-regexp)
   (key-chord-define-global "qm" 'moccur))
+
+(defun lisp-mode-override ()
+  (define-key ex-mode-keymap (kbd "C-w") 'paredit-backward-kill-word)
+  (define-key ex-mode-keymap (kbd "M-J") 'paredit-backward)
+  (define-key ex-mode-keymap (kbd "M-L") 'paredit-forward)
+  (define-key ex-mode-keymap (kbd "M-H") 'paredit-splice-sexp))
 
 (provide 'ex-mode)

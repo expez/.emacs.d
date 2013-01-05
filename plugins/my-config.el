@@ -23,6 +23,8 @@
 ;; re-builder
 (setq reb-re-syntax 'string)
 
+(winner-mode 1)
+
 ;; Treat 'y' or <CR> as yes, 'n' as no.
 (fset 'yes-or-no-p 'y-or-n-p)
 (define-key query-replace-map [return] 'act)
@@ -630,15 +632,6 @@ refTeX-plug-into-AUCTeX t)
 
 (turn-on-ex-mode)
 
-(defun give-my-keybindings-priority ()
-  "Try to ensure that my keybindings always have priority."
-  (if (not (eq (car (car minor-mode-map-alist)) 'ex-mode))
-      (let ((mykeys (assq 'ex-mode minor-mode-map-alist)))
-        (assq-delete-all 'ex-mode minor-mode-map-alist)
-        (add-to-list 'minor-mode-map-alist mykeys))))
-
-(add-hook 'buffer-list-update-hook 'give-my-keybindings-priority)
-
 (add-hook 'git-commit-mode-hook 'turn-on-flyspell)
 (add-hook 'server-done-hook (lambda nil (kill-buffer nil)))
 
@@ -697,10 +690,6 @@ refTeX-plug-into-AUCTeX t)
              'paredit-backward-delete
              'paredit-close-round)
             (rainbow-delimiters-mode 0)
-            (local-set-key (kbd "C-w") 'paredit-backward-kill-word)
-            (local-set-key (kbd "M-J") 'paredit-backward)
-            (local-set-key (kbd "M-L") 'paredit-forward)
-            (local-set-key (kbd "M-H") 'paredit-splice-sexp)
             (set-face-foreground 'paren-face "grey30")))
 
 (add-hook 'slime-mode-hook 'set-up-slime-ac)
@@ -725,5 +714,3 @@ refTeX-plug-into-AUCTeX t)
 (add-hook 'slime-repl-mode-hook 'override-slime-repl-bindings-with-paredit)
 
 (setq auto-mode-alist (cons '("\.cl$" . c-mode) auto-mode-alist))
-
-(winner-mode 1)
