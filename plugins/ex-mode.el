@@ -792,8 +792,8 @@ Shift+<special key> is used (arrows keys, home, end, pgdn, pgup, etc.)."
     (define-key map (kbd "C-x v t") 'vc-create-tag)
     (define-key map (kbd "C-x v s") 'magit-status)
 
-    (define-key map (kbd "C-'") 'push-mark-command)
-    (define-key map (kbd "M-'") 'pop-global-mark)
+    (define-key map (kbd "C-'") 'er/expand-region)
+    (define-key map (kbd "M-'") 'toggle-letter-case)
     (define-key map (kbd "C-;") 'ace-jump-mode)
 
     (define-key map (kbd "C-æ") 'push-mark-command)
@@ -865,6 +865,12 @@ Shift+<special key> is used (arrows keys, home, end, pgdn, pgup, etc.)."
   (define-key ex-mode-keymap (kbd "C-w") 'paredit-backward-kill-word)
   (define-key ex-mode-keymap (kbd "M-J") 'paredit-backward)
   (define-key ex-mode-keymap (kbd "M-L") 'paredit-forward)
+  (define-key ex-mode-keymap (kbd "C-x C-k") 'paredit-kill-region)
   (define-key ex-mode-keymap (kbd "M-H") 'paredit-splice-sexp))
+
+(defun repl-mode-override ()
+  (define-key ex-mode-keymap (kbd "C-a") 'slime-repl-bol)
+  (define-key ex-mode-keymap (kbd "M-n") 'slime-repl-next-input)
+  (define-key ex-mode-keymap (kbd "M-p") 'slime-repl-previous-input))
 
 (provide 'ex-mode)
