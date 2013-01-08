@@ -69,6 +69,8 @@
 (require 'git)
 (require 'git-blame)
 (require 'mediawiki)
+(require 'lorem-ipsum)
+(require 'go-autocomplete)
 
 (load-library "my-config") ;; One-off variable settings.
 (load-library "customize") ;;The stuff from customize lives in here.
