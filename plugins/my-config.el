@@ -714,3 +714,8 @@ refTeX-plug-into-AUCTeX t)
 (add-hook 'slime-repl-mode-hook 'override-slime-repl-bindings-with-paredit)
 
 (setq auto-mode-alist (cons '("\.cl$" . c-mode) auto-mode-alist))
+
+(setq auto-mode-alist (cons '("\.gitignore$" . gitignore-mode) auto-mode-alist))
+(setq auto-mode-alist (cons '("\.gitconfig$" . gitconfig-mode) auto-mode-alist))
+
+(toggle-diredp-find-file-reuse-dir 1)

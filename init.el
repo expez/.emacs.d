@@ -10,15 +10,16 @@
   (package-refresh-contents))
 (package-initialize)
 
-;;add evil-surround when it is added to melpa.
-(defvar my-packages '(ace-jump-mode ac-slime auto-complete auctex bookmark+
-                                    dired+ dropdown-list expand-region ghc
-                                    ghci-completion gist git-commit haskell-mode
-                                    key-chord lorem-ipsum magit magithub
-                                    mediawiki move-text paredit parenface
-                                    rainbow-delimiters rainbow-mode
-                                    register-list unbound undo-tree
-                                    whole-line-or-region workgroups yasnippet)
+(defvar my-packages
+  '(ace-jump-mode ac-slime auto-complete auctex bookmark+
+                  dired+ dropdown-list expand-region ghc
+                  ghci-completion gist git-commit gitconfig-mode gitignore-mode
+                  git-blame haskell-mode
+                  key-chord lorem-ipsum magit magithub
+                  mediawiki move-text paredit parenface
+                  rainbow-delimiters rainbow-mode
+                  register-list unbound undo-tree
+                  whole-line-or-region workgroups yasnippet)
   "A list of packages to ensure are installed at launch.")
 
 (dolist (p my-packages)
