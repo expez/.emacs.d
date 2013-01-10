@@ -719,3 +719,7 @@ refTeX-plug-into-AUCTeX t)
 (setq auto-mode-alist (cons '("\.gitconfig$" . gitconfig-mode) auto-mode-alist))
 
 (toggle-diredp-find-file-reuse-dir 1)
+
+(set-register ?c '(file . "~/.emacs.d/plugins/my-config.el"))
+(set-register ?e '(file . "~/.emacs.d/plugins/ex-mode.el"))
+(set-register ?i '(file . "~/.emacs.d/init.el"))
