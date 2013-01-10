@@ -848,6 +848,9 @@ Shift+<special key> is used (arrows keys, home, end, pgdn, pgup, etc.)."
   (defalias 'oaf 'open-all-files-with-extension)
   (defalias 'dbf 'diff-buffer-with-file)
 
+  (defalias 'gl 'gist-list)
+  (defalias 'grb 'gist-region-or-buffer)
+
   ;;Evil mode
   ;(evil-ex-define-cmd "n[ew]" 'evil-window-new)
 
