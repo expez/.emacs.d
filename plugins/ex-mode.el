@@ -27,7 +27,6 @@
                (rename-buffer new-name) (set-visited-file-name new-name)
                (set-buffer-modified-p nil))))))
 
-
 (defun move-buffer-file (dir)
  "Moves both current buffer and file it's visiting to DIR."
  (interactive "DNew directory: ")
@@ -71,29 +70,6 @@
                 (not (equal "/" default-directory)))
       (cd ".."))
     (call-interactively 'compile)))
-
-;; Move line functions
-(defun move-line (n)
-  "Move the current line up or down by N lines."
-  (interactive "p")
-  (setq col (current-column))
-  (beginning-of-line) (setq start (point))
-  (end-of-line) (forward-char) (setq end (point))
-  (let ((line-text (delete-and-extract-region start end)))
-    (forward-line n)
-    (insert line-text)
-    (forward-line -1)
-    (forward-char col)))
-
-(defun move-line-up (n)
-  "Move the current line up by N lines."
-  (interactive "p")
-  (move-line (if (null n) -1 (- n))))
-
-(defun move-line-down (n)
-  "Move the current line down by N lines."
-  (interactive "p")
-  (move-line (if (null n) 1 n)))
 
 ;; Convert endlines
 (defun dos2unix ()
@@ -293,18 +269,6 @@ or file under cursor if no file is marked."
    (dired-get-marked-files))
   )
 
-(defun delete-current-file ()
-  "Delete the file associated with the current buffer.
-Delete the current buffer too.
-If no file is associated, just close buffer without prompt for save."
-  (interactive)
-  (let (currentFile)
-    (setq currentFile (buffer-file-name))
-    (when (yes-or-no-p (concat "Delete file?: " currentFile))
-      (kill-buffer (current-buffer))
-      (when (not (equal currentFile nil))
-        (delete-file currentFile) ) ) ) )
-
 (defun insert-date ()
   "Insert a time-stamp according to locale's date and time format."
   (interactive)
@@ -340,45 +304,42 @@ Toggles between: “all lower”, “Init Caps”, “ALL CAPS”."
       (downcase-region p1 p2) (put this-command 'state "all lower")) )
     ) )
 
- (defun how-many-region (begin end regexp &optional interactive)
-   "Print number of non-trivial matches for REGEXP in region.
+(defun how-many-region (begin end regexp &optional interactive)
+  "Print number of non-trivial matches for REGEXP in region.
  Non-interactive arguments are Begin End Regexp"
-   (interactive "r\nsHow many matches for (regexp): \np")
-   (let ((count 0) opoint)
-     (save-excursion
-       (setq end (or end (point-max)))
-       (goto-char (or begin (point)))
-       (while (and (< (setq opoint (point)) end)
-                   (re-search-forward regexp end t))
-         (if (= opoint (point))
-             (forward-char 1)
-           (setq count (1+ count))))
-       (if interactive (message "%d occurrences" count))
-       count)))
+  (interactive "r\nsHow many matches for (regexp): \np")
+  (let ((count 0) opoint)
+    (save-excursion
+      (setq end (or end (point-max)))
+      (goto-char (or begin (point)))
+      (while (and (< (setq opoint (point)) end)
+                  (re-search-forward regexp end t))
+        (if (= opoint (point))
+            (forward-char 1)
+          (setq count (1+ count))))
+      (if interactive (message "%d occurrences" count))
+      count)))
 
- (defun infer-indentation-style ()
-   ;; if our source file uses tabs, we use tabs, if spaces spaces, and if
-   ;; neither, we use the current indent-tabs-mode
-   (let ((space-count (how-many-region (point-min) (point-max) "^  "))
-         (tab-count (how-many-region (point-min) (point-max) "^\t")))
-     (if (> space-count tab-count) (setq indent-tabs-mode nil))
-     (if (> tab-count space-count) (setq indent-tabs-mode t))))
+(defun infer-indentation-style ()
+  ;; if our source file uses tabs, we use tabs, if spaces spaces, and if
+  ;; neither, we use the current indent-tabs-mode
+  (let ((space-count (how-many-region (point-min) (point-max) "^  "))
+        (tab-count (how-many-region (point-min) (point-max) "^\t")))
+    (if (> space-count tab-count) (setq indent-tabs-mode nil))
+    (if (> tab-count space-count) (setq indent-tabs-mode t))))
 
 (defun flyspell-check-next-highlighted-word ()
   "Custom function to spell check next highlighted word"
   (interactive)
   (flyspell-goto-next-error)
-  (ispell-word)
-  )
+  (ispell-word))
 
 (defun fd-switckh-dictionary()
   (interactive)
   (let* ((dic ispell-current-dictionary)
     	 (change (if (string= dic "norwegian") "english" "norwegian")))
     (ispell-change-dictionary change)
-    (message "Dictionary switched from %s to %s" dic change)
-    ))
-
+    (message "Dictionary switched from %s to %s" dic change)))
 
 (defun th-find-file-sudo (file)
   "Opens FILE with root privileges."
@@ -542,53 +503,53 @@ the current position of point, then move it to the beginning of the line."
                        if (equal d root)
                        return nil))))
 
-  (defun ido-goto-symbol (&optional symbol-list)
-      "Refresh imenu and jump to a place in the buffer using Ido."
-      (interactive)
-      (unless (featurep 'imenu)
-        (require 'imenu nil t))
+(defun ido-goto-symbol (&optional symbol-list)
+  "Refresh imenu and jump to a place in the buffer using Ido."
+  (interactive)
+  (unless (featurep 'imenu)
+    (require 'imenu nil t))
+  (cond
+   ((not symbol-list)
+    (let ((ido-mode ido-mode)
+          (ido-enable-flex-matching
+           (if (boundp 'ido-enable-flex-matching)
+               ido-enable-flex-matching t))
+          name-and-pos symbol-names position)
+      (unless ido-mode
+        (ido-mode 1)
+        (setq ido-enable-flex-matching t))
+      (while (progn
+               (imenu--cleanup)
+               (setq imenu--index-alist nil)
+               (ido-goto-symbol (imenu--make-index-alist))
+               (setq selected-symbol
+                     (ido-completing-read "Symbol? " symbol-names))
+               (string= (car imenu--rescan-item) selected-symbol)))
+      (unless (and (boundp 'mark-active) mark-active)
+        (push-mark nil t nil))
+      (setq position (cdr (assoc selected-symbol name-and-pos)))
       (cond
-       ((not symbol-list)
-        (let ((ido-mode ido-mode)
-              (ido-enable-flex-matching
-               (if (boundp 'ido-enable-flex-matching)
-                   ido-enable-flex-matching t))
-              name-and-pos symbol-names position)
-          (unless ido-mode
-            (ido-mode 1)
-            (setq ido-enable-flex-matching t))
-          (while (progn
-                   (imenu--cleanup)
-                   (setq imenu--index-alist nil)
-                   (ido-goto-symbol (imenu--make-index-alist))
-                   (setq selected-symbol
-                         (ido-completing-read "Symbol? " symbol-names))
-                   (string= (car imenu--rescan-item) selected-symbol)))
-          (unless (and (boundp 'mark-active) mark-active)
-            (push-mark nil t nil))
-          (setq position (cdr (assoc selected-symbol name-and-pos)))
-          (cond
-           ((overlayp position)
-            (goto-char (overlay-start position)))
-           (t
-            (goto-char position)))))
-       ((listp symbol-list)
-        (dolist (symbol symbol-list)
-          (let (name position)
-            (cond
-             ((and (listp symbol) (imenu--subalist-p symbol))
-              (ido-goto-symbol symbol))
-             ((listp symbol)
-              (setq name (car symbol))
-              (setq position (cdr symbol)))
-             ((stringp symbol)
-              (setq name symbol)
-              (setq position
-                    (get-text-property 1 'org-imenu-marker symbol))))
-            (unless (or (null position) (null name)
-                        (string= (car imenu--rescan-item) name))
-              (add-to-list 'symbol-names name)
-              (add-to-list 'name-and-pos (cons name position))))))))
+       ((overlayp position)
+        (goto-char (overlay-start position)))
+       (t
+        (goto-char position)))))
+   ((listp symbol-list)
+    (dolist (symbol symbol-list)
+      (let (name position)
+        (cond
+         ((and (listp symbol) (imenu--subalist-p symbol))
+          (ido-goto-symbol symbol))
+         ((listp symbol)
+          (setq name (car symbol))
+          (setq position (cdr symbol)))
+         ((stringp symbol)
+          (setq name symbol)
+          (setq position
+                (get-text-property 1 'org-imenu-marker symbol))))
+        (unless (or (null position) (null name)
+                    (string= (car imenu--rescan-item) name))
+          (add-to-list 'symbol-names name)
+          (add-to-list 'name-and-pos (cons name position))))))))
 
 (defun mediawiki-insert-sub-header ()
   "Insert subheader  via  === (e.g. === FOO ===.)"
@@ -761,6 +722,19 @@ Shift+<special key> is used (arrows keys, home, end, pgdn, pgup, etc.)."
     (kill-region (point) (mark))
     (backward-kill-word 1)))
 
+(defun give-my-keybindings-priority ()
+  "Try to ensure that my keybindings always have priority."
+  (if (not (eq (car (car minor-mode-map-alist)) 'ex-mode))
+      (let ((mykeys (assq 'ex-mode minor-mode-map-alist))
+            (override-keys-fn
+              (intern (concat (symbol-name major-mode) "-override"))))
+        (assq-delete-all 'ex-mode minor-mode-map-alist)
+        (add-to-list 'minor-mode-map-alist mykeys)
+        (if (functionp override-keys-fn)
+            (funcall override-keys-fn)))))
+
+(add-hook 'buffer-list-update-hook 'give-my-keybindings-priority)
+
 (defvar ex-mode-keymap
   (let ((map (make-sparse-keymap)))
 
@@ -818,8 +792,8 @@ Shift+<special key> is used (arrows keys, home, end, pgdn, pgup, etc.)."
     (define-key map (kbd "C-x v t") 'vc-create-tag)
     (define-key map (kbd "C-x v s") 'magit-status)
 
-    (define-key map (kbd "C-'") 'push-mark-command)
-    (define-key map (kbd "M-'") 'pop-global-mark)
+    (define-key map (kbd "C-'") 'er/expand-region)
+    (define-key map (kbd "M-'") 'toggle-letter-case)
     (define-key map (kbd "C-;") 'ace-jump-mode)
 
     (define-key map (kbd "C-æ") 'push-mark-command)
@@ -847,6 +821,10 @@ Shift+<special key> is used (arrows keys, home, end, pgdn, pgup, etc.)."
     (define-key map (kbd "M-<backspace>") 'delete-indentation)
     (define-key map (kbd "M-,") 'pop-tag-mark)
 
+    (define-key map (kbd "C-M-l") 'kill-sexp)
+    (define-key map (kbd "C-M-j") 'backward-kill-sexp)
+
+
 
     map)
   "Keymap containing all my bindings. ")
@@ -864,19 +842,38 @@ Shift+<special key> is used (arrows keys, home, end, pgdn, pgup, etc.)."
   :keymap ex-mode-keymap
   :lighter " Ex"
 
-  ;; Minor mode body
   (defalias 'rfb 'rename-file-and-buffer)
   (defalias 'mbf 'move-buffer-file)
   (defalias 'rb 'revert-buffer)
   (defalias 'oaf 'open-all-files-with-extension)
+  (defalias 'dbf 'diff-buffer-with-file)
+
+  (defalias 'gl 'gist-list)
+  (defalias 'grb 'gist-region-or-buffer)
 
   ;;Evil mode
   ;(evil-ex-define-cmd "n[ew]" 'evil-window-new)
 
   (define-key minibuffer-local-map (kbd "C-<tab>") 'hippie-expand)
 
+  (define-key winner-mode-map (kbd "C-x 7") 'winner-undo)
+  (define-key winner-mode-map (kbd "C-x 9") 'winner-redo)
+
+  (define-key cua--region-keymap (kbd "C-d") 'cua-delete-char-rectangle)
   ;;(key-chord-define-global "lj" 'evil-normal-state)
   (key-chord-define-global "qr" 'query-replace-regexp)
   (key-chord-define-global "qm" 'moccur))
+
+(defun lisp-mode-override ()
+  (define-key ex-mode-keymap (kbd "C-w") 'paredit-backward-kill-word)
+  (define-key ex-mode-keymap (kbd "M-J") 'paredit-backward)
+  (define-key ex-mode-keymap (kbd "M-L") 'paredit-forward)
+  (define-key ex-mode-keymap (kbd "C-x C-k") 'paredit-kill-region)
+  (define-key ex-mode-keymap (kbd "M-H") 'paredit-splice-sexp))
+
+(defun repl-mode-override ()
+  (define-key ex-mode-keymap (kbd "C-a") 'slime-repl-bol)
+  (define-key ex-mode-keymap (kbd "M-n") 'slime-repl-next-input)
+  (define-key ex-mode-keymap (kbd "M-p") 'slime-repl-previous-input))
 
 (provide 'ex-mode)
