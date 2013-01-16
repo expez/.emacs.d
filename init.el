@@ -12,7 +12,7 @@
 
 (defvar my-packages
   '(ace-jump-mode ac-slime auto-complete auctex bookmark+
-                  dired+ dropdown-list expand-region ghc
+                  dired+ dropdown-list expand-region emacs-eclim ghc
                   ghci-completion gist git-commit gitconfig-mode gitignore-mode
                   git-blame haskell-mode
                   key-chord lorem-ipsum magit magithub
@@ -38,12 +38,6 @@
 
 (setq custom-file "~/.emacs.d/plugins/customize.el")
 (load custom-file)
-
-(if (file-accessible-directory-p "~/src/emacs-eclim")
-    (add-to-list 'load-path (expand-file-name "~/src/emacs-eclim/")))
-
-(if (file-accessible-directory-p (expand-file-name "~/src/emacs-eclim/vendor"))
-    (add-to-list 'load-path (expand-file-name "~/src/emacs-eclim/vendor")))
 
 (if (file-exists-p (expand-file-name "~/quicklisp/slime-helper.el"))
     (load (expand-file-name "~/quicklisp/slime-helper.el")))
