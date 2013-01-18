@@ -15,7 +15,7 @@
                   dired+ dropdown-list expand-region emacs-eclim ghc
                   ghci-completion gist git-commit gitconfig-mode gitignore-mode
                   git-blame haskell-mode helm
-                  key-chord lorem-ipsum magit magithub
+                  key-chord lorem-ipsum magit magithub markdown-mode
                   mediawiki move-text paredit parenface
                   rainbow-delimiters rainbow-mode
                   register-list unbound undo-tree
@@ -66,6 +66,6 @@
 (require 'mediawiki)
 (require 'lorem-ipsum)
 (require 'go-autocomplete)
-
+(require 'auto-complete-latex)
 (load-library "my-config") ;; One-off variable settings.
 (load-library "customize") ;;The stuff from customize lives in here.
