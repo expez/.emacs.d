@@ -256,10 +256,12 @@ ediff."
 
 ;;AucTeX config
 (setq TeX-autosave t
-TeX-parse-self t
-TeX-PDF-mode t
-refTeX-plug-into-AUCTeX t)
-(setq-default text-master nil)
+      TeX-save-query nil
+      TeX-parse-self t
+      TeX-PDF-mode t
+      TeX-newline-function #'reindent-then-newline-and-indent
+      refTeX-plug-into-AUCTeX t)
+(setq-default text-master 'dwim)
 
 (defun my-LaTeX-mode-hook ()
   (visual-line-mode 1)
@@ -356,6 +358,7 @@ refTeX-plug-into-AUCTeX t)
 
 (defun my-ac-config ()
   (add-hook 'c-mode-hook 'ac-c-mode-setup)
+  (add-hook 'LaTeX-mode-hook #'ac-l-setup)
   (add-hook 'auto-complete-mode-hook 'ac-common-setup)
   (global-auto-complete-mode t)
   (setq ac-auto-start 2)
@@ -368,6 +371,7 @@ refTeX-plug-into-AUCTeX t)
   (ac-flyspell-workaround))
 
 (my-ac-config)
+(auto-complete-mode 1)
 
 ;; Following AC hack is taken from http://madscientist.jp/~ikegami/diary/20090215.html#p01
 (defconst my/haskell-reserved-keywords
@@ -710,3 +714,8 @@ refTeX-plug-into-AUCTeX t)
 (set-register ?i '(file . "~/.emacs.d/init.el"))
 
 (helm-mode 1)
+(setq helm-idle-delay 0.3
+      helm-input-idle-delay 0
+      helm-quick-update t
+      helm-candidate-number-limit 100
+      helm-su-or-sudo "sudo")
