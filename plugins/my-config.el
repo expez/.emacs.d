@@ -243,8 +243,6 @@ ediff."
 
 (toggle-diredp-find-file-reuse-dir 1)
 
-
-
 (electric-pair-mode 1)
 
 (defun my-make-CR-do-indent ()
@@ -360,6 +358,8 @@ ediff."
   (setq clang-complete-executable "~/.emacs.d/plugins/clang-complete")
   (setq ac-sources '(ac-source-clang-async))
   (launch-completion-proc))
+
+(add-hook 'c-mode-hook 'c-turn-on-eldoc-mode)
 
 (defun my-ac-config ()
   (add-hook 'c-mode-hook 'ac-c-mode-setup)

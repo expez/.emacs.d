@@ -11,10 +11,11 @@
 (package-initialize)
 
 (defvar my-packages
-  '(ace-jump-mode ac-slime auto-complete auctex bookmark+
-                  dired+ dropdown-list expand-region emacs-eclim ghc
-                  ghci-completion gist git-commit gitconfig-mode gitignore-mode
-                  git-blame haskell-mode helm
+  '(ace-jump-mode ac-slime auto-complete auctex bookmark+ c-eldoc
+                  dired+ dropdown-list evil evil-leader evil-nerd-commenter
+                  evil-numbers evil-paredit evil-surround expand-region
+                  emacs-eclim ghc ghci-completion gist git-commit gitconfig-mode
+                  gitignore-mode git-blame haskell-mode helm
                   key-chord lorem-ipsum magit magithub markdown-mode
                   mediawiki move-text paredit parenface
                   rainbow-delimiters rainbow-mode
