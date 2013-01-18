@@ -238,7 +238,12 @@ ediff."
 
 ;;Don't open a new buffer for each opened directory in Dired.
 (put 'dired-find-alternate-file 'disabled nil)
-(setq dired-recursive-copies 'always);;always recursively copy.
+(setq dired-recursive-copies 'always
+      dired-listing-switches "-alh")
+
+(toggle-diredp-find-file-reuse-dir 1)
+
+
 
 (electric-pair-mode 1)
 
@@ -707,8 +712,6 @@ ediff."
 (setq auto-mode-alist (cons '("\.gitignore$" . gitignore-mode) auto-mode-alist))
 (setq auto-mode-alist (cons '("\.gitconfig$" . gitconfig-mode) auto-mode-alist))
 
-(toggle-diredp-find-file-reuse-dir 1)
-
 (set-register ?c '(file . "~/.emacs.d/plugins/my-config.el"))
 (set-register ?e '(file . "~/.emacs.d/plugins/ex-mode.el"))
 (set-register ?i '(file . "~/.emacs.d/init.el"))
@@ -719,3 +722,10 @@ ediff."
       helm-quick-update t
       helm-candidate-number-limit 100
       helm-su-or-sudo "sudo")
+
+
+(setq recentf-exclude '(
+                           "\\.recentf"
+                           "\\.ido\\.last"
+                           "\\.keychain/.*?-sh\\(-gpg\\)?"
+                           )
