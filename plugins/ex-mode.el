@@ -112,30 +112,6 @@ prefix argument, the process's buffer is displayed."
   "Diff the current buffer with the content saved in the file."
   (lambda nil (interactive) (diff-buffer-with-file (current-buffer))))
 
-;; Guesses which file is the master file by looking for \include statements.
-(defun guess-TeX-master (filename)
-  "Guess the master file for FILENAME from currently open .tex files."
-  (if (equal filename nil)
-      nil
-    (let ((candidate nil)
-          (filename (file-name-nondirectory filename)))
-      (save-excursion
-        (dolist (buffer (buffer-list))
-          (with-current-buffer buffer
-            (let ((name (buffer-name))
-                  (file buffer-file-name))
-              (if (and file (string-match "\\.tex$" file))
-                  (progn
-                    (goto-char (point-min))
-                    (if (re-search-forward (concat "\\\\input{" filename "}") nil t)
-                        (setq candidate file))
-                    (if (re-search-forward (concat "\\\\include{"
-                                                   (file-name-sans-extension filename) "}") nil t)
-                        (setq candidate file))))))))
-      (if candidate
-          (message "TeX master document: %s" (file-name-nondirectory candidate)))
-      candidate)))
-
 (defun delete-current-file ()
   "Delete the file associated with the current buffer.
 Delete the current buffer too.
@@ -807,7 +783,7 @@ Shift+<special key> is used (arrows keys, home, end, pgdn, pgup, etc.)."
     (define-key map (kbd "M-g M-c") 'goto-char)
     (define-key map (kbd "M-m") 'er/expand-region)
     (define-key map (kbd "<f5>") 'call-last-kbd-macro)
-    (define-key map (kbd "C-x i") 'ido-goto-symbol)
+    (define-key map (kbd "C-x i") 'helm-imenu)
 
     ;; Windmove
     (define-key map (kbd "<left>") 'windmove-left)
@@ -858,6 +834,9 @@ Shift+<special key> is used (arrows keys, home, end, pgdn, pgup, etc.)."
 
   (define-key winner-mode-map (kbd "C-x 7") 'winner-undo)
   (define-key winner-mode-map (kbd "C-x 9") 'winner-redo)
+  (global-set-key (kbd "C-x C-f") 'helm-find-files)
+  (global-set-key (kbd "C-x b") 'helm-buffers-list)
+  (global-set-key (kbd "C-x C-r") 'helm-recentf)
 
   (define-key cua--region-keymap (kbd "C-d") 'cua-delete-char-rectangle)
   ;;(key-chord-define-global "lj" 'evil-normal-state)

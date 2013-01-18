@@ -14,7 +14,7 @@
   '(ace-jump-mode ac-slime auto-complete auctex bookmark+
                   dired+ dropdown-list expand-region emacs-eclim ghc
                   ghci-completion gist git-commit gitconfig-mode gitignore-mode
-                  git-blame haskell-mode
+                  git-blame haskell-mode helm
                   key-chord lorem-ipsum magit magithub
                   mediawiki move-text paredit parenface
                   rainbow-delimiters rainbow-mode

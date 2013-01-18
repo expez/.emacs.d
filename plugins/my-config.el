@@ -79,16 +79,7 @@
 
 (global-font-lock-mode 1) ;;Syntax highlighting.
 
-;;Iswitchb mode
-(iswitchb-mode 1)
-(setq iswitchb-default-method 'samewindow) ;;Avoid switching to another frame.
-
 (put 'set-goal-column 'disabled nil) ;; Enable set-goal-column
-
-;; Enable IDO mode for buffers and files, enable flex matching.
-(ido-mode 'both)
-(setq ido-enable-flex-matching t)
-(ido-everywhere 1)
 
 ;; No startup message.
 (setq inhibit-startup-message t)
@@ -256,9 +247,7 @@ ediff."
 (add-hook 'c-initialization-hook 'my-make-CR-do-indent)
 
 ;;Org-mode
-
 (setq org-src-fontify-natively t) ;; syntax hightlighting when inserting code.)
-
 
 (defun my-org-mode-hook ()
   (local-set-key (kbd "C-,") 'beginning-of-buffer))
@@ -266,14 +255,11 @@ ediff."
 (add-hook 'org-mode-hook 'my-org-mode-hook)
 
 ;;AucTeX config
-
 (setq TeX-autosave t
 TeX-parse-self t
 TeX-PDF-mode t
 refTeX-plug-into-AUCTeX t)
 (setq-default text-master nil)
-;;(add-hook 'LaTeX-mode-hook (setq TeX-master (guess-tex-master (buffer-file-name)))) ;;Guess which  file is the master.
-
 
 (defun my-LaTeX-mode-hook ()
   (visual-line-mode 1)
@@ -629,8 +615,6 @@ refTeX-plug-into-AUCTeX t)
 
 (define-key magit-status-mode-map (kbd "q") 'magit-quit-session)
 
-(ido-hacks-mode 1)
-
 (turn-on-ex-mode)
 
 (add-hook 'git-commit-mode-hook 'turn-on-flyspell)
@@ -724,3 +708,5 @@ refTeX-plug-into-AUCTeX t)
 (set-register ?c '(file . "~/.emacs.d/plugins/my-config.el"))
 (set-register ?e '(file . "~/.emacs.d/plugins/ex-mode.el"))
 (set-register ?i '(file . "~/.emacs.d/init.el"))
+
+(helm-mode 1)
