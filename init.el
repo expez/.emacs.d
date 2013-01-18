@@ -67,5 +67,7 @@
 (require 'lorem-ipsum)
 (require 'go-autocomplete)
 (require 'auto-complete-latex)
+(require 'info+)
+
 (load-library "my-config") ;; One-off variable settings.
 (load-library "customize") ;;The stuff from customize lives in here.
