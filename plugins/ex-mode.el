@@ -434,6 +434,7 @@ This is to update existing buffers after a Git pull of their underlying files."
      (flyspell-prog-mode)
      (setq whitespace-style '(face lines-tail))
      (whitespace-mode 1)
+     (flycheck-mode)
      (glasses-mode 1)
      (set (make-local-variable 'compile-command)
             (format "make -f %s" (get-closest-pathname))))))

@@ -12,9 +12,9 @@
 
 (defvar my-packages
   '(ace-jump-mode ac-slime auto-complete auctex bookmark+ c-eldoc
-                  dired+ dropdown-list evil evil-leader evil-nerd-commenter
+                  dired+ dropdown-list elisp-slime-nav evil evil-leader evil-nerd-commenter
                   evil-numbers evil-paredit evil-surround expand-region
-                  emacs-eclim ghc ghci-completion gist git-commit gitconfig-mode
+                  emacs-eclim flycheck ghc ghci-completion gist git-commit gitconfig-mode
                   gitignore-mode git-blame haskell-mode helm
                   key-chord lorem-ipsum magit magithub markdown-mode
                   mediawiki move-text paredit parenface
@@ -69,6 +69,7 @@
 (require 'go-autocomplete)
 (require 'auto-complete-latex)
 (require 'info+)
+(require 'elisp-slime-nav)
 
 (load-library "my-config") ;; One-off variable settings.
 (load-library "customize") ;;The stuff from customize lives in here.

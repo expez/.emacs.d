@@ -350,6 +350,9 @@ ediff."
 (setq-default tab-width 4)
 (setq indent-line-function 'insert-tab)
 
+(add-hook 'c-mode-common-hook 'google-set-c-style)
+(add-hook 'c-mode-common-hook 'google-make-newline-indent)
+
 ;; Auto-complete
 (add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
 (ac-config-default)
@@ -630,12 +633,6 @@ ediff."
 (add-hook 'server-done-hook (lambda nil (kill-buffer nil)))
 
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
-
-;; cc-mode
-(c-add-style "ex"
-             '("linux"
-               (c-offsets-alist
-                (c-basic-offset . 2))))
 
 ;; Eclim for java development
 (add-hook 'java-mode-hook
