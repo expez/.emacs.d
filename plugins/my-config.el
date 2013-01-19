@@ -599,13 +599,32 @@ ediff."
 
 (add-to-list 'auto-mode-alist '("\\.cmd\\'" . ntcmd-mode))
 
-;;Evil mode
-;;(evil-mode 1)
-;;(setq evil-default-cursor t)
-;;(setq evil-want-visual-char-semi-exclusive t)
-;;(global-surround-mode 1)
-;;(setq evil-normal-state-cursor 'hollow)
-;;(setq evil-insert-state-cursor '("red" hbar))
+;;Evil mode most of this is copied from github/cofi/dotfiles
+(evil-mode 1)
+(setq evil-default-cursor t)
+(setq evil-want-visual-char-semi-exclusive t)
+(global-surround-mode 1)
+(setq evil-insert-state-cursor '("red" hbar))
+(setq evil-normal-state-cursor '("white" box))
+(setq evil-visual-state-cursor '("green" box))
+(setq evil-find-skip-newlines t)
+(setq evil-move-cursor-back nil
+      evil-cross-lines t)
+(setq evil-leader/leader ","
+      evil-leader/in-all-states t)
+
+;; make ace jump look like a single command to evil
+(defadvice ace-jump-word-mode (after evil activate)
+  (recursive-edit))
+
+(defadvice ace-jump-char-mode (after evil activate)
+  (recursive-edit))
+
+(defadvice ace-jump-line-mode (after evil activate)
+  (recursive-edit))
+
+(defadvice ace-jump-done (after evil activate)
+  (exit-recursive-edit))
 
 (key-chord-mode 1)
  ;;(setq recentf-auto-cleanup 'never) ;; disable before we start recentf! If using Tramp a lot.
@@ -613,8 +632,8 @@ ediff."
 (setq recentf-max-saved-items 100)
 
 ;; full screen magit-status
-
 (defadvice magit-status (around magit-fullscreen activate)
+
   (window-configuration-to-register :magit-fullscreen)
   ad-do-it
   (delete-other-windows))
@@ -681,14 +700,19 @@ ediff."
              'paredit-backward-delete
              'paredit-close-round)
             (rainbow-delimiters-mode 0)
+            (evil-paredit-mode 1)
             (set-face-foreground 'paren-face "grey30")))
 
 (add-hook 'slime-mode-hook 'set-up-slime-ac)
 (add-hook 'slime-mode-hook 'cliki:start-slime)
 (add-hook 'slime-repl-mode-hook 'set-up-slime-ac)
+
 (eval-after-load "auto-complete"
 '(add-to-list 'ac-modes 'slime-repl-mode))
-(add-hook 'slime-repl-mode-hook (lambda () (paredit-mode +1)))
+(add-hook 'slime-repl-mode-hook
+          (lambda ()
+            (paredit-mode +1)
+            (evil-paredit-mode 1)))
 
 ;; The SBCL binary and command-line arguments
 (setq inferior-lisp-program "/usr/bin/sbcl --noinform")

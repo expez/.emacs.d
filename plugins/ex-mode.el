@@ -710,6 +710,65 @@ Shift+<special key> is used (arrows keys, home, end, pgdn, pgup, etc.)."
         (if (functionp override-keys-fn)
             (funcall override-keys-fn)))))
 
+(defun cofi/ace-jump-char-direct-mode ()
+  "Do a ace char-jump directly to the char."
+  (interactive)
+  (ace-jump-char-mode)
+  (forward-char 1))
+
+(defun fill-keymap (keymap &rest mappings)
+  "Fill `KEYMAP' with `MAPPINGS'.
+See `pour-mappings-to'."
+  (pour-mappings-to keymap mappings))
+
+(defun fill-keymaps (keymaps &rest mappings)
+  "Fill `KEYMAPS' with `MAPPINGS'.
+See `pour-mappings-to'."
+  (dolist (keymap keymaps keymaps)
+    (let ((map (if (symbolp keymap)
+                   (symbol-value keymap)
+                 keymap)))
+      (pour-mappings-to map mappings))))
+
+(defun cofi/set-key (map spec cmd)
+  "Set in `map' `spec' to `cmd'.
+
+`Map' may be `'global' `'local' or a keymap.
+A `spec' can be a `read-kbd-macro'-readable string or a vector."
+  (let ((setter-fun (case map
+                      (global #'global-set-key)
+                      (local #'local-set-key)
+                      (t (lambda (key def) (define-key map key def)))))
+        (key (typecase spec
+               (vector spec)
+               (string (read-kbd-macro spec))
+               (t (error "wrong argument")))))
+    (funcall setter-fun key cmd)))
+
+(defun take (n lst)
+  "Return atmost the first `N' items of `LST'."
+  (let (acc '())
+    (while (and lst (> n 0))
+      (decf n)
+      (push (car lst) acc)
+      (setq lst (cdr lst)))
+    (nreverse acc)))
+
+(defun group (lst n)
+  "Group `LST' into portions of `N'."
+  (let (groups)
+    (while lst
+      (push (take n lst) groups)
+      (setq lst (nthcdr n lst)))
+    (nreverse groups)))
+
+(defun pour-mappings-to (map mappings)
+  "Calls `cofi/set-key' with `map' on every key-fun pair in `MAPPINGS'.
+`MAPPINGS' is a list of string-fun pairs, with a `READ-KBD-MACRO'-readable string and a interactive-fun."
+  (dolist (mapping (group mappings 2))
+    (cofi/set-key map (car mapping) (cadr mapping)))
+  map)
+
 (add-hook 'buffer-list-update-hook 'give-my-keybindings-priority)
 
 (defvar ex-mode-keymap
@@ -801,8 +860,6 @@ Shift+<special key> is used (arrows keys, home, end, pgdn, pgup, etc.)."
     (define-key map (kbd "C-M-l") 'kill-sexp)
     (define-key map (kbd "C-M-j") 'backward-kill-sexp)
 
-
-
     map)
   "Keymap containing all my bindings. ")
 
@@ -829,7 +886,56 @@ Shift+<special key> is used (arrows keys, home, end, pgdn, pgup, etc.)."
   (defalias 'grb 'gist-region-or-buffer)
 
   ;;Evil mode
-  ;(evil-ex-define-cmd "n[ew]" 'evil-window-new)
+  (evil-ex-define-cmd "n[ew]" 'evil-window-new)
+  (fill-keymap evil-normal-state-map
+               "+" 'evil-numbers/inc-at-pt
+               "-" 'evil-numbers/dec-at-pt
+               "SPC" 'ace-jump-char-mode
+               "S-SPC" 'ace-jump-word-mode
+               "C-SPC" 'ace-jump-line-mode
+               "go" 'goto-char
+               "C-t" 'transpose-chars)
+
+  (fill-keymap evil-insert-state-map
+               "C-h" 'backward-delete-char
+               "C-[" 'evil-normal-state)
+
+  (fill-keymaps (list evil-operator-state-map
+                      evil-visual-state-map)
+                ;; works like `t'
+                "SPC" 'ace-jump-char-mode
+                ;; works like `f'
+                "C-SPC" 'cofi/ace-jump-char-direct-mode
+                "S-SPC" 'ace-jump-word-mode)
+
+  (evil-add-hjkl-bindings magit-branch-manager-mode-map 'emacs
+    "K" 'magit-discard-item
+    "L" 'magit-key-mode-popup-logging)
+
+  (evil-add-hjkl-bindings magit-status-mode-map 'emacs
+    "K" 'magit-discard-item
+    "l" 'magit-key-mode-popup-logging
+    "h" 'magit-toggle-diff-refine-hunk)
+
+  (evil-leader/set-key
+   "e" 'helm-find-files
+   "b" 'helm-buffers-list
+   "B" 'ibuffer
+   "w" 'save-buffer
+   "W" 'save-some-buffers
+   "k" 'kill-current-buffer
+   "K" 'kill-buffer-and-window
+   "d" 'dired-jump
+   "c" 'compile
+
+   "g" 'magit-status
+
+   "." 'evil-ex
+  "1" 'delete-other-windows
+  "2" 'split-window-below
+  "3" 'split-window-window-right
+  "4" 'winner-undo
+)
 
   (define-key minibuffer-local-map (kbd "C-<tab>") 'hippie-expand)
 

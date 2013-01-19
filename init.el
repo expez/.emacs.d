@@ -43,7 +43,6 @@
 (if (file-exists-p (expand-file-name "~/quicklisp/slime-helper.el"))
     (load (expand-file-name "~/quicklisp/slime-helper.el")))
 
-
 (if (file-exists-p (expand-file-name "~/programs/emacs-clang-complete-async.el"))
     (load (expand-file-name "~/programs/emacs-clang-complete-async.el")))
 
@@ -53,6 +52,7 @@
 (require 'color-theme)
 (require 'parenface)
 (require 'ex-mode)
+(require 'evil-paredit)
 (require 'highlight-tags-mode)
 (require 'hpaste)
 (require 'ido-hacks)
@@ -75,6 +75,8 @@
 (require 'info+)
 (require 'elisp-slime-nav)
 (require 'sr-speedbar)
+(require 'evil-numbers)
+(require 'evil-nerd-commenter)
 
 (load-library "my-config") ;; One-off variable settings.
 (load-library "customize") ;;The stuff from customize lives in here.
