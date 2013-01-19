@@ -725,4 +725,7 @@ ediff."
                            "\\.recentf"
                            "\\.ido\\.last"
                            "\\.keychain/.*?-sh\\(-gpg\\)?"
-                           )
+                           ))
+(add-hook 'emacs-lisp-mode-hook '(lambda () (flycheck-mode 0)))
+
+(setq sr-speedbar-right-side nil)

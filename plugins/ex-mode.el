@@ -837,6 +837,7 @@ Shift+<special key> is used (arrows keys, home, end, pgdn, pgup, etc.)."
   (define-key winner-mode-map (kbd "C-x 9") 'winner-redo)
   (global-set-key (kbd "C-x C-f") 'helm-find-files)
   (global-set-key (kbd "C-x b") 'helm-buffers-list)
+  (global-set-key (kbd "<end>") 'sr-speedbar-toggle)
 
   (define-key cua--region-keymap (kbd "C-d") 'cua-delete-char-rectangle)
   ;;(key-chord-define-global "lj" 'evil-normal-state)

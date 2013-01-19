@@ -13,13 +13,13 @@
 (defvar my-packages
   '(ace-jump-mode ac-slime auto-complete auctex bookmark+ c-eldoc
                   dired+ dropdown-list elisp-slime-nav evil evil-leader evil-nerd-commenter
-                  evil-numbers evil-paredit evil-surround expand-region
+                  evil-numbers evil-paredit expand-region
                   emacs-eclim flycheck ghc ghci-completion gist git-commit gitconfig-mode
                   gitignore-mode git-blame google-c-style haskell-mode helm
                   key-chord lorem-ipsum magit magithub markdown-mode
                   mediawiki move-text paredit parenface
-                  rainbow-delimiters rainbow-mode
-                  register-list unbound undo-tree
+                  rainbow-delimiters rainbow-mode regex-dsl
+                  register-list sr-speedbar surround unbound undo-tree
                   whole-line-or-region workgroups yasnippet)
   "A list of packages to ensure are installed at launch.")
 
@@ -74,6 +74,7 @@
 (require 'auto-complete-latex)
 (require 'info+)
 (require 'elisp-slime-nav)
+(require 'sr-speedbar)
 
 (load-library "my-config") ;; One-off variable settings.
 (load-library "customize") ;;The stuff from customize lives in here.
