@@ -15,7 +15,7 @@
                   dired+ dropdown-list elisp-slime-nav evil evil-leader evil-nerd-commenter
                   evil-numbers evil-paredit evil-surround expand-region
                   emacs-eclim flycheck ghc ghci-completion gist git-commit gitconfig-mode
-                  gitignore-mode git-blame haskell-mode helm
+                  gitignore-mode git-blame google-c-style haskell-mode helm
                   key-chord lorem-ipsum magit magithub markdown-mode
                   mediawiki move-text paredit parenface
                   rainbow-delimiters rainbow-mode
@@ -42,6 +42,10 @@
 
 (if (file-exists-p (expand-file-name "~/quicklisp/slime-helper.el"))
     (load (expand-file-name "~/quicklisp/slime-helper.el")))
+
+
+(if (file-exists-p (expand-file-name "~/programs/emacs-clang-complete-async.el"))
+    (load (expand-file-name "~/programs/emacs-clang-complete-async.el")))
 
 (require 'auto-complete-clang-async)
 (require 'auto-complete-config)
