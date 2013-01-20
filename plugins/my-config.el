@@ -613,6 +613,7 @@ ediff."
  ;;(setq recentf-auto-cleanup 'never) ;; disable before we start recentf! If using Tramp a lot.
 (recentf-mode t)
 (setq recentf-max-saved-items 100)
+(run-with-timer (* 20 60) (* 2 60 60) (lambda () (recentf-save-list)))
 
 ;; full screen magit-status
 (defadvice magit-status (around magit-fullscreen activate)

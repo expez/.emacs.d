@@ -868,7 +868,18 @@ A `spec' can be a `read-kbd-macro'-readable string or a vector."
    "g" 'magit-status
 
    "." 'evil-ex
-  "u" 'winner-undo)
+   "u" 'winner-undo)
+
+  (evil-define-key 'normal paredit-mode-map
+    (kbd ",.") 'paredit-forward-slurp-sexp
+    (kbd ",,") 'paredit-backward-slurp-sexp
+    (kbd ",<") 'paredit-backward-barf-sexp
+    (kbd ",>") 'paredit-forward-barf-sexp
+    (kbd ",s") 'paredit-split-sexp
+    (kbd ",j") 'paredit-join-sexps
+    (kbd ",k") 'paredit-splice-sexp
+    (kbd "(") 'paredit-backward
+    (kbd ")") 'paredit-forward)
 
   (define-key minibuffer-local-map (kbd "C-<tab>") 'hippie-expand)
 
