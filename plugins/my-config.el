@@ -246,16 +246,11 @@ ediff."
 (electric-pair-mode 1)
 
 (defun my-make-CR-do-indent ()
-(define-key c-mode-base-map "\C-m" 'c-context-line-break))
+  (define-key c-mode-base-map "\C-m" 'c-context-line-break))
 (add-hook 'c-initialization-hook 'my-make-CR-do-indent)
 
 ;;Org-mode
 (setq org-src-fontify-natively t) ;; syntax hightlighting when inserting code.)
-
-(defun my-org-mode-hook ()
-  (local-set-key (kbd "C-,") 'beginning-of-buffer))
-
-(add-hook 'org-mode-hook 'my-org-mode-hook)
 
 ;;AucTeX config
 (setq TeX-autosave t
@@ -281,8 +276,7 @@ ediff."
   (local-set-key (kbd "C-c s") 'LaTeX-section)
   (local-set-key (kbd "C-c e") 'LaTeX-environment)
   (local-set-key (kbd "C-c i") 'LaTeX-insert-item)
-  (local-set-key (kbd "C-c f") 'TeX-font)
-  (local-set-key (kbd "C-,") 'beginning-of-buffer))
+  (local-set-key (kbd "C-c f") 'TeX-font))
 
 (add-hook 'LaTeX-mode-hook 'my-LaTeX-mode-hook)
 
@@ -309,16 +303,6 @@ ediff."
   (haskell-style)
   (define-key haskell-mode-map "\C-ch" 'haskell-hoogle)
   (define-key haskell-mode-map "\C-cai" 'haskell-align-imports)
-
-  (define-key haskell-mode-map (kbd "C-<left>")
-    (lambda ()
-      (interactive)
-      (haskell-move-nested -1)))
-
-  (define-key haskell-mode-map (kbd "C-<right>")
-    (lambda ()
-      (interactive)
-      (haskell-move-nested 1)))
 
   (setq default-hpaste-nick "Expez"))
 
@@ -379,7 +363,6 @@ ediff."
   (ac-flyspell-workaround))
 
 (my-ac-config)
-(auto-complete-mode 1)
 
 ;; Following AC hack is taken from http://madscientist.jp/~ikegami/diary/20090215.html#p01
 (defconst my/haskell-reserved-keywords
@@ -610,8 +593,8 @@ ediff."
 (setq evil-find-skip-newlines t)
 (setq evil-move-cursor-back nil
       evil-cross-lines t)
-(setq evil-leader/leader ","
-      evil-leader/in-all-states t)
+(setq evil-leader/in-all-states t)
+(evil-leader/set-leader ",")
 
 ;; make ace jump look like a single command to evil
 (defadvice ace-jump-word-mode (after evil activate)
@@ -633,7 +616,6 @@ ediff."
 
 ;; full screen magit-status
 (defadvice magit-status (around magit-fullscreen activate)
-
   (window-configuration-to-register :magit-fullscreen)
   ad-do-it
   (delete-other-windows))
@@ -664,7 +646,6 @@ ediff."
          (setq eclim-executable "/usr/share/eclipse/eclim")
          (setq eclim-auto-save t)
          (setq eclim-print-debug-messages t)
-         (local-set-key (kbd "M-/") 'eclim-ac-complete)
          (setq help-at-pt-timer-delay 0.1)
          (help-at-pt-set-timer)
          (java-mode-indent-annotations-setup)
@@ -744,12 +725,12 @@ ediff."
       helm-candidate-number-limit 100
       helm-su-or-sudo "sudo")
 
-
-(setq recentf-exclude '(
-                           "\\.recentf"
-                           "\\.ido\\.last"
-                           "\\.keychain/.*?-sh\\(-gpg\\)?"
-                           ))
-(add-hook 'emacs-lisp-mode-hook '(lambda () (flycheck-mode 0)))
+(setq recentf-exclude '("\\.recentf"
+                        "\\.ido\\.last"
+                        "\\.keychain/.*?-sh\\(-gpg\\)?"))
+(add-hook 'emacs-lisp-mode-hook
+          (lambda ()
+            (flycheck-mode 0)
+            (evil-paredit-mode 1)))
 
 (setq sr-speedbar-right-side nil)

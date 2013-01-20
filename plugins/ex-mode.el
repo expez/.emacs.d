@@ -769,52 +769,17 @@ A `spec' can be a `read-kbd-macro'-readable string or a vector."
     (cofi/set-key map (car mapping) (cadr mapping)))
   map)
 
-(add-hook 'buffer-list-update-hook 'give-my-keybindings-priority)
+;(add-hook 'buffer-list-update-hook 'give-my-keybindings-priority)
 
 (defvar ex-mode-keymap
   (let ((map (make-sparse-keymap)))
-
-    ;;Ergomacs bindings for movement
-    (define-key map (kbd "M-l") 'forward-char)
-    (define-key map (kbd "M-j") 'backward-char)
-    (define-key map (kbd "M-k") 'next-line)
-    (define-key map (kbd "M-i") 'previous-line)
-
-    (define-key map (kbd "M-u") 'backward-word)
-    (define-key map (kbd "M-o") 'forward-word)
-
-    (define-key map (kbd "M-U") 'backward-paragraph)
-    (define-key map (kbd "M-O") 'forward-paragraph)
-
-    (define-key map (kbd "M-J") 'backward-sentence)
-    (define-key map (kbd "M-L") 'forward-sentence)
-
-    (define-key map (kbd "M-h") 'comment-dwim)
-
-    (define-key map (kbd "M--") 'toggle-letter-case)
-    ;;Swap a bunch of bindings around.
-    (define-key map (kbd "C-a") 'smart-line-beginning)
-    (define-key map (kbd "C-x C-c") 'whole-line-or-region-kill-ring-save)
-    (define-key map (kbd "C-w") 'kill-region-or-backward-kill-word)
-    (define-key map (kbd "M-w") 'whole-line-or-region-kill-ring-save)
     (define-key map (kbd "C-x m") 'ido-hacks-execute-extended-command)
     (define-key map (kbd "C-x C-m") 'ido-hacks-execute-extended-command)
-    (define-key map (kbd "C-o") 'undo)
-    (define-key map (kbd "C-z") 'open-line)
-    (define-key map (kbd "C-x C-k") 'kill-region)
-    (define-key map (kbd "C-,") 'beginning-of-buffer)
-    (define-key map (kbd "C-.") 'end-of-buffer)
-    (define-key map (kbd "C-x g") 'goto-line)
-    (define-key map (kbd "C-x G") 'goto-char)
     (define-key map (kbd "C-x c") 'compile)
     (define-key map (kbd "C-x s") 'shell)
-    (define-key map (kbd "M-n") 'next-error)
-    (define-key map (kbd "M-p") 'previous-error)
-    (define-key map (kbd "C-z") 'open-line)
     (define-key map (kbd "C-x C-b") 'ibuffer)
     (define-key map (kbd "C-x r v") 'register-list)
     (define-key map (kbd "C-<tab>") 'hippie-expand)
-    (define-key map (kbd "M-K") 'kill-sentence)
     ;; easy spell check
     (define-key map (kbd "<f8>") 'ispell-word)
     ;;(global-set-key (kbd "C-S-<f8>") 'fd-switch-dictionary)
@@ -822,43 +787,15 @@ A `spec' can be a `read-kbd-macro'-readable string or a vector."
     (define-key map (kbd "C-<f8>") 'flyspell-check-previous-highlighted-word)
     (define-key map (kbd "M-<f8>") 'flyspell-check-next-highlighted-word)
 
-    (define-key map (kbd "C-c q") 'save-buffers-kill-terminal)
-    (define-key map [insert] 'overwrite-mode)
-    (define-key map [kp-insert] 'overwrite-mode)
+    (define-key map (kbd "C-x r q") 'save-buffers-kill-terminal)
     (define-key map (kbd "C-x v t") 'vc-create-tag)
     (define-key map (kbd "C-x v s") 'magit-status)
 
-    (define-key map (kbd "C-'") 'er/expand-region)
-    (define-key map (kbd "M-'") 'toggle-letter-case)
-    (define-key map (kbd "C-;") 'ace-jump-mode)
-
-    (define-key map (kbd "C-æ") 'push-mark-command)
-    (define-key map (kbd "M-æ") 'pop-global-mark)
-    (define-key map (kbd "C-ø") 'ace-jump-mode)
-
     (define-key map (kbd "C-x a r") 'align-regexp)
-    (define-key map (kbd "M-N") 'scroll-up-line)
-    (define-key map (kbd "M-P") 'scroll-down-line)
-    (define-key map (kbd "M-g c") 'goto-char)
-    (define-key map (kbd "M-g M-c") 'goto-char)
-    (define-key map (kbd "M-m") 'er/expand-region)
-    (define-key map (kbd "<f5>") 'call-last-kbd-macro)
     (define-key map (kbd "C-x i") 'helm-imenu)
 
-    ;; Windmove
-    (define-key map (kbd "<left>") 'windmove-left)
-    (define-key map (kbd "<up>") 'windmove-up)
-    (define-key map (kbd "<right>") 'windmove-right)
-    (define-key map (kbd "<down>") 'windmove-down)
-
     (define-key map (kbd "C-x C-r")'helm-recentf)
-    (define-key map (kbd "M-<up>") 'move-text-up)
-    (define-key map (kbd "M-<down>") 'move-text-down)
     (define-key map (kbd "M-<backspace>") 'delete-indentation)
-    (define-key map (kbd "M-,") 'pop-tag-mark)
-
-    (define-key map (kbd "C-M-l") 'kill-sexp)
-    (define-key map (kbd "C-M-j") 'backward-kill-sexp)
 
     map)
   "Keymap containing all my bindings. ")
@@ -931,11 +868,7 @@ A `spec' can be a `read-kbd-macro'-readable string or a vector."
    "g" 'magit-status
 
    "." 'evil-ex
-  "1" 'delete-other-windows
-  "2" 'split-window-below
-  "3" 'split-window-window-right
-  "4" 'winner-undo
-)
+  "u" 'winner-undo)
 
   (define-key minibuffer-local-map (kbd "C-<tab>") 'hippie-expand)
 
@@ -946,20 +879,7 @@ A `spec' can be a `read-kbd-macro'-readable string or a vector."
   (global-set-key (kbd "<end>") 'sr-speedbar-toggle)
 
   (define-key cua--region-keymap (kbd "C-d") 'cua-delete-char-rectangle)
-  ;;(key-chord-define-global "lj" 'evil-normal-state)
   (key-chord-define-global "qr" 'query-replace-regexp)
   (key-chord-define-global "qm" 'moccur))
-
-(defun lisp-mode-override ()
-  (define-key ex-mode-keymap (kbd "C-w") 'paredit-backward-kill-word)
-  (define-key ex-mode-keymap (kbd "M-J") 'paredit-backward)
-  (define-key ex-mode-keymap (kbd "M-L") 'paredit-forward)
-  (define-key ex-mode-keymap (kbd "C-x C-k") 'paredit-kill-region)
-  (define-key ex-mode-keymap (kbd "M-H") 'paredit-splice-sexp))
-
-(defun repl-mode-override ()
-  (define-key ex-mode-keymap (kbd "C-a") 'slime-repl-bol)
-  (define-key ex-mode-keymap (kbd "M-n") 'slime-repl-next-input)
-  (define-key ex-mode-keymap (kbd "M-p") 'slime-repl-previous-input))
 
 (provide 'ex-mode)

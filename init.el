@@ -77,6 +77,7 @@
 (require 'sr-speedbar)
 (require 'evil-numbers)
 (require 'evil-nerd-commenter)
+(require 'evil-leader)
 
 (load-library "my-config") ;; One-off variable settings.
 (load-library "customize") ;;The stuff from customize lives in here.
