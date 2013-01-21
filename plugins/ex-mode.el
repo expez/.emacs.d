@@ -771,6 +771,34 @@ A `spec' can be a `read-kbd-macro'-readable string or a vector."
 
 ;(add-hook 'buffer-list-update-hook 'give-my-keybindings-priority)
 
+(defun magit-toggle-whitespace ()
+  (interactive)
+  (if (member "-w" magit-diff-options)
+      (magit-dont-ignore-whitespace)
+    (magit-ignore-whitespace)))
+
+(defun magit-ignore-whitespace ()
+  (interactive)
+  (add-to-list 'magit-diff-options "-w")
+  (magit-refresh))
+
+(defun magit-dont-ignore-whitespace ()
+  (interactive)
+  (setq magit-diff-options (remove "-w" magit-diff-options))
+  (magit-refresh))
+
+(defun open-line-below ()
+  (interactive)
+  (save-excursion
+    (end-of-line)
+    (newline)))
+
+(defun open-line-above ()
+  (interactive)
+  (save-excursion
+    (beginning-of-line)
+    (newline)))
+
 (defvar ex-mode-keymap
   (let ((map (make-sparse-keymap)))
     (define-key map (kbd "C-x m") 'ido-hacks-execute-extended-command)
@@ -878,13 +906,29 @@ A `spec' can be a `read-kbd-macro'-readable string or a vector."
     (kbd ",s") 'paredit-split-sexp
     (kbd ",j") 'paredit-join-sexps
     (kbd ",p") 'paredit-splice-sexp
+    (kbd ",k") 'paredit-kill
     (kbd "(") 'paredit-backward
     (kbd ")") 'paredit-forward)
 
+  (define-key evil-normal-state-map (kbd "C-j") 'open-line-below)
+  (define-key evil-normal-state-map (kbd "C-k") 'open-line-above)
+
+  (define-key evil-normal-state-map (kbd "<down>") 'move-text-down)
+  (define-key evil-visual-state-map (kbd "<down>") 'move-text-down)
+  (define-key evil-visual-state-map (kbd "<up>") 'move-text-up)
+  (define-key evil-normal-state-map (kbd "<up>") 'move-text-up)
+
+  (evil-define-key 'normal elisp-slime-nav-mode-map
+    (kbd "M-.") 'elisp-slime-nav-find-elisp-thing-at-point
+    (kbd "M-,") 'pop-tag-mark)
+
   (define-key minibuffer-local-map (kbd "C-<tab>") 'hippie-expand)
+
+  (define-key magit-status-mode-map (kbd "W") 'magit-toggle-whitespace)
 
   (define-key winner-mode-map (kbd "C-x 7") 'winner-undo)
   (define-key winner-mode-map (kbd "C-x 9") 'winner-redo)
+
   (global-set-key (kbd "C-x C-f") 'helm-find-files)
   (global-set-key (kbd "C-x b") 'helm-buffers-list)
   (global-set-key (kbd "<end>") 'sr-speedbar-toggle)

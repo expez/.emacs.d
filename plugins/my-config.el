@@ -735,7 +735,8 @@ ediff."
 (add-hook 'emacs-lisp-mode-hook
           (lambda ()
             (flycheck-mode 0)
-            (evil-paredit-mode 1)))
+            (evil-paredit-mode 1)
+            (elisp-slime-nav-mode 1)))
 
 (setq sr-speedbar-right-side nil)
 
