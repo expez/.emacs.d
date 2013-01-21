@@ -899,14 +899,14 @@ A `spec' can be a `read-kbd-macro'-readable string or a vector."
    "u" 'winner-undo)
 
   (evil-define-key 'normal paredit-mode-map
-    (kbd ",.") 'paredit-forward-slurp-sexp
-    (kbd ",,") 'paredit-backward-slurp-sexp
-    (kbd ",<") 'paredit-backward-barf-sexp
-    (kbd ",>") 'paredit-forward-barf-sexp
-    (kbd ",s") 'paredit-split-sexp
-    (kbd ",j") 'paredit-join-sexps
-    (kbd ",p") 'paredit-splice-sexp
-    (kbd ",k") 'paredit-kill
+    (kbd "M-l") 'paredit-forward-slurp-sexp
+    (kbd "M-h") 'paredit-backward-slurp-sexp
+    (kbd "M-H") 'paredit-backward-barf-sexp
+    (kbd "M-L") 'paredit-forward-barf-sexp
+    (kbd "M-s") 'paredit-splice-sexp
+    (kbd "M-S") 'paredit-split-sexp
+    (kbd "M-j") 'paredit-join-sexps
+    (kbd "M-k") 'paredit-kill
     (kbd "(") 'paredit-backward
     (kbd ")") 'paredit-forward)
 
