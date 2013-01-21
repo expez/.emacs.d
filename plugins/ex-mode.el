@@ -918,6 +918,8 @@ A `spec' can be a `read-kbd-macro'-readable string or a vector."
   (define-key evil-visual-state-map (kbd "<up>") 'move-text-up)
   (define-key evil-normal-state-map (kbd "<up>") 'move-text-up)
 
+  (define-key evil-normal-state-map (kbd "C-u") 'evil-scroll-up)
+
   (evil-define-key 'normal elisp-slime-nav-mode-map
     (kbd "M-.") 'elisp-slime-nav-find-elisp-thing-at-point
     (kbd "M-,") 'pop-tag-mark)
