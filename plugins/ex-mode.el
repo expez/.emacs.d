@@ -860,7 +860,7 @@ A `spec' can be a `read-kbd-macro'-readable string or a vector."
    "B" 'ibuffer
    "w" 'save-buffer
    "W" 'save-some-buffers
-   "k" 'kill-current-buffer
+   "k" 'kill-buffer
    "K" 'kill-buffer-and-window
    "d" 'dired-jump
    "c" 'compile
@@ -877,7 +877,7 @@ A `spec' can be a `read-kbd-macro'-readable string or a vector."
     (kbd ",>") 'paredit-forward-barf-sexp
     (kbd ",s") 'paredit-split-sexp
     (kbd ",j") 'paredit-join-sexps
-    (kbd ",k") 'paredit-splice-sexp
+    (kbd ",p") 'paredit-splice-sexp
     (kbd "(") 'paredit-backward
     (kbd ")") 'paredit-forward)
 

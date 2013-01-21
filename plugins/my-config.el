@@ -724,7 +724,8 @@ ediff."
       helm-input-idle-delay 0
       helm-quick-update t
       helm-candidate-number-limit 100
-      helm-su-or-sudo "sudo")
+      helm-su-or-sudo "sudo"
+      helm-default-directory "~/")
 
 (setq recentf-exclude '("\\.recentf"
                         "\\.ido\\.last"
@@ -735,3 +736,8 @@ ediff."
             (evil-paredit-mode 1)))
 
 (setq sr-speedbar-right-side nil)
+
+(diminish 'yas-minor-mode)
+(diminish 'paredit-mode)
+(diminish 'helm-mode)
+(diminish 'undo-tree-mode)

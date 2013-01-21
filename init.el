@@ -12,7 +12,7 @@
 
 (defvar my-packages
   '(ace-jump-mode ac-slime auto-complete auctex bookmark+ c-eldoc
-                  dired+ dropdown-list elisp-slime-nav evil evil-leader evil-nerd-commenter
+                  diminish dired+ dropdown-list elisp-slime-nav evil evil-leader evil-nerd-commenter
                   evil-numbers evil-paredit expand-region
                   emacs-eclim flycheck ghc ghci-completion gist git-commit gitconfig-mode
                   gitignore-mode git-blame google-c-style haskell-mode helm
@@ -50,6 +50,7 @@
 (require 'auto-complete-config)
 (require 'color-moccur)
 (require 'color-theme)
+(require 'diminish)
 (require 'parenface)
 (require 'ex-mode)
 (require 'evil-paredit)
