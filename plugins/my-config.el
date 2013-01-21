@@ -127,11 +127,13 @@
 
 ;; Store auto-save files to system's temp directory.
 (setq backup-directory-alist
-     `((".*" . ,temporary-file-directory)))
-(setq auto-save-file-name-transforms
-     `((".*" ,temporary-file-directory t)))
+      `(("." . ,(expand-file-name
+                 (concat user-emacs-directory "backups")))))
+
+;; Make backups of files, even when they're in version control
 
 (setq
+ vc-make-backup-files t
  backup-by-copying t
  delete-old-versions t
  kept-new-versions 6
