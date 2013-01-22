@@ -1,5 +1,33 @@
 ;;Minor mode map consist of all my bindings and functions
 
+(defun add-auto-mode (mode &rest patterns)
+  (dolist (pattern patterns)
+    (add-to-list 'auto-mode-alist (cons pattern mode))))
+
+(defmacro add-lambda (hook &rest body)
+  (declare (indent 1))
+  `(add-hook ,hook (lambda () ,@body)))
+
+(defvar webjump-api-sites nil)
+
+(make-variable-buffer-local 'webjump-api-sites)
+
+(defun webjump-api ()
+  (interactive)
+  (require 'webjump)
+  (let* ((completion-ignore-case t)
+         (default (caar webjump-api-sites))
+         (url (cdr (assoc-string
+                    (completing-read "Search API: " webjump-api-sites nil t
+                                     nil nil default)
+                    webjump-api-sites t)))
+         (name (completing-read "Name: " nil nil nil (thing-at-point 'symbol))))
+    (browse-url (if (webjump-null-or-blank-string-p name)
+                    url
+                  (concat url (webjump-url-encode name))))))
+
+(defvar normal-local-function-key-map nil)
+
 ;; Update the buffer list for uniquify when needed
 (defadvice iswitchb-kill-buffer (after rescan-after-kill activate)
   "*Regenerate the list of matching buffer names after a kill.
@@ -917,12 +945,6 @@ A `spec' can be a `read-kbd-macro'-readable string or a vector."
   (define-key evil-visual-state-map (kbd "<down>") 'move-text-down)
   (define-key evil-visual-state-map (kbd "<up>") 'move-text-up)
   (define-key evil-normal-state-map (kbd "<up>") 'move-text-up)
-
-  (define-key evil-normal-state-map (kbd "C-u") 'evil-scroll-up)
-
-  (evil-define-key 'normal elisp-slime-nav-mode-map
-    (kbd "M-.") 'elisp-slime-nav-find-elisp-thing-at-point
-    (kbd "M-,") 'pop-tag-mark)
 
   (define-key minibuffer-local-map (kbd "C-<tab>") 'hippie-expand)
 

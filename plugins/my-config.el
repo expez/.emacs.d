@@ -594,7 +594,8 @@ ediff."
 (setq evil-visual-state-cursor '("green" box))
 (setq evil-find-skip-newlines t)
 (setq evil-move-cursor-back nil
-      evil-cross-lines t)
+      evil-cross-lines t
+      evil-want-C-u-scroll t)
 (setq evil-leader/in-all-states t)
 (evil-leader/set-leader ",")
 
@@ -714,8 +715,11 @@ ediff."
 
 (setq auto-mode-alist (cons '("\.cl$" . c-mode) auto-mode-alist))
 
-(setq auto-mode-alist (cons '("\.gitignore$" . gitignore-mode) auto-mode-alist))
-(setq auto-mode-alist (cons '("\.gitconfig$" . gitconfig-mode) auto-mode-alist))
+(add-auto-mode 'gitignore-mode "\\.gitignore$")
+(add-auto-mode 'gitconfig-mode "\\.gitconfig$")
+(add-auto-mode 'ruby-mode "\\.rake\\'" "\\.ru\\'" "\\.prawn\\'"
+               "Gemfile\\'" "Capfile\\'" "Guardfile\\'")
+(add-auto-mode 'markdown-mode "\\.md\\'")
 
 (set-register ?c '(file . "~/.emacs.d/plugins/my-config.el"))
 (set-register ?e '(file . "~/.emacs.d/plugins/ex-mode.el"))
@@ -736,7 +740,10 @@ ediff."
           (lambda ()
             (flycheck-mode 0)
             (evil-paredit-mode 1)
-            (elisp-slime-nav-mode 1)))
+            (elisp-slime-nav-mode 1)
+            (define-key evil-normal-state-local-map
+              (kbd "M-,") 'pop-tag-mark
+              (kbd "M-.") 'elisp-slime-nav-find-elisp-thing-at-point)))
 
 (setq sr-speedbar-right-side nil)
 
@@ -744,3 +751,11 @@ ediff."
 (diminish 'paredit-mode)
 (diminish 'helm-mode)
 (diminish 'undo-tree-mode)
+
+(add-hook 'ruby-mode-hook
+          (lambda ()
+            (ruby-electric-mode 1)
+            (robe-mode 1)
+            (rspec-mode 1)
+            (setq webjump-api-sites '(("Rails" . "http://apidock.com/rails/")
+                                      ("Ruby" . "http://apidock.com/ruby/")))))

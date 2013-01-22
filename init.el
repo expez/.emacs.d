@@ -14,13 +14,14 @@
   '(ace-jump-mode ac-slime auto-complete auctex bookmark+ c-eldoc
                   diminish dired+ dropdown-list elisp-slime-nav evil evil-leader evil-nerd-commenter
                   evil-numbers evil-paredit expand-region
-                  emacs-eclim flycheck ghc ghci-completion gist git-commit gitconfig-mode
-                  gitignore-mode git-blame google-c-style haskell-mode helm
-                  key-chord lorem-ipsum magit magithub markdown-mode
-                  mediawiki move-text paredit parenface
+                  emacs-eclim flycheck ghc ghci-completion gist git-commit
+                  gitconfig-mode gitignore-mode git-blame google-c-style
+                  haskell-mode helm inf-ruby key-chord lorem-ipsum magit
+                  magithub markdown-mode mediawiki move-text paredit parenface
                   rainbow-delimiters rainbow-mode regex-dsl
-                  register-list sr-speedbar surround unbound undo-tree
-                  whole-line-or-region workgroups yasnippet)
+                  register-list rspec-mode ruby-electric sr-speedbar
+                  surround unbound undo-tree whole-line-or-region workgroups
+                  yasnippet)
   "A list of packages to ensure are installed at launch.")
 
 (dolist (p my-packages)
@@ -69,6 +70,7 @@
 (require 'cuda-mode)
 (require 'git)
 (require 'git-blame)
+(require 'google-c-style)
 (require 'mediawiki)
 (require 'lorem-ipsum)
 (require 'go-autocomplete)
@@ -79,6 +81,7 @@
 (require 'evil-numbers)
 (require 'evil-nerd-commenter)
 (require 'evil-leader)
+(require 'rspec-mode)
 
 (load-library "my-config") ;; One-off variable settings.
 (load-library "customize") ;;The stuff from customize lives in here.
