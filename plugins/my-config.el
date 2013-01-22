@@ -741,9 +741,8 @@ ediff."
             (flycheck-mode 0)
             (evil-paredit-mode 1)
             (elisp-slime-nav-mode 1)
-            (define-key evil-normal-state-local-map
-              (kbd "M-,") 'pop-tag-mark
-              (kbd "M-.") 'elisp-slime-nav-find-elisp-thing-at-point)))
+            (define-key evil-normal-state-local-map (kbd "M-,") 'pop-tag-mark)
+            (define-key evil-normal-state-local-map (kbd "M-.") 'elisp-slime-nav-find-elisp-thing-at-point)))
 
 (setq sr-speedbar-right-side nil)
 
@@ -757,5 +756,6 @@ ediff."
             (ruby-electric-mode 1)
             (robe-mode 1)
             (rspec-mode 1)
+            (push 'ac-source-robe ac-sources)
             (setq webjump-api-sites '(("Rails" . "http://apidock.com/rails/")
                                       ("Ruby" . "http://apidock.com/ruby/")))))
