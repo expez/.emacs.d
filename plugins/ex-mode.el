@@ -978,6 +978,8 @@ A `spec' can be a `read-kbd-macro'-readable string or a vector."
   (define-key winner-mode-map (kbd "C-x 7") 'winner-undo)
   (define-key winner-mode-map (kbd "C-x 9") 'winner-redo)
 
+  (define-key lisp-mode-map (kbd "C-c l") 'lispdoc)
+
   (global-set-key (kbd "C-x C-f") 'helm-find-files)
   (global-set-key (kbd "C-x b") 'helm-buffers-list)
   (global-set-key (kbd "<end>") 'sr-speedbar-toggle)
