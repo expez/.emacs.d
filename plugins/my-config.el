@@ -741,8 +741,8 @@ ediff."
             (flycheck-mode 0)
             (evil-paredit-mode 1)
             (elisp-slime-nav-mode 1)
-            (define-key evil-normal-state-local-map (kbd "M-,") 'pop-tag-mark)
             (define-key evil-normal-state-local-map (kbd "M-.") 'elisp-slime-nav-find-elisp-thing-at-point)))
+            (define-key evil-normal-state-local-map (kbd "M-,") 'pop-tag-mark)
 
 (setq sr-speedbar-right-side nil)
 
@@ -751,11 +751,31 @@ ediff."
 (diminish 'helm-mode)
 (diminish 'undo-tree-mode)
 
+(defadvice ruby-indent-line (after unindent-closing-paren activate)
+  (let ((column (current-column))
+        indent offset)
+    (save-excursion
+      (back-to-indentation)
+      (let ((state (syntax-ppss)))
+        (setq offset (- column (current-column)))
+        (when (and (eq (char-after) ?\))
+                   (not (zerop (car state))))
+          (goto-char (cadr state))
+          (setq indent (current-indentation)))))
+    (when indent
+      (indent-line-to indent)
+      (when (> offset 0) (forward-char offset)))))
+
 (add-hook 'ruby-mode-hook
           (lambda ()
             (ruby-electric-mode 1)
             (robe-mode 1)
+            (define-key evil-normal-state-local-map (kbd "M-,") 'pop-tag-mark)
+            (define-key evil-normal-state-local-map (kbd "M-.") 'robe-jump)
             (rspec-mode 1)
+            (setq completion-at-point-functions '(auto-complete))
             (push 'ac-source-robe ac-sources)
             (setq webjump-api-sites '(("Rails" . "http://apidock.com/rails/")
                                       ("Ruby" . "http://apidock.com/ruby/")))))
+
+(autoload 'run-ruby "inf-ruby" "Run an inferior Ruby process")

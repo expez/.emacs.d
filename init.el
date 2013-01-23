@@ -19,9 +19,9 @@
                   haskell-mode helm inf-ruby key-chord lorem-ipsum magit
                   magithub markdown-mode mediawiki move-text paredit parenface
                   rainbow-delimiters rainbow-mode regex-dsl
-                  register-list rspec-mode robe ruby-electric sr-speedbar
-                  surround unbound undo-tree whole-line-or-region workgroups
-                  yasnippet)
+                  register-list rinari rspec-mode robe ruby-compilation
+                  ruby-electric rvm sr-speedbar surround unbound undo-tree
+                  whole-line-or-region workgroups yaml-mode yasnippet)
   "A list of packages to ensure are installed at launch.")
 
 (dolist (p my-packages)
@@ -83,6 +83,8 @@
 (require 'evil-leader)
 (require 'rspec-mode)
 (require 'robe)
-
+(require 'rinari)
+(require 'inf-ruby)
+(require 'ruby-compilation)
 (load-library "my-config") ;; One-off variable settings.
 (load-library "customize") ;;The stuff from customize lives in here.
