@@ -916,7 +916,7 @@ A `spec' can be a `read-kbd-macro'-readable string or a vector."
 
   (fill-keymap evil-insert-state-map
                "C-h" 'backward-delete-char
-               "C-[" 'evil-normal-state)
+               "C-[" 'evil-force-normal-state)
 
   (fill-keymaps (list evil-operator-state-map
                       evil-visual-state-map)
