@@ -599,19 +599,6 @@ ediff."
 (setq evil-leader/in-all-states t)
 (evil-leader/set-leader ",")
 
-;; make ace jump look like a single command to evil
-(defadvice ace-jump-word-mode (after evil activate)
-  (recursive-edit))
-
-(defadvice ace-jump-char-mode (after evil activate)
-  (recursive-edit))
-
-(defadvice ace-jump-line-mode (after evil activate)
-  (recursive-edit))
-
-(defadvice ace-jump-done (after evil activate)
-  (exit-recursive-edit))
-
 (key-chord-mode 1)
  ;;(setq recentf-auto-cleanup 'never) ;; disable before we start recentf! If using Tramp a lot.
 (recentf-mode t)
@@ -780,3 +767,25 @@ ediff."
                                       ("Ruby" . "http://apidock.com/ruby/")))))
 
 (autoload 'run-ruby "inf-ruby" "Run an inferior Ruby process")
+
+(defadvice evil-goto-definition (around evil-clever-goto-def activate)
+  "Make use of emacs', slime's and etags possibilities for finding definitions."
+  (case major-mode
+    (lisp-mode (if slime-mode
+                   (or (slime-find-definitions (symbol-name (symbol-at-point)))
+                       ad-do-it)
+                 ad-do-it))
+    (emacs-lisp-mode (condition-case nil
+                         (find-function (symbol-at-point))
+                       (error (condition-case nil
+                                  (find-variable (symbol-at-point))
+                                (error ad-do-it)))))
+    (otherwise
+     (let ((tag (symbol-name (symbol-at-point))))
+       (if (and (boundp 'gtags-mode) gtags-mode)
+           (gtags-goto-tag tag nil)
+         (if (and tags-file-name (find-tag-noselect tag))
+             (find-tag tag)
+           ad-do-it))))))
+
+(setq ace-jump-scope 'window)

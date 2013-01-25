@@ -886,7 +886,6 @@ A `spec' can be a `read-kbd-macro'-readable string or a vector."
   "Enable 'ex-mode'"
   (ex-mode 1))
 
-
 (define-minor-mode ex-mode
   "Turns on all my key-bindings and activate all functions."
   :global t
@@ -983,9 +982,10 @@ A `spec' can be a `read-kbd-macro'-readable string or a vector."
   (global-set-key (kbd "C-x C-f") 'helm-find-files)
   (global-set-key (kbd "C-x b") 'helm-buffers-list)
   (global-set-key (kbd "<end>") 'sr-speedbar-toggle)
-
+  (define-key ac-completing-map
+    (kbd "C-[") (lambda () (interactive "")
+                  (ac-stop)
+                  (evil-force-normal-state)))
   (define-key cua--region-keymap (kbd "C-d") 'cua-delete-char-rectangle)
   (key-chord-define-global "qr" 'query-replace-regexp)
   (key-chord-define-global "qm" 'moccur))
-
-(provide 'ex-mode)

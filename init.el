@@ -68,7 +68,6 @@
 (require 'ac-emacs-eclim-source)
 (require 'java-mode-indent-annotations)
 (require 'cuda-mode)
-(require 'git)
 (require 'git-blame)
 (require 'google-c-style)
 (require 'mediawiki)

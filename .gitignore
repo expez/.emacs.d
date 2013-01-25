@@ -3,11 +3,12 @@ tramp
 url/
 var/
 auto-save-list/
-plugins/.#*
+plugins/.\#*
 *.el~
-.#init.el
 clang-complete
 auto-complete-clang-async.el
 ac-comphist.dat
 .session
 backups/
+.\#.*
+[#]*[#]
