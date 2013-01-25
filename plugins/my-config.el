@@ -769,6 +769,7 @@ ediff."
 (add-hook 'ruby-mode-hook
           (lambda ()
             (ruby-electric-mode 1)
+            (electric-pair-mode 0)
             (robe-mode 1)
             (define-key evil-normal-state-local-map (kbd "M-,") 'pop-tag-mark)
             (define-key evil-normal-state-local-map (kbd "M-.") 'robe-jump)
