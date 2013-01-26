@@ -193,9 +193,7 @@ If the current buffer is not associated with a file, its a error."
       )
 
     (copy-file cfile bfilename t)
-    (message (concat "Backup saved as: " (file-name-nondirectory bfilename)))
-    )
-  )
+    (message (concat "Backup saved as: " (file-name-nondirectory bfilename)))))
 
 (defun open-current-file-as-admin ()
   "Open the current buffer as unix root.
@@ -763,12 +761,6 @@ Shift+<special key> is used (arrows keys, home, end, pgdn, pgup, etc.)."
         (if (functionp override-keys-fn)
             (funcall override-keys-fn)))))
 
-(defun cofi/ace-jump-char-direct-mode ()
-  "Do a ace char-jump directly to the char."
-  (interactive)
-  (ace-jump-char-mode)
-  (forward-char 1))
-
 (defun fill-keymap (keymap &rest mappings)
   "Fill `KEYMAP' with `MAPPINGS'.
 See `pour-mappings-to'."
@@ -905,13 +897,13 @@ A `spec' can be a `read-kbd-macro'-readable string or a vector."
   ;;Evil mode
   (evil-ex-define-cmd "n[ew]" 'evil-window-new)
   (fill-keymap evil-normal-state-map
-               "+" 'evil-numbers/inc-at-pt
-               "-" 'evil-numbers/dec-at-pt
-               "SPC" 'ace-jump-char-mode
-               "S-SPC" 'ace-jump-word-mode
-               "C-SPC" 'ace-jump-line-mode
-               "go" 'goto-char
-               "C-t" 'transpose-chars)
+               "Y"     (kbd "y$")
+               "<kp-add>" 'evil-numbers/inc-at-pt
+               "<kp-subtract>" 'evil-numbers/dec-at-pt
+                "SPC" 'evil-ace-jump-char-mode
+                "C-SPC" 'evil-ace-jump-word-mode
+                "S-SPC" 'evil-ace-jump-line-mode
+                "go" 'goto-char)
 
   (fill-keymap evil-insert-state-map
                "C-h" 'backward-delete-char
@@ -920,10 +912,10 @@ A `spec' can be a `read-kbd-macro'-readable string or a vector."
   (fill-keymaps (list evil-operator-state-map
                       evil-visual-state-map)
                 ;; works like `t'
-                "SPC" 'ace-jump-char-mode
+                "SPC" 'evil-ace-jump-char-mode
                 ;; works like `f'
-                "C-SPC" 'cofi/ace-jump-char-direct-mode
-                "S-SPC" 'ace-jump-word-mode)
+                "C-SPC" 'evil-ace-jump-char-direct-mode
+                "S-SPC" 'evil-ace-jump-line-mode)
 
   (evil-add-hjkl-bindings magit-branch-manager-mode-map 'emacs
     "K" 'magit-discard-item
@@ -970,6 +962,8 @@ A `spec' can be a `read-kbd-macro'-readable string or a vector."
   (define-key evil-visual-state-map (kbd "<up>") 'move-text-up)
   (define-key evil-normal-state-map (kbd "<up>") 'move-text-up)
 
+  (define-key evil-normal-state-map (kbd "C-u") 'evil-scroll-up)
+
   (define-key minibuffer-local-map (kbd "C-<tab>") 'hippie-expand)
 
   (define-key magit-status-mode-map (kbd "W") 'magit-toggle-whitespace)
@@ -989,3 +983,5 @@ A `spec' can be a `read-kbd-macro'-readable string or a vector."
   (define-key cua--region-keymap (kbd "C-d") 'cua-delete-char-rectangle)
   (key-chord-define-global "qr" 'query-replace-regexp)
   (key-chord-define-global "qm" 'moccur))
+
+(provide 'ex-mode)

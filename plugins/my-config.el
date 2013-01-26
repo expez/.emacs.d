@@ -282,9 +282,6 @@ ediff."
 
 (add-hook 'LaTeX-mode-hook 'my-LaTeX-mode-hook)
 
-(add-hook 'ace-jump-mode-before-jump-hook
-          (lambda () (push-mark (point) t))) ;until it's fixed in Maramalade
-
 ;;Haskell mode
 (defun haskell-style ()
   "Sets the current buffer to use Haskell Style. Meant to be
@@ -789,3 +786,26 @@ ediff."
            ad-do-it))))))
 
 (setq ace-jump-scope 'window)
+
+(evil-define-motion evil-ace-jump-char-mode (count)
+  :type exclusive
+  (ace-jump-mode 5)
+  (recursive-edit))
+
+(evil-define-motion evil-ace-jump-line-mode (count)
+  :type line
+  (ace-jump-mode 9)
+  (recursive-edit))
+
+(evil-define-motion evil-ace-jump-word-mode (count)
+  :type exclusive
+  (ace-jump-mode 1)
+  (recursive-edit))
+
+(evil-define-motion evil-ace-jump-char-direct-mode (count)
+  :type inclusive
+  (ace-jump-mode 5)
+  (forward-char 1)
+  (recursive-edit))
+
+(add-hook 'ace-jump-mode-end-hook 'exit-recursive-edit)
