@@ -957,6 +957,9 @@ A `spec' can be a `read-kbd-macro'-readable string or a vector."
   (define-key evil-normal-state-map (kbd "C-j") 'open-line-below)
   (define-key evil-normal-state-map (kbd "C-k") 'open-line-above)
 
+  (define-key evil-normal-state-map (kbd "M-n") 'next-error)
+  (define-key evil-normal-state-map (kbd "M-p") 'previous-errror)
+
   (define-key evil-normal-state-map (kbd "<down>") 'move-text-down)
   (define-key evil-visual-state-map (kbd "<down>") 'move-text-down)
   (define-key evil-visual-state-map (kbd "<up>") 'move-text-up)
