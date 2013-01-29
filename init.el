@@ -12,7 +12,8 @@
 
 (defvar my-packages
   '(ace-jump-mode ac-slime auto-complete auctex bookmark+ c-eldoc
-                  diminish dired+ dropdown-list elisp-slime-nav evil evil-leader evil-nerd-commenter
+                  diminish dired+ dropdown-list elisp-slime-nav evil
+                  eproject evil-leader evil-nerd-commenter
                   evil-numbers evil-paredit expand-region
                   emacs-eclim flycheck ghc ghci-completion gist git-commit
                   gitconfig-mode gitignore-mode git-blame google-c-style
@@ -85,5 +86,7 @@
 (require 'rinari)
 (require 'inf-ruby)
 (require 'ruby-compilation)
+(require 'eproject)
+(require 'eproject-extras)
 (load-library "my-config") ;; One-off variable settings.
 (load-library "customize") ;;The stuff from customize lives in here.

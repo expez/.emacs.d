@@ -750,6 +750,29 @@ ediff."
       (indent-line-to indent)
       (when (> offset 0) (forward-char offset)))))
 
+(defadvice ruby-indent-line (after deep-indent-dwim activate)
+  (let (c paren-column indent-column)
+    (save-excursion
+      (back-to-indentation)
+      (save-excursion
+        (let ((state (syntax-ppss)))
+          (unless (zerop (car state))
+            (goto-char (cadr state))
+            (setq c (char-after))
+            (setq paren-column (current-column))
+            (when (memq c '(?{ ?\())
+              (forward-char)
+              (skip-syntax-forward " ")
+              (unless (or (eolp) (eq (char-after) ?|))
+                (setq indent-column (current-column)))))))
+      (when (and indent-column
+                 (eq (char-after) (matching-paren c)))
+        (setq indent-column paren-column)))
+    (when indent-column
+      (let ((offset (- (current-column) (current-indentation))))
+        (indent-line-to indent-column)
+        (when (> offset 0) (forward-char offset))))))
+
 (add-hook 'ruby-mode-hook
           (lambda ()
             (ruby-electric-mode 1)
@@ -758,12 +781,18 @@ ediff."
             (define-key evil-normal-state-local-map (kbd "M-,") 'pop-tag-mark)
             (define-key evil-normal-state-local-map (kbd "M-.") 'robe-jump)
             (rspec-mode 1)
+            (rinari-minor-mode 1)
+            (inf-ruby-setup-keybindings)
             (setq completion-at-point-functions '(auto-complete))
             (push 'ac-source-robe ac-sources)
             (setq webjump-api-sites '(("Rails" . "http://apidock.com/rails/")
                                       ("Ruby" . "http://apidock.com/ruby/")))))
 
-(autoload 'run-ruby "inf-ruby" "Run an inferior Ruby process")
+(autoload 'run-ruby "inf-ruby" "Run an inferior Ruby process" t)
+(autoload 'inf-ruby-setup-keybindings "inf-ruby" "" t)
+
+(add-to-list 'completion-ignored-extensions ".rbc")
+(add-to-list 'completion-ignored-extensions ".rbo")
 
 (defadvice evil-goto-definition (around evil-clever-goto-def activate)
   "Make use of emacs', slime's and etags possibilities for finding definitions."
