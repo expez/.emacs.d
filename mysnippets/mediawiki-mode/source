@@ -1,0 +1,7 @@
+# -*- mode: mediawiki -*-
+# name: source
+# key: src
+# --
+<source lang=$1>
+$0
+</source>

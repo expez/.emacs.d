@@ -946,7 +946,8 @@ exec-to-string command, but it works and seems fast"
 
   (fill-keymap evil-insert-state-map
                "C-h" 'backward-delete-char
-               "C-[" 'evil-force-normal-state)
+               "C-[" 'evil-force-normal-state
+               "\\\t" 'yas-expand)
 
   (fill-keymaps (list evil-operator-state-map
                       evil-visual-state-map)
