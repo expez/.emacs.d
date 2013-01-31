@@ -479,7 +479,7 @@ This is to update existing buffers after a Git pull of their underlying files."
          1
          '(:box (:color "grey10" :line-width 2) :background "red" :bold t :foreground "yellow")
          prepend)))
-     (rainbow-mode 1)
+     (rainbow-mode 0)
      (rainbow-delimiters-mode 1)
      (setq show-trailing-whitespace t)
      (flyspell-prog-mode)
