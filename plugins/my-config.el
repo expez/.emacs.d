@@ -788,6 +788,9 @@ ediff."
             (setq webjump-api-sites '(("Rails" . "http://apidock.com/rails/")
                                       ("Ruby" . "http://apidock.com/ruby/")))))
 
+(setq rspec-use-rvm 't
+      rspec-use-bundler-when-possible 't)
+
 (autoload 'run-ruby "inf-ruby" "Run an inferior Ruby process" t)
 (autoload 'inf-ruby-setup-keybindings "inf-ruby" "" t)
 
