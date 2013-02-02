@@ -701,9 +701,6 @@ ediff."
 
 (add-auto-mode 'gitignore-mode "\\.gitignore$")
 (add-auto-mode 'gitconfig-mode "\\.gitconfig$")
-(add-auto-mode 'ruby-mode "\\.rake\\'" "\\.ru\\'" "\\.prawn\\'"
-               "Gemfile\\'" "Capfile\\'" "Guardfile\\'")
-(add-auto-mode 'markdown-mode "\\.md\\'")
 
 (set-register ?c '(file . "~/.emacs.d/plugins/my-config.el"))
 (set-register ?e '(file . "~/.emacs.d/plugins/ex-mode.el"))
@@ -781,7 +778,9 @@ ediff."
             (define-key evil-normal-state-local-map (kbd "M-,") 'pop-tag-mark)
             (define-key evil-normal-state-local-map (kbd "M-.") 'robe-jump)
             (rspec-mode 1)
+            (local-set-key [f1] 'yari)
             (rinari-minor-mode 1)
+            (rvm-activate-corresponding-ruby)
             (inf-ruby-setup-keybindings)
             (setq completion-at-point-functions '(auto-complete))
             (push 'ac-source-robe ac-sources)
@@ -790,6 +789,13 @@ ediff."
 
 (setq rspec-use-rvm 't
       rspec-use-bundler-when-possible 't)
+
+(add-auto-mode 'ruby-mode "\\.rake\\'" "\\.ru\\'" "\\.prawn\\'"
+               "Gemfile\\'" "Capfile\\'" "Guardfile\\'")
+(add-auto-mode 'markdown-mode "\\.md\\'")
+(add-auto-mode 'ruby-mode "\\.gemspec$" )
+(add-auto-mode 'ruby-mode "Gemfile$" )
+
 
 (autoload 'run-ruby "inf-ruby" "Run an inferior Ruby process" t)
 (autoload 'inf-ruby-setup-keybindings "inf-ruby" "" t)

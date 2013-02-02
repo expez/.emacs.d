@@ -883,6 +883,32 @@ exec-to-string command, but it works and seems fast"
       (find-file (concat "/sudo:root@localhost:" (ido-read-file-name "File: ")))
     (find-alternate-file (concat "/sudo:root@localhost:" buffer-file-name))))
 
+(defun ruby-open-spec-other-buffer ()
+  (interactive)
+  (when (featurep 'rspec-mode)
+    (let ((source-buffer (current-buffer))
+          (other-buffer (progn
+                          (rspec-toggle-spec-and-target)
+                          (current-buffer))))
+      (switch-to-buffer source-buffer)
+      (pop-to-buffer other-buffer))))
+
+(defun ruby-interpolate ()
+  "In a double quoted string, interpolate."
+  (interactive)
+  (insert "#")
+  (when (and
+         (looking-back "\".*")
+         (looking-at ".*\""))
+    (insert "{}")
+    (backward-char 1)))
+
+
+(defun indent-buffer ()
+  "Indent each nonblank line in the buffer. See `indent-region"
+  (interactive)
+  (indent-region (point-min) (point-max)))
+
 (defvar ex-mode-keymap
   (let ((map (make-sparse-keymap)))
     (define-key map (kbd "C-x m") 'ido-hacks-execute-extended-command)
@@ -1015,6 +1041,9 @@ exec-to-string command, but it works and seems fast"
   (define-key winner-mode-map (kbd "C-x 9") 'winner-redo)
 
   (define-key lisp-mode-map (kbd "C-c l") 'lispdoc)
+
+  (define-key ruby-mode-map (kbd "#") 'ruby-interpolate)
+  (define-key ruby-mode-map (kbd "C-c , ,") 'ruby-open-spec-other-buffer)
 
   (global-set-key (kbd "C-x C-f") 'helm-find-files)
   (global-set-key (kbd "C-x b") 'helm-buffers-list)
