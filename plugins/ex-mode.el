@@ -914,6 +914,7 @@ exec-to-string command, but it works and seems fast"
     (define-key map (kbd "C-x m") 'ido-hacks-execute-extended-command)
     (define-key map (kbd "C-x C-m") 'ido-hacks-execute-extended-command)
     (define-key map (kbd "C-x c") 'compile)
+    (define-key map (kbd "C-x C-c") 'compile)
     (define-key map (kbd "C-x s") 'shell)
     (define-key map (kbd "C-x C-b") 'ibuffer)
     (define-key map (kbd "C-x r v") 'register-list)
@@ -924,6 +925,10 @@ exec-to-string command, but it works and seems fast"
     (define-key map (kbd "M-S-<f8>") 'flyspell-buffer)
     (define-key map (kbd "C-<f8>") 'flyspell-check-previous-highlighted-word)
     (define-key map (kbd "M-<f8>") 'flyspell-check-next-highlighted-word)
+
+
+    (global-set-key (kbd "C-x C-f") 'lusty-file-explorer)
+    (global-set-key (kbd "C-x b") 'lusty-buffer-explorer)
 
     (define-key map (kbd "C-x r q") 'save-buffers-kill-terminal)
     (define-key map (kbd "C-x v t") 'vc-create-tag)
@@ -1045,14 +1050,12 @@ exec-to-string command, but it works and seems fast"
   (define-key ruby-mode-map (kbd "#") 'ruby-interpolate)
   (define-key ruby-mode-map (kbd "C-c , ,") 'ruby-open-spec-other-buffer)
 
-  (global-set-key (kbd "C-x C-f") 'helm-find-files)
-  (global-set-key (kbd "C-x b") 'helm-buffers-list)
   (global-set-key (kbd "<end>") 'sr-speedbar-toggle)
   (define-key ac-completing-map
     (kbd "C-[") (lambda () (interactive "")
                   (ac-stop)
                   (evil-force-normal-state)))
-  (define-key cua--region-keymap (kbd "C-d") 'cua-delete-char-rectangle)
+
   (key-chord-define-global "qr" 'query-replace-regexp)
   (key-chord-define-global "qm" 'moccur))
 

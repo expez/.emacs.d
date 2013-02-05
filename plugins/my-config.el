@@ -18,6 +18,9 @@
  uniquify-after-kill-buffer-p t
  uniquify-ignore-buffers-re "^\\*")
 
+(ido-mode 1)
+(ido-ubiquitous-mode 1)
+
 ;; re-builder
 (setq reb-re-syntax 'string)
 
@@ -686,14 +689,6 @@ ediff."
 (set-register ?e '(file . "~/.emacs.d/plugins/ex-mode.el"))
 (set-register ?i '(file . "~/.emacs.d/init.el"))
 
-(helm-mode 1)
-(setq helm-idle-delay 0.3
-      helm-input-idle-delay 0
-      helm-quick-update t
-      helm-candidate-number-limit 100
-      helm-su-or-sudo "sudo"
-      helm-default-directory "~/")
-
 (setq recentf-exclude '("\\.recentf"
                         "\\.ido\\.last"
                         "\\.keychain/.*?-sh\\(-gpg\\)?"))
@@ -709,7 +704,6 @@ ediff."
 
 (diminish 'yas-minor-mode)
 (diminish 'paredit-mode)
-(diminish 'helm-mode)
 (diminish 'undo-tree-mode)
 
 (defadvice ruby-indent-line (after unindent-closing-paren activate)
