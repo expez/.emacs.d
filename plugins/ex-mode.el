@@ -926,10 +926,6 @@ exec-to-string command, but it works and seems fast"
     (define-key map (kbd "C-<f8>") 'flyspell-check-previous-highlighted-word)
     (define-key map (kbd "M-<f8>") 'flyspell-check-next-highlighted-word)
 
-
-    (global-set-key (kbd "C-x C-f") 'lusty-file-explorer)
-    (global-set-key (kbd "C-x b") 'lusty-buffer-explorer)
-
     (define-key map (kbd "C-x r q") 'save-buffers-kill-terminal)
     (define-key map (kbd "C-x v t") 'vc-create-tag)
     (define-key map (kbd "C-x v s") 'magit-status)
@@ -977,8 +973,7 @@ exec-to-string command, but it works and seems fast"
 
   (fill-keymap evil-insert-state-map
                "C-h" 'backward-delete-char
-               "C-[" 'evil-force-normal-state
-               "\\\t" 'yas-expand)
+               "C-[" 'evil-force-normal-state)
 
   (fill-keymaps (list evil-operator-state-map
                       evil-visual-state-map)
@@ -1030,6 +1025,8 @@ exec-to-string command, but it works and seems fast"
 
   (define-key evil-normal-state-map (kbd "M-n") 'next-error)
   (define-key evil-normal-state-map (kbd "M-p") 'previous-errror)
+  (define-key evil-normal-state-map (kbd "<left>") 'evil-prev-buffer)
+  (define-key evil-normal-state-map (kbd "<right>") 'evil-next-buffer)
 
   (define-key evil-normal-state-map (kbd "<down>") 'move-text-down)
   (define-key evil-visual-state-map (kbd "<down>") 'move-text-down)
@@ -1051,11 +1048,16 @@ exec-to-string command, but it works and seems fast"
   (define-key ruby-mode-map (kbd "C-c , ,") 'ruby-open-spec-other-buffer)
 
   (global-set-key (kbd "<end>") 'sr-speedbar-toggle)
+
   (define-key ac-completing-map
     (kbd "C-[") (lambda () (interactive "")
                   (ac-stop)
                   (evil-force-normal-state)))
-
+  (fill-keymap ac-complete-mode-map
+               "C-l" 'ac-expand-common
+               "C-j" 'ac-next
+               "C-k" 'ac-previous
+               "ESC" 'ac-stop)
   (key-chord-define-global "qr" 'query-replace-regexp)
   (key-chord-define-global "qm" 'moccur))
 

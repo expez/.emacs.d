@@ -20,6 +20,7 @@
 
 (ido-mode 1)
 (ido-ubiquitous-mode 1)
+(ido-hacks-mode)
 
 ;; re-builder
 (setq reb-re-syntax 'string)
@@ -43,8 +44,8 @@
             (message "Compilation errors, press C-c n to visit")
 
           ;;no errors, make the compilation window go away in 2 second
-          (run-at-time 1 nil 'delete-windows-on buf)
-          ;;(run-at-time 1 nil 'kill-buffer buf)
+          ;;(run-at-time 1 nil 'delete-windows-on buf)
+          (run-at-time 1 nil 'kill-buffer buf)
 
           (message "Compilation succesful!"))))
 
@@ -339,7 +340,7 @@ ediff."
   (add-hook 'c-mode-hook 'ac-c-mode-setup)
   (add-hook 'LaTeX-mode-hook #'ac-l-setup)
   (add-hook 'auto-complete-mode-hook 'ac-common-setup)
-  (global-auto-complete-mode t)
+  (global-auto-complete-mode)
   (setq ac-auto-start 2)
   (setq ac-quick-help-delay 0.5)
   (setq ac-auto-show-menu 0.2)

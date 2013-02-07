@@ -87,6 +87,5 @@
 (require 'ruby-compilation)
 (require 'eproject)
 (require 'eproject-extras)
-(require 'lusty-explorer)
 (load-library "my-config") ;; One-off variable settings.
 (load-library "customize") ;;The stuff from customize lives in here.
