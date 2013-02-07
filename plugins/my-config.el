@@ -752,6 +752,7 @@ ediff."
             (define-key evil-normal-state-local-map (kbd "M-,") 'pop-tag-mark)
             (define-key evil-normal-state-local-map (kbd "M-.") 'robe-jump)
             (rspec-mode 1)
+            (auto-complete-mode 1)
             (local-set-key [f1] 'yari)
             (rinari-minor-mode 1)
             (rvm-activate-corresponding-ruby)
@@ -770,6 +771,19 @@ ediff."
 (add-auto-mode 'ruby-mode "\\.gemspec$" )
 (add-auto-mode 'ruby-mode "Gemfile$" )
 
+(define-project-type ruby (generic)
+  (or (look-for "Rakefile")
+      (look-for "Gemfile")
+      (look-for "\.rmvrc")
+      (look-for "\.ruby-version")
+      (look-for "\.rbenv-version")
+      (look-for ".*\\.gemspec"))
+  :irrelevant-files (".*~"))
+
+(defadvice rspec-compile (around rspec-compile-around activate)
+  "Use BASH shell for running the specs because of ZSH issues."
+  (let ((shell-file-name "/bin/bash"))
+    ad-do-it))
 
 (autoload 'run-ruby "inf-ruby" "Run an inferior Ruby process" t)
 (autoload 'inf-ruby-setup-keybindings "inf-ruby" "" t)
@@ -821,9 +835,3 @@ ediff."
   (recursive-edit))
 
 (add-hook 'ace-jump-mode-end-hook 'exit-recursive-edit)
-
-(defadvice rspec-compile (around rspec-compile-around)
-  "Use BASH shell for running the specs because of ZSH issues."
-  (let ((shell-file-name "/bin/bash"))
-    ad-do-it))
-(ad-activate 'rspec-compile)
