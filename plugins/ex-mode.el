@@ -931,9 +931,9 @@ exec-to-string command, but it works and seems fast"
     (define-key map (kbd "C-x v s") 'magit-status)
 
     (define-key map (kbd "C-x a r") 'align-regexp)
-    (define-key map (kbd "C-x i") 'helm-imenu)
+    (define-key map (kbd "C-x i") 'ido-goto-symbol)
 
-    (define-key map (kbd "C-x C-r")'helm-recentf)
+    (define-key map (kbd "C-x C-r") 'ido-recentf-open)
     (define-key map (kbd "M-<backspace>") 'delete-indentation)
 
     map)
