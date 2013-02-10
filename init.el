@@ -59,7 +59,6 @@
 (require 'hpaste)
 (require 'ido-hacks)
 (require 'magit)
-;;(require 'relative-linum)
 (require 'workgroups)
 (require 'yasnippet)
 (require 'uniquify)
@@ -80,12 +79,11 @@
 (require 'evil-numbers)
 (require 'evil-nerd-commenter)
 (require 'evil-leader)
-(require 'rspec-mode)
-(require 'robe)
-(require 'rinari)
-(require 'inf-ruby)
-(require 'ruby-compilation)
 (require 'eproject)
 (require 'eproject-extras)
 (load-library "my-config") ;; One-off variable settings.
 (load-library "customize") ;;The stuff from customize lives in here.
+
+(defvar config-files '(init-ruby-mode))
+
+(mapc #'require 'config-files)

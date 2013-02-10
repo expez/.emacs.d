@@ -844,32 +844,6 @@ A `spec' can be a `read-kbd-macro'-readable string or a vector."
     (beginning-of-line)
     (newline)))
 
-(defun pcomplete/rake ()
-  "Completion rules for the `ssh' command."
-  (pcomplete-here (pcmpl-rake-tasks)))
-
-(defun pcmpl-rake-tasks ()
-  "Return a list of all the rake tasks defined in the current
-projects. I know this is a hack to put all the logic in the
-exec-to-string command, but it works and seems fast"
-  (delq nil (mapcar '(lambda(line)
-                       (if (string-match "rake \\([^ ]+\\)" line) (match-string 1 line)))
-                    (split-string (shell-command-to-string "rake -T") "[\n]"))))
-
-(defun rake (task)
-  (interactive (list (completing-read "Rake (default: default): "
-                                      (pcmpl-rake-tasks))))
-  (shell-command-to-string (concat "rake " (if (= 0 (length task)) "default" task))))
-
-(eval-after-load 'ruby-compilation
-  '(progn
-     (defadvice ruby-do-run-w/compilation (before kill-buffer (name cmdlist))
-       (let ((comp-buffer-name (format "*%s*" name)))
-         (when (get-buffer comp-buffer-name)
-           (with-current-buffer comp-buffer-name
-             (delete-region (point-min) (point-max))))))
-     (ad-activate 'ruby-do-run-w/compilation)))
-
 (defun pretty-lambdas ()
   (font-lock-add-keywords
    nil `(("(?\\(lambda\\>\\)"
@@ -882,27 +856,6 @@ exec-to-string command, but it works and seems fast"
   (if (or arg (not buffer-file-name))
       (find-file (concat "/sudo:root@localhost:" (ido-read-file-name "File: ")))
     (find-alternate-file (concat "/sudo:root@localhost:" buffer-file-name))))
-
-(defun ruby-open-spec-other-buffer ()
-  (interactive)
-  (when (featurep 'rspec-mode)
-    (let ((source-buffer (current-buffer))
-          (other-buffer (progn
-                          (rspec-toggle-spec-and-target)
-                          (current-buffer))))
-      (switch-to-buffer source-buffer)
-      (pop-to-buffer other-buffer))))
-
-(defun ruby-interpolate ()
-  "In a double quoted string, interpolate."
-  (interactive)
-  (insert "#")
-  (when (and
-         (looking-back "\".*")
-         (looking-at ".*\""))
-    (insert "{}")
-    (backward-char 1)))
-
 
 (defun indent-buffer ()
   "Indent each nonblank line in the buffer. See `indent-region"
@@ -1043,9 +996,6 @@ exec-to-string command, but it works and seems fast"
   (define-key winner-mode-map (kbd "C-x 9") 'winner-redo)
 
   (define-key lisp-mode-map (kbd "C-c l") 'lispdoc)
-
-  (define-key ruby-mode-map (kbd "#") 'ruby-interpolate)
-  (define-key ruby-mode-map (kbd "C-c , ,") 'ruby-open-spec-other-buffer)
 
   (global-set-key (kbd "<end>") 'sr-speedbar-toggle)
 

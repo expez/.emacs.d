@@ -357,7 +357,6 @@ ediff."
   (setq ac-auto-show-menu 0.2)
   (setq ac-fuzzy-enable t)
   (add-hook 'emacs-lisp-mode-hook 'ac-emacs-lisp-mode-setup)
-  (add-hook 'ruby-mode-hook 'ac-ruby-mode-setup)
   (add-hook 'css-mode-hook 'ac-css-mode-setup)
   (ac-flyspell-workaround))
 
@@ -717,91 +716,6 @@ ediff."
 (diminish 'yas-minor-mode)
 (diminish 'paredit-mode)
 (diminish 'undo-tree-mode)
-
-(defadvice ruby-indent-line (after unindent-closing-paren activate)
-  (let ((column (current-column))
-        indent offset)
-    (save-excursion
-      (back-to-indentation)
-      (let ((state (syntax-ppss)))
-        (setq offset (- column (current-column)))
-        (when (and (eq (char-after) ?\))
-                   (not (zerop (car state))))
-          (goto-char (cadr state))
-          (setq indent (current-indentation)))))
-    (when indent
-      (indent-line-to indent)
-      (when (> offset 0) (forward-char offset)))))
-
-(defadvice ruby-indent-line (after deep-indent-dwim activate)
-  (let (c paren-column indent-column)
-    (save-excursion
-      (back-to-indentation)
-      (save-excursion
-        (let ((state (syntax-ppss)))
-          (unless (zerop (car state))
-            (goto-char (cadr state))
-            (setq c (char-after))
-            (setq paren-column (current-column))
-            (when (memq c '(?{ ?\())
-              (forward-char)
-              (skip-syntax-forward " ")
-              (unless (or (eolp) (eq (char-after) ?|))
-                (setq indent-column (current-column)))))))
-      (when (and indent-column
-                 (eq (char-after) (matching-paren c)))
-        (setq indent-column paren-column)))
-    (when indent-column
-      (let ((offset (- (current-column) (current-indentation))))
-        (indent-line-to indent-column)
-        (when (> offset 0) (forward-char offset))))))
-
-(add-hook 'ruby-mode-hook
-          (lambda ()
-            (ruby-electric-mode 1)
-            (electric-pair-mode 0)
-            (robe-mode 1)
-            (define-key evil-normal-state-local-map (kbd "M-,") 'pop-tag-mark)
-            (define-key evil-normal-state-local-map (kbd "M-.") 'robe-jump)
-            (rspec-mode 1)
-            (auto-complete-mode 1)
-            (local-set-key [f1] 'yari)
-            (rinari-minor-mode 1)
-            (rvm-activate-corresponding-ruby)
-            (inf-ruby-setup-keybindings)
-            (setq completion-at-point-functions '(auto-complete))
-            (push 'ac-source-robe ac-sources)
-            (setq webjump-api-sites '(("Rails" . "http://apidock.com/rails/")
-                                      ("Ruby" . "http://apidock.com/ruby/")))))
-
-(setq rspec-use-rvm 't
-      rspec-use-bundler-when-possible 't)
-
-(add-auto-mode 'ruby-mode "\\.rake\\'" "\\.ru\\'" "\\.prawn\\'"
-               "Gemfile\\'" "Capfile\\'" "Guardfile\\'")
-(add-auto-mode 'markdown-mode "\\.md\\'")
-(add-auto-mode 'ruby-mode "\\.gemspec$" )
-(add-auto-mode 'ruby-mode "Gemfile$" )
-
-(define-project-type ruby (generic)
-  (or (look-for "Rakefile")
-      (look-for "Gemfile")
-      (look-for "\.rmvrc")
-      (look-for "\.ruby-version")
-      (look-for "\.rbenv-version")
-      (look-for ".*\\.gemspec"))
-  :irrelevant-files (".*~"))
-
-(defadvice rspec-compile (around rspec-compile-around activate)
-  "Use BASH shell for running the specs because of ZSH issues."
-  (let ((shell-file-name "/bin/bash"))
-    ad-do-it))
-
-(autoload 'run-ruby "inf-ruby" "Run an inferior Ruby process" t)
-(autoload 'inf-ruby-setup-keybindings "inf-ruby" "" t)
-
-(add-to-list 'completion-ignored-extensions ".rbc")
-(add-to-list 'completion-ignored-extensions ".rbo")
 
 (defadvice evil-goto-definition (around evil-clever-goto-def activate)
   "Make use of emacs', slime's and etags possibilities for finding definitions."
