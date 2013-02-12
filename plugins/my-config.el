@@ -22,17 +22,6 @@
 (ido-ubiquitous-mode 1)
 (ido-hacks-mode)
 
-(add-hook 'ido-setup-hook
- (lambda ()
-   ;; Go straight home
-   (define-key ido-file-completion-map
-     (kbd "~")
-     (lambda ()
-       (interactive)
-       (if (looking-back "/")
-           (insert "~/")
-         (call-interactively 'self-insert-command)))))
-
 ;; re-builder
 (setq reb-re-syntax 'string)
 
@@ -137,7 +126,6 @@
                  (concat user-emacs-directory "backups")))))
 
 ;; Make backups of files, even when they're in version control
-
 (setq
  vc-make-backup-files t
  backup-by-copying t
@@ -761,3 +749,14 @@ ediff."
   (recursive-edit))
 
 (add-hook 'ace-jump-mode-end-hook 'exit-recursive-edit)
+
+(add-hook 'ido-setup-hook
+ (lambda ()
+   ;; Go straight home
+   (define-key ido-file-completion-map
+     (kbd "~")
+     (lambda ()
+       (interactive)
+       (if (looking-back "/")
+           (insert "~/")
+         (call-interactively 'self-insert-command))))))

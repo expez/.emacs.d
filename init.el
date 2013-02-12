@@ -38,6 +38,7 @@
                 (normal-top-level-add-subdirs-to-load-path)))
              load-path)))
 
+(push "~/.emacs.d/" load-path)
 (setq custom-file "~/.emacs.d/plugins/customize.el")
 (load custom-file)
 
@@ -82,8 +83,7 @@
 (require 'eproject)
 (require 'eproject-extras)
 (load-library "my-config") ;; One-off variable settings.
-(load-library "customize") ;;The stuff from customize lives in here.
 
 (defvar config-files '(init-ruby-mode))
 
-(mapc #'require 'config-files)
+(mapc #'require config-files)
