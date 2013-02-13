@@ -18,7 +18,9 @@
  uniquify-after-kill-buffer-p t
  uniquify-ignore-buffers-re "^\\*")
 
-(ido-mode 1)
+(ido-mode 'both)
+(setq ido-enable-flex-matching t)
+(setq ido-create-new-buffer 'always)
 (ido-ubiquitous-mode 1)
 (ido-hacks-mode)
 
@@ -578,7 +580,8 @@ ediff."
 (setq evil-find-skip-newlines t)
 (setq evil-move-cursor-back nil
       evil-cross-lines t
-      evil-want-C-u-scroll t)
+      evil-want-C-u-scroll t
+      evil-ex-hl-update-delay 0.01)
 (setq evil-leader/in-all-states t)
 (evil-leader/set-leader ",")
 
