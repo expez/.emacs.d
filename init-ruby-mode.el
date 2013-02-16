@@ -6,6 +6,7 @@
 
 (add-hook 'ruby-mode-hook
           (lambda ()
+            (rvm-activate-corresponding-ruby)
             (ruby-electric-mode 1)
             (electric-pair-mode 0)
             (robe-mode 1)
@@ -15,8 +16,8 @@
             (auto-complete-mode 1)
             (ac-ruby-mode-setup)
             (local-set-key [f1] 'yari)
+            (setf inf-ruby-default-implementation "rubinius")
             (rinari-minor-mode 1)
-            (rvm-activate-corresponding-ruby)
             (inf-ruby-setup-keybindings)
             (setq completion-at-point-functions '(auto-complete))
             (push 'ac-source-robe ac-sources)
