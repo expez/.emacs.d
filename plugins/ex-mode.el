@@ -175,7 +175,7 @@ If no file is associated, just close buffer without prompt for save."
     (when (yes-or-no-p (concat "Delete file?: " currentFile))
       (kill-buffer (current-buffer))
       (when (not (equal currentFile nil))
-        (delete-file currentFile) ) ) ) )
+        (delete-file currentFile)))))
 
 (defun make-backup ()
   "Make a backup copy of current buffer's file.
@@ -189,8 +189,7 @@ If the current buffer is not associated with a file, its a error."
     (setq bfilename (concat cfile "~"))
 
     (while (file-exists-p bfilename)
-      (setq bfilename (concat bfilename "~"))
-      )
+      (setq bfilename (concat bfilename "~")))
 
     (copy-file cfile bfilename t)
     (message (concat "Backup saved as: " (file-name-nondirectory bfilename)))))
@@ -235,21 +234,16 @@ If the file is emacs lisp, run the byte compiled version if appropriate."
     (when (buffer-modified-p)
       (progn
         (when (y-or-n-p "Buffer modified. Do you want to save first?")
-          (save-buffer) ) ) )
+          (save-buffer))))
 
     (if (string-equal fSuffix "el") ; special case for emacs lisp
         (progn
-          (load (file-name-sans-extension fName))
-          )
+          (load (file-name-sans-extension fName)))
       (if progName
           (progn
             (message "Running…")
-            (shell-command cmdStr "*run-current-file output*" )
-            )
-        (message "No recognized program file suffix for this file.")
-        )
-      )
-    ))
+            (shell-command cmdStr "*run-current-file output*" ))
+        (message "No recognized program file suffix for this file.")))))
 
 (defun run-current-java-file ()
   "Execute the current file's class with Java.
@@ -260,8 +254,7 @@ then it'll call “java x” in a shell."
     (setq fnm (file-name-sans-extension (file-name-nondirectory (buffer-file-name))))
     (setq prog-name "java")
     (setq cmd-str (concat prog-name " " fnm " &"))
-    (shell-command cmd-str))
-  )
+    (shell-command cmd-str)))
 
 (defun change-file-newline (fpath eol-system)
   "Change file's line ending to unix convention.
@@ -274,9 +267,7 @@ For Mac OS X, use “'unix”."
     (setq mybuffer (find-file fpath))
     (set-buffer-file-coding-system eol-system)
     (save-buffer)
-    (kill-buffer mybuffer)
-    )
-  )
+    (kill-buffer mybuffer)))
 
 (defun dired-2unix-eol-marked-files ()
   "Change marked file's newline convention to unix,
@@ -284,8 +275,7 @@ or file under cursor if no file is marked."
   (interactive)
   (mapc
    (lambda (ff) (change-file-newline ff 'unix))
-   (dired-get-marked-files))
-  )
+   (dired-get-marked-files)))
 
 (defun dired-utf-8-unix-marked-files ()
   "Change marked file's newline convention to unix,
@@ -293,8 +283,7 @@ or file under cursor if no file is marked."
   (interactive)
   (mapc
    (lambda (ff) (change-file-newline ff 'utf-8-unix))
-   (dired-get-marked-files))
-  )
+   (dired-get-marked-files)))
 
 (defun insert-date ()
   "Insert a time-stamp according to locale's date and time format."
@@ -361,7 +350,7 @@ Toggles between: “all lower”, “Init Caps”, “ALL CAPS”."
   (flyspell-goto-next-error)
   (ispell-word))
 
-(defun fd-switckh-dictionary()
+(defun fd-switch-dictionary()
   (interactive)
   (let* ((dic ispell-current-dictionary)
     	 (change (if (string= dic "norwegian") "english" "norwegian")))
@@ -919,9 +908,11 @@ A `spec' can be a `read-kbd-macro'-readable string or a vector."
                "Y"     (kbd "y$")
                "<kp-add>" 'evil-numbers/inc-at-pt
                "<kp-subtract>" 'evil-numbers/dec-at-pt
-                "SPC" 'evil-ace-jump-char-mode
-                "C-SPC" 'evil-ace-jump-word-mode
+                "C-SPC" 'evil-ace-jump-char-mode
+                "SPC" 'evil-ace-jump-word-mode
                 "S-SPC" 'evil-ace-jump-line-mode
+                "C-e" 'move-end-of-line
+                "C-a" 'smart-line-beginning
                 "go" 'goto-char)
 
   (fill-keymap evil-insert-state-map
@@ -931,10 +922,14 @@ A `spec' can be a `read-kbd-macro'-readable string or a vector."
   (fill-keymaps (list evil-operator-state-map
                       evil-visual-state-map)
                 ;; works like `t'
-                "SPC" 'evil-ace-jump-char-mode
+                "SPC" 'evil-ace-jump-char-direct-mode
                 ;; works like `f'
-                "C-SPC" 'evil-ace-jump-char-direct-mode
+                "C-SPC" 'evil-ace-jump-char-mode
                 "S-SPC" 'evil-ace-jump-line-mode)
+
+  (fill-keymap evil-motion-state-map
+                "C-e" 'move-end-of-line
+                "C-a" 'smart-line-beginning)
 
   (evil-add-hjkl-bindings magit-branch-manager-mode-map 'emacs
     "K" 'magit-discard-item
@@ -946,9 +941,6 @@ A `spec' can be a `read-kbd-macro'-readable string or a vector."
     "h" 'magit-toggle-diff-refine-hunk)
 
   (evil-leader/set-key
-   "e" 'helm-find-files
-   "b" 'helm-buffers-list
-   "B" 'ibuffer
    "w" 'save-buffer
    "W" 'save-some-buffers
    "k" 'kill-buffer
