@@ -728,7 +728,7 @@ ediff."
              (find-tag tag)
            ad-do-it))))))
 
-(setq ace-jump-scope 'window)
+(setq ace-jump-mode-scope 'window)
 
 (evil-define-motion evil-ace-jump-char-mode (count)
   :type exclusive
