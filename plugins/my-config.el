@@ -2,21 +2,17 @@
           '(lambda (f)
              (with-selected-frame f
                (when (window-system f) (color-theme-solarized-dark)))))
-                                        ;(load-theme 'solarized-dark t)
 
-(setq ;; scrolling
- scroll-margin 0                        ;; do smooth scrolling, ...
- scroll-conservatively 100000           ;; ... the defaults ...
- scroll-up-aggressively 0               ;; ... are very ...
- scroll-down-aggressively 0             ;; ... annoying
- scroll-preserve-screen-position t)     ;; preserve screen pos with C-v/M-v
+(setq scroll-margin 0
+      scroll-conservatively 100000
+      scroll-up-aggressively 0
+      scroll-down-aggressively 0
+      scroll-preserve-screen-position t)
 
-;;Settings for uniquify
-(setq
- uniquify-buffer-name-style 'post-forward
- uniquify-separator ":"
- uniquify-after-kill-buffer-p t
- uniquify-ignore-buffers-re "^\\*")
+(setq uniquify-buffer-name-style 'post-forward
+      uniquify-separator ":"
+      uniquify-after-kill-buffer-p t
+      uniquify-ignore-buffers-re "^\\*")
 
 (ido-mode 'both)
 (setq ido-enable-flex-matching t)
@@ -35,8 +31,8 @@
 (define-key query-replace-map [?\C-m] 'act)
 
 (setq compilation-ask-about-save nil)
-;;compile window smaller:
-(setq compilation-window-height 30) ;;Not entirely sure I like this.
+(setq compilation-window-height 30)
+
 ;;Close compilation window if compile was succesful.
 (setq compilation-finish-function
       (lambda (buf str)
@@ -51,46 +47,36 @@
 
           (message "Compilation succesful!"))))
 
-;;Trailing whitespace is unnecessary.
 (add-hook 'before-save-hook (lambda () (delete-trailing-whitespace)))
 
-(setq require-final-newline 'visit-save);;Add newline at the end of files.
+;;Add newline at the end of files.
+(setq require-final-newline 'visit-save)
 
-;;Enable trash-can
 (setq delete-by-moving-to-trash t)
 
-;; Windmove, real hackers don't use arrows to navigate with, but might use them
-;; to move between buffers!
-(windmove-default-keybindings 'shift) ;; use shift-arrows to move between buffers.
+(windmove-default-keybindings 'shift)
 
-(show-paren-mode 1) ;; highlight parenthesis.
+(show-paren-mode 1)
 (setq show-paren-delay 0)
 (setq show-paren-style 'parenthesis) ;; highlight parenthesis, 'expression would only highlight entire exp within paren.
 
-;; Set parenface
 (set-face-foreground 'paren-face "grey30")
 
-;; Initial message for scratch buffer.
 (setq initial-scratch-message
       ";; scratch buffer created -- happy hacking\n")
 
-(global-font-lock-mode 1) ;;Syntax highlighting.
+(global-font-lock-mode 1)
 
-(put 'set-goal-column 'disabled nil) ;; Enable set-goal-column
+(put 'set-goal-column 'disabled nil)
 
-;; No startup message.
 (setq inhibit-startup-message t)
 (setq inhibit-startup-echo-area-message t)
 
-;; Remove menu bar, tool bar and scroll bar.
 (menu-bar-mode -1)
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
 
-;;see what you are typing
 (setq echo-keystrokes 0.1)
-
-;;Set the font I like, Inconsolata. If on windows set Consolas.
 
 (if (eq system-type 'windows-nt)
     (set-default-font
@@ -110,33 +96,23 @@
 (add-hook 'comint-output-filter-functions
           'comint-strip-ctrl-m)
 
-;;Upcase region is occasionally useful!
 (put 'upcase-region 'disabled nil)
 
-;; Whole line or region mode
-(whole-line-or-region-mode 1)
-
-;;enable another previous disabled function.
 (put 'downcase-region 'disabled nil)
 
-;; Turn on debugging to get stacktrace if something goes wrong.
 (setq debug-on-error t)
 
-;; Store auto-save files to system's temp directory.
 (setq backup-directory-alist
       `(("." . ,(expand-file-name
                  (concat user-emacs-directory "backups")))))
 
-;; Make backups of files, even when they're in version control
-(setq
- vc-make-backup-files t
- backup-by-copying t
- delete-old-versions t
- kept-new-versions 6
- kept-old-versions 2
- version-control t)
+(setq vc-make-backup-files t
+      backup-by-copying t
+      delete-old-versions t
+      kept-new-versions 6
+      kept-old-versions 2
+      version-control t)
 
-;; Paredit mode
 (add-hook 'emacs-lisp-mode-hook       (lambda () (paredit-mode +1)))
 (add-hook 'lisp-interaction-mode-hook (lambda () (paredit-mode +1)))
 (add-hook 'scheme-mode-hook           (lambda () (paredit-mode +1)))
@@ -146,13 +122,11 @@
   (if (and paredit-mode (equal (substring str -1) ")"))
       (progn (backward-delete-char 1) (forward-char))))
 
-;;Turn on the undo tree.
 (global-undo-tree-mode 1)
 
 (setq browse-url-browser-function 'browse-url-generic
       browse-url-generic-program "conkeror")
 
-;;Yasnippet
 (yas-global-mode 1)
 (setq yas-trigger-key nil)
 (yas/reload-all) ;; Needed to disable trigger key
@@ -162,7 +136,6 @@
                              yas/ido-prompt
                              yas/completing-prompt))
 
-;;Enable images
 (auto-image-file-mode 1)
 
 (defadvice save-buffers-kill-emacs (around no-query-kill-emacs activate)
@@ -181,7 +154,6 @@
 ;;Ultra twice as slow as ispell, fast twice as slow as ultra, normal 10x slower than fast.
 ;;(setq ispell-extra-args '("--sug-mode=ultra"))
 
-;;Ediff setup
 (setq ediff-window-setup-function 'ediff-setup-windows-plain) ;;Don't want the control frame.
 (setq diff-switches "-u") ;;Use unified format
 (setq ediff-custom-diff-options "-U3") ;;3 lines of context.
@@ -224,11 +196,9 @@ ediff."
 (add-hook 'ediff-quit-hook 'my-ediff-qh)
 (add-hook 'ediff-cleanup-hook (lambda () (ediff-janitor nil nil)))
 
-;; Workgroups
 (workgroups-mode 1)
 (setq wg-prefix-key  (kbd "C-x w"))
 
-;;Don't open a new buffer for each opened directory in Dired.
 (put 'dired-find-alternate-file 'disabled nil)
 (setq dired-recursive-copies 'always
       dired-listing-switches "-alh")
@@ -241,10 +211,8 @@ ediff."
   (define-key c-mode-base-map "\C-m" 'c-context-line-break))
 (add-hook 'c-initialization-hook 'my-make-CR-do-indent)
 
-;;Org-mode
-(setq org-src-fontify-natively t) ;; syntax hightlighting when inserting code.)
+(setq org-src-fontify-natively t)
 
-;;AucTeX config
 (setq TeX-autosave t
       TeX-save-query nil
       TeX-parse-self t
@@ -272,7 +240,6 @@ ediff."
 
 (add-hook 'LaTeX-mode-hook 'my-LaTeX-mode-hook)
 
-;;Haskell mode
 (defun haskell-style ()
   "Sets the current buffer to use Haskell Style. Meant to be
   added to `haskell-mode-hook'"
@@ -326,7 +293,6 @@ ediff."
 (add-hook 'c-mode-common-hook 'google-set-c-style)
 (add-hook 'c-mode-common-hook 'google-make-newline-indent)
 
-;; Auto-complete
 (add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
 (ac-config-default)
 
@@ -569,7 +535,6 @@ ediff."
 
 (add-to-list 'auto-mode-alist '("\\.cmd\\'" . ntcmd-mode))
 
-;;Evil mode most of this is copied from github/cofi/dotfiles
 (evil-mode 1)
 (setq evil-default-cursor t)
 (setq evil-want-visual-char-semi-exclusive t)
@@ -603,8 +568,6 @@ ediff."
   (kill-buffer)
   (jump-to-register :magit-fullscreen))
 
-(define-key magit-status-mode-map (kbd "q") 'magit-quit-session)
-
 (turn-on-ex-mode)
 
 (add-hook 'git-commit-mode-hook 'turn-on-flyspell)
@@ -612,7 +575,6 @@ ediff."
 
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
-;; Eclim for java development
 (add-hook 'java-mode-hook
           '(lambda ()
              (eclim-mode 1)
@@ -668,7 +630,6 @@ ediff."
             (paredit-mode +1)
             (evil-paredit-mode 1)))
 
-;; The SBCL binary and command-line arguments
 (setq inferior-lisp-program "/usr/bin/sbcl --noinform")
 
 (defun cliki:start-slime ()
@@ -700,7 +661,6 @@ ediff."
             (evil-paredit-mode 1)
             (elisp-slime-nav-mode 1)
             (define-key evil-normal-state-local-map (kbd "M-.") 'elisp-slime-nav-find-elisp-thing-at-point)))
-(define-key evil-normal-state-local-map (kbd "M-,") 'pop-tag-mark)
 
 (setq sr-speedbar-right-side nil)
 
@@ -730,36 +690,49 @@ ediff."
 
 (setq ace-jump-mode-scope 'window)
 
+(defmacro evil-enclose-ace-jump (&rest body)
+  `(let ((old-mark (mark)))
+     (remove-hook 'pre-command-hook #'evil-visual-pre-command t)
+     (remove-hook 'post-command-hook #'evil-visual-post-command t)
+     (unwind-protect
+         (progn
+           ,@body
+           (recursive-edit))
+       (if (evil-visual-state-p)
+           (progn
+             (add-hook 'pre-command-hook #'evil-visual-pre-command nil t)
+             (add-hook 'post-command-hook #'evil-visual-post-command nil t)
+             (set-mark old-mark))
+         (push-mark old-mark)))))
+
 (evil-define-motion evil-ace-jump-char-mode (count)
   :type exclusive
-  (ace-jump-mode 5)
-  (recursive-edit))
+  (evil-enclose-ace-jump
+   (ace-jump-mode 5)))
 
 (evil-define-motion evil-ace-jump-line-mode (count)
   :type line
-  (ace-jump-mode 9)
-  (recursive-edit))
+  (evil-enclose-ace-jump
+   (ace-jump-mode 9)))
 
 (evil-define-motion evil-ace-jump-word-mode (count)
   :type exclusive
-  (ace-jump-mode 1)
-  (recursive-edit))
+  (evil-enclose-ace-jump
+   (ace-jump-mode 1)))
 
-(evil-define-motion evil-ace-jump-char-direct-mode (count)
-  :type inclusive
-  (ace-jump-mode 5)
-  (forward-char 1)
-  (recursive-edit))
-
-(add-hook 'ace-jump-mode-end-hook 'exit-recursive-edit)
+(evil-define-motion evil-ace-jump-char-to-mode (count)
+  :type exclusive
+  (evil-enclose-ace-jump
+   (ace-jump-mode 5)
+   (forward-char -1)))
 
 (add-hook 'ido-setup-hook
- (lambda ()
-   ;; Go straight home
-   (define-key ido-file-completion-map
-     (kbd "~")
-     (lambda ()
-       (interactive)
-       (if (looking-back "/")
-           (insert "~/")
-         (call-interactively 'self-insert-command))))))
+          (lambda ()
+            ;; Go straight home
+            (define-key ido-file-completion-map
+              (kbd "~")
+              (lambda ()
+                (interactive)
+                (if (looking-back "/")
+                    (insert "~/")
+                  (call-interactively 'self-insert-command))))))

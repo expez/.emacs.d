@@ -913,7 +913,8 @@ A `spec' can be a `read-kbd-macro'-readable string or a vector."
                 "S-SPC" 'evil-ace-jump-line-mode
                 "C-e" 'move-end-of-line
                 "C-a" 'smart-line-beginning
-                "go" 'goto-char)
+                "go" 'goto-char
+                "M-," 'pop-tag-mark)
 
   (fill-keymap evil-insert-state-map
                "C-h" 'backward-delete-char
@@ -921,10 +922,10 @@ A `spec' can be a `read-kbd-macro'-readable string or a vector."
 
   (fill-keymaps (list evil-operator-state-map
                       evil-visual-state-map)
-                ;; works like `t'
-                "SPC" 'evil-ace-jump-char-direct-mode
-                ;; works like `f'
-                "C-SPC" 'evil-ace-jump-char-mode
+
+                "SPC" 'evil-ace-jump-char-to-mode ;; works like `t'
+
+                "C-SPC" 'evil-ace-jump-char-mode ;; works like `f'
                 "S-SPC" 'evil-ace-jump-line-mode)
 
   (fill-keymap evil-motion-state-map
@@ -983,6 +984,7 @@ A `spec' can be a `read-kbd-macro'-readable string or a vector."
   (define-key minibuffer-local-map (kbd "C-<tab>") 'hippie-expand)
 
   (define-key magit-status-mode-map (kbd "W") 'magit-toggle-whitespace)
+  (define-key magit-status-mode-map (kbd "q") 'magit-quit-session)
 
   (define-key winner-mode-map (kbd "C-x 7") 'winner-undo)
   (define-key winner-mode-map (kbd "C-x 9") 'winner-redo)
