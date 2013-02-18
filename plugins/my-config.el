@@ -201,9 +201,24 @@ ediff."
 
 (put 'dired-find-alternate-file 'disabled nil)
 (setq dired-recursive-copies 'always
-      dired-listing-switches "-alh")
+      ddired-listing-switches "-aGghlv --group-directories-first --time-style=long-iso")
+
+(defadvice shell-command (after shell-in-new-buffer (command &optional output-buffer error-buffer))
+  (when (get-buffer "*Async Shell Command*")
+    (with-current-buffer "*Async Shell Command*"
+      (rename-uniquely))))
+(ad-activate 'shell-command)
+
+(eval-after-load "dired-aux"
+  '(add-to-list 'dired-compress-file-suffixes
+                '("\\.zip\\'" ".zip" "unzip")))
+
+(setq ibuffer-saved-filter-groups
+      (quote (("default"
+               ("dired" (mode . dired-mode))))))
 
 (toggle-diredp-find-file-reuse-dir 1)
+(setq dired-dwim-target t)
 
 (electric-pair-mode 1)
 
