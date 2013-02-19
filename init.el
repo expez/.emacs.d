@@ -84,6 +84,7 @@
 (require 'eproject-extras)
 (load-library "my-config") ;; One-off variable settings.
 
-(defvar config-files '(init-ruby-mode))
+(defvar config-files '(init-ruby-mode
+                       init-haskell-mode))
 
 (mapc #'require config-files)
