@@ -57,7 +57,6 @@
 (require 'ex-mode)
 (require 'evil-paredit)
 (require 'highlight-tags-mode)
-(require 'hpaste)
 (require 'ido-hacks)
 (require 'magit)
 (require 'workgroups)
@@ -84,7 +83,4 @@
 (require 'eproject-extras)
 (load-library "my-config") ;; One-off variable settings.
 
-(defvar config-files '(init-ruby-mode
-                       init-haskell-mode))
-
-(mapc #'require config-files)
+(mapc #'load (directory-files user-emacs-directory t "init-.\*.el"))

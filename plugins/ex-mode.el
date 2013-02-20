@@ -995,7 +995,7 @@ A `spec' can be a `read-kbd-macro'-readable string or a vector."
 
   (define-key ac-completing-map
     (kbd "C-[") (lambda () (interactive "")
-                  (ac-stop)
+                  (ac-abort)
                   (evil-force-normal-state)))
   (fill-keymap ac-complete-mode-map
                "C-l" 'ac-expand-common
