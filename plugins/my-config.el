@@ -494,6 +494,8 @@ ediff."
    (ace-jump-mode 5)
    (forward-char -1)))
 
+(add-hook 'ace-jump-mode-end-hook 'exit-recursive-edit)
+
 (add-hook 'ido-setup-hook
           (lambda ()
             ;; Go straight home
@@ -504,3 +506,5 @@ ediff."
                 (if (looking-back "/")
                     (insert "~/")
                   (call-interactively 'self-insert-command))))))
+
+(setf eproject-completing-read-function 'eproject--ido-completing-read)
