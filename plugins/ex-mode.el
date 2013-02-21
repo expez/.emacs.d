@@ -924,7 +924,6 @@ A `spec' can be a `read-kbd-macro'-readable string or a vector."
                       evil-visual-state-map)
 
                 "SPC" 'evil-ace-jump-char-to-mode ;; works like `t'
-
                 "C-SPC" 'evil-ace-jump-char-mode ;; works like `f'
                 "S-SPC" 'evil-ace-jump-line-mode)
 

@@ -1,6 +1,4 @@
-;;package.el
 (require 'package)
-;; Set package archives.
 
 (setq package-archives '(("melpa" . "http://melpa.milkbox.net/packages/" )
 			 ("marmalade" . "http://marmalade-repo.org/packages/")

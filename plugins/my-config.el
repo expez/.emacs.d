@@ -508,3 +508,5 @@ ediff."
                   (call-interactively 'self-insert-command))))))
 
 (setf eproject-completing-read-function 'eproject--ido-completing-read)
+
+(add-auto-mode 'markdown-mode "\\.md\\'")
