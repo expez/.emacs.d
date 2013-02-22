@@ -3,9 +3,10 @@
 (require 'rinari)
 (require 'inf-ruby)
 (require 'ruby-compilation)
-
+(require 'rvm)
 (add-hook 'ruby-mode-hook
           (lambda ()
+            (setf inf-ruby-default-implementation "rubinius")
             (rvm-activate-corresponding-ruby)
             (ruby-electric-mode 1)
             (electric-pair-mode 0)
@@ -16,7 +17,6 @@
             (auto-complete-mode 1)
             (ac-ruby-mode-setup)
             (local-set-key [f1] 'yari)
-            (setf inf-ruby-default-implementation "rubinius")
             (rinari-minor-mode 1)
             (inf-ruby-setup-keybindings)
             (setq completion-at-point-functions '(auto-complete))
@@ -27,9 +27,22 @@
 (setq rspec-use-rvm 't
       rspec-use-bundler-when-possible 't)
 
-(add-auto-mode 'ruby-mode "\\.rake\\'" "\\.ru\\'" "\\.prawn\\'"
+(defun add-current-project-to-inf-ruby-load-path ()
+  "This adds the lib folder--which is presumed to be an ancestor
+of the currently active file--to the load path of the inf-ruby
+process. "
+  (interactive)
+  (if (null inf-ruby-buffer)
+    (inf-ruby)
+    (let* ((lib-dir (concat
+                     (car (split-string
+                           (file-name-directory (buffer-file-name)) "lib")) "lib"))
+           (script (format "$:.unshift '%s'\n" lib-dir)))
+      (comint-send-string inf-ruby-buffer script))))
+
+(add-auto-mode 'ruby-mode "Rakefile" "\\.rake\\'" "\\.ru\\'" "\\.prawn\\'"
                "Gemfile\\'" "Capfile\\'" "Guardfile\\'")
-(add-auto-mode 'markdown-mode "\\.md\\'")
+
 (add-auto-mode 'ruby-mode "\\.gemspec$" )
 (add-auto-mode 'ruby-mode "Gemfile$" )
 
