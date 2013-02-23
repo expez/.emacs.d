@@ -102,9 +102,11 @@
 
 (setq debug-on-error t)
 
-(setq backup-directory-alist
-      `(("." . ,(expand-file-name
-                 (concat user-emacs-directory "backups")))))
+(custom-set-variables
+  '(auto-save-file-name-transforms '((".*" "~/.emacs.d/autosaves/\\1" t)))
+  '(backup-directory-alist '((".*" . "~/.emacs.d/backups/"))))
+
+(make-directory "~/.emacs.d/autosaves/" t)
 
 (setq vc-make-backup-files t
       backup-by-copying t
@@ -495,6 +497,13 @@ ediff."
    (forward-char -1)))
 
 (add-hook 'ace-jump-mode-end-hook 'exit-recursive-edit)
+
+(loop for (mode . state) in '((inferior-emacs-lisp-mode . emacs)
+                              (comint-mode . emacs)
+                              (shell-mode . emacs)
+                              (term-mode . emacs)
+                              (occur-mode . emacs))
+      do (evil-set-initial-state mode state))
 
 (add-hook 'ido-setup-hook
           (lambda ()

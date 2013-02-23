@@ -320,7 +320,7 @@ Toggles between: “all lower”, “Init Caps”, “ALL CAPS”."
       (downcase-region p1 p2) (put this-command 'state "all lower")) )
     ) )
 
-(defun how-many-region (begin end regexp &optional interactive)
+(defun how-many-in-region (begin end regexp &optional interactive)
   "Print number of non-trivial matches for REGEXP in region.
  Non-interactive arguments are Begin End Regexp"
   (interactive "r\nsHow many matches for (regexp): \np")
@@ -475,9 +475,7 @@ This is to update existing buffers after a Git pull of their underlying files."
      (setq whitespace-style '(face lines-tail))
      (whitespace-mode 1)
      (flycheck-mode)
-     (glasses-mode 1)
-     (set (make-local-variable 'compile-command)
-            (format "make -f %s" (get-closest-pathname))))))
+     (glasses-mode 1))))
 
 (defun smart-line-beginning ()
   "Move point to the beginning of text on the current line; if that is already
@@ -939,6 +937,9 @@ A `spec' can be a `read-kbd-macro'-readable string or a vector."
     "K" 'magit-discard-item
     "l" 'magit-key-mode-popup-logging
     "h" 'magit-toggle-diff-refine-hunk)
+
+  (evil-add-hjkl-bindings rebase-mode 'emacs
+    "h" 'describe-mode)
 
   (evil-leader/set-key
    "w" 'save-buffer
