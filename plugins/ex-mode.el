@@ -938,6 +938,10 @@ A `spec' can be a `read-kbd-macro'-readable string or a vector."
     "l" 'magit-key-mode-popup-logging
     "h" 'magit-toggle-diff-refine-hunk)
 
+  (fill-keymap magit-log-mode-map
+               "j" 'magit-goto-next-section
+               "k" 'magit-goto-previous-section)
+
   (evil-add-hjkl-bindings rebase-mode 'emacs
     "h" 'describe-mode)
 
@@ -947,10 +951,11 @@ A `spec' can be a `read-kbd-macro'-readable string or a vector."
    "k" 'kill-buffer
    "K" 'kill-buffer-and-window
    "d" 'dired-jump
+   "D" 'diff-buffer-with-file
    "c" 'compile
-
+   "a" 'align-rexep
+   "f" 'eproject-find-file
    "g" 'magit-status
-
    "." 'evil-ex
    "u" 'winner-undo)
 
