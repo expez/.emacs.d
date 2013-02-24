@@ -100,7 +100,7 @@
   '(auto-save-file-name-transforms '((".*" "~/.emacs.d/autosaves/\\1" t)))
   '(backup-directory-alist '((".*" . "~/.emacs.d/backups/"))))
 
-(make-directory "~/.emacs.d/autosaves/" t)
+(make-directory (concat user-emacs-directory "autosaves/") t)
 
 (setq vc-make-backup-files t
       backup-by-copying t
@@ -118,15 +118,6 @@
 
 (setq browse-url-browser-function 'browse-url-generic
       browse-url-generic-program "conkeror")
-
-(yas-global-mode 1)
-(setq yas-trigger-key nil)
-(yas/reload-all) ;; Needed to disable trigger key
-(setq yas/root-directory "~/.emacs.d/mysnippets")
-(yas/load-directory yas/root-directory)
-(setq yas/prompt-functions '(yas/dropdown-prompt
-                             yas/ido-prompt
-                             yas/completing-prompt))
 
 (auto-image-file-mode 1)
 
@@ -259,11 +250,11 @@ ediff."
 (add-hook 'c-mode-common-hook 'google-set-c-style)
 (add-hook 'c-mode-common-hook 'google-make-newline-indent)
 
-(add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
+(add-to-list 'ac-dictionary-directories (concat user-emacs-directory "ac-dict"))
 (ac-config-default)
 
 (defun ac-c-mode-setup ()
-  (setq clang-complete-executable "~/.emacs.d/plugins/clang-complete")
+  (setq clang-complete-executable (concat user-emacs-directory "clang-compete"))
   (setq ac-sources '(ac-source-clang-async))
   (launch-completion-proc))
 
@@ -330,9 +321,6 @@ ediff."
 
 (setq sr-speedbar-right-side nil)
 
-(diminish 'yas-minor-mode)
-(diminish 'paredit-mode)
-(diminish 'undo-tree-mode)
 (setq ace-jump-mode-scope 'window)
 
 (add-hook 'ido-setup-hook

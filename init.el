@@ -19,5 +19,5 @@
 (require 'init-package)
 (mapc #'load (directory-files user-emacs-directory t "init-.\*.el"))
 
-(setq custom-file "~/.emacs.d/customize.el")
+(setq custom-file (concat user-emacs-directory "customize.el"))
 (load custom-file)
