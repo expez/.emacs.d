@@ -35,8 +35,8 @@
       uniquify-ignore-buffers-re "^\\*")
 
 (ido-mode 'both)
-(setq ido-enable-flex-matching t)
-(setq ido-create-new-buffer 'always)
+(setq ido-enable-flex-matching t
+      ido-create-new-buffer 'always)
 (ido-ubiquitous-mode 1)
 (ido-hacks-mode)
 
@@ -45,9 +45,6 @@
 
 ;; Treat 'y' or <CR> as yes, 'n' as no.
 (fset 'yes-or-no-p 'y-or-n-p)
-(define-key query-replace-map [return] 'act)
-(define-key query-replace-map [?\C-m] 'act)
-
 (add-hook 'before-save-hook (lambda () (delete-trailing-whitespace)))
 
 ;;Add newline at the end of files.
@@ -56,16 +53,16 @@
 (setq delete-by-moving-to-trash t)
 
 (show-paren-mode 1)
-(setq show-paren-delay 0)
-(setq show-paren-style 'parenthesis) ;; highlight parenthesis, 'expression would only highlight entire exp within paren.
+(setq show-paren-delay 0
+      show-paren-style 'parenthesis) ;; highlight parenthesis, 'expression would only highlight entire exp within paren.
 
 (setq initial-scratch-message
       ";; scratch buffer created -- happy hacking\n")
 
 (put 'set-goal-column 'disabled nil)
 
-(setq inhibit-startup-message t)
-(setq inhibit-startup-echo-area-message t)
+(setq inhibit-startup-message t
+      inhibit-startup-echo-area-message t)
 
 (menu-bar-mode -1)
 (tool-bar-mode -1)
@@ -79,12 +76,6 @@
 
 (if (eq system-type 'gnu/linux)
     (set-default-font "Inconsolata-12"))
-
-;; Would call Windows command interpreter. Change it.
-
-;; (setq shell-file-name "bash")
-;; (setenv "SHELL" shell-file-name)
-;; (setq explicit-shell-file-name shell-file-name)
 
 ;; Remove C-m (^M) characters that appear in output
 
@@ -135,48 +126,6 @@
 
 ;;Ultra twice as slow as ispell, fast twice as slow as ultra, normal 10x slower than fast.
 ;;(setq ispell-extra-args '("--sug-mode=ultra"))
-
-(setq ediff-window-setup-function 'ediff-setup-windows-plain) ;;Don't want the control frame.
-(setq diff-switches "-u") ;;Use unified format
-(setq ediff-custom-diff-options "-U3") ;;3 lines of context.
-
-;;Save window configuration prior to ediff, so we can jump to it from ediff if needed,
-;;restore the previous window configuration when ediff terminates.
-;;Taken from emacswiki/ediffmode
-(defvar my-ediff-bwin-config nil "Window configuration before ediff.")
-(defcustom my-ediff-bwin-reg ?b
-  "*Register to be set up to hold `my-ediff-bwin-config'
-configuration.")
-
-(defvar my-ediff-awin-config nil "Window configuration after ediff.")
-(defcustom my-ediff-awin-reg ?e
-  "*Register to be used to hold `my-ediff-awin-config' window
-configuration.")
-
-(defun my-ediff-bsh ()
-  "Function to be called before any buffers or window setup for
-ediff."
-  (setq my-ediff-bwin-config (current-window-configuration))
-  (when (characterp my-ediff-bwin-reg)
-    (set-register my-ediff-bwin-reg
-                  (list my-ediff-bwin-config (point-marker)))))
-
-(defun my-ediff-ash ()
-  "Function to be called after buffers and window setup for ediff."
-  (setq my-ediff-awin-config (current-window-configuration))
-  (when (characterp my-ediff-awin-reg)
-    (set-register my-ediff-awin-reg
-                  (list my-ediff-awin-config (point-marker)))))
-
-(defun my-ediff-qh ()
-  "Function to be called when ediff quits."
-  (when my-ediff-bwin-config
-    (set-window-configuration my-ediff-bwin-config)))
-
-(add-hook 'ediff-before-setup-hook 'my-ediff-bsh)
-(add-hook 'ediff-after-setup-windows-hook 'my-ediff-ash 'append)
-(add-hook 'ediff-quit-hook 'my-ediff-qh)
-(add-hook 'ediff-cleanup-hook (lambda () (ediff-janitor nil nil)))
 
 (workgroups-mode 1)
 (setq wg-prefix-key  (kbd "C-x w"))

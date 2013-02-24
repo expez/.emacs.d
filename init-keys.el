@@ -21,6 +21,9 @@
              "C-x C-r" 'ido-recentf-open
              "M-<backspace>" 'delete-indentation)
 
+(define-key query-replace-map [return] 'act)
+(define-key query-replace-map [?\C-m] 'act)
+
 (defalias 'rfb 'rename-file-and-buffer)
 (defalias 'mbf 'move-buffer-file)
 (defalias 'rb 'revert-buffer)
