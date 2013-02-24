@@ -909,6 +909,7 @@ A `spec' can be a `read-kbd-macro'-readable string or a vector."
                 "C-SPC" 'evil-ace-jump-char-mode
                 "SPC" 'evil-ace-jump-word-mode
                 "S-SPC" 'evil-ace-jump-line-mode
+                ":"     'evil-repeat-find-char-reverse
                 "C-e" 'move-end-of-line
                 "C-a" 'smart-line-beginning
                 "go" 'goto-char
@@ -920,7 +921,6 @@ A `spec' can be a `read-kbd-macro'-readable string or a vector."
 
   (fill-keymaps (list evil-operator-state-map
                       evil-visual-state-map)
-
                 "SPC" 'evil-ace-jump-char-to-mode ;; works like `t'
                 "C-SPC" 'evil-ace-jump-char-mode ;; works like `f'
                 "S-SPC" 'evil-ace-jump-line-mode)

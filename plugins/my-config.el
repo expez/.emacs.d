@@ -502,6 +502,9 @@ ediff."
                               (comint-mode . emacs)
                               (shell-mode . emacs)
                               (term-mode . emacs)
+                              (eshell-mode . emacs)
+                              (slime-repl-mode- . emacs)
+                              (magit-branch-manager-mode    . emacs)
                               (occur-mode . emacs))
       do (evil-set-initial-state mode state))
 
