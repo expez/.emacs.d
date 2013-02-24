@@ -159,33 +159,6 @@
 
 (setq org-src-fontify-natively t)
 
-(setq TeX-autosave t
-      TeX-save-query nil
-      TeX-parse-self t
-      TeX-PDF-mode t
-      TeX-newline-function #'reindent-then-newline-and-indent
-      refTeX-plug-into-AUCTeX t)
-(setq-default text-master 'dwim)
-
-(defun my-LaTeX-mode-hook ()
-  (visual-line-mode 1)
-  (flyspell-mode 1)
-  (LaTeX-math-mode 1)
-  (turn-on-reftex)
-  (setq reftex-plug-into-AUCTeX t)
-  (TeX-source-correlate-mode 1)
-  (orgtbl-mode)
-  (setq TeX-source-correlate-start-server t)
-  (setq TeX-view-program-list '(("Evince" "evince --page-index=%(outpage) %o")))
-  (setq TeX-view-program-selection '((output-pdf "Evince")))
-  (local-set-key (kbd "C-x c") 'TeX-command-master)
-  (local-set-key (kbd "C-c s") 'LaTeX-section)
-  (local-set-key (kbd "C-c e") 'LaTeX-environment)
-  (local-set-key (kbd "C-c i") 'LaTeX-insert-item)
-  (local-set-key (kbd "C-c f") 'TeX-font))
-
-(add-hook 'LaTeX-mode-hook 'my-LaTeX-mode-hook)
-
 (setq electric-pair-pairs '(
                             (?\" . ?\")
                             (?\{ . ?\})
