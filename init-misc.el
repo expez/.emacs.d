@@ -1,3 +1,22 @@
+(require 'ac-emacs-eclim-source)
+(require 'command-frequency)
+(require 'color-moccur)
+(require 'cuda-mode)
+(require 'diminish)
+(require 'eclim)
+(require 'eclimd)
+(require 'go-autocomplete)
+(require 'google-c-style)
+(require 'highlight-tags-mode)
+(require 'ido-hacks)
+(require 'info+)
+(require 'java-mode-indent-annotations)
+(require 'lorem-ipsum)
+(require 'mediawiki)
+(require 'sr-speedbar)
+(require 'uniquify)
+(require 'workgroups)
+
 (add-hook 'after-make-frame-functions
           '(lambda (f)
              (with-selected-frame f

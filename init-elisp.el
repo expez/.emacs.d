@@ -1,5 +1,6 @@
 (require 'parenface)
 (require 'pretty-mode-plus)
+(require 'elisp-slime-nav)
 
 (set-face-foreground 'paren-face "grey30")
 

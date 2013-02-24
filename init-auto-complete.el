@@ -1,5 +1,7 @@
 (require 'auto-complete-config)
 (require 'flyspell)
+(require 'auto-complete-latex)
+
 (defun my-ac-config ()
   (add-hook 'c-mode-hook 'ac-c-mode-setup)
   (add-hook 'LaTeX-mode-hook #'ac-l-setup)
@@ -13,10 +15,15 @@
   (ac-flyspell-workaround))
 (my-ac-config)
 
-(define-key ac-completing-map
-  (kbd "C-[") (lambda () (interactive "")
-                (ac-abort)
-                (evil-force-normal-state)))
+(defun ac-exit-to-normal-state
+  "Stops completing and returns to normal state"
+  (interactive "")
+  (ac-abort)
+  (evil-force-normal-state))
+
+(fill-keymap ac-completing-map
+             "C-[" 'ac-exit-to-normal-state)
+
 (fill-keymap ac-complete-mode-map
              "C-l" 'ac-expand-common
              "C-j" 'ac-next

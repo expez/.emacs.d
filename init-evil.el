@@ -34,6 +34,9 @@
              "M-," 'pop-tag-mark)
 
 (fill-keymap evil-insert-state-map
+             "C-y" 'yank
+             "M-y" 'yank-pop
+             "C-e" 'end-of-line
              "C-h" 'backward-delete-char
              "C-[" 'evil-force-normal-state)
 
