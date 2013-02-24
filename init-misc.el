@@ -1,6 +1,7 @@
 (require 'ac-emacs-eclim-source)
 (require 'command-frequency)
 (require 'color-moccur)
+(require 'color-theme)
 (require 'cuda-mode)
 (require 'diminish)
 (require 'eclim)
