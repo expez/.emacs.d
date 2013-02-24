@@ -95,8 +95,6 @@
 
 (put 'downcase-region 'disabled nil)
 
-(setq debug-on-error t)
-
 (custom-set-variables
   '(auto-save-file-name-transforms '((".*" "~/.emacs.d/autosaves/\\1" t)))
   '(backup-directory-alist '((".*" . "~/.emacs.d/backups/"))))
