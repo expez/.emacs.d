@@ -505,7 +505,7 @@ ediff."
 (add-to-list 'auto-mode-alist '( "\\.?cron\\(tab\\)?\\'" . crontab-mode))
 
 (setq deft-extension "org"
-      deft-directory "~/Org/deft/"
+      deft-directory "~/org/deft/"
       deft-text-mode 'org-mode)
 
 (add-hook 'css-mode-hook 'rainbow-turn-on)
@@ -540,3 +540,7 @@ ediff."
      (turn-on-eldoc-mode)
      (rainbow-delimiters-mode 0)
      (set-face-foreground 'paren-face "grey30"))))
+
+(command-frequency-table-load)
+(command-frequency-mode 1)
+(command-frequency-autosave-mode 1)

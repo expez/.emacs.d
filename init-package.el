@@ -30,7 +30,6 @@
     eproject
     evil
     evil-leader
-    evil-nerd-commenter
     evil-numbers
     evil-paredit
     flycheck
@@ -58,6 +57,7 @@
     rainbow-delimiters
     rainbow-mode
     regex-dsl
+    regex-tool
     register-list
     rinari
     robe
