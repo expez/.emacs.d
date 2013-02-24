@@ -278,6 +278,9 @@ ediff."
   (launch-completion-proc))
 
 (add-hook 'c-mode-hook 'c-turn-on-eldoc-mode)
+(setq ctypes-write-types-at-exit t)
+(ctypes-read-file nil nil t t)
+(ctypes-auto-parse-mode 1)
 
 (defun my-ac-config ()
   (add-hook 'c-mode-hook 'ac-c-mode-setup)
@@ -498,15 +501,21 @@ ediff."
 
 (add-hook 'ace-jump-mode-end-hook 'exit-recursive-edit)
 
-(loop for (mode . state) in '((inferior-emacs-lisp-mode . emacs)
-                              (comint-mode . emacs)
-                              (shell-mode . emacs)
-                              (term-mode . emacs)
-                              (eshell-mode . emacs)
-                              (slime-repl-mode- . emacs)
-                              (magit-branch-manager-mode    . emacs)
-                              (occur-mode . emacs))
-      do (evil-set-initial-state mode state))
+(defun set-mode-to-default-emacs (mode)
+  (evil-set-initial-state mode 'emacs))
+
+(mapcar 'set-mode-to-default-emacs
+        '(dired
+          shell-mode
+          inferior-emacs-lisp-mode
+          term-mode
+          eshell-mode
+          slime-repl-mode
+          occur-mode
+          magit-branch-manager-mode
+          magit-commit-mode
+          magit-log-mode
+          log-view-mode))
 
 (add-hook 'ido-setup-hook
           (lambda ()
@@ -522,3 +531,18 @@ ediff."
 (setf eproject-completing-read-function 'eproject--ido-completing-read)
 
 (add-auto-mode 'markdown-mode "\\.md\\'")
+
+(autoload 'crontab-mode "crontab-mode" "Mode for editing crontab files" t)
+(add-to-list 'auto-mode-alist '( "\\.?cron\\(tab\\)?\\'" . crontab-mode))
+
+(setq deft-extension "org"
+      deft-directory "~/Org/deft/"
+      deft-text-mode 'org-mode)
+
+(add-hook 'css-mode-hook 'rainbow-turn-on)
+(add-hook 'html-mode-hook 'rainbow-turn-on)
+(add-hook 'sass-mode-hook 'rainbow-turn-on)
+(add-hook 'scss-mode-hook 'rainbow-turn-on)
+(add-hook 'haml-mode-hook 'rainbow-turn-on)
+
+(setq css-indent-offset 2)

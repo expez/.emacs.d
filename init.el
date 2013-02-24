@@ -9,7 +9,8 @@
 (package-initialize)
 
 (defvar my-packages
-  '(ace-jump-mode ac-slime auto-complete auctex bookmark+ c-eldoc
+  '(ace-jump-mode ac-slime auto-complete auctex backtrace-mode bookmark+ bundler
+                  c-eldoc color-moccur command-frequency crontab-mode ctypes
                   diminish dired+ dropdown-list elisp-slime-nav evil
                   eproject evil-leader evil-nerd-commenter evil-numbers
                   evil-paredit emacs-eclim flycheck ghc ghci-completion
@@ -18,8 +19,8 @@
                   lorem-ipsum magit magithub markdown-mode mediawiki move-text
                   paredit parenface rainbow-delimiters rainbow-mode regex-dsl
                   register-list rinari rspec-mode robe ruby-compilation
-                  ruby-electric rvm sr-speedbar surround unbound undo-tree
-                  workgroups yaml-mode yasnippet)
+                  ruby-electric ruby-interpolation rvm sr-speedbar surround
+                  unbound undo-tree workgroups yaml-mode yard-mode yasnippet)
                   "A list of packages to ensure are installed at launch.")
 
 (dolist (p my-packages)
@@ -43,12 +44,10 @@
 (if (file-exists-p (expand-file-name "~/quicklisp/slime-helper.el"))
     (load (expand-file-name "~/quicklisp/slime-helper.el")))
 
-(if (file-exists-p (expand-file-name "~/programs/emacs-clang-complete-async.el"))
-    (load (expand-file-name "~/programs/emacs-clang-complete-async.el")))
+(if (file-exists-p (expand-file-name "~/src/emacs-clang-complete-async.el"))
+    (load (expand-file-name "~/src/emacs-clang-complete-async.el")))
 
-(require 'auto-complete-clang-async)
 (require 'auto-complete-config)
-(require 'color-moccur)
 (require 'color-theme)
 (require 'diminish)
 (require 'parenface)

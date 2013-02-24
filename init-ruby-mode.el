@@ -14,6 +14,8 @@
             (define-key evil-normal-state-local-map (kbd "M-,") 'pop-tag-mark)
             (define-key evil-normal-state-local-map (kbd "M-.") 'robe-jump)
             (rspec-mode 1)
+            (yard-mode 1)
+            (eldoc-mode 1)
             (auto-complete-mode 1)
             (ac-ruby-mode-setup)
             (local-set-key [f1] 'yari)
@@ -143,17 +145,6 @@ projects."
       (switch-to-buffer source-buffer)
       (pop-to-buffer other-buffer))))
 
-(defun ruby-interpolate ()
-  "In a double quoted string, interpolate."
-  (interactive)
-  (insert "#")
-  (when (and
-         (looking-back "\".*")
-         (looking-at ".*\""))
-    (insert "{}")
-    (backward-char 1)))
-
-(define-key ruby-mode-map (kbd "#") 'ruby-interpolate)
 (define-key ruby-mode-map (kbd "C-c , ,") 'ruby-open-spec-other-buffer)
 
 (provide 'init-ruby-mode)
