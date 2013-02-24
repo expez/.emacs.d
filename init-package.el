@@ -25,6 +25,7 @@
     diminish
     dired+
     dropdown-list
+    eldoc-eval
     elisp-slime-nav
     emacs-eclim
     eproject
@@ -41,6 +42,7 @@
     gitconfig-mode
     gitignore-mode
     google-c-style
+    goto-chg
     haskell-mode
     ido-ubiquitous
     inf-ruby
@@ -56,6 +58,7 @@
     move-text
     paredit
     parenface
+    pretty-mode-plus
     rainbow-delimiters
     rainbow-mode
     regex-dsl

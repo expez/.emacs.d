@@ -1,30 +1,5 @@
 (require 'cl)
 
-(defun lispdoc ()
-  "Searches lispdoc.com for SYMBOL, which is by default the symbol
-currently under the curser"
-  (interactive)
-  (let* ((word-at-point (word-at-point))
-         (symbol-at-point (symbol-at-point))
-         (default (symbol-name symbol-at-point))
-         (inp (read-from-minibuffer
-               (if (or word-at-point symbol-at-point)
-                   (concat "Symbol (default " default "): ")
-		 "Symbol (no default): "))))
-    (if (and (string= inp "") (not word-at-point) (not
-						   symbol-at-point))
-        (message "you didn't enter a symbol!")
-      (let ((search-type (read-from-minibuffer
-			  "full-text (f) or basic (b) search (default b)? ")))
-	(browse-url (concat "http://lispdoc.com?q="
-			    (if (string= inp "")
-				default
-			      inp)
-			    "&search="
-			    (if (string-equal search-type "f")
-				"full+text+search"
-			      "basic+search")))))))
-
 (defun add-auto-mode (mode &rest patterns)
   (dolist (pattern patterns)
     (add-to-list 'auto-mode-alist (cons pattern mode))))
@@ -136,7 +111,6 @@ currently under the curser"
   (interactive)
   (goto-char (point-min))
   (while (search-forward "\n" nil t) (replace-match "\r\n")))
-
 
 (defun unfill-paragraph ()
   "Takes a multi-line paragraph and makes it into a single line of text"
@@ -563,68 +537,6 @@ Shift+<special key> is used (arrows keys, home, end, pgdn, pgup, etc.)."
   ;; Detect extension of rectangles by mouse or other movement
   (setq cua--buffer-and-point-before-command
         (if cua--rectangle (cons (current-buffer) (point))))))
-
-(defun paredit-barf-all-the-way-backward ()
-  (interactive)
-  (paredit-split-sexp)
-  (paredit-backward-down)
-  (paredit-splice-sexp))
-
-(defun paredit-barf-all-the-way-forward ()
-  (interactive)
-  (paredit-split-sexp)
-  (paredit-forward-down)
-  (paredit-splice-sexp)
-  (if (eolp) (delete-horizontal-space)))
-
-(defun paredit-slurp-all-the-way-backward ()
-  (interactive)
-  (catch 'done
-    (while (not (bobp))
-      (save-excursion
-        (paredit-backward-up)
-        (if (eq (char-before) ?\()
-            (throw 'done t)))
-      (paredit-backward-slurp-sexp))))
-
-(defun paredit-slurp-all-the-way-forward ()
-  (interactive)
-  (catch 'done
-    (while (not (eobp))
-      (save-excursion
-        (paredit-forward-up)
-        (if (eq (char-after) ?\))
-            (throw 'done t)))
-      (paredit-forward-slurp-sexp))))
-
-(defun add-new-paredit-commands ()
-  "Adds keybindings and documentation for new paredit commands"
-  (nconc paredit-commands
-       '("Extreme Barfage & Slurpage"
-         (("C-M-)")
-          paredit-slurp-all-the-way-forward
-          ("(foo (bar |baz) quux zot)"
-           "(foo (bar |baz quux zot))")
-          ("(a b ((c| d)) e f)"
-           "(a b ((c| d)) e f)"))
-         (("C-M-}" "M-F")
-          paredit-barf-all-the-way-forward
-          ("(foo (bar |baz quux) zot)"
-           "(foo (bar|) baz quux zot)"))
-         (("C-M-(")
-          paredit-slurp-all-the-way-backward
-          ("(foo bar (baz| quux) zot)"
-           "((foo bar baz| quux) zot)")
-          ("(a b ((c| d)) e f)"
-           "(a b ((c| d)) e f)"))
-         (("C-M-{" "M-B")
-          paredit-barf-all-the-way-backward
-          ("(foo (bar baz |quux) zot)"
-           "(foo bar baz (|quux) zot)"))))
-  (paredit-define-keys)
-  (paredit-annotate-mode-with-examples)
-  (paredit-annotate-functions-with-examples))
-(eval-after-load "paredit" '(add-new-paredit-commands))
 
 (defun kill-region-or-backward-kill-word ()
   "Call kill region, if region is active, otherwise backward-kill-word"

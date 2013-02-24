@@ -3,7 +3,13 @@
 (setq vc-handled-backends '(SVN)
       vc-follow-symlinks t)
 
-(setq magit-commit-signoff t
+(add-auto-mode 'gitignore-mode "\\.gitignore$")
+(add-auto-mode 'gitconfig-mode "\\.gitconfig$")
+
+(add-hook 'git-commit-mode-hook 'turn-on-flyspell)
+(add-hook 'magit-mode-hook 'turn-on-magit-push-remote)
+
+(setq magit-commit-signoff nil
       magit-process-popup-time 10
       magit-save-some-buffers nil
       magit-diff-refine-hunk t
@@ -14,7 +20,6 @@
       magit-remote-ref-format 'remote-slash-name
       magit-commit-all-when-nothing-staged nil)
 
-(add-hook 'magit-mode-hook 'turn-on-magit-push-remote)
 
 (eval-after-load "magit"
   '(progn

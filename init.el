@@ -23,7 +23,6 @@
 (load custom-file)
 
 (require 'ac-emacs-eclim-source)
-(require 'auto-complete-config)
 (require 'auto-complete-latex)
 (require 'color-theme)
 (require 'command-frequency)
@@ -39,7 +38,6 @@
 (require 'evil-nerd-commenter)
 (require 'evil-numbers)
 (require 'evil-paredit)
-(require 'ex-mode)
 (require 'go-autocomplete)
 (require 'google-c-style)
 (require 'highlight-tags-mode)

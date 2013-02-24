@@ -23,8 +23,6 @@
 ;; re-builder
 (setq reb-re-syntax 'string)
 
-(winner-mode 1)
-
 ;; Treat 'y' or <CR> as yes, 'n' as no.
 (fset 'yes-or-no-p 'y-or-n-p)
 (define-key query-replace-map [return] 'act)
@@ -37,13 +35,9 @@
 
 (setq delete-by-moving-to-trash t)
 
-(windmove-default-keybindings 'shift)
-
 (show-paren-mode 1)
 (setq show-paren-delay 0)
 (setq show-paren-style 'parenthesis) ;; highlight parenthesis, 'expression would only highlight entire exp within paren.
-
-(set-face-foreground 'paren-face "grey30")
 
 (setq initial-scratch-message
       ";; scratch buffer created -- happy hacking\n")
@@ -95,10 +89,6 @@
       kept-new-versions 6
       kept-old-versions 2
       version-control t)
-
-(add-hook 'emacs-lisp-mode-hook       (lambda () (paredit-mode +1)))
-(add-hook 'lisp-interaction-mode-hook (lambda () (paredit-mode +1)))
-(add-hook 'scheme-mode-hook           (lambda () (paredit-mode +1)))
 
 (defadvice he-substitute-string (after he-paredit-fix)
   "remove extra paren when expanding line in paredit"
@@ -263,21 +253,6 @@ ediff."
 (ctypes-read-file nil nil t t)
 (ctypes-auto-parse-mode 1)
 
-(defun my-ac-config ()
-  (add-hook 'c-mode-hook 'ac-c-mode-setup)
-  (add-hook 'LaTeX-mode-hook #'ac-l-setup)
-  (add-hook 'auto-complete-mode-hook 'ac-common-setup)
-  (global-auto-complete-mode)
-  (setq ac-auto-start 2)
-  (setq ac-quick-help-delay 0.5)
-  (setq ac-auto-show-menu 0.2)
-  (setq ac-fuzzy-enable t)
-  (add-hook 'emacs-lisp-mode-hook 'ac-emacs-lisp-mode-setup)
-  (add-hook 'css-mode-hook 'ac-css-mode-setup)
-  (ac-flyspell-workaround))
-
-(my-ac-config)
-
 (setq hippie-expand-try-functions-list
       (cons 'yas/hippie-try-expand hippie-expand-try-functions-list))
 
@@ -289,30 +264,12 @@ ediff."
 
 (add-to-list 'auto-mode-alist '("\\.cmd\\'" . ntcmd-mode))
 
-(evil-mode 1)
-(setq evil-default-cursor t)
-(setq evil-want-visual-char-semi-exclusive t)
-(global-surround-mode 1)
-(setq evil-insert-state-cursor '("red" hbar))
-(setq evil-normal-state-cursor '("white" box))
-(setq evil-visual-state-cursor '("green" box))
-(setq evil-find-skip-newlines t)
-(setq evil-move-cursor-back nil
-      evil-cross-lines t
-      evil-want-C-u-scroll t
-      evil-ex-hl-update-delay 0.01)
-(setq evil-leader/in-all-states t)
-(evil-leader/set-leader ",")
-
 (key-chord-mode 1)
 ;;(setq recentf-auto-cleanup 'never) ;; disable before we start recentf! If using Tramp a lot.
 (recentf-mode t)
 (setq recentf-max-saved-items 100)
 (run-with-timer (* 20 60) (* 2 60 60) (lambda () (recentf-save-list)))
 
-(turn-on-ex-mode)
-
-(add-hook 'git-commit-mode-hook 'turn-on-flyspell)
 (add-hook 'server-done-hook (lambda nil (kill-buffer nil)))
 
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
@@ -348,143 +305,16 @@ ediff."
 
 (setq enable-recursive-minibuffers t)
 
-(add-hook 'lisp-mode-hook
-          (lambda ()
-            (paredit-mode +1)
-            (slime-setup '(slime-fancy))
-            (slime-mode 1)
-            (turn-on-eldoc-mode)
-            (eldoc-add-command
-             'paredit-backward-delete
-             'paredit-close-round)
-            (rainbow-delimiters-mode 0)
-            (evil-paredit-mode 1)
-            (set-face-foreground 'paren-face "grey30")))
-
-(add-hook 'slime-mode-hook 'set-up-slime-ac)
-(add-hook 'slime-mode-hook 'cliki:start-slime)
-(add-hook 'slime-repl-mode-hook 'set-up-slime-ac)
-
-(eval-after-load "auto-complete"
-  '(add-to-list 'ac-modes 'slime-repl-mode))
-(add-hook 'slime-repl-mode-hook
-          (lambda ()
-            (paredit-mode +1)
-            (evil-paredit-mode 1)))
-
-(setq inferior-lisp-program "/usr/bin/sbcl --noinform")
-
-(defun cliki:start-slime ()
-  (unless (slime-connected-p)
-    (save-excursion (slime))))
-
-;; Stop SLIME's REPL from grabbing DEL,
-;; which is annoying when backspacing over a '('
-(defun override-slime-repl-bindings-with-paredit ()
-  (define-key slime-repl-mode-map
-    (read-kbd-macro paredit-backward-delete-key) nil))
-(add-hook 'slime-repl-mode-hook 'override-slime-repl-bindings-with-paredit)
-
-(setq auto-mode-alist (cons '("\.cl$" . c-mode) auto-mode-alist))
-
-(add-auto-mode 'gitignore-mode "\\.gitignore$")
-(add-auto-mode 'gitconfig-mode "\\.gitconfig$")
-
-(set-register ?c '(file . "~/.emacs.d/plugins/my-config.el"))
-(set-register ?e '(file . "~/.emacs.d/plugins/ex-mode.el"))
-(set-register ?i '(file . "~/.emacs.d/init.el"))
-
 (setq recentf-exclude '("\\.recentf"
                         "\\.ido\\.last"
                         "\\.keychain/.*?-sh\\(-gpg\\)?"))
-(add-hook 'emacs-lisp-mode-hook
-          (lambda ()
-            (flycheck-mode 0)
-            (evil-paredit-mode 1)
-            (elisp-slime-nav-mode 1)
-            (define-key evil-normal-state-local-map (kbd "M-.") 'elisp-slime-nav-find-elisp-thing-at-point)))
 
 (setq sr-speedbar-right-side nil)
 
 (diminish 'yas-minor-mode)
 (diminish 'paredit-mode)
 (diminish 'undo-tree-mode)
-
-(defadvice evil-goto-definition (around evil-clever-goto-def activate)
-  "Make use of emacs', slime's and etags possibilities for finding definitions."
-  (case major-mode
-    (lisp-mode (if slime-mode
-                   (or (slime-find-definitions (symbol-name (symbol-at-point)))
-                       ad-do-it)
-                 ad-do-it))
-    (emacs-lisp-mode (condition-case nil
-                         (find-function (symbol-at-point))
-                       (error (condition-case nil
-                                  (find-variable (symbol-at-point))
-                                (error ad-do-it)))))
-    (otherwise
-     (let ((tag (symbol-name (symbol-at-point))))
-       (if (and (boundp 'gtags-mode) gtags-mode)
-           (gtags-goto-tag tag nil)
-         (if (and tags-file-name (find-tag-noselect tag))
-             (find-tag tag)
-           ad-do-it))))))
-
 (setq ace-jump-mode-scope 'window)
-
-(defmacro evil-enclose-ace-jump (&rest body)
-  `(let ((old-mark (mark)))
-     (remove-hook 'pre-command-hook #'evil-visual-pre-command t)
-     (remove-hook 'post-command-hook #'evil-visual-post-command t)
-     (unwind-protect
-         (progn
-           ,@body
-           (recursive-edit))
-       (if (evil-visual-state-p)
-           (progn
-             (add-hook 'pre-command-hook #'evil-visual-pre-command nil t)
-             (add-hook 'post-command-hook #'evil-visual-post-command nil t)
-             (set-mark old-mark))
-         (push-mark old-mark)))))
-
-(evil-define-motion evil-ace-jump-char-mode (count)
-  :type exclusive
-  (evil-enclose-ace-jump
-   (ace-jump-mode 5)))
-
-(evil-define-motion evil-ace-jump-line-mode (count)
-  :type line
-  (evil-enclose-ace-jump
-   (ace-jump-mode 9)))
-
-(evil-define-motion evil-ace-jump-word-mode (count)
-  :type exclusive
-  (evil-enclose-ace-jump
-   (ace-jump-mode 1)))
-
-(evil-define-motion evil-ace-jump-char-to-mode (count)
-  :type exclusive
-  (evil-enclose-ace-jump
-   (ace-jump-mode 5)
-   (forward-char -1)))
-
-(add-hook 'ace-jump-mode-end-hook 'exit-recursive-edit)
-
-(defun set-mode-to-default-emacs (mode)
-  (evil-set-initial-state mode 'emacs))
-
-(mapcar 'set-mode-to-default-emacs
-        '(dired
-          shell-mode
-          inferior-emacs-lisp-mode
-          term-mode
-          eshell-mode
-          slime-repl-mode
-          occur-mode
-          magit-branch-manager-mode
-          magit-commit-mode
-          magit-log-mode
-          log-view-mode))
 
 (add-hook 'ido-setup-hook
           (lambda ()
@@ -515,31 +345,6 @@ ediff."
 (add-hook 'haml-mode-hook 'rainbow-turn-on)
 
 (setq css-indent-offset 2)
-
-(defun ielm-auto-complete ()
-  "Enables `auto-complete' support in \\[ielm]."
-  (setq ac-sources '(ac-source-functions
-                     ac-source-variables
-                     ac-source-features
-                     ac-source-symbols
-                     ac-source-words-in-same-mode-buffers))
-  (add-to-list 'ac-modes 'inferior-emacs-lisp-mode)
-  (auto-complete-mode 1))
-(add-hook 'ielm-mode-hook 'ielm-auto-complete)
-
-(defcustom elisp-programming-major-modes
-  '(emacs-lisp-mode
-    lisp-interaction-mode
-    ielm-mode)
-  "Mode that are used to do Elisp programming.")
-
-(dolist (mode elisp-programming-major-modes)
-  (add-hook
-   (intern (concat (symbol-name mode) "-hook"))
-   (lambda ()
-     (turn-on-eldoc-mode)
-     (rainbow-delimiters-mode 0)
-     (set-face-foreground 'paren-face "grey30"))))
 
 (command-frequency-table-load)
 (command-frequency-mode 1)
