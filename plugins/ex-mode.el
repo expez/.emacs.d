@@ -19,7 +19,6 @@
 
     (define-key map (kbd "C-x r q") 'save-buffers-kill-terminal)
     (define-key map (kbd "C-x v t") 'vc-create-tag)
-    (define-key map (kbd "C-x v s") 'magit-status)
 
     (define-key map (kbd "C-x a r") 'align-regexp)
     (define-key map (kbd "C-x i") 'ido-goto-symbol)
@@ -80,22 +79,6 @@
                 "C-e" 'move-end-of-line
                 "C-a" 'smart-line-beginning)
 
-  (evil-add-hjkl-bindings magit-branch-manager-mode-map 'emacs
-    "K" 'magit-discard-item
-    "L" 'magit-key-mode-popup-logging)
-
-  (evil-add-hjkl-bindings magit-status-mode-map 'emacs
-    "K" 'magit-discard-item
-    "l" 'magit-key-mode-popup-logging
-    "h" 'magit-toggle-diff-refine-hunk)
-
-  (fill-keymap magit-log-mode-map
-               "j" 'magit-goto-next-section
-               "k" 'magit-goto-previous-section)
-
-  (evil-add-hjkl-bindings rebase-mode 'emacs
-    "h" 'describe-mode)
-
   (evil-leader/set-key
    "w" 'save-buffer
    "W" 'save-some-buffers
@@ -138,9 +121,6 @@
   (define-key evil-normal-state-map (kbd "C-u") 'evil-scroll-up)
 
   (define-key minibuffer-local-map (kbd "C-<tab>") 'hippie-expand)
-
-  (define-key magit-status-mode-map (kbd "W") 'magit-toggle-whitespace)
-  (define-key magit-status-mode-map (kbd "q") 'magit-quit-session)
 
   (define-key winner-mode-map (kbd "C-x 7") 'winner-undo)
   (define-key winner-mode-map (kbd "C-x 9") 'winner-redo)

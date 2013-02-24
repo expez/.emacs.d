@@ -11,23 +11,23 @@
              load-path)))
 
 (require 'init-utils)
+(mapc #'load-if-exists '("~/quicklisp/slime-helper.el"
+                         "~/src/emacs-clang-complete-async.el"
+                         "~/src/git-wip/emacs/git-wip.el"
+                         "~/src/git-wip/emacs/git-wip-mode.el"))
+
 (require 'init-package)
 (mapc #'load (directory-files user-emacs-directory t "init-.\*.el"))
 
 (setq custom-file "~/.emacs.d/plugins/customize.el")
 (load custom-file)
 
-(if (file-exists-p (expand-file-name "~/quicklisp/slime-helper.el"))
-    (load (expand-file-name "~/quicklisp/slime-helper.el")))
-
-(if (file-exists-p (expand-file-name "~/src/emacs-clang-complete-async.el"))
-    (load (expand-file-name "~/src/emacs-clang-complete-async.el")))
-
 (require 'ac-emacs-eclim-source)
 (require 'auto-complete-config)
 (require 'auto-complete-latex)
 (require 'color-theme)
 (require 'command-frequency)
+(require 'color-moccur)
 (require 'cuda-mode)
 (require 'diminish)
 (require 'eclim)
@@ -40,7 +40,6 @@
 (require 'evil-numbers)
 (require 'evil-paredit)
 (require 'ex-mode)
-(require 'git-blame)
 (require 'go-autocomplete)
 (require 'google-c-style)
 (require 'highlight-tags-mode)
@@ -48,7 +47,6 @@
 (require 'info+)
 (require 'java-mode-indent-annotations)
 (require 'lorem-ipsum)
-(require 'magit)
 (require 'mediawiki)
 (require 'parenface)
 (require 'sr-speedbar)

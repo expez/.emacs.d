@@ -699,22 +699,6 @@ A `spec' can be a `read-kbd-macro'-readable string or a vector."
 
 ;(add-hook 'buffer-list-update-hook 'give-my-keybindings-priority)
 
-(defun magit-toggle-whitespace ()
-  (interactive)
-  (if (member "-w" magit-diff-options)
-      (magit-dont-ignore-whitespace)
-    (magit-ignore-whitespace)))
-
-(defun magit-ignore-whitespace ()
-  (interactive)
-  (add-to-list 'magit-diff-options "-w")
-  (magit-refresh))
-
-(defun magit-dont-ignore-whitespace ()
-  (interactive)
-  (setq magit-diff-options (remove "-w" magit-diff-options))
-  (magit-refresh))
-
 (defun open-line-below ()
   (interactive)
   (save-excursion
@@ -790,16 +774,9 @@ If the file is emacs lisp, run the byte compiled version if appropriate."
             (shell-command cmdStr "*run-current-file output*" ))
         (message "No recognized program file suffix for this file.")))))
 
-;; full screen magit-status
-(defadvice magit-status (around magit-fullscreen activate)
-  (window-configuration-to-register :magit-fullscreen)
-  ad-do-it
-  (delete-other-windows))
-
-(defun magit-quit-session ()
-  "Restores the previous window configuration and kills the magit buffer"
-  (interactive)
-  (kill-buffer)
-  (jump-to-register :magit-fullscreen))
+(defun load-if-exists (file)
+  "Calls LOAD on FILE if FILE exists."
+  (if (file-exists-p (expand-file-name file))
+    (load (expand-file-name file))))
 
 (provide 'init-utils)

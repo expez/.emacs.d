@@ -48,6 +48,8 @@
     key-chord
     lorem-ipsum
     magit
+    magit-gh-pulls
+    magit-push-remote
     magithub
     markdown-mode
     mediawiki
