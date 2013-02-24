@@ -30,23 +30,6 @@
 (define-key query-replace-map [return] 'act)
 (define-key query-replace-map [?\C-m] 'act)
 
-(setq compilation-ask-about-save nil)
-(setq compilation-window-height 30)
-
-;;Close compilation window if compile was succesful.
-(setq compilation-finish-function
-      (lambda (buf str)
-
-        (if (string-match "exited abnormally" str)
-            ;;there were errors
-            (message "Compilation errors, press C-c n to visit")
-
-          ;;no errors, make the compilation window go away in 2 second
-          ;;(run-at-time 1 nil 'delete-windows-on buf)
-          (run-at-time 1 nil 'kill-buffer buf)
-
-          (message "Compilation succesful!"))))
-
 (add-hook 'before-save-hook (lambda () (delete-trailing-whitespace)))
 
 ;;Add newline at the end of files.
@@ -64,8 +47,6 @@
 
 (setq initial-scratch-message
       ";; scratch buffer created -- happy hacking\n")
-
-(global-font-lock-mode 1)
 
 (put 'set-goal-column 'disabled nil)
 
@@ -329,18 +310,6 @@ ediff."
 (setq recentf-max-saved-items 100)
 (run-with-timer (* 20 60) (* 2 60 60) (lambda () (recentf-save-list)))
 
-;; full screen magit-status
-(defadvice magit-status (around magit-fullscreen activate)
-  (window-configuration-to-register :magit-fullscreen)
-  ad-do-it
-  (delete-other-windows))
-
-(defun magit-quit-session ()
-  "Restores the previous window configuration and kills the magit buffer"
-  (interactive)
-  (kill-buffer)
-  (jump-to-register :magit-fullscreen))
-
 (turn-on-ex-mode)
 
 (add-hook 'git-commit-mode-hook 'turn-on-flyspell)
@@ -546,3 +515,28 @@ ediff."
 (add-hook 'haml-mode-hook 'rainbow-turn-on)
 
 (setq css-indent-offset 2)
+
+(defun ielm-auto-complete ()
+  "Enables `auto-complete' support in \\[ielm]."
+  (setq ac-sources '(ac-source-functions
+                     ac-source-variables
+                     ac-source-features
+                     ac-source-symbols
+                     ac-source-words-in-same-mode-buffers))
+  (add-to-list 'ac-modes 'inferior-emacs-lisp-mode)
+  (auto-complete-mode 1))
+(add-hook 'ielm-mode-hook 'ielm-auto-complete)
+
+(defcustom elisp-programming-major-modes
+  '(emacs-lisp-mode
+    lisp-interaction-mode
+    ielm-mode)
+  "Mode that are used to do Elisp programming.")
+
+(dolist (mode elisp-programming-major-modes)
+  (add-hook
+   (intern (concat (symbol-name mode) "-hook"))
+   (lambda ()
+     (turn-on-eldoc-mode)
+     (rainbow-delimiters-mode 0)
+     (set-face-foreground 'paren-face "grey30"))))

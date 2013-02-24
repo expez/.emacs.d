@@ -4,6 +4,8 @@
 (require 'inf-ruby)
 (require 'ruby-compilation)
 (require 'rvm)
+(require 'eproject)
+
 (add-hook 'ruby-mode-hook
           (lambda ()
             (setf inf-ruby-default-implementation "rubinius")

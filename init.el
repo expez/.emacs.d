@@ -1,31 +1,4 @@
-(require 'package)
-
-(setq package-archives '(("melpa" . "http://melpa.milkbox.net/packages/" )
-			 ("marmalade" . "http://marmalade-repo.org/packages/")
-			 ("gnu" . "http://elpa.gnu.org/packages/")))
-
-(when (not package-archive-contents)
-  (package-refresh-contents))
-(package-initialize)
-
-(defvar my-packages
-  '(ace-jump-mode ac-slime auto-complete auctex backtrace-mode bookmark+ bundler
-                  c-eldoc color-moccur command-frequency crontab-mode ctypes
-                  diminish dired+ dropdown-list elisp-slime-nav evil
-                  eproject evil-leader evil-nerd-commenter evil-numbers
-                  evil-paredit emacs-eclim flycheck ghc ghci-completion
-                  gist git-commit gitconfig-mode gitignore-mode git-blame
-                  google-c-style haskell-mode ido-ubiquitous inf-ruby key-chord
-                  lorem-ipsum magit magithub markdown-mode mediawiki move-text
-                  paredit parenface rainbow-delimiters rainbow-mode regex-dsl
-                  register-list rinari rspec-mode robe ruby-compilation
-                  ruby-electric ruby-interpolation rvm sr-speedbar surround
-                  unbound undo-tree workgroups yaml-mode yard-mode yasnippet)
-                  "A list of packages to ensure are installed at launch.")
-
-(dolist (p my-packages)
-  (when (not (package-installed-p p))
-    (package-install p)))
+(push user-emacs-directory load-path)
 
 ;; Add everything in and below plugins to load-path.
 (let ((default-directory "~/.emacs.d/plugins/"))
@@ -37,7 +10,10 @@
                 (normal-top-level-add-subdirs-to-load-path)))
              load-path)))
 
-(push "~/.emacs.d/" load-path)
+(require 'init-utils)
+(require 'init-package)
+(mapc #'load (directory-files user-emacs-directory t "init-.\*.el"))
+
 (setq custom-file "~/.emacs.d/plugins/customize.el")
 (load custom-file)
 
@@ -79,5 +55,3 @@
 (require 'eproject)
 (require 'eproject-extras)
 (load-library "my-config") ;; One-off variable settings.
-
-(mapc #'load (directory-files user-emacs-directory t "init-.\*.el"))
