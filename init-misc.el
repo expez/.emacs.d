@@ -148,6 +148,12 @@
       (quote (("default"
                ("dired" (mode . dired-mode))))))
 
+(fill-keymap ibuffer-mode-map
+             "j" 'ibuffer-forward-line
+             "k" 'ibuffer-backward-line
+             "J" 'ibuffer-jump-to-buffer
+             "K" 'ibuffer-do-kill-lines)
+
 (toggle-diredp-find-file-reuse-dir 1)
 (setq dired-dwim-target t)
 
