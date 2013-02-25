@@ -37,7 +37,6 @@
    (lambda ()
      (turn-on-eldoc-mode)
      (paredit-mode 1)
-     (pretty-lambdas)
      (evil-paredit-mode 1)
      (rainbow-delimiters-mode 0))))
 

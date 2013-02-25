@@ -7,7 +7,6 @@
             (set (make-local-variable 'lisp-indent-function)
                  'common-lisp-indent-function)
             (slime-mode 1)
-            (pretty-lambdas)
             (turn-on-eldoc-mode)
             (define-key lisp-mode-map (kbd "C-c l") 'lispdoc)
             (eldoc-add-command
