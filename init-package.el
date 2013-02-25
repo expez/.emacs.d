@@ -28,6 +28,7 @@
     eldoc-eval
     elisp-slime-nav
     emacs-eclim
+    eshell-manual
     eproject
     evil
     evil-leader
