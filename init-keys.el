@@ -3,7 +3,7 @@
              "C-x C-m" 'ido-hacks-execute-extended-command
              "C-x c" 'compile
              "C-x C-c" 'compile
-             "C-x s" 'shell
+             "C-x s" 'eshell-toggle
              "C-x C-b" 'ibuffer
              "C-x r v" 'register-list
              "C-<tab>" 'hippie-expand
