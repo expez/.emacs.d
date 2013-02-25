@@ -5,10 +5,11 @@
 (evil-mode 1)
 
 (global-surround-mode 1)
-(setq evil-insert-state-cursor '("red" hbar))
-(setq evil-normal-state-cursor '("white" box))
-(setq evil-visual-state-cursor '("green" box))
-(setq evil-move-cursor-back nil
+
+(setq evil-insert-state-cursor '("red" hbar)
+      evil-normal-state-cursor '("white" box)
+      evil-visual-state-cursor '("green" box)
+      evil-move-cursor-back nil
       evil-default-cursor t
       evil-want-visual-char-semi-exclusive t
       evil-cross-lines t
@@ -35,6 +36,7 @@
 
 (fill-keymap evil-insert-state-map
              "C-y" 'yank
+             "C-v" 'quoted-insert
              "M-y" 'yank-pop
              "C-e" 'end-of-line
              "C-h" 'backward-delete-char
@@ -63,18 +65,6 @@
   "g" 'magit-status
   "." 'evil-ex
   "u" 'winner-undo)
-
-(evil-define-key 'normal paredit-mode-map
-  (kbd "M-l") 'paredit-forward-slurp-sexp
-  (kbd "M-h") 'paredit-backward-slurp-sexp
-  (kbd "M-H") 'paredit-backward-barf-sexp
-  (kbd "M-L") 'paredit-forward-barf-sexp
-  (kbd "M-s") 'paredit-splice-sexp
-  (kbd "M-S") 'paredit-split-sexp
-  (kbd "M-j") 'paredit-join-sexps
-  (kbd "M-k") 'paredit-kill
-  (kbd "(") 'paredit-backward
-  (kbd ")") 'paredit-forward)
 
 (fill-keymap evil-normal-state-map
              "C-j" 'open-line-below

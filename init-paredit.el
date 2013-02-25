@@ -1,6 +1,20 @@
 ;; Use paredit in the minibuffer
 (add-hook 'minibuffer-setup-hook 'conditionally-enable-paredit-mode)
 
+(eval-after-load "evil"
+  (lambda ()
+    (evil-define-key 'normal paredit-mode-map
+       "M-l" 'paredit-forward-slurp-sexp
+       "M-h" 'paredit-backward-slurp-sexp
+       "M-H" 'paredit-backward-barf-sexp
+       "M-L" 'paredit-forward-barf-sexp
+       "M-s" 'paredit-splice-sexp
+       "M-S" 'paredit-split-sexp
+       "M-j" 'paredit-join-sexps
+       "M-k" 'paredit-kill
+       "(" 'paredit-backward
+       ")" 'paredit-forward)))
+
 (defvar paredit-minibuffer-commands '(eval-expression
                                       pp-eval-expression
                                       eval-expression-with-eldoc
