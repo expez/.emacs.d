@@ -1,10 +1,8 @@
 (require 'rspec-mode)
 (require 'robe)
 (require 'rinari)
-(require 'inf-ruby)
 (require 'ruby-compilation)
 (require 'rvm)
-(require 'eproject)
 
 (add-hook 'ruby-mode-hook
           (lambda ()
@@ -31,6 +29,17 @@
 (setq rspec-use-rvm 't
       rspec-use-bundler-when-possible 't)
 
+(define-key ruby-mode-map (kbd "C-c , ,") 'ruby-open-spec-other-buffer)
+
+(add-auto-mode 'ruby-mode "\\.gemspec$" )
+(add-auto-mode 'ruby-mode "Gemfile$" )
+
+(autoload 'run-ruby "inf-ruby" "Run an inferior Ruby process" t)
+(autoload 'inf-ruby-setup-keybindings "inf-ruby" "" t)
+
+(add-to-list 'completion-ignored-extensions ".rbc")
+(add-to-list 'completion-ignored-extensions ".rbo")
+
 (defun add-current-project-to-inf-ruby-load-path ()
   "This adds the lib folder--which is presumed to be an ancestor
 of the currently active file--to the load path of the inf-ruby
@@ -47,28 +56,10 @@ process. "
 (add-auto-mode 'ruby-mode "Rakefile" "\\.rake\\'" "\\.ru\\'" "\\.prawn\\'"
                "Gemfile\\'" "Capfile\\'" "Guardfile\\'")
 
-(add-auto-mode 'ruby-mode "\\.gemspec$" )
-(add-auto-mode 'ruby-mode "Gemfile$" )
-
-(define-project-type ruby (generic)
-  (or (look-for "Rakefile")
-      (look-for "Gemfile")
-      (look-for "\.rmvrc")
-      (look-for "\.ruby-version")
-      (look-for "\.rbenv-version")
-      (look-for ".*\\.gemspec"))
-  :irrelevant-files (".*~"))
-
 (defadvice rspec-compile (around rspec-compile-around activate)
   "Use BASH shell for running the specs because of ZSH issues."
   (let ((shell-file-name "/bin/bash"))
     ad-do-it))
-
-(autoload 'run-ruby "inf-ruby" "Run an inferior Ruby process" t)
-(autoload 'inf-ruby-setup-keybindings "inf-ruby" "" t)
-
-(add-to-list 'completion-ignored-extensions ".rbc")
-(add-to-list 'completion-ignored-extensions ".rbo")
 
 (defadvice ruby-indent-line (after unindent-closing-paren activate)
   (let ((column (current-column))
@@ -146,7 +137,5 @@ projects."
                           (current-buffer))))
       (switch-to-buffer source-buffer)
       (pop-to-buffer other-buffer))))
-
-(define-key ruby-mode-map (kbd "C-c , ,") 'ruby-open-spec-other-buffer)
 
 (provide 'init-ruby-mode)
