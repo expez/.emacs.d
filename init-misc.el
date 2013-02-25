@@ -255,7 +255,6 @@
                     (insert "~/")
                   (call-interactively 'self-insert-command))))))
 
-(setf eproject-completing-read-function 'eproject--ido-completing-read)
 
 (add-auto-mode 'markdown-mode "\\.md\\'")
 
@@ -277,3 +276,6 @@
 (command-frequency-table-load)
 (command-frequency-mode 1)
 (command-frequency-autosave-mode 1)
+
+(windmove-default-keybindings)
+(setq windmove-wrap-around t)

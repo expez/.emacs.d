@@ -38,7 +38,7 @@
     ghci-completion
     gist
     git-blame
-    git-commit
+    git-commit-mode
     gitconfig-mode
     gitignore-mode
     google-c-style
