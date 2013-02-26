@@ -23,6 +23,7 @@
 
 (fill-keymap evil-normal-state-map
              "Y"     (kbd "y$")
+             "U" 'universal-argument
              "<kp-add>" 'evil-numbers/inc-at-pt
              "<kp-subtract>" 'evil-numbers/dec-at-pt
              "C-SPC" 'evil-ace-jump-char-mode
