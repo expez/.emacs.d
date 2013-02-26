@@ -7,16 +7,55 @@
 (eval-after-load "evil"
   (lambda ()
     (evil-define-key 'normal paredit-mode-map
-       "M-l" 'paredit-forward-slurp-sexp
-       "M-h" 'paredit-backward-slurp-sexp
-       "M-H" 'paredit-backward-barf-sexp
-       "M-L" 'paredit-forward-barf-sexp
        "M-s" 'paredit-splice-sexp
        "M-S" 'paredit-split-sexp
        "M-j" 'paredit-join-sexps
+
+       "M-l" 'paredit-forward-up
+       "M-L" 'paredit-forward-down
+       "M-h" 'paredit-backward-up
+       "M-H" 'paredit-backward-down
+
        "M-k" 'paredit-kill
-       "(" 'paredit-backward
-       ")" 'paredit-forward)))
+       "M-(" 'backward-barf-sexp
+       "M-)" 'forward-barf-sexp
+       "C-(" 'backward-slurp-sexp
+       "C-)" 'forward-slurp-sexp
+       "(" 'paredit-wrap-round
+       ")" 'paredit-close-round-and-newline)))
+
+(defun forward-barf-sexp (prefix)
+  "Calls `paredit-forward-barf-sexp', unless PREFIX is non nil.
+  With prefix it calls `paredit-barf-all-the-way-forward'"
+  (interactive "P")
+  (if prefix
+      (paredit-barf-all-the-way-forward)
+    (paredit-forward-barf-sexp)))
+
+(defun forward-slurp-sexp (prefix)
+  "Calls `paredit-forward-slurp-sexp`, unless PREFIX is non nil.
+  With prefix it calls `paredit-slurp-all-the-way-forward'"
+  (interactive "P")
+  (if prefix
+      (paredit-slurp-all-the-way-forward)
+    (paredit-forward-slurp-sexp)))
+
+(defun backward-barf-sexp (prefix)
+  "Calls `paredit-backward-barf-sexp', unless PREFIX is non nil.
+  With prefix it calls `paredit-barf-all-the-way-backward'"
+  (interactive "P")
+  (if prefix
+      (paredit-barf-all-the-way-backward)
+    (paredit-backward-barf-sexp)))
+
+(defun backward-slurp-sexp (prefix)
+  "Calls `paredit-backward-slurp-sexp', unless PREFIX is non nil.
+  With prefix it calls `paredit-slurp-all-the-way-backward'"
+  (interactive "P")
+  (if prefix
+      (paredit-slurp-all-the-way-backward)
+    (paredit-backward-slurp-sexp)))
+
 
 (defvar paredit-minibuffer-commands '(eval-expression
                                       pp-eval-expression

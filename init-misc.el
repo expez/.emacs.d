@@ -282,6 +282,7 @@
 (command-frequency-table-load)
 (command-frequency-mode 1)
 (command-frequency-autosave-mode 1)
+(setq command-frequency-table-file (concat user-emacs-directory ".emacs-frequencies"))
 
 (windmove-default-keybindings)
 (setq windmove-wrap-around t)
