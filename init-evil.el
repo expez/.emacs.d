@@ -9,10 +9,8 @@
 (setq evil-insert-state-cursor '("red" hbar)
       evil-normal-state-cursor '("white" box)
       evil-visual-state-cursor '("green" box)
-      evil-move-cursor-back nil
       evil-default-cursor t
       evil-want-visual-char-semi-exclusive t
-      evil-cross-lines t
       evil-want-C-u-scroll t
       evil-leader/in-all-states t
       evil-ex-hl-update-delay 0.01)
