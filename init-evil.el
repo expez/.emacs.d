@@ -11,6 +11,7 @@
       evil-visual-state-cursor '("green" box)
       evil-default-cursor t
       evil-want-visual-char-semi-exclusive t
+      evil-move-cursor-back nil
       evil-want-C-u-scroll t
       evil-leader/in-all-states t
       evil-ex-hl-update-delay 0.01)

@@ -9,7 +9,6 @@
 (require 'go-autocomplete)
 (require 'google-c-style)
 (require 'highlight-tags-mode)
-(require 'ido-hacks)
 (require 'info+)
 (require 'java-mode-indent-annotations)
 (require 'lorem-ipsum)
@@ -38,7 +37,6 @@
 (setq ido-enable-flex-matching t
       ido-create-new-buffer 'always)
 (ido-ubiquitous-mode 1)
-(ido-hacks-mode)
 
 ;; re-builder
 (setq reb-re-syntax 'string)
