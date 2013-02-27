@@ -89,6 +89,7 @@
 (custom-set-variables
   '(auto-save-file-name-transforms '((".*" "~/.emacs.d/autosaves/\\1" t)))
   '(backup-directory-alist '((".*" . "~/.emacs.d/backups/"))))
+(setq tramp-backup-directory-alist backup-directory-alist)
 
 (make-directory (concat user-emacs-directory "autosaves/") t)
 
