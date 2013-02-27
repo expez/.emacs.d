@@ -100,11 +100,6 @@
       kept-old-versions 2
       version-control t)
 
-(defadvice he-substitute-string (after he-paredit-fix)
-  "remove extra paren when expanding line in paredit"
-  (if (and paredit-mode (equal (substring str -1) ")"))
-      (progn (backward-delete-char 1) (forward-char))))
-
 (global-undo-tree-mode 1)
 
 (setq browse-url-browser-function 'browse-url-generic

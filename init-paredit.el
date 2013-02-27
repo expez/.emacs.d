@@ -1,7 +1,6 @@
 (require 'paredit-ext)
 (require 'paredit)
 
-;; Use paredit in the minibuffer
 (add-hook 'minibuffer-setup-hook 'conditionally-enable-paredit-mode)
 
 (eval-after-load "evil"
@@ -56,7 +55,6 @@
       (paredit-slurp-all-the-way-backward)
     (paredit-backward-slurp-sexp)))
 
-
 (defvar paredit-minibuffer-commands '(eval-expression
                                       pp-eval-expression
                                       eval-expression-with-eldoc
@@ -68,5 +66,10 @@
   "Enable paredit during lisp-related minibuffer commands."
   (if (memq this-command paredit-minibuffer-commands)
       (enable-paredit-mode)))
+
+(defadvice he-substitute-string (after he-paredit-fix)
+  "Remove extra paren when expanding line in paredit"
+  (if (and paredit-mode (equal (substring str -1) ")"))
+      (progn (backward-delete-char 1) (forward-char))))
 
 (provide 'init-paredit)
