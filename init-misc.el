@@ -66,7 +66,6 @@
 (add-auto-mode 'markdown-mode "\\.md\\'")
 
 (add-to-list 'auto-mode-alist '( "\\.?cron\\(tab\\)?\\'" . crontab-mode))
-
 (autoload 'crontab-mode "crontab-mode" "Mode for editing crontab files" t)
 
 (setq ace-jump-mode-scope 'window)
