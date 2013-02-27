@@ -2,6 +2,9 @@
 (require 'flyspell)
 (require 'auto-complete-latex)
 
+(add-to-list 'ac-dictionary-directories (concat user-emacs-directory "ac-dict"))
+(ac-config-default)
+
 (defun my-ac-config ()
   (add-hook 'c-mode-hook 'ac-c-mode-setup)
   (add-hook 'LaTeX-mode-hook #'ac-l-setup)

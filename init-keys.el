@@ -1,6 +1,6 @@
 (fill-keymap 'global
-             "C-x m" 'ido-hacks-execute-extended-command
-             "C-x C-m" 'ido-hacks-execute-extended-command
+             "C-x m" 'execute-extended-command
+             "C-x C-m" 'execute-extended-command
              "C-x c" 'compile
              "C-x C-c" 'compile
              "C-x s" 'eshell-toggle

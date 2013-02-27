@@ -28,20 +28,6 @@
 
 (defvar normal-local-function-key-map nil)
 
-;; Update the buffer list for uniquify when needed
-(defadvice iswitchb-kill-buffer (after rescan-after-kill activate)
-  "*Regenerate the list of matching buffer names after a kill.
-    Necessary if using `uniquify' with `uniquify-after-kill-buffer-p'
-    set to non-nil."
-  (setq iswitchb-buflist iswitchb-matches)
-  (iswitchb-rescan))
-
-(defun iswitchb-rescan ()
-  "*Regenerate the list of matching buffer names."
-  (interactive)
-  (iswitchb-make-buflist iswitchb-default)
-  (setq iswitchb-rescan t))
-
 (defun rename-file-and-buffer (new-name)
   "Renames both current buffer and file it's visiting to NEW-NAME."
   (interactive "sNew name: ")
@@ -89,28 +75,6 @@
            (set-window-buffer w2 b1)
            (set-window-start w1 s2)
            (set-window-start w2 s1)))))
-
-(defun ant-compile ()
-  "Traveling up the path, find build.xml file and run compile."
-  (interactive)
-  (with-temp-buffer
-    (while (and (not (file-exists-p "build.xml"))
-                (not (equal "/" default-directory)))
-      (cd ".."))
-    (call-interactively 'compile)))
-
-;; Convert endlines
-(defun dos2unix ()
-  "Convert a buffer from dos ^M end of lines to unix end of lines"
-  (interactive)
-  (goto-char (point-min))
-  (while (search-forward "\r" nil t) (replace-match "")))
-
-(defun unix2dos ()
-  "Convert a buffer from unix end of line to dos ^M end of lines."
-  (interactive)
-  (goto-char (point-min))
-  (while (search-forward "\n" nil t) (replace-match "\r\n")))
 
 (defun unfill-paragraph ()
   "Takes a multi-line paragraph and makes it into a single line of text"
@@ -174,17 +138,6 @@ This command works on unixes only."
   (interactive)
   (when buffer-file-name (find-alternate-file (concat "/sudo:root@localhost:" buffer-file-name))))
 
-(defun run-current-java-file ()
-  "Execute the current file's class with Java.
-For example, if the current buffer is the file x.java,
-then it'll call “java x” in a shell."
-  (interactive)
-  (let (fnm prog-name cmd-str)
-    (setq fnm (file-name-sans-extension (file-name-nondirectory (buffer-file-name))))
-    (setq prog-name "java")
-    (setq cmd-str (concat prog-name " " fnm " &"))
-    (shell-command cmd-str)))
-
 (defun change-file-newline (fpath eol-system)
   "Change file's line ending to unix convention.
 FPATH is full path to file.
@@ -198,22 +151,6 @@ For Mac OS X, use “'unix”."
     (save-buffer)
     (kill-buffer mybuffer)))
 
-(defun dired-2unix-eol-marked-files ()
-  "Change marked file's newline convention to unix,
-or file under cursor if no file is marked."
-  (interactive)
-  (mapc
-   (lambda (ff) (change-file-newline ff 'unix))
-   (dired-get-marked-files)))
-
-(defun dired-utf-8-unix-marked-files ()
-  "Change marked file's newline convention to unix,
-or file under cursor if no file is marked."
-  (interactive)
-  (mapc
-   (lambda (ff) (change-file-newline ff 'utf-8-unix))
-   (dired-get-marked-files)))
-
 (defun insert-date ()
   "Insert a time-stamp according to locale's date and time format."
   (interactive)
@@ -226,19 +163,19 @@ Toggles between: “all lower”, “Init Caps”, “ALL CAPS”."
   (let (p1 p2 (deactivate-mark nil) (case-fold-search nil))
     (if (region-active-p)
         (setq p1 (region-beginning) p2 (region-end))
-      (let ((bds (bounds-of-thing-at-point 'word) ) )
-        (setq p1 (car bds) p2 (cdr bds)) ) )
+      (let ((bds (bounds-of-thing-at-point 'word)))
+        (setq p1 (car bds) p2 (cdr bds))))
 
     (when (not (eq last-command this-command))
       (save-excursion
         (goto-char p1)
         (cond
          ((looking-at "[[:lower:]][[:lower:]]") (put this-command 'state "all lower"))
-         ((looking-at "[[:upper:]][[:upper:]]") (put this-command 'state "all caps") )
-         ((looking-at "[[:upper:]][[:lower:]]") (put this-command 'state "init caps") )
+         ((looking-at "[[:upper:]][[:upper:]]") (put this-command 'state "all caps"))
+         ((looking-at "[[:upper:]][[:lower:]]") (put this-command 'state "init caps"))
          ((looking-at "[[:lower:]]") (put this-command 'state "all lower"))
-         ((looking-at "[[:upper:]]") (put this-command 'state "all caps") )
-         (t (put this-command 'state "all lower") ) ) ) )
+         ((looking-at "[[:upper:]]") (put this-command 'state "all caps"))
+         (t (put this-command 'state "all lower")))))
 
     (cond
      ((string= "all lower" (get this-command 'state))
@@ -246,8 +183,7 @@ Toggles between: “all lower”, “Init Caps”, “ALL CAPS”."
      ((string= "init caps" (get this-command 'state))
       (upcase-region p1 p2) (put this-command 'state "all caps"))
      ((string= "all caps" (get this-command 'state))
-      (downcase-region p1 p2) (put this-command 'state "all lower")) )
-    ) )
+      (downcase-region p1 p2) (put this-command 'state "all lower")))))
 
 (defun how-many-in-region (begin end regexp &optional interactive)
   "Print number of non-trivial matches for REGEXP in region.
@@ -440,12 +376,6 @@ the current position of point, then move it to the beginning of the line."
   "Insert subheader  via  === (e.g. === FOO ===.)"
   (interactive)
   (mediawiki-insert "===" "==="))
-
-(defun eclim-ac-complete ()
-  "Query eclim for available completions at point."
-  (interactive)
-  (auto-complete (list 'ac-source-emacs-eclim
-                       'ac-source-emacs-eclim-c-dot)))
 
 (defun ergoemacs-fix-cua--pre-command-handler-1 ()
   "Fixes CUA minor mode so selection is highlighted only when
