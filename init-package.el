@@ -62,6 +62,7 @@
     pretty-mode-plus
     rainbow-delimiters
     rainbow-mode
+    redshank
     regex-dsl
     regex-tool
     register-list
