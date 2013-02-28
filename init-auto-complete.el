@@ -6,10 +6,7 @@
 (ac-config-default)
 
 (defun my-ac-config ()
-  (add-hook 'c-mode-hook 'ac-c-mode-setup)
   (add-hook 'LaTeX-mode-hook #'ac-l-setup)
-  (add-hook 'auto-complete-mode-hook 'ac-common-setup)
-  (global-auto-complete-mode)
   (setq ac-auto-start 2)
   (setq ac-quick-help-delay 0.5)
   (setq ac-auto-show-menu 0.2)

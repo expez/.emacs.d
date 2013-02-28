@@ -4,10 +4,15 @@
 (add-hook 'c-mode-common-hook 'google-set-c-style)
 (add-hook 'c-mode-common-hook 'google-make-newline-indent)
 
-(defun ac-c-mode-setup ()
-  (setq clang-complete-executable (concat user-emacs-directory "clang-compete"))
+(global-auto-complete-mode t)
+(add-hook 'c-mode-common-hook 'ac-cc-mode-setup)
+(add-hook 'auto-complete-mode-hook 'ac-common-setup)
+
+(defun ac-cc-mode-setup ()
+  (setq clang-complete-executable (concat user-emacs-directory
+                                          "vendor/clang-compete"))
   (setq ac-sources '(ac-source-clang-async))
-  (launch-completion-proc))
+  (ac-clang-launch-completion-process))
 
 (add-hook 'c-mode-hook 'c-turn-on-eldoc-mode)
 (setq ctypes-write-types-at-exit t)
