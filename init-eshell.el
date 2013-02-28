@@ -21,7 +21,9 @@
                     eshell-ls eshell-pred eshell-prompt eshell-rebind
                     eshell-script eshell-smart eshell-term eshell-unix
                     eshell-xtra))
-
+(add-hook 'eshell-mode-hook
+          '(lambda () (eshell/export "TERM" "dumb")))
+(setenv "PAGER" "cat")
 (add-to-list 'eshell-visual-commands "ssh")
 (add-to-list 'eshell-visual-commands "tail")
 
