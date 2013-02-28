@@ -1,4 +1,5 @@
 (require 'tex)
+(require 'auto-complete-latex)
 
 (setq TeX-autosave t
       TeX-save-query nil
