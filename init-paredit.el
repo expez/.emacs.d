@@ -4,8 +4,11 @@
 (add-hook 'minibuffer-setup-hook 'conditionally-enable-paredit-mode)
 
 (eval-after-load "evil"
-  (lambda ()
-    (evil-define-key 'normal paredit-mode-map
+  '(evil-define-key 'normal paredit-mode-map
+       "(" 'paredit-wrap-round
+       ")" 'paredit-close-round-and-newline))
+
+(fill-keymap paredit-mode-map
        "M-s" 'paredit-splice-sexp
        "M-S" 'paredit-split-sexp
        "M-j" 'paredit-join-sexps
@@ -19,9 +22,7 @@
        "M-(" 'backward-barf-sexp
        "M-)" 'forward-barf-sexp
        "C-(" 'backward-slurp-sexp
-       "C-)" 'forward-slurp-sexp
-       "(" 'paredit-wrap-round
-       ")" 'paredit-close-round-and-newline)))
+       "C-)" 'forward-slurp-sexp)
 
 (defun forward-barf-sexp (prefix)
   "Calls `paredit-forward-barf-sexp', unless PREFIX is non nil.
