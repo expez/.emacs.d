@@ -44,6 +44,7 @@
 (ido-mode 'both)
 (setq ido-enable-flex-matching t
       ido-create-new-buffer 'always)
+(ido-ubiquitous-mode 1)
 
 (add-hook 'ido-setup-hook
           (lambda ()

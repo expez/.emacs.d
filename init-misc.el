@@ -10,8 +10,6 @@
 (require 'lorem-ipsum)
 (require 'mediawiki)
 
-(ido-ubiquitous-mode 1)
-
 (key-chord-mode 1)
 
 (setq ibuffer-saved-filter-groups

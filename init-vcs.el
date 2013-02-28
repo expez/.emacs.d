@@ -1,4 +1,6 @@
-(git-wip-mode)
+(eval-after-load "git-wip-mode"
+ (lambda nil
+   ((git-wip-mode 1))))
 
 (setq vc-handled-backends '(SVN)
       vc-follow-symlinks t)
