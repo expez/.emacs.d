@@ -1,3 +1,4 @@
+(require 'git-commit-mode)
 (eval-after-load "git-wip-mode"
  (lambda nil
    ((git-wip-mode 1))))
