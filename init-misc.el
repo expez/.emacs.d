@@ -68,10 +68,6 @@
 
 (setq ace-jump-mode-scope 'window)
 
-(setq deft-extension "org"
-      deft-directory "~/org/deft/"
-      deft-text-mode 'org-mode)
-
 (add-hook 'css-mode-hook 'rainbow-turn-on)
 (add-hook 'html-mode-hook 'rainbow-turn-on)
 (add-hook 'sass-mode-hook 'rainbow-turn-on)
