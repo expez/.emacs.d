@@ -5,7 +5,7 @@ This is my Emacs config.  It is--at all times--just the way **I** like it.  If y
 If you find something that is broken--I do not use all parts of this configuration at all times!--you can create an issue and watch me solve your problem like it is my own, because tomorrow it might be.
 
 ## Usage
-All packages are managed through Emacs' own package manager.  There are some exceptions, but I try to keep them to a minimum.  These exceptional packages are managed using the `Rakefile` included in this repository.  Simply run `rake` in the Emacs dir and the packages will be installed in the `vendor` folder.
+All packages are managed through Emacs' own package manager.  There are some exceptions, but I try to keep them to a minimum.  These exceptional packages are managed using the `Rakefile` included in this repository.  Simply run `rake` in the .emacs.d directory and the packages will be installed in the `vendor` folder.
 
 You can also update the packages managed by the rakefile by issuing the command `sh rake update_packages`.  If you want to add packages of your own I strongly suggest you use the built-in package manager.  If you cannot find the packages you want in this manner, modify the rakefile to grab the package you need.  All files below the `vendor` folder will be automagically loaded.
 
