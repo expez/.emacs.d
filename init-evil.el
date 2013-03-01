@@ -32,7 +32,14 @@
              "C-e" 'move-end-of-line
              "C-a" 'smart-line-beginning
              "go" 'goto-char
-             "M-," 'pop-tag-mark)
+             "M-," 'pop-tag-mark
+             "C-j" 'open-line-below
+             "C-k" 'open-line-above
+             "M-n" 'next-error
+             "M-p" 'previous-errror
+             "<down>" 'move-text-down
+             "<up>" 'move-text-up
+             "C-u" 'evil-scroll-up)
 
 (fill-keymap evil-insert-state-map
              "C-y" 'yank
@@ -65,20 +72,6 @@
   "g" 'magit-status
   "." 'evil-ex
   "u" 'winner-undo)
-
-(fill-keymap evil-normal-state-map
-             "C-j" 'open-line-below
-             "C-j" 'open-line-below
-             "C-k" 'open-line-above
-             "M-n" 'next-error
-             "M-p" 'previous-errror
-             "<left>" 'evil-prev-buffer
-             "<right>" 'evil-next-buffer
-             "<down>" 'move-text-down
-             "<down>" 'move-text-down
-             "<up>" 'move-text-up
-             "<up>" 'move-text-up
-             "C-u" 'evil-scroll-up)
 
 (defmacro evil-enclose-ace-jump (&rest body)
   `(let ((old-mark (mark)))

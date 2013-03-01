@@ -19,6 +19,7 @@
              "C-x a r" 'align-regexp
              "C-x i" 'ido-goto-symbol
              "C-x C-r" 'ido-recentf-open
+             "<f6>" 'toggle-deft-mode
              "M-<backspace>" 'delete-indentation)
 
 (define-key query-replace-map [return] 'act)
