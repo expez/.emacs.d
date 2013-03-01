@@ -11,16 +11,16 @@
              load-path)))
 
 (require 'init-utils)
-(mapc #'load-if-exists '("~/quicklisp/slime-helper.el"
-                         "~/src/emacs-clang-complete-async.el"
-                         "~/src/git-wip/emacs/git-wip.el"
-                         "~/src/git-wip/emacs/git-wip-mode.el"))
+(mapc #'load-if-exists '("~/quicklisp/slime-helper.el"))
 
 (require 'init-package)
-(mapc #'load (directory-files user-emacs-directory t "init-.\*.el"))
+
+(load-all-elisp-files-in-dir user-emacs-directory "^init-.\*")
 
 (setq custom-file (concat user-emacs-directory "customize.el"))
 (load custom-file)
+
+(load-from-vendor-dir)
 
 (require 'sr-speedbar)
 (require 'uniquify)

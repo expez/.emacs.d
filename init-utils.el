@@ -621,4 +621,35 @@ If the file is emacs lisp, run the byte compiled version if appropriate."
   (if (file-exists-p (expand-file-name file))
     (load (expand-file-name file))))
 
+(defun directory-dirs (dir)
+  "Find all directories in DIR."
+  (unless (file-directory-p dir)
+    (error "Not a directory `%s'" dir))
+  (let ((dir (directory-file-name dir))
+        (dirs '())
+        (files (directory-files dir nil nil t)))
+    (dolist (file files)
+      (unless (member file '("." ".."))
+        (let ((file (concat dir "/" file)))
+          (when (file-directory-p file)
+            (setq dirs (append (cons file
+                                     (directory-dirs file))
+                               dirs))))))
+    dirs))
+
+(defun load-from-vendor-dir ()
+  "Loads everything below the vendor folder in `user-emacs-directory'."
+  (let* ((vendor-dir (concat user-emacs-directory "vendor"))
+         (files (split-string
+                 (shell-command-to-string (concat "find " vendor-dir " -type f -iname '*.el'")))))
+    (mapc #'load files)))
+
+(defun load-all-elisp-files-in-dir (dir &optional regexp)
+  "Load all elisp files in in DIR.  When REGEXP is provided match
+only those files match REGEXP.el"
+  (let ((regexp (if regexp
+                    regexp
+                  ".*\.el\$")))
+    (mapc #'load (directory-files dir t (concat regexp "\.el\$")))))
+
 (provide 'init-utils)
