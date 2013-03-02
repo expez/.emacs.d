@@ -4,7 +4,9 @@
 (setf eproject-completing-read-function 'eproject--ido-completing-read)
 
 (fill-keymap eproject-mode-map
-             "C-c C-f" 'nil)
+             "C-c C-f" 'nil
+             "C-c C-b" 'nil
+             "C-c b" 'nil)
 
 (define-project-type ruby (generic)
   (or (look-for "Rakefile")
