@@ -5,9 +5,11 @@
 (unless (file-exists-p deft-directory)
   (make-directory deft-directory :create-parents))
 
-(define-minor-mode deft-note-mode "Deft notes" nil " Deft-Notes"
-  (org-mode))
+(define-minor-mode deft-note-mode "Deft notes" nil " Deft-Notes")
 (setq deft-text-mode 'deft-note-mode)
+
+(add-lambda 'deft-note-mode-hook
+  (org-mode))
 
 (defun kill-all-deft-notes ()
   (interactive)
