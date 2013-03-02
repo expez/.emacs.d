@@ -61,8 +61,6 @@
         (define-key mediawiki-mode-map (kbd "C-c C-f C-h") 'mediawiki-insert-header)
         (define-key mediawiki-mode-map (kbd "C-c C-f C-e") 'mediawiki-insert-sub-header)))
 
-(add-auto-mode 'markdown-mode "\\.md\\'")
-
 (add-to-list 'auto-mode-alist '( "\\.?cron\\(tab\\)?\\'" . crontab-mode))
 (autoload 'crontab-mode "crontab-mode" "Mode for editing crontab files" t)
 
