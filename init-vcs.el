@@ -85,6 +85,8 @@
                       (m (mark)))
                   (evil-insert-state)
                   (goto-char p)
-                  (set-mark m))))
+                  (set-mark m)))
+  ad-do-it
+  (evil-normal-state))
 
 (provide 'init-vcs)
