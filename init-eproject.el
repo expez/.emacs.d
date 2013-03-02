@@ -3,6 +3,9 @@
 
 (setf eproject-completing-read-function 'eproject--ido-completing-read)
 
+(fill-keymap eproject-mode-map
+             "C-c C-f" 'nil)
+
 (define-project-type ruby (generic)
   (or (look-for "Rakefile")
       (look-for "Gemfile")
