@@ -8,3 +8,12 @@
 (setq yas/prompt-functions '(yas/dropdown-prompt
                              yas/ido-prompt
                              yas/completing-prompt))
+
+(add-hook 'yas-before-expand-snippet-hook
+          #'(lambda()
+              (when (evil-visual-state-p)
+                (let ((p (point))
+                      (m (mark)))
+                  (evil-insert-state)
+                  (goto-char p)
+                  (set-mark m)))))
