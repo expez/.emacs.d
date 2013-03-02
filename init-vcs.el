@@ -76,4 +76,15 @@
   (kill-buffer)
   (jump-to-register :magit-fullscreen))
 
+(defadvice gist-region-or-buffer (around url-to-clipboard activate)
+  "This function does not play well with Evil-mode.  Advice the
+  function to put the URL into the clipboard, where previously
+  was the content of REGION."
+  (when (evil-visual-state-p)
+                (let ((p (point))
+                      (m (mark)))
+                  (evil-insert-state)
+                  (goto-char p)
+                  (set-mark m))))
+
 (provide 'init-vcs)
