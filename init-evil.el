@@ -45,6 +45,7 @@
              "C-y" 'yank
              "C-v" 'quoted-insert
              "M-y" 'yank-pop
+             "C-d" 'delete-char
              "C-e" 'end-of-line
              "C-h" 'backward-delete-char
              "C-[" 'evil-force-normal-state)
@@ -60,17 +61,19 @@
              "C-a" 'smart-line-beginning)
 
 (evil-leader/set-key
-  "w" 'save-buffer
-  "W" 'save-some-buffers
-  "k" 'kill-buffer
-  "K" 'kill-buffer-and-window
-  "d" 'dired-jump
+  "." 'evil-ex
   "D" 'diff-buffer-with-file
-  "c" 'compile
+  "K" 'kill-buffer-and-window
+  "W" 'save-some-buffers
   "a" 'align-rexep
+  "p" 'eproject-revisit-project
+  "b" 'eproject-switch-to-buffer
+  "c" 'compile
+  "d" 'dired-jump
   "f" 'eproject-find-file
   "g" 'magit-status
-  "." 'evil-ex
+  "k" 'kill-buffer
+  "w" 'save-buffer
   "u" 'winner-undo)
 
 (defmacro evil-enclose-ace-jump (&rest body)
