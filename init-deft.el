@@ -1,6 +1,7 @@
 (setq deft-extension "org"
       deft-directory "~/org/deft/"
-      deft-text-mode 'org-mode)
+      deft-text-mode 'org-mode
+      deft-auto-save-interval 30.0)
 
 (unless (file-exists-p deft-directory)
   (make-directory deft-directory :create-parents))

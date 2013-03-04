@@ -22,6 +22,7 @@
     command-frequency
     crontab-mode
     ctypes
+    deft
     diminish
     dired+
     dropdown-list
