@@ -1,12 +1,12 @@
 (require 'rspec-mode)
 (require 'robe)
+(require 'robe-ac)
 (require 'rinari)
 (require 'ruby-compilation)
 (require 'rvm)
 
 (add-hook 'ruby-mode-hook
           (lambda ()
-            (setf inf-ruby-default-implementation "rubinius")
             (rvm-activate-corresponding-ruby)
             (ruby-electric-mode 1)
             (electric-pair-mode 0)
