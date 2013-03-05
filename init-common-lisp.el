@@ -1,5 +1,4 @@
 (require 'slime)
-(require 'cl-info)
 
 (add-hook 'lisp-mode-hook
           (lambda ()
