@@ -17,4 +17,14 @@
       (look-for ".*\\.gemspec"))
   :irrelevant-files (".*~"))
 
+(define-project-type ruby-on-rails (generic)
+  (and (look-for "Gemfile") (look-for "config/application.rb"))
+  :irrelevant-files ("app/assets/images/.*" "tmp/.*" "log/.*" "public/.*" "vendor/.*" ".*\\.sqlite?")
+  :main-file "Gemfile")
+
+(define-project-type cl (generic)
+  (or (look-for "*asd")
+      (look-for "packages.lisp"))
+  :irrelevant-files ("*.fasl"))
+
 (provide 'init-eproject)
