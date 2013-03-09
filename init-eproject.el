@@ -22,6 +22,11 @@
   :irrelevant-files ("app/assets/images/.*" "tmp/.*" "log/.*" "public/.*" "vendor/.*" ".*\\.sqlite?")
   :main-file "Gemfile")
 
+(define-project-type emacs (generic)
+  (look-for "init.el")
+  :irrelevant-files ("elpa/.*" "vendor/.*" "snippets/.*" "backups/.*" "var/.*"
+                     "url/.*" "autosaves/.*" "auto-save-list/.*" "eshell/.*"))
+
 (define-project-type cl (generic)
   (or (look-for "*asd")
       (look-for "packages.lisp"))
