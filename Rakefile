@@ -1,4 +1,4 @@
-task :default => [:install_packages]
+task :default => [:install_packages, :make_link]
 
 packages = ["bartman/git-wip", "Golevka/emacs-clang-complete-async"]
 
@@ -23,4 +23,11 @@ task :update_packages do
     `cd vendor/#{dir} && git pull`
   end
   `cd vendor/emacs-clang-complete-async && make`
+end
+
+task :make_link do
+  target = File.join(File.dirname(__FILE__), "vendor", "git-wip")
+  link_name = File.join(Dir.home, "bin", "git-wip")
+  `ln -s #{target} #{link_name}`
+  `chmod u+x #{link_name}`
 end
