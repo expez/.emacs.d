@@ -19,7 +19,6 @@
     bundler
     c-eldoc
     color-moccur
-    command-frequency
     crontab-mode
     ctypes
     deft

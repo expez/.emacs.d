@@ -66,16 +66,18 @@
 
 (setq ace-jump-mode-scope 'window)
 
+(setf ace-jump-mode-move-keys
+      (nconc (loop for i from ?a to ?z collect i)
+             (loop for i from ?A to ?Z collect i)
+             (loop for i from ?0 to ?9 collect i)
+             (loop for i from ?! to ?/ collect i)
+             (loop for i from ?: to ?@ collect i)))
+
 (add-hook 'css-mode-hook 'rainbow-turn-on)
 (add-hook 'html-mode-hook 'rainbow-turn-on)
 (add-hook 'sass-mode-hook 'rainbow-turn-on)
 (add-hook 'scss-mode-hook 'rainbow-turn-on)
 (add-hook 'haml-mode-hook 'rainbow-turn-on)
-
-(command-frequency-table-load)
-(command-frequency-mode 1)
-(command-frequency-autosave-mode 1)
-(setq command-frequency-table-file (concat user-emacs-directory ".emacs-frequencies"))
 
 (windmove-default-keybindings)
 (setq windmove-wrap-around t)
