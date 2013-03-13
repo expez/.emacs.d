@@ -26,7 +26,7 @@ task :update_packages do
 end
 
 task :make_link do
-  target = File.join(File.dirname(__FILE__), "vendor", "git-wip")
+  target = File.join(File.dirname(__FILE__), "vendor", "git-wip", "git-wip")
   link_name = File.join(Dir.home, "bin", "git-wip")
   `ln -s #{target} #{link_name}`
   `chmod u+x #{link_name}`
