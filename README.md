@@ -1,6 +1,6 @@
 # An opinionated configuration for The One True Editor
 
-This is my Emacs config.  It is--at all times--just the way **I** like it.  If you find something in here that **you** like, I encourage you to make it your own.
+This is my Emacs config.  It is--at all times--just the way I like it.  If you find something in here that you like, I encourage you to make it your own.
 
 If you find something that is broken--I do not use all parts of this configuration at all times!--you can create an issue and watch me solve your problem like it is my own, because tomorrow it might be.
 
@@ -24,6 +24,6 @@ At present, or in the recent past, I have taken the time to setup Emacs for the 
 * Elisp
 
 ## Installation
-Just clone this repository so the file `init.el` ends up at `~/.emacs.d/init.el`.  If you care for the packages found in the rakefile additionally run ` rake` in the .emacs.d directory and occasionally run `rake update_packages` to update the packages.
+Just clone this repository so the file `init.el` ends up at `~/.emacs.d/init.el`.  If you care for the packages found in the rakefile, additionally run ` rake` in the .emacs.d directory and occasionally run `rake update_packages` to update the packages.
 
 I recommend you start Emacs using `emacs --daemon` and connect to this daemon using `emacsclient`.
