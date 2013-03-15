@@ -5,7 +5,9 @@
  ;; If there is more than one, they won't work right.
  '(TeX-font-list (quote ((98 "{\\bf " "}") (99 "{\\sc " "}") (101 "{\\em " "\\/}") (105 "{\\it " "\\/}") (114 "{\\rm " "}") (115 "{\\sl " "\\/}") (115 "{\\tt " "}") (100 "" "" t))))
  '(auto-image-file-mode t)
- '(custom-safe-themes (quote ("fc5fcb6f1f1c1bc01305694c59a1a861b008c534cae8d0e48e4d5e81ad718bc6" default)))
+ '(auto-save-file-name-transforms (quote ((".*" "~/.emacs.d/autosaves/\\1" t))))
+ '(backup-directory-alist (quote ((".*" . "~/.emacs.d/backups/"))))
+ '(custom-safe-themes (quote ("8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" "fc5fcb6f1f1c1bc01305694c59a1a861b008c534cae8d0e48e4d5e81ad718bc6" default)))
  '(fringe-mode (cons 8 0) nil (fringe))
  '(glasses-face (quote bold))
  '(glasses-original-separator "")

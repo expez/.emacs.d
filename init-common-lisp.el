@@ -8,13 +8,19 @@
                  'common-lisp-indent-function)
             (slime-mode 1)
             (turn-on-eldoc-mode)
-            (define-key lisp-mode-map (kbd "C-c l") 'lispdoc)
             (eldoc-add-command
              'paredit-backward-delete
              'paredit-close-round)
             (rainbow-delimiters-mode 0)
             (evil-paredit-mode 1)
             (set-face-foreground 'paren-face "grey30")))
+
+(eval-after-load "evil"
+  '(evil-define-key 'normal 'lisp-mode-map
+     "M-." 'slime-edit-definition
+     "M-," 'slime-pop-find-definition-stack))
+
+(define-key lisp-mode-map (kbd "C-c l") 'lispdoc)
 
 (setq inferior-lisp-program "/usr/bin/sbcl --noinform"
       lisp-lambda-list-keyword-alignment t
@@ -88,5 +94,16 @@ currently under the curser"
 			    (if (string-equal search-type "f")
 				"full+text+search"
 			      "basic+search")))))))
+
+(defun scratch-lisp-file ()
+  "Insert a template (with DEFPACKAGE and IN-PACKAGE forms) into
+  the current buffer."
+  (interactive)
+  (goto-char 0)
+  (let* ((file (file-name-nondirectory (buffer-file-name)))
+         (package (file-name-sans-extension file)))
+    (insert ";;;; " file "\n")
+    (insert "\n(defpackage #:" package "\n  (:use #:cl))\n\n")
+    (insert "(in-package #:" package ")\n\n")))
 
 (provide 'init-common-lisp)
