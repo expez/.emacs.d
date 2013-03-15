@@ -19,13 +19,15 @@
 
 (define-project-type ruby-on-rails (generic)
   (and (look-for "Gemfile") (look-for "config/application.rb"))
-  :irrelevant-files ("app/assets/images/.*" "tmp/.*" "log/.*" "public/.*" "vendor/.*" ".*\\.sqlite?")
+  :irrelevant-files ("app/assets/images/.*" "tmp/.*" "log/.*" "public/.*"
+                     "vendor/.*" ".*\\.sqlite?")
   :main-file "Gemfile")
 
 (define-project-type emacs (generic)
   (look-for "init.el")
   :irrelevant-files ("elpa/.*" "vendor/.*" "snippets/.*" "backups/.*" "var/.*"
-                     "url/.*" "autosaves/.*" "auto-save-list/.*" "eshell/.*"))
+                     "tramp" "url/.*" "autosaves/.*" "auto-save-list/.*"
+                     "eshell/.*"))
 
 (define-project-type cl (generic)
   (or (look-for "*asd")
