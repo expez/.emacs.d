@@ -16,9 +16,10 @@
             (set-face-foreground 'paren-face "grey30")))
 
 (eval-after-load "evil"
-  '(evil-define-key 'normal 'lisp-mode-map
+  '(evil-define-key 'normal lisp-mode-map
      "M-." 'slime-edit-definition
-     "M-," 'slime-pop-find-definition-stack))
+     "M-," 'slime-pop-find-definition-stack
+     "M-q" 'slime-reindent-defun))
 
 (define-key lisp-mode-map (kbd "C-c l") 'lispdoc)
 
