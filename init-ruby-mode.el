@@ -11,8 +11,9 @@
             (ruby-electric-mode 1)
             (electric-pair-mode 0)
             (robe-mode 1)
-            (define-key evil-normal-state-local-map (kbd "M-,") 'pop-tag-mark)
-            (define-key evil-normal-state-local-map (kbd "M-.") 'robe-jump)
+            (fill-keymap evil-normal-state-local-map
+                         "M-," 'pop-tag-mark
+                         "M-." 'robe-jump)
             (rspec-mode 1)
             (yard-mode 1)
             (eldoc-mode 1)
@@ -30,9 +31,6 @@
       rspec-use-bundler-when-possible 't)
 
 (define-key ruby-mode-map (kbd "C-c , ,") 'ruby-open-spec-other-buffer)
-
-(add-auto-mode 'ruby-mode "\\.gemspec$" )
-(add-auto-mode 'ruby-mode "Gemfile$" )
 
 (autoload 'run-ruby "inf-ruby" "Run an inferior Ruby process" t)
 (autoload 'inf-ruby-setup-keybindings "inf-ruby" "" t)
@@ -54,7 +52,7 @@ process. "
       (comint-send-string inf-ruby-buffer script))))
 
 (add-auto-mode 'ruby-mode "Rakefile" "\\.rake\\'" "\\.ru\\'" "\\.prawn\\'"
-               "Gemfile\\'" "Capfile\\'" "Guardfile\\'")
+               "Gemfile\\'" "Capfile\\'" "Guardfile\\'" "\\.gemspec$")
 
 (defadvice rspec-compile (around rspec-compile-around activate)
   "Use BASH shell for running the specs because of ZSH issues."
@@ -110,7 +108,6 @@ process. "
            (with-current-buffer comp-buffer-name
              (delete-region (point-min) (point-max))))))
      (ad-activate 'ruby-do-run-w/compilation)))
-
 
 (defun pcomplete/rake ()
   "Completion rules for the `ssh' command."
