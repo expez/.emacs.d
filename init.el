@@ -10,7 +10,7 @@
                 (normal-top-level-add-subdirs-to-load-path)))
              load-path)))
 
-(require 'init-utils)
+(require 'init-util)
 (mapc #'load-if-exists '("~/quicklisp/slime-helper.el"))
 
 (require 'init-package)
@@ -181,3 +181,8 @@
                   (y-or-n-p
                    (format "Directory %s does not exist. Create it?" dir)))
          (make-directory dir t))))))
+
+(setq whitespace-display-mappings
+      '((space-mark 32 [183] [46])
+        (newline-mark 10 [36 10])
+        (tab-mark 9 [9655 9] [92 9])))

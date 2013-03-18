@@ -1,10 +1,12 @@
 (require 'cl)
 
 (defun add-auto-mode (mode &rest patterns)
+  "Associate every pattern in `PATTERNS' with `MODE'."
   (dolist (pattern patterns)
     (add-to-list 'auto-mode-alist (cons pattern mode))))
 
 (defmacro add-lambda (hook &rest body)
+  "Wrap `BODY' in a lambda, and add it to `HOOK'."
   (declare (indent 1))
   `(add-hook ,hook (lambda () ,@body)))
 
@@ -99,9 +101,10 @@ prefix argument, the process's buffer is displayed."
   "Reports on changes in `launch'ed applications."
   (message (format "%s: %s" proc event)))
 
-(defun diff-buffer-with-file ()
+(defun diff-current-buffer-with-file ()
+  (interactive)
   "Diff the current buffer with the content saved in the file."
-  (lambda nil (interactive) (diff-buffer-with-file (current-buffer))))
+  (diff-buffer-with-file (current-buffer)))
 
 (defun delete-current-file ()
   "Delete the file associated with the current buffer.
@@ -221,21 +224,6 @@ Toggles between: “all lower”, “Init Caps”, “ALL CAPS”."
     	 (change (if (string= dic "norwegian") "english" "norwegian")))
     (ispell-change-dictionary change)
     (message "Dictionary switched from %s to %s" dic change)))
-
-(defun th-find-file-sudo (file)
-  "Opens FILE with root privileges."
-  (interactive "F")
-  (set-buffer (find-file (concat "/sudo::" file))))
-
-(defadvice find-file (around th-find-file activate)
-  "Open FILENAME using tramp's sudo method if it's read-only."
-  (if (and (not (file-writable-p (ad-get-arg 0)))
-           (not (file-remote-p (ad-get-arg 0)))
-           (y-or-n-p (concat "File "
-                             (ad-get-arg 0)
-                             " is read-only.  Open it as root? ")))
-      (th-find-file-sudo (ad-get-arg 0))
-    ad-do-it))
 
 (defun revert-all-buffers ()
   "Revert all non-modified buffers associated with a file.
@@ -560,12 +548,6 @@ A `spec' can be a `read-kbd-macro'-readable string or a vector."
                                     ,(make-char 'greek-iso8859-7 107))
                     nil))))))
 
-(defun sudo-edit (&optional arg)
-  (interactive "P")
-  (if (or arg (not buffer-file-name))
-      (find-file (concat "/sudo:root@localhost:" (ido-read-file-name "File: ")))
-    (find-alternate-file (concat "/sudo:root@localhost:" buffer-file-name))))
-
 (defun indent-buffer ()
   "Indent each nonblank line in the buffer. See `indent-region"
   (interactive)
@@ -652,4 +634,33 @@ only those files match REGEXP.el"
                   ".*\.el\$")))
     (mapc #'load (directory-files dir t (concat regexp "\.el\$")))))
 
-(provide 'init-utils)
+(defun toggle-whitespace ()
+  (interactive)
+  (let ((default '(face tabs spaces trailing lines space-before-tab
+                    newline indentation empty space-after-tab
+                    space-mark tab-mark newline-mark))
+        (some '(face lines-tail)))
+    (if (equal whitespace-style some)
+        (setf whitespace-style default)
+      (setf whitespace-style some)))
+  (whitespace-mode 0)
+  (whitespace-mode 1))
+
+(defmacro defkeymap (symbol &rest mappings)
+  "Define keymap bound to `symbol'.
+See `pour-mappings-to'"
+  `(progn (unless (boundp ',symbol)
+            (defvar ,symbol (make-sparse-keymap)))
+          (fill-keymap ,symbol ,@mappings)))
+
+ (defun find-file-as-root ()
+  "Like `ido-find-file, but automatically edit the file with
+root-privileges (using tramp/sudo), if the file is not writable by
+user."
+  (interactive)
+  (let ((file (ido-read-file-name "Edit as root: ")))
+    (unless (file-writable-p file)
+      (setq file (concat "/sudo:root@localhost:" file)))
+    (find-file file)))
+
+(provide 'init-util)
