@@ -5,4 +5,7 @@
 
 (add-auto-mode 'markdown-mode "\\.md\\'")
 
+(add-lambda 'markdown-mode-hook
+  (visual-line-mode 1))
+
 (provide 'init-markdown)

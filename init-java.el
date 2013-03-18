@@ -2,17 +2,19 @@
 (require 'eclim)
 (require 'eclimd)
 (require 'java-mode-indent-annotations)
+
 (setq eclimd-default-workspace "~/workspace"
       eclim-executable "/usr/share/eclipse/eclim"
       eclim-auto-save t
+      help-at-pt-display-when-idle t
+      help-at-pt-timer-delay 0.1
+      eclimd-wait-for-process nil
       eclim-print-debug-messages t)
+
 (add-hook 'java-mode-hook
           '(lambda ()
              (eclim-mode 1)
              (ac-emacs-eclim-config)
-             (setq help-at-pt-display-when-idle t
-                   help-at-pt-timer-delay 0.1)
-             ;; Eclim uses help to display errors
              (help-at-pt-set-timer)
              (java-mode-indent-annotations-setup)
              (custom-set-variables

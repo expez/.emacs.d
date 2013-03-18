@@ -21,7 +21,8 @@
       nil
       '(("\\<\\(FIXME\\|HACK\\|XXX\\|TODO\\|NOTE\\|REFACTOR\\)"
          1
-         '(:box (:color "grey10" :line-width 2) :background "red" :bold t :foreground "yellow")
+         '(:box (:color "grey10" :line-width 2) :background "red" :bold t
+                :foreground "yellow")
          prepend)))
      (rainbow-mode 0)
      (rainbow-delimiters-mode 1)

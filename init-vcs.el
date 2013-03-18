@@ -1,10 +1,11 @@
 (require 'git-commit-mode)
+(require 'gitsum)
+
 (eval-after-load "git-wip-mode"
  (lambda nil
-   ((git-wip-mode 1))))
+   ((git-wip-mode))))
 
-(setq vc-handled-backends '(SVN)
-      vc-follow-symlinks t)
+(setq vc-follow-symlinks t)
 
 (add-auto-mode 'gitignore-mode "\\.gitignore$")
 (add-auto-mode 'gitconfig-mode "\\.gitconfig$")
@@ -22,7 +23,6 @@
       magit-completing-read-function 'magit-ido-completing-read
       magit-remote-ref-format 'remote-slash-name
       magit-commit-all-when-nothing-staged nil)
-
 
 (eval-after-load "magit"
   '(progn
@@ -64,7 +64,6 @@
   (setq magit-diff-options (remove "-w" magit-diff-options))
   (magit-refresh))
 
-;; full screen magit-status
 (defadvice magit-status (around magit-fullscreen activate)
   (window-configuration-to-register :magit-fullscreen)
   ad-do-it
@@ -77,8 +76,8 @@
   (jump-to-register :magit-fullscreen))
 
 (defadvice gist-region-or-buffer (around url-to-clipboard activate)
-  "This function does not play well with Evil-mode.  Advice the
-  function to put the URL into the clipboard, where previously
+  "gist region or buffer does not play well with Evil-mode.  Advice it
+  to put the URL into the clipboard, where previously
   was the content of REGION."
   (when (evil-visual-state-p)
                 (let ((p (point))

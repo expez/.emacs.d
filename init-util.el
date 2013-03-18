@@ -221,7 +221,7 @@ Toggles between: “all lower”, “Init Caps”, “ALL CAPS”."
 (defun fd-switch-dictionary()
   (interactive)
   (let* ((dic ispell-current-dictionary)
-    	 (change (if (string= dic "norwegian") "english" "norwegian")))
+	 (change (if (string= dic "norwegian") "english" "norwegian")))
     (ispell-change-dictionary change)
     (message "Dictionary switched from %s to %s" dic change)))
 
