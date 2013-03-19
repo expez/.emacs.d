@@ -22,7 +22,6 @@
              "J" 'ibuffer-jump-to-buffer
              "K" 'ibuffer-do-kill-lines)
 
-;; Update the buffer list for uniquify when needed
 (defadvice iswitchb-kill-buffer (after rescan-after-kill activate)
   "*Regenerate the list of matching buffer names after a kill.
     Necessary if using `uniquify' with `uniquify-after-kill-buffer-p'
@@ -36,11 +35,9 @@
   (iswitchb-make-buflist iswitchb-default)
   (setq iswitchb-rescan t))
 
-;;Prevent flyspell from spamming.
 (setq flyspell-issue-message-flag nil)
 
 (setq ispell-dictionary "english")
-;;Make sure ispell process is started in home directory to use personal dictionaries.
 (setq ispell-process-directory (expand-file-name "~/"))
 (setq ispell-program-name "aspell") ;;Use aspell dictionaries.
 (setq ispell-list-command "list") ;;Faster region checking, "list" for aspell, "-1" for ispell.

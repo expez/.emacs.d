@@ -3,7 +3,7 @@
 (add-hook 'lisp-mode-hook
           (lambda ()
             (paredit-mode +1)
-            (slime-setup '(slime-fancy))
+            (slime-setup '(slime-fancy slime-asdf))
             (set (make-local-variable 'lisp-indent-function)
                  'common-lisp-indent-function)
             (slime-mode 1)
@@ -12,16 +12,18 @@
              'paredit-backward-delete
              'paredit-close-round)
             (rainbow-delimiters-mode 0)
+            (fill-keymap evil-normal-state-local-map
+                         "M-." 'slime-edit-definition
+                         "M-," 'slime-pop-find-definition-stack
+                         "M-q" 'slime-reindent-defun)
             (evil-paredit-mode 1)
             (set-face-foreground 'paren-face "grey30")))
 
-(eval-after-load "evil"
-  '(evil-define-key 'normal lisp-mode-map
-     "M-." 'slime-edit-definition
-     "M-," 'slime-pop-find-definition-stack
-     "M-q" 'slime-reindent-defun))
-
-(define-key lisp-mode-map (kbd "C-c l") 'lispdoc)
+(fill-keymap lisp-mode-map "C-c l" 'lispdoc)
+(fill-keymap slime-mode-map
+             "C-c sl" 'slime-load-system
+             "C-c sb" 'slime-browse-system
+             "C-c so" 'slime-open-system)
 
 (setq inferior-lisp-program "/usr/bin/sbcl --noinform"
       lisp-lambda-list-keyword-alignment t
@@ -31,7 +33,7 @@
 (add-hook 'slime-mode-hook 'cliki:start-slime)
 (add-hook 'slime-repl-mode-hook 'set-up-slime-ac)
 
-(let ((fasl-dir (expand-file-name "~/tmp/slime-fasls/")))
+(let ((fasl-dir (expand-file-name "/tmp/slime-fasls/")))
   (make-directory fasl-dir t)
   (setq slime-compile-file-options `(:fasl-directory ,fasl-dir)))
 
