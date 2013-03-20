@@ -1,8 +1,10 @@
 (defkeymap misc-map
   "w" 'toggle-whitespace
   "g" 'gist-region-or-buffer
+  "l" 'gist-list
   "r" 'rename-file-and-buffer
-  "d" 'delete-current-file
+  "D" 'delete-current-file
+  "d" 'diff-current-buffer-with-file
   "p" 'pretty-mode
   "d" 'diff-current-buffer-with-file
   "v" 'visual-line-mode)
@@ -70,9 +72,20 @@
   "g" 'magit-status
   "k" 'kill-buffer
   "w" 'save-buffer
+  "r" 'revert-buffer
+  "R" 'revert-all-buffers
   "s" 'eshell-toggle
   "v" 'vc-annotate
-  "u" 'winner-undo)
+  "u" 'winner-undo
+  "1" 'select-window-1
+  "2" 'select-window-2
+  "3" 'select-window-3
+  "4" 'select-window-4
+  "5" 'select-window-5
+  "6" 'select-window-6
+  "7" 'select-window-7
+  "8" 'select-window-8
+  "9" 'select-window-9)
 
 (fill-keymap 'global
              "C-x m" 'execute-extended-command
