@@ -9,6 +9,7 @@
 (require 'info+)
 (require 'lorem-ipsum)
 (require 'mediawiki)
+(require 'window-numbering)
 
 (key-chord-mode 1)
 
@@ -78,3 +79,5 @@
 
 (windmove-default-keybindings)
 (setq windmove-wrap-around t)
+
+(window-numbering-mode 1)
