@@ -10,6 +10,7 @@
 
 (defvar my-packages
   '(
+    dired+
     ac-slime
     ace-jump-mode
     auctex
@@ -19,17 +20,17 @@
     bundler
     c-eldoc
     color-moccur
+    color-theme-solarized
     crontab-mode
     ctypes
     deft
     diminish
-    dired+
     dropdown-list
     eldoc-eval
     elisp-slime-nav
     emacs-eclim
-    eshell-manual
     eproject
+    eshell-manual
     evil
     evil-leader
     evil-numbers
@@ -73,6 +74,7 @@
     ruby-electric
     ruby-interpolation
     rvm sr-speedbar surround
+    toml-mode
     unbound
     undo-tree
     workgroups
