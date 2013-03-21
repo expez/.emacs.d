@@ -13,6 +13,13 @@
 
 (add-hook 'java-mode-hook
           '(lambda ()
+             (setq c-basic-offset 4
+                   c-label-offset 0)
+
+             ;; fix indentation for anonymous classes
+             (c-set-offset 'substatement-open 0)
+             (c-set-offset 'inexpr-class 0)
+
              (eclim-mode 1)
              (ac-emacs-eclim-config)
              (help-at-pt-set-timer)
