@@ -15,7 +15,8 @@
             (fill-keymap evil-normal-state-local-map
                          "M-." 'slime-edit-definition
                          "M-," 'slime-pop-find-definition-stack
-                         "M-q" 'slime-reindent-defun)
+                         "M-q" 'slime-reindent-defun
+                         "C-t" 'transpose-sexps)
             (evil-paredit-mode 1)
             (set-face-foreground 'paren-face "grey30")))
 
