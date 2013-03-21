@@ -38,7 +38,6 @@
 (evil-define-motion evil-ace-jump-char-mode (count)
   :type exclusive
   (evil-enclose-ace-jump
-   (setq ace-jump-mode-move-keys (loop for i from ?a to ?z collect i))
    (ace-jump-mode 5)))
 
 (evil-define-motion evil-ace-jump-line-mode (count)
@@ -54,7 +53,6 @@
 (evil-define-motion evil-ace-jump-char-to-mode (count)
   :type exclusive
   (evil-enclose-ace-jump
-   (setq ace-jump-mode-move-keys (loop for i from ?a to ?z collect i))
    (ace-jump-mode 5)
    (forward-char -1)))
 
