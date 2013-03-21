@@ -60,22 +60,23 @@
 
 (evil-leader/set-key
   "." 'evil-ex
+  "B" 'eproject-kill-project-buffers
   "K" 'kill-buffer-and-window
+  "R" 'revert-all-buffers
   "W" 'save-some-buffers
   "a" 'align-rexep
-  "p" 'eproject-revisit-project
   "b" 'eproject-switch-to-buffer
-  "B" 'eproject-kill-project-buffers
   "c" 'compile
   "d" 'dired-jump
   "f" 'eproject-find-file
   "g" 'magit-status
+  "j" 'bookmark-jump
   "k" 'kill-buffer
-  "w" 'save-buffer
+  "p" 'eproject-revisit-project
   "r" 'revert-buffer
-  "R" 'revert-all-buffers
   "s" 'eshell-toggle
   "v" 'vc-annotate
+  "w" 'save-buffer
   "u" 'winner-undo
   "1" 'select-window-1
   "2" 'select-window-2
