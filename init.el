@@ -132,10 +132,12 @@
 
 (electric-pair-mode 1)
 
-(setq org-src-fontify-natively t)
+(setq org-src-fontify-natively t
+      org-log-done t)
 
-(setq electric-pair-pairs '(
-                            (?\" . ?\")
+(setq org-agenda-files (list "~/org/todo.org"))
+
+(setq electric-pair-pairs '((?\" . ?\")
                             (?\{ . ?\})
                             (?\[ . ?\])))
 
@@ -186,3 +188,7 @@
       '((space-mark 32 [183] [46])
         (newline-mark 10 [36 10])
         (tab-mark 9 [9655 9] [92 9])))
+
+(setq bookmark-version-control 't
+      bookmark-save-flag 1
+      bookmark-default-file (concat user-emacs-directory "bookmarks"))
