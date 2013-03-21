@@ -38,20 +38,6 @@
 
 (global-font-lock-mode 1)
 
-;;Close compilation window if compile was succesful.
-(setq compilation-finish-function
-      (lambda (buf str)
-
-        (if (string-match "exited abnormally" str)
-            ;;there were errors
-            (message "Compilation errors, press C-c n to visit")
-
-          ;;no errors, make the compilation window go away in 2 second
-          ;;(run-at-time 1 nil 'delete-windows-on buf)
-          (run-at-time 1 nil 'kill-buffer buf)
-
-          (message "Compilation succesful!"))))
-
 
 
 (provide 'init-prog-modes)
