@@ -34,6 +34,9 @@
 (add-hook 'slime-mode-hook 'cliki:start-slime)
 (add-hook 'slime-repl-mode-hook 'set-up-slime-ac)
 
+(setq slime-repl-history-trim-whitespaces t
+      slime-repl-history-remove-duplicates t)
+
 (let ((fasl-dir (expand-file-name "/tmp/slime-fasls/")))
   (make-directory fasl-dir t)
   (setq slime-compile-file-options `(:fasl-directory ,fasl-dir)))
