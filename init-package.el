@@ -10,9 +10,9 @@
 
 (defvar my-packages
   '(
-    dired+
     ac-slime
     ace-jump-mode
+    ack-and-a-half
     auctex
     auto-complete
     backtrace-mode
@@ -25,6 +25,7 @@
     ctypes
     deft
     diminish
+    dired+
     dropdown-list
     eldoc-eval
     elisp-slime-nav
@@ -81,6 +82,7 @@
     yaml-mode
     yard-mode
     yasnippet
+    wgrep-ack
     )
   "A list of packages to ensure are installed at launch.")
 

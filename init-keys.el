@@ -65,6 +65,7 @@
   "R" 'revert-all-buffers
   "W" 'save-some-buffers
   "a" 'align-rexep
+  "A" 'ack
   "b" 'eproject-switch-to-buffer
   "c" 'compile
   "d" 'dired-jump
@@ -122,6 +123,11 @@
 
 (defalias 'gl 'gist-list)
 (defalias 'grb 'gist-region-or-buffer)
+
+(defalias 'ack 'ack-and-a-half)
+(defalias 'ack-same 'ack-and-a-half-same)
+(defalias 'ack-find-file 'ack-and-a-half-find-file)
+(defalias 'ack-find-file-same 'ack-and-a-half-find-file-same)
 
 (key-chord-define-global "qr" 'query-replace-regexp)
 (key-chord-define-global "qm" 'moccur)
