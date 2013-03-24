@@ -663,4 +663,8 @@ user."
       (setq file (concat "/sudo:root@localhost:" file)))
     (find-file file)))
 
+(defun chop (string)
+  "Returns a new string with the last char removed."
+  (subseq string 0 -1))
+
 (provide 'init-util)
