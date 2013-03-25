@@ -5,9 +5,17 @@
   (turn-on-haskell-simple-indent)
   (turn-on-haskell-font-lock)
   (haskell-style)
-  (define-key haskell-mode-map "\C-ch" 'haskell-hoogle)
-  (define-key haskell-mode-map "\C-cai" 'haskell-align-imports)
+  (fill-keymap haskell-mode-map
+               "\C-ch" 'haskell-hoogle
+               "\C-cai" 'haskell-align-imports)
+  (make-local-variable after-save-hook)
+  (add-hook 'after-save-hook 'hasktags)
 
+  (auto-complete-mode 1)
+  (make-local-variable 'ac-sources)
+  (setq ac-sources '(ac-source-abbrev
+                                 ac-source-words-in-buffer
+                                 my/ac-source-haskell))
   (setq default-hpaste-nick "expez"))
 
 (add-hook 'haskell-mode-hook 'my-haskell-mode-hook)
@@ -28,18 +36,6 @@
   "regenerate TAGS file using hasktags in the project root (found by TAGS file)"
   (if (eq major-mode 'haskell-mode)
       (start-process "*generate-hasktags*" "*generate-hasktags*" "generate-hasktags.sh")))
-
-(add-hook 'after-save-hook 'hasktags)
-(setq tags-revert-without-query 1)
-
-(add-hook 'haskell-mode-hook
-          (lambda ()
-            (auto-complete-mode 1)
-            (make-local-variable 'ac-sources)
-            (setq ac-sources '(ac-source-abbrev
-                               ac-source-words-in-buffer
-                               my/ac-source-haskell))
-            nil))
 
 ;; Following AC hack is taken from http://madscientist.jp/~ikegami/diary/20090215.html#p01
 (defconst my/haskell-reserved-keywords
