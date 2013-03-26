@@ -116,7 +116,7 @@ process. "
 (defun pcmpl-rake-tasks ()
   "Return a list of all the rake tasks defined in the current
 projects."
-  (delq nil (mapcar '(lambda(line)
+  (delq nil (mapcar (lambda(line)
                        (if (string-match "rake \\([^ ]+\\)" line) (match-string 1 line)))
                     (split-string (shell-command-to-string "rake -T") "[\n]"))))
 

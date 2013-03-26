@@ -38,6 +38,4 @@
 
 (global-font-lock-mode 1)
 
-
-
 (provide 'init-prog-modes)

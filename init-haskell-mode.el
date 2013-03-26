@@ -8,8 +8,7 @@
   (fill-keymap haskell-mode-map
                "\C-ch" 'haskell-hoogle
                "\C-cai" 'haskell-align-imports)
-  (make-local-variable after-save-hook)
-  (add-hook 'after-save-hook 'hasktags)
+  (add-hook 'after-save-hook 'hasktags nil 't)
 
   (auto-complete-mode 1)
   (make-local-variable 'ac-sources)
