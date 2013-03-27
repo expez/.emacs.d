@@ -5,11 +5,14 @@
 
 (setq eclimd-default-workspace "~/workspace"
       eclim-executable "/usr/share/eclipse/eclim"
+      eclim-eclipse-dirs '("/usr/share/eclipse")
       eclim-auto-save t
       help-at-pt-display-when-idle t
       help-at-pt-timer-delay 0.1
       eclimd-wait-for-process nil
-      eclim-print-debug-messages t)
+      eclim-print-debug-messages nil)
+
+(global-eclim-mode)
 
 (add-hook 'java-mode-hook
           '(lambda ()
@@ -20,13 +23,11 @@
              (c-set-offset 'substatement-open 0)
              (c-set-offset 'inexpr-class 0)
 
-             (eclim-mode 1)
-             (ac-emacs-eclim-config)
+             (ac-emacs-eclim-java-setup)
              (help-at-pt-set-timer)
              (java-mode-indent-annotations-setup)
-             (custom-set-variables
-              '(eclim-eclipse-dirs '("/usr/share/eclipse")))
-             (setq c-basic-offset 4)))
+             (when eclim-mode
+               (ac-emacs-eclim-java-setup))))
 
 (defun ant-compile ()
   "Traveling up the path, find build.xml file and run compile."
