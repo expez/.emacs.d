@@ -85,11 +85,11 @@
 
 (setq echo-keystrokes 0.1)
 
-(if (eq system-type 'windows-nt)
+(when (eq system-type 'windows-nt)
     (set-default-font
      "-outline-Consolas-normal-r-normal-normal-14-97-96-96-c-*-iso8859-1"))
 
-(if (eq system-type 'gnu/linux)
+(when (eq system-type 'gnu/linux)
     (set-default-font "Inconsolata-12"))
 
 (add-hook 'comint-output-filter-functions
@@ -99,10 +99,9 @@
 
 (put 'downcase-region 'disabled nil)
 
-(custom-set-variables
-  '(auto-save-file-name-transforms '((".*" "~/.emacs.d/autosaves/\\1" t)))
-  '(backup-directory-alist '((".*" . "~/.emacs.d/backups/"))))
-(setq tramp-backup-directory-alist backup-directory-alist)
+(setq auto-save-file-name-transforms '((".*" "~/.emacs.d/autosaves/\\1" t))
+      backup-directory-alist '((".*" . "~/.emacs.d/backups/"))
+      tramp-backup-directory-alist backup-directory-alist)
 
 (make-directory (concat user-emacs-directory "autosaves/") t)
 
@@ -149,8 +148,9 @@
 
 ;;(setq recentf-auto-cleanup 'never) ;; disable before we start recentf! If using Tramp a lot.
 (recentf-mode t)
-(setq recentf-max-saved-items 100)
-(run-with-timer (* 20 60) (* 2 60 60) (lambda () (recentf-save-list)))
+(setq recentf-max-saved-items 100
+      recentf-save-file (concat user-emacs-directory ".recentf"))
+(run-with-timer 500 500 (lambda () (recentf-save-list)))
 
 (add-hook 'server-done-hook (lambda nil (kill-buffer nil)))
 
@@ -192,3 +192,7 @@
 (setq bookmark-version-control 't
       bookmark-save-flag 1
       bookmark-default-file (concat user-emacs-directory "bookmarks"))
+
+(setq tags-revert-without-query 1)
+
+(toggle-bury-compilation-buffer)
