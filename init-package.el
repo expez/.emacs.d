@@ -74,7 +74,11 @@
     ruby-compilation
     ruby-electric
     ruby-interpolation
-    rvm sr-speedbar surround
+    rvm
+    slime
+    slime-repl
+    sr-speedbar
+    surround
     toml-mode
     unbound
     undo-tree

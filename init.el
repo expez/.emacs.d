@@ -11,8 +11,6 @@
              load-path)))
 
 (require 'init-util)
-(mapc #'load-if-exists '("~/quicklisp/slime-helper.el"))
-
 (require 'init-package)
 
 (load-all-elisp-files-in-dir user-emacs-directory "^init-.\*")
