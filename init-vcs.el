@@ -1,5 +1,4 @@
 (require 'git-commit-mode)
-(require 'gitsum)
 
 (eval-after-load "git-wip-mode"
  (lambda nil
@@ -7,8 +6,7 @@
 
 (setq vc-follow-symlinks t)
 
-(add-auto-mode 'gitignore-mode "\\.gitignore$")
-(add-auto-mode 'gitconfig-mode "\\.gitconfig$")
+(add-auto-mode 'gitconfig-mode "gitconfig$")
 
 (add-hook 'git-commit-mode-hook 'turn-on-flyspell)
 (add-hook 'magit-mode-hook 'turn-on-magit-push-remote)

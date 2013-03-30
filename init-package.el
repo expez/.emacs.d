@@ -75,8 +75,6 @@
     ruby-electric
     ruby-interpolation
     rvm
-    slime
-    slime-repl
     sr-speedbar
     surround
     toml-mode

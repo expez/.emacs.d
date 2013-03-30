@@ -5,11 +5,11 @@
   (google-set-c-style)
   (google-make-newline-indent)
   (c-turn-on-eldoc-mode)
-  (ac-cc-mode-setup))
+  (ac-c-mode-setup))
 
-(defun ac-cc-mode-setup ()
+(defun ac-c-mode-setup ()
   (setq clang-complete-executable (concat user-emacs-directory
-                                          "vendor/clang-compete"))
+                                          "vendor/emacs-clang-complete-async/clang-complete"))
   (setq ac-sources '(ac-source-clang-async))
   (ac-clang-launch-completion-process))
 

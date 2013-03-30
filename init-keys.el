@@ -1,13 +1,22 @@
+(require 'evil)
+
+(require 'helm-descbinds)
+(helm-descbinds-mode)
+
 (defkeymap misc-map
-  "w" 'toggle-whitespace
+  "D" 'delete-current-file
+  "c" 'toggle-bury-compilation-buffer
+  "d" 'diff-current-buffer-with-file
+  "d" 'diff-current-buffer-with-file
   "g" 'gist-region-or-buffer
   "l" 'gist-list
-  "r" 'rename-file-and-buffer
-  "D" 'delete-current-file
-  "d" 'diff-current-buffer-with-file
+  "i" 'indent-region-or-buffer
+  "o" 'other-frame
   "p" 'pretty-mode
-  "d" 'diff-current-buffer-with-file
-  "v" 'visual-line-mode)
+  "r" 'rainbow-mode
+  "r" 'rename-file-and-buffer
+  "v" 'visual-line-mode
+  "w" 'toggle-whitespace)
 
 (fill-keymap evil-normal-state-map
              "Y"     (kbd "y$")
@@ -37,14 +46,24 @@
              "M-y" 'yank-pop
              "C-d" 'delete-char
              "C-e" 'end-of-line
-             "C-h" 'backward-delete-char
-             "C-[" 'evil-force-normal-state)
+             "C-h" 'backward-delete-char)
 
-(fill-keymaps (list evil-operator-state-map
-                    evil-visual-state-map)
+(fill-keymap evil-operator-state-map
               "SPC" 'evil-ace-jump-char-to-mode ; works like `t'
               "C-SPC" 'evil-ace-jump-char-mode ; works like `f'
-              "S-SPC" 'evil-ace-jump-line-mode)
+              "S-SPC" 'evil-ace-jump-line-mode
+              "K" misc-map)
+
+(fill-keymap evil-visual-state-map "K" misc-map)
+
+(defadvice evil-visual-line (before spc-for-line-jump activate)
+  (define-key evil-motion-state-map (kbd "SPC") #'evil-ace-jump-line-mode))
+
+(defadvice evil-visual-char (before spc-for-char-jump activate)
+  (define-key evil-motion-state-map (kbd "SPC") #'evil-ace-jump-char-mode))
+
+(defadvice evil-visual-block (before spc-for-char-jump activate)
+  (define-key evil-motion-state-map (kbd "SPC") #'evil-ace-jump-char-mode))
 
 (fill-keymap evil-motion-state-map
              "C-e" 'move-end-of-line
@@ -64,7 +83,7 @@
   "K" 'kill-buffer-and-window
   "R" 'revert-all-buffers
   "W" 'save-some-buffers
-  "a" 'align-rexep
+  "a" 'align-regexp
   "A" 'ack
   "b" 'eproject-switch-to-buffer
   "c" 'compile
@@ -100,7 +119,8 @@
              "C-x r v" 'register-list
              "C-<tab>" 'hippie-expand
              "<f8>" 'ispell-word
-              "<end>" 'sr-speedbar-toggle
+             "<f5>" 'eshell-toggle
+             "<end>" 'sr-speedbar-toggle
              "M-S-<f8>" 'flyspell-buffer
              "C-<f8>" 'flyspell-check-previous-highlighted-word
              "M-<f8>" 'flyspell-check-next-highlighted-word
@@ -113,8 +133,17 @@
              "<f6>" 'toggle-deft-mode
              "M-<backspace>" 'delete-indentation)
 
+(eval-after-load "vc-annotate"
+  '(fill-keymap vc-annotate-mode-map
+		"j" 'next-line
+		"J" 'vc-annotate-revision-at-line
+		"k" 'previous-line))
+
 (define-key query-replace-map [return] 'act)
 (define-key query-replace-map [?\C-m] 'act)
+
+(evil-define-key 'normal compilation-minor-mode-map (kbd "RET") 'compile-goto-error)
+(evil-define-key 'normal compilation-minor-mode-map "q" 'quit-window)
 
 (defalias 'rfb 'rename-file-and-buffer)
 (defalias 'mbf 'move-buffer-file)

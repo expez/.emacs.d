@@ -9,7 +9,9 @@
       ac-fuzzy-enable t
       ac-auto-show-menu 0.2)
 
-(add-hook 'LaTeX-mode-hook #'ac-l-setup)
+(global-auto-complete-mode)
+
+(add-hook 'LaTeX-mode-hook 'ac-l-setup)
 (add-hook 'css-mode-hook 'ac-css-mode-setup)
 (ac-flyspell-workaround)
 

@@ -12,6 +12,7 @@
 
 (require 'init-util)
 (require 'init-package)
+(load-if-exists "~/quicklisp/slime-helper.el")
 
 (load-all-elisp-files-in-dir user-emacs-directory "^init-.\*")
 
@@ -159,6 +160,7 @@
 (setq enable-recursive-minibuffers t)
 
 (setq recentf-exclude '("\\.recentf"
+                        file-remote-p
                         "\\.ido\\.last"
                         "\\.keychain/.*?-sh\\(-gpg\\)?"))
 

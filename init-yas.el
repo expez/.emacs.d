@@ -4,9 +4,9 @@
 (yas/reload-all)
 (setq yas/root-directory  (concat user-emacs-directory "snippets"))
 (yas/load-directory yas/root-directory)
-(setq yas-prompt-functions '(yas/dropdown-prompt
-                             yas/ido-prompt
-                             yas/completing-prompt))
+(setq yas-prompt-functions '(yas-ido-prompt
+                             yas-dropdown-prompt
+                             yas-completing-prompt))
 
 (add-hook 'yas-before-expand-snippet-hook
           #'(lambda()
