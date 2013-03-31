@@ -43,7 +43,6 @@
 (ido-mode 'both)
 (setq ido-enable-flex-matching t
       ido-create-new-buffer 'always)
-(ido-ubiquitous-mode 1)
 
 (add-hook 'ido-setup-hook
           (lambda ()
@@ -59,10 +58,6 @@
 (setq reb-re-syntax 'string)
 
 (fset 'yes-or-no-p 'y-or-n-p)
-(add-hook 'before-save-hook (lambda () (delete-trailing-whitespace)))
-
-;;Add newline at the end of files.
-(setq require-final-newline 'visit-save)
 
 (setq delete-by-moving-to-trash t)
 
@@ -130,11 +125,6 @@
 
 (electric-pair-mode 1)
 
-(setq org-src-fontify-natively t
-      org-log-done t)
-
-(setq org-agenda-files (list "~/org/todo.org"))
-
 (setq electric-pair-pairs '((?\" . ?\")
                             (?\{ . ?\})
                             (?\[ . ?\])))
@@ -147,22 +137,20 @@
 
 ;;(setq recentf-auto-cleanup 'never) ;; disable before we start recentf! If using Tramp a lot.
 (recentf-mode t)
-(setq recentf-max-saved-items 100
+(setq recentf-max-saved-items 300
       recentf-save-file (concat user-emacs-directory ".recentf"))
 (run-with-timer 500 500 (lambda () (recentf-save-list)))
-
-(add-hook 'server-done-hook (lambda nil (kill-buffer nil)))
-
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
-
-(setq tramp-default-method "ssh")
-
-(setq enable-recursive-minibuffers t)
 
 (setq recentf-exclude '("\\.recentf"
                         file-remote-p
                         "\\.ido\\.last"
                         "\\.keychain/.*?-sh\\(-gpg\\)?"))
+
+(add-hook 'server-done-hook (lambda nil (kill-buffer nil)))
+
+(setq tramp-default-method "ssh")
+
+(setq enable-recursive-minibuffers t)
 
 (setq sr-speedbar-right-side nil)
 
@@ -196,3 +184,20 @@
 (setq tags-revert-without-query 1)
 
 (toggle-bury-compilation-buffer)
+
+(setq org-src-fontify-natively t
+      org-src-preserve-indentation t
+      org-log-done t
+      org-agenda-files (list "~/org/todo.org")
+      org-agenda-skip-unavailable-files t
+      org-agenda-skip-deadline-if-done t
+      org-agenda-skip-scheduled-if-done t
+      org-agenda-skip-scheduled-if-deadline-is-shown t
+      org-agenda-start-on-weekday nil
+      org-indirect-buffer-display 'current-window
+      org-agenda-restore-windows-after-quit t
+      org-agenda-window-setup 'other-window
+      org-agenda-show-all-dates t
+      org-capture-templates
+      '(("t" "Todo" entry (file+headline "~/org/todo.org" "Tasks")
+         "* TODO %?\n  %i\n  %a")))

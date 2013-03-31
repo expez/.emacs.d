@@ -32,6 +32,7 @@
     emacs-eclim
     eproject
     eshell-manual
+    ethan-wspace
     evil
     evil-leader
     evil-numbers
@@ -47,6 +48,7 @@
     google-c-style
     goto-chg
     haskell-mode
+    helm
     ido-ubiquitous
     inf-ruby
     info+

@@ -24,12 +24,8 @@
          '(:box (:color "grey10" :line-width 2) :background "red" :bold t
                 :foreground "yellow")
          prepend)))
-     (rainbow-mode 0)
      (rainbow-delimiters-mode 1)
-     (setq show-trailing-whitespace t)
      (flyspell-prog-mode)
-     (setq whitespace-style '(face lines-tail))
-     (whitespace-mode 1)
      (flycheck-mode)
      (glasses-mode 1))))
 

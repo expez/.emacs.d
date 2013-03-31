@@ -10,6 +10,7 @@
 (require 'lorem-ipsum)
 (require 'mediawiki)
 (require 'window-numbering)
+(require 'ido-hacks)
 
 (key-chord-mode 1)
 
@@ -81,3 +82,7 @@
 (setq windmove-wrap-around t)
 
 (window-numbering-mode 1)
+
+(setq helm-ff-default-directory "~/git")
+
+(global-ethan-wspace-mode 1)
