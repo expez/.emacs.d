@@ -44,22 +44,22 @@
                (set-buffer-modified-p nil))))))
 
 (defun move-buffer-file (dir)
- "Moves both current buffer and file it's visiting to DIR."
- (interactive "DNew directory: ")
- (let* ((name (buffer-name))
+  "Moves both current buffer and file it's visiting to DIR."
+  (interactive "DNew directory: ")
+  (let* ((name (buffer-name))
 	 (filename (buffer-file-name))
 	 (dir
-	 (if (string-match dir "\\(?:/\\|\\\\)$")
-	 (substring dir 0 -1) dir))
+          (if (string-match dir "\\(?:/\\|\\\\)$")
+              (substring dir 0 -1) dir))
 	 (newname (concat dir "/" name)))
 
- (if (not filename)
+    (if (not filename)
 	(message "Buffer '%s' is not visiting a file!" name)
- (progn
-   (copy-file filename newname 1)
-   (delete-file filename)
-   (set-visited-file-name newname)
-   (set-buffer-modified-p nil) t))))
+      (progn
+        (copy-file filename newname 1)
+        (delete-file filename)
+        (set-visited-file-name newname)
+        (set-buffer-modified-p nil) t))))
 
 (defun swap-windows ()
   "If you have 2 windows, it swaps them."
@@ -240,11 +240,11 @@ This is to update existing buffers after a Git pull of their underlying files."
 (defun get-buffers-matching-mode (mode)
   "Returns a list of buffers where their major-mode is equal to MODE"
   (let ((buffer-mode-matches '()))
-   (dolist (buf (buffer-list))
-     (with-current-buffer buf
-       (if (eq mode major-mode)
-           (add-to-list 'buffer-mode-matches buf))))
-   buffer-mode-matches))
+    (dolist (buf (buffer-list))
+      (with-current-buffer buf
+        (if (eq mode major-mode)
+            (add-to-list 'buffer-mode-matches buf))))
+    buffer-mode-matches))
 
 (defun multi-occur-in-this-mode ()
   "Show all lines matching REGEXP in buffers with this major mode."
@@ -258,11 +258,16 @@ This is to update existing buffers after a Git pull of their underlying files."
   (interactive)
   (message (buffer-file-name)))
 
-(defun copy-full-path-to-kill-ring ()
-  "copy buffer's full path to kill ring"
+
+(defun copy-file-name-to-clipboard ()
+  "Copy the current buffer file name to the clipboard."
   (interactive)
-  (when buffer-file-name
-    (kill-new (file-truename buffer-file-name))))
+  (let ((filename (if (equal major-mode 'dired-mode)
+                      default-directory
+                    (buffer-file-name))))
+    (when filename
+      (kill-new filename)
+      (message "Copied buffer file name '%s' to the clipboard." filename))))
 
 (defun ido-recentf-open ()
   "Use `ido-completing-read' to \\[find-file] a recent file"
@@ -295,8 +300,8 @@ the current position of point, then move it to the beginning of the line."
       (if (string/ends-with file extension)
           (find-file-noselect file)))
     (dolist (dir dirs)
-       (find-file-noselect dir)
-       (open-all-files-with-extension dir extension))))
+      (find-file-noselect dir)
+      (open-all-files-with-extension dir extension))))
 
 (defun* get-closest-pathname (&optional (file "Makefile"))
   "Determine the pathname of the first instance of FILE starting from the
@@ -368,99 +373,99 @@ the current position of point, then move it to the beginning of the line."
 (defun ergoemacs-fix-cua--pre-command-handler-1 ()
   "Fixes CUA minor mode so selection is highlighted only when
 Shift+<special key> is used (arrows keys, home, end, pgdn, pgup, etc.)."
- (defun cua--pre-command-handler-1 ()
-  ;; Cancel prefix key timeout if user enters another key.
-  (when cua--prefix-override-timer
-    (if (timerp cua--prefix-override-timer)
-        (cancel-timer cua--prefix-override-timer))
-    (setq cua--prefix-override-timer nil))
+  (defun cua--pre-command-handler-1 ()
+    ;; Cancel prefix key timeout if user enters another key.
+    (when cua--prefix-override-timer
+      (if (timerp cua--prefix-override-timer)
+          (cancel-timer cua--prefix-override-timer))
+      (setq cua--prefix-override-timer nil))
 
-  (cond
-   ;; Only symbol commands can have necessary properties
-   ((not (symbolp this-command))
-    nil)
+    (cond
+     ;; Only symbol commands can have necessary properties
+     ((not (symbolp this-command))
+      nil)
 
-   ;; Handle delete-selection property on non-movement commands
-   ((not (eq (get this-command 'CUA) 'move))
-    (when (and mark-active (not deactivate-mark))
-      (let* ((ds (or (get this-command 'delete-selection)
-                     (get this-command 'pending-delete)))
-             (nc (cond
-                  ((not ds) nil)
-                  ((eq ds 'yank)
-                   'cua-paste)
-                  ((eq ds 'kill)
-                   (if cua--rectangle
-                       'cua-copy-rectangle
-                     'cua-copy-region))
-                  ((eq ds 'supersede)
-                   (if cua--rectangle
-                       'cua-delete-rectangle
-                     'cua-delete-region))
-                  (t
-                   (if cua--rectangle
-                       'cua-delete-rectangle ;; replace?
-                     'cua-replace-region)))))
-        (if nc
-            (setq this-original-command this-command
-                  this-command nc)))))
+     ;; Handle delete-selection property on non-movement commands
+     ((not (eq (get this-command 'CUA) 'move))
+      (when (and mark-active (not deactivate-mark))
+        (let* ((ds (or (get this-command 'delete-selection)
+                       (get this-command 'pending-delete)))
+               (nc (cond
+                    ((not ds) nil)
+                    ((eq ds 'yank)
+                     'cua-paste)
+                    ((eq ds 'kill)
+                     (if cua--rectangle
+                         'cua-copy-rectangle
+                       'cua-copy-region))
+                    ((eq ds 'supersede)
+                     (if cua--rectangle
+                         'cua-delete-rectangle
+                       'cua-delete-region))
+                    (t
+                     (if cua--rectangle
+                         'cua-delete-rectangle ;; replace?
+                       'cua-replace-region)))))
+          (if nc
+              (setq this-original-command this-command
+                    this-command nc)))))
 
-   ;; Handle shifted cursor keys and other movement commands.
-   ;; If region is not active, region is activated if key is shifted.
-   ;; If region is active, region is cancelled if key is unshifted
-   ;;   (and region not started with C-SPC).
-   ;; If rectangle is active, expand rectangle in specified direction and
-   ;;   ignore the movement.
-   ((if window-system
-        ;; Shortcut for window-system, assuming that input-decode-map is empty.
+     ;; Handle shifted cursor keys and other movement commands.
+     ;; If region is not active, region is activated if key is shifted.
+     ;; If region is active, region is cancelled if key is unshifted
+     ;;   (and region not started with C-SPC).
+     ;; If rectangle is active, expand rectangle in specified direction and
+     ;;   ignore the movement.
+     ((if window-system
+          ;; Shortcut for window-system, assuming that input-decode-map is empty.
 
-        ;; ErgoEmacs patch begin ------------------
+          ;; ErgoEmacs patch begin ------------------
         ;;;; (memq 'shift (event-modifiers
         ;;;;               (aref (this-single-command-raw-keys) 0)))
-        (and (memq 'shift (event-modifiers
-                           (aref (this-single-command-raw-keys) 0)))
-             ;; In this way, we expect to use CUA only with keys that
-             ;; are symbols (like <left>, <next>, etc.)
-             (symbolp (event-basic-type (aref (this-single-command-raw-keys) 0))))
+          (and (memq 'shift (event-modifiers
+                             (aref (this-single-command-raw-keys) 0)))
+               ;; In this way, we expect to use CUA only with keys that
+               ;; are symbols (like <left>, <next>, etc.)
+               (symbolp (event-basic-type (aref (this-single-command-raw-keys) 0))))
         ;; ErgoEmacs patch end --------------------
 
-      (or
-       ;; Check if the final key-sequence was shifted.
-       (memq 'shift (event-modifiers
-                     (aref (this-single-command-keys) 0)))
-       ;; If not, maybe the raw key-sequence was mapped by input-decode-map
-       ;; to a shifted key (and then mapped down to its unshifted form).
-       (let* ((keys (this-single-command-raw-keys))
-              (ev (lookup-key input-decode-map keys)))
-         (or (and (vector ev) (memq 'shift (event-modifiers (aref ev 0))))
-             ;; Or maybe, the raw key-sequence was not an escape sequence
-             ;; and was shifted (and then mapped down to its unshifted form).
-             (memq 'shift (event-modifiers (aref keys 0)))))))
-    (unless mark-active
-      (push-mark-command nil t))
-    (setq cua--last-region-shifted t)
-    (setq cua--explicit-region-start nil))
+        (or
+         ;; Check if the final key-sequence was shifted.
+         (memq 'shift (event-modifiers
+                       (aref (this-single-command-keys) 0)))
+         ;; If not, maybe the raw key-sequence was mapped by input-decode-map
+         ;; to a shifted key (and then mapped down to its unshifted form).
+         (let* ((keys (this-single-command-raw-keys))
+                (ev (lookup-key input-decode-map keys)))
+           (or (and (vector ev) (memq 'shift (event-modifiers (aref ev 0))))
+               ;; Or maybe, the raw key-sequence was not an escape sequence
+               ;; and was shifted (and then mapped down to its unshifted form).
+               (memq 'shift (event-modifiers (aref keys 0)))))))
+      (unless mark-active
+        (push-mark-command nil t))
+      (setq cua--last-region-shifted t)
+      (setq cua--explicit-region-start nil))
 
-   ;; Set mark if user explicitly said to do so
-   ((or cua--explicit-region-start cua--rectangle)
-    (unless mark-active
-      (push-mark-command nil nil)))
+     ;; Set mark if user explicitly said to do so
+     ((or cua--explicit-region-start cua--rectangle)
+      (unless mark-active
+        (push-mark-command nil nil)))
 
-   ;; Else clear mark after this command.
-   (t
-    ;; If we set mark-active to nil here, the region highlight will not be
-    ;; removed by the direct_output_ commands.
-    (setq deactivate-mark t)))
+     ;; Else clear mark after this command.
+     (t
+      ;; If we set mark-active to nil here, the region highlight will not be
+      ;; removed by the direct_output_ commands.
+      (setq deactivate-mark t)))
 
-  ;; Detect extension of rectangles by mouse or other movement
-  (setq cua--buffer-and-point-before-command
-        (if cua--rectangle (cons (current-buffer) (point))))))
+    ;; Detect extension of rectangles by mouse or other movement
+    (setq cua--buffer-and-point-before-command
+          (if cua--rectangle (cons (current-buffer) (point))))))
 
 (defun kill-region-or-backward-kill-word ()
   "Call kill region, if region is active, otherwise backward-kill-word"
-    (interactive)
-    (if (and transient-mark-mode mark-active)
-    (kill-region (point) (mark))
+  (interactive)
+  (if (and transient-mark-mode mark-active)
+      (kill-region (point) (mark))
     (backward-kill-word 1)))
 
 (defun give-my-keybindings-priority ()
@@ -468,7 +473,7 @@ Shift+<special key> is used (arrows keys, home, end, pgdn, pgup, etc.)."
   (if (not (eq (car (car minor-mode-map-alist)) 'ex-mode))
       (let ((mykeys (assq 'ex-mode minor-mode-map-alist))
             (override-keys-fn
-              (intern (concat (symbol-name major-mode) "-override"))))
+             (intern (concat (symbol-name major-mode) "-override"))))
         (assq-delete-all 'ex-mode minor-mode-map-alist)
         (add-to-list 'minor-mode-map-alist mykeys)
         (if (functionp override-keys-fn)
@@ -527,7 +532,7 @@ A `spec' can be a `read-kbd-macro'-readable string or a vector."
     (cofi/set-key map (car mapping) (cadr mapping)))
   map)
 
-;(add-hook 'buffer-list-update-hook 'give-my-keybindings-priority)
+                                        ;(add-hook 'buffer-list-update-hook 'give-my-keybindings-priority)
 
 (defun open-line-below ()
   (interactive)
@@ -549,9 +554,21 @@ A `spec' can be a `read-kbd-macro'-readable string or a vector."
                     nil))))))
 
 (defun indent-buffer ()
-  "Indent each nonblank line in the buffer. See `indent-region"
+  "Indent the currently visited buffer."
   (interactive)
   (indent-region (point-min) (point-max)))
+
+(defun indent-region-or-buffer ()
+  "Indent a region if selected, otherwise the whole buffer."
+  (interactive)
+  (save-excursion
+    (if (region-active-p)
+        (progn
+          (indent-region (region-beginning) (region-end))
+          (message "Indented region"))
+      (progn
+        (indent-buffer)
+        (message "Indented buffer")))))
 
 (defun run-current-file ()
   "Execute or compile the current file.
@@ -601,7 +618,7 @@ If the file is emacs lisp, run the byte compiled version if appropriate."
 (defun load-if-exists (file)
   "Calls LOAD on FILE if FILE exists."
   (if (file-exists-p (expand-file-name file))
-    (load (expand-file-name file))))
+      (load (expand-file-name file))))
 
 (defun directory-dirs (dir)
   "Find all directories in DIR."
@@ -634,17 +651,11 @@ only those files match REGEXP.el"
                   ".*\.el\$")))
     (mapc #'load (directory-files dir t (concat regexp "\.el\$")))))
 
-(defun toggle-whitespace ()
+(defun toggle-whitespace-mode ()
   (interactive)
-  (let ((default '(face tabs spaces trailing lines space-before-tab
-                    newline indentation empty space-after-tab
-                    space-mark tab-mark newline-mark))
-        (some '(face lines-tail)))
-    (if (equal whitespace-style some)
-        (setf whitespace-style default)
-      (setf whitespace-style some)))
-  (whitespace-mode 0)
-  (whitespace-mode 1))
+  (if whitespace-mode
+      (whitespace-mode 0)
+    (whitespace-mode 1)))
 
 (defmacro defkeymap (symbol &rest mappings)
   "Define keymap bound to `symbol'.
@@ -653,7 +664,7 @@ See `pour-mappings-to'"
             (defvar ,symbol (make-sparse-keymap)))
           (fill-keymap ,symbol ,@mappings)))
 
- (defun find-file-as-root ()
+(defun find-file-as-root ()
   "Like `ido-find-file, but automatically edit the file with
 root-privileges (using tramp/sudo), if the file is not writable by
 user."
@@ -663,8 +674,33 @@ user."
       (setq file (concat "/sudo:root@localhost:" file)))
     (find-file file)))
 
+(defun toggle-bury-compilation-buffer ()
+  (interactive)
+  (if compilation-finish-function
+      (setq compilation-finish-function nil)
+    (setq compilation-finish-function
+          (lambda (buf str)
+            (if (string-match "exited abnormally" str)
+                (message "Compilation errors, press M-n to visit")
+
+              (run-at-time 1.3 nil #'switch-to-prev-buffer (get-buffer-window buf) 'append)
+
+              (message "Compilation succesful!"))))))
+
 (defun chop (string)
   "Returns a new string with the last char removed."
   (subseq string 0 -1))
+
+(defun open-with ()
+  "Simple function that allows us to open the underlying
+file of a buffer in an external program."
+  (interactive)
+  (when buffer-file-name
+    (shell-command (concat
+                    (if (eq system-type 'darwin)
+                        "open"
+                      (read-shell-command "Open current file with: "))
+                    " "
+                    buffer-file-name))))
 
 (provide 'init-util)
