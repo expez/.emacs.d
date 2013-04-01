@@ -1,13 +1,17 @@
 (require 'slime)
+(require 'test-op-mode)
+
+(slime-setup '(slime-fancy slime-asdf))
 
 (add-hook 'lisp-mode-hook
           (lambda ()
             (paredit-mode +1)
-            (slime-setup '(slime-fancy slime-asdf))
             (set (make-local-variable 'lisp-indent-function)
                  'common-lisp-indent-function)
             (slime-mode 1)
+            (test-op-mode)
             (turn-on-eldoc-mode)
+            (turn-on-redshank-mode)
             (eldoc-add-command
              'paredit-backward-delete
              'paredit-close-round)
@@ -15,16 +19,18 @@
             (fill-keymap evil-normal-state-local-map
                          "M-." 'slime-edit-definition
                          "M-," 'slime-pop-find-definition-stack
-                         "M-q" 'slime-reindent-defun
-                         "C-t" 'transpose-sexps)
+                         "M-q" 'slime-reindent-defun)
             (evil-paredit-mode 1)
             (set-face-foreground 'paren-face "grey30")))
 
 (fill-keymap lisp-mode-map "C-c l" 'lispdoc)
-(fill-keymap slime-mode-map
+(fill-keymaps '(slime-mode-map slime-repl-mode-map)
              "C-c sl" 'slime-load-system
              "C-c sb" 'slime-browse-system
              "C-c so" 'slime-open-system)
+
+(eval-after-load "evil"
+  '(evil-add-hjkl-bindings slime-xref-mode-map 'emacs))
 
 (setq inferior-lisp-program "/usr/bin/sbcl --noinform"
       lisp-lambda-list-keyword-alignment t

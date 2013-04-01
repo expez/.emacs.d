@@ -6,7 +6,8 @@
 (eval-after-load "evil"
   '(evil-define-key 'normal paredit-mode-map
        "(" 'paredit-wrap-round
-       ")" 'paredit-close-round-and-newline))
+       ")" 'paredit-close-round-and-newline
+       "C-t" 'transpose-sexps))
 
 (fill-keymap paredit-mode-map
        "M-s" 'paredit-splice-sexp
