@@ -10,3 +10,5 @@
                                                   activate)
   (delete "--env" ad-return-value)
   (delete "--noenv" ad-return-value))
+
+(provide 'init-ack-and-a-half)

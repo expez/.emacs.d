@@ -655,6 +655,10 @@ only those files match REGEXP.el"
   (interactive)
   (if whitespace-mode
       (whitespace-mode 0)
+    (set-face-foreground whitespace-space "deep sky blue")
+    (set-face-foreground whitespace-newline "deep sky blue")
+    (set-face-foreground whitespace-indentation "deep sky blue")
+    (set-face-foreground whitespace-tab "deep sky blue")
     (whitespace-mode 1)))
 
 (defmacro defkeymap (symbol &rest mappings)
@@ -683,7 +687,8 @@ user."
             (if (string-match "exited abnormally" str)
                 (message "Compilation errors, press M-n to visit")
 
-              (run-at-time 1.3 nil #'switch-to-prev-buffer (get-buffer-window buf) 'append)
+              (run-at-time 1.3 nil #'switch-to-prev-buffer
+                           (get-buffer-window buf) 'append)
 
               (message "Compilation succesful!"))))))
 
