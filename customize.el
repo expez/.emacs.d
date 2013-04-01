@@ -4,8 +4,6 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(TeX-font-list (quote ((98 "{\\bf " "}") (99 "{\\sc " "}") (101 "{\\em " "\\/}") (105 "{\\it " "\\/}") (114 "{\\rm " "}") (115 "{\\sl " "\\/}") (115 "{\\tt " "}") (100 "" "" t))))
- '(ack-and-a-half-executable "/usr/bin/vendor_perl/ack")
- '(ack-and-a-half-prompt-for-directory t)
  '(auto-image-file-mode t)
  '(auto-save-file-name-transforms (quote ((".*" "~/.emacs.d/autosaves/\\1" t))))
  '(backup-directory-alist (quote ((".*" . "~/.emacs.d/backups/"))))

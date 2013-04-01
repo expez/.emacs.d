@@ -691,6 +691,12 @@ user."
   "Returns a new string with the last char removed."
   (subseq string 0 -1))
 
+(defun chomp (string)
+  "Returns a new string removing zero or one newline from `string'."
+  (if (string/ends-with string "\n")
+      (chop string)
+    string))
+
 (defun open-with ()
   "Simple function that allows us to open the underlying
 file of a buffer in an external program."
@@ -702,5 +708,14 @@ file of a buffer in an external program."
                       (read-shell-command "Open current file with: "))
                     " "
                     buffer-file-name))))
+
+(defun path-to-executable (program)
+  "Returns the path to `program' or NIL.  Relies on which, so
+only works on *nix."
+  (let* ((which (chomp (shell-command-to-string (concat "which " program))))
+         (executable (if (string-match "not found" which)
+                            nil
+                          which)))
+    executable))
 
 (provide 'init-util)
