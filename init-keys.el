@@ -4,19 +4,23 @@
 (helm-descbinds-mode)
 
 (defkeymap misc-map
-  "D" 'delete-current-file
   "c" 'toggle-bury-compilation-buffer
   "d" 'diff-current-buffer-with-file
-  "d" 'diff-current-buffer-with-file
+  "D" 'delete-current-file
+  "f" 'helm-find-files
   "g" 'gist-region-or-buffer
   "l" 'gist-list
   "i" 'indent-region-or-buffer
   "o" 'other-frame
   "p" 'pretty-mode
-  "r" 'rainbow-mode
+  "R" 'rainbow-mode
   "r" 'rename-file-and-buffer
+  "t" (lambda () (interactive) (org-capture nil "t"))
+  "T" 'org-todo-list
+  "u" 'winner-undo
   "v" 'visual-line-mode
-  "w" 'toggle-whitespace)
+  "w" 'ethan-wspace-high
+  "W" 'toggle-whitespace)
 
 (fill-keymap evil-normal-state-map
              "Y"     (kbd "y$")
@@ -49,10 +53,10 @@
              "C-h" 'backward-delete-char)
 
 (fill-keymap evil-operator-state-map
-              "SPC" 'evil-ace-jump-char-to-mode ; works like `t'
-              "C-SPC" 'evil-ace-jump-char-mode ; works like `f'
-              "S-SPC" 'evil-ace-jump-line-mode
-              "K" misc-map)
+             "SPC" 'evil-ace-jump-char-to-mode ; works like `t'
+             "C-SPC" 'evil-ace-jump-char-mode ; works like `f'
+             "S-SPC" 'evil-ace-jump-line-mode
+             "K" misc-map)
 
 (fill-keymap evil-visual-state-map "K" misc-map)
 
@@ -97,7 +101,6 @@
   "s" 'eshell-toggle
   "v" 'vc-annotate
   "w" 'save-buffer
-  "u" 'winner-undo
   "1" 'select-window-1
   "2" 'select-window-2
   "3" 'select-window-3
@@ -106,17 +109,26 @@
   "6" 'select-window-6
   "7" 'select-window-7
   "8" 'select-window-8
-  "9" 'select-window-9)
+  "9" 'select-window-9
+  "!" 'wg-switch-to-index-1
+  "@" 'wg-switch-to-index-2
+  "#" 'wg-switch-to-index-3
+  "$" 'wg-switch-to-index-4
+  "%" 'wg-switch-to-index-5
+  "^" 'wg-switch-to-index-6
+  "&" 'wg-switch-to-index-7)
 
 (fill-keymap 'global
-             "C-x m" 'execute-extended-command
-             "C-x C-m" 'execute-extended-command
+             "C-x m" 'ido-hacks-execute-extended-command
+             "C-x C-m" 'ido-hacks-execute-extended-command
              "C-x c" 'compile
              "C-x C-c" 'compile
+             "C-x w" 'wg-map
              "C-x s" 'eshell-toggle
              "C-x F" 'find-file-as-root
              "C-x C-b" 'ibuffer
              "C-x r v" 'register-list
+             "C-c e" 'eval-and-replace
              "C-<tab>" 'hippie-expand
              "<f8>" 'ispell-word
              "<f5>" 'eshell-toggle
@@ -138,6 +150,13 @@
 		"j" 'next-line
 		"J" 'vc-annotate-revision-at-line
 		"k" 'previous-line))
+
+(eval-after-load "org-agenda"
+  '(fill-keymap org-agenda-mode-map
+               "j" 'org-agenda-next-line
+               "k" 'org-agenda-previous-line
+              ;"J" 'org-agenda-goto-date
+               "K" 'org-agenda-capture))
 
 (define-key query-replace-map [return] 'act)
 (define-key query-replace-map [?\C-m] 'act)

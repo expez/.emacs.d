@@ -47,9 +47,6 @@
 ;;Ultra twice as slow as ispell, fast twice as slow as ultra, normal 10x slower than fast.
 ;;(setq ispell-extra-args '("--sug-mode=ultra"))
 
-(workgroups-mode 1)
-(setq wg-prefix-key  (kbd "C-x w"))
-
 (setq mediawiki-mode-hook
       (lambda ()
         (visual-line-mode 1)
@@ -86,3 +83,9 @@
 (setq helm-ff-default-directory "~/git")
 
 (global-ethan-wspace-mode 1)
+
+(workgroups-mode 1)
+(setq wg-morph-on nil
+      wg-file (concat (user-emacs-directory) "workgroups"))
+(wg-load wg-file)
+(wg-switch-to-workgroup "startup")
