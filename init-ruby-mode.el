@@ -5,27 +5,25 @@
 (require 'ruby-compilation)
 (require 'rvm)
 
-(add-hook 'ruby-mode-hook
-          (lambda ()
-            (rvm-activate-corresponding-ruby)
-            (ruby-electric-mode 1)
-            (electric-pair-mode 0)
-            (robe-mode 1)
-            (fill-keymap evil-normal-state-local-map
-                         "M-," 'pop-tag-mark
-                         "M-." 'robe-jump)
-            (rspec-mode 1)
-            (yard-mode 1)
-            (eldoc-mode 1)
-            (auto-complete-mode 1)
-            (ac-ruby-mode-setup)
-            (local-set-key [f1] 'yari)
-            (rinari-minor-mode 1)
-            (inf-ruby-setup-keybindings)
-            (setq completion-at-point-functions '(auto-complete))
-            (push 'ac-source-robe ac-sources)
-            (setq webjump-api-sites '(("Ruby" . "http://apidock.com/ruby/")
-                                      ("Rails" . "http://apidock.com/rails/")))))
+(add-lambda 'ruby-mode-hook
+  (rvm-activate-corresponding-ruby)
+  (ruby-electric-mode 1)
+  (electric-pair-mode 0)
+  (robe-mode 1)
+  (fill-keymap evil-normal-state-local-map
+               "M-," 'pop-tag-mark
+               "M-." 'robe-jump)
+  (yard-mode 1)
+  (eldoc-mode 1)
+  (auto-complete-mode 1)
+  (ac-ruby-mode-setup)
+  (local-set-key [f1] 'yari)
+  (rinari-minor-mode 1)
+  (inf-ruby-setup-keybindings)
+  (setq completion-at-point-functions '(auto-complete))
+  (push 'ac-source-robe ac-sources)
+  (setq webjump-api-sites '(("Ruby" . "http://apidock.com/ruby/")
+                            ("Rails" . "http://apidock.com/rails/"))))
 
 (setq rspec-use-rvm 't
       rspec-use-bundler-when-possible 't)
@@ -108,22 +106,6 @@ process. "
            (with-current-buffer comp-buffer-name
              (delete-region (point-min) (point-max))))))
      (ad-activate 'ruby-do-run-w/compilation)))
-
-(defun pcomplete/rake ()
-  "Completion rules for the `ssh' command."
-  (pcomplete-here (pcmpl-rake-tasks)))
-
-(defun pcmpl-rake-tasks ()
-  "Return a list of all the rake tasks defined in the current
-projects."
-  (delq nil (mapcar (lambda(line)
-                       (if (string-match "rake \\([^ ]+\\)" line) (match-string 1 line)))
-                    (split-string (shell-command-to-string "rake -T") "[\n]"))))
-
-(defun rake (task)
-  (interactive (list (completing-read "Rake (default: default): "
-                                      (pcmpl-rake-tasks))))
-  (shell-command-to-string (concat "rake " (if (= 0 (length task)) "default" task))))
 
 (defun ruby-open-spec-other-buffer ()
   (interactive)
