@@ -87,8 +87,8 @@
   "K" 'kill-buffer-and-window
   "R" 'revert-all-buffers
   "W" 'save-some-buffers
-  "a" 'align-regexp
-  "A" 'ack
+  "A" 'align-regexp
+  "a" 'ack
   "b" 'eproject-switch-to-buffer
   "c" 'compile
   "d" 'dired-jump
@@ -123,7 +123,6 @@
              "C-x C-m" 'ido-hacks-execute-extended-command
              "C-x c" 'compile
              "C-x C-c" 'compile
-             "C-x w" 'wg-map
              "C-x s" 'eshell-toggle
              "C-x F" 'find-file-as-root
              "C-x C-b" 'ibuffer
@@ -144,6 +143,9 @@
              "C-x C-r" 'ido-recentf-open
              "<f6>" 'toggle-deft-mode
              "M-<backspace>" 'delete-indentation)
+
+(eval-after-load "workgroups"
+  '(fill-keymap 'global "C-x w" wg-map))
 
 (eval-after-load "vc-annotate"
   '(fill-keymap vc-annotate-mode-map
@@ -168,6 +170,8 @@
 (defalias 'mbf 'move-buffer-file)
 (defalias 'rb 'revert-buffer)
 (defalias 'oaf 'open-all-files-with-extension)
+
+(defalias 'pl 'package-list-packages)
 
 (defalias 'gl 'gist-list)
 (defalias 'grb 'gist-region-or-buffer)

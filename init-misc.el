@@ -86,6 +86,5 @@
 
 (workgroups-mode 1)
 (setq wg-morph-on nil
-      wg-file (concat (user-emacs-directory) "workgroups"))
+      wg-file (concat user-emacs-directory "workgroups"))
 (wg-load wg-file)
-(wg-switch-to-workgroup "startup")
