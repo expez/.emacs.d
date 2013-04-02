@@ -1,32 +1,45 @@
-(setq deft-extension "org"
+(require 'deft)
+
+(define-derived-mode deft-note-mode org-mode "Deft note"
+  (setq deft-note-mode 1))
+
+(setq deft-extension "deft"
       deft-directory "~/org/deft/"
-      deft-text-mode 'org-mode
+      deft-text-mode 'deft-note-mode
       deft-auto-save-interval 30.0)
+
+(add-auto-mode 'deft-note-mode "\\.deft$")
 
 (unless (file-exists-p deft-directory)
   (make-directory deft-directory :create-parents))
 
-(define-minor-mode deft-note-mode "Deft notes" nil " Deft-Notes")
-(setq deft-text-mode 'deft-note-mode)
-
-(add-lambda 'deft-note-mode-hook
-  (org-mode))
-
 (defun kill-all-deft-notes ()
   (interactive)
   (save-excursion
-    (let((count 0))
-      (dolist(buffer (buffer-list))
-        (set-buffer buffer)
-        (when (not (eq nil deft-note-mode))
-          (setq count (1+ count))
-          (kill-buffer buffer))))))
+    (dolist(buffer (buffer-list))
+      (set-buffer buffer)
+      (unless (null deft-note-mode)
+        (kill-buffer buffer)))))
 
-(defun toggle-deft-mode () (interactive)
+(defun toggle-deft-mode ()
+  (interactive)
   (if (or
        (eq major-mode 'deft-mode)
-       (not (eq nil deft-note-mode)))
-      (progn (kill-all-deft-notes) (kill-buffer "*Deft*"))
+       (not (null deft-note-mode)))
+      (progn
+        (kill-all-deft-notes)
+        (kill-buffer "*Deft*"))
     (deft)))
+
+(fill-keymap deft-mode-map
+             "n" 'deft-new-file
+             "N" 'deft-new-file-named
+             "a" 'deft-archive-file
+             "d" 'deft-delete-file
+             "f" 'deft-find-file
+             "g" 'deft-refresh
+             "q" 'quit-window
+             "r" 'deft-rename-file
+             "t" 'deft-toggle-incremental-search)
 
 (provide 'init-deft)
