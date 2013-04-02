@@ -183,8 +183,6 @@
 
 (setq tags-revert-without-query 1)
 
-(toggle-bury-compilation-buffer)
-
 (setq org-src-fontify-natively t
       org-src-preserve-indentation t
       org-log-done t
