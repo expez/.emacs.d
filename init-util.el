@@ -47,14 +47,14 @@
   "Moves both current buffer and file it's visiting to DIR."
   (interactive "DNew directory: ")
   (let* ((name (buffer-name))
-	 (filename (buffer-file-name))
-	 (dir
+         (filename (buffer-file-name))
+         (dir
           (if (string-match dir "\\(?:/\\|\\\\)$")
               (substring dir 0 -1) dir))
-	 (newname (concat dir "/" name)))
+         (newname (concat dir "/" name)))
 
     (if (not filename)
-	(message "Buffer '%s' is not visiting a file!" name)
+        (message "Buffer '%s' is not visiting a file!" name)
       (progn
         (copy-file filename newname 1)
         (delete-file filename)
@@ -221,7 +221,7 @@ Toggles between: “all lower”, “Init Caps”, “ALL CAPS”."
 (defun fd-switch-dictionary()
   (interactive)
   (let* ((dic ispell-current-dictionary)
-	 (change (if (string= dic "norwegian") "english" "norwegian")))
+         (change (if (string= dic "norwegian") "english" "norwegian")))
     (ispell-change-dictionary change)
     (message "Dictionary switched from %s to %s" dic change)))
 
@@ -640,7 +640,8 @@ If the file is emacs lisp, run the byte compiled version if appropriate."
   "Loads everything below the vendor folder in `user-emacs-directory'."
   (let* ((vendor-dir (concat user-emacs-directory "vendor"))
          (files (split-string
-                 (shell-command-to-string (concat "find " vendor-dir " -type f -iname '*.el'")))))
+                 (shell-command-to-string
+                  (concat "find " vendor-dir " -type f -iname '*.el'")))))
     (mapc #'load files)))
 
 (defun load-all-elisp-files-in-dir (dir &optional regexp)
@@ -650,16 +651,6 @@ only those files match REGEXP.el"
                     regexp
                   ".*\.el\$")))
     (mapc #'load (directory-files dir t (concat regexp "\.el\$")))))
-
-(defun toggle-whitespace-mode ()
-  (interactive)
-  (if whitespace-mode
-      (whitespace-mode 0)
-    (set-face-foreground whitespace-space "deep sky blue")
-    (set-face-foreground whitespace-newline "deep sky blue")
-    (set-face-foreground whitespace-indentation "deep sky blue")
-    (set-face-foreground whitespace-tab "deep sky blue")
-    (whitespace-mode 1)))
 
 (defmacro defkeymap (symbol &rest mappings)
   "Define keymap bound to `symbol'.
@@ -719,8 +710,8 @@ file of a buffer in an external program."
 only works on *nix."
   (let* ((which (chomp (shell-command-to-string (concat "which " program))))
          (executable (if (string-match "not found" which)
-                            nil
-                          which)))
+                         nil
+                       which)))
     executable))
 
 (provide 'init-util)

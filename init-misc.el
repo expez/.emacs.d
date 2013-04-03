@@ -82,9 +82,9 @@
 
 (setq helm-ff-default-directory "~/git")
 
-(global-ethan-wspace-mode 1)
-
 (workgroups-mode 1)
 (setq wg-morph-on nil
       wg-file (concat user-emacs-directory "workgroups"))
 (wg-load wg-file)
+
+(ido-hacks-mode)

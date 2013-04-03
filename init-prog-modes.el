@@ -27,6 +27,7 @@
      (rainbow-delimiters-mode 1)
      (flyspell-prog-mode)
      (flycheck-mode)
+     (whitespace-mode 1)
      (glasses-mode 1))))
 
 (setq compilation-ask-about-save nil

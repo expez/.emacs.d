@@ -1,6 +1,6 @@
 (require 'evil)
-
 (require 'helm-descbinds)
+
 (helm-descbinds-mode)
 
 (defkeymap misc-map
@@ -19,8 +19,8 @@
   "T" 'org-todo-list
   "u" 'winner-undo
   "v" 'visual-line-mode
-  "w" 'ethan-wspace-high
-  "W" 'toggle-whitespace)
+  "w" 'ethan-wspace-clean-all-modes
+  "W" 'toggle-whitespace-mode)
 
 (fill-keymap evil-normal-state-map
              "Y"     (kbd "y$")

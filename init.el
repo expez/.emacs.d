@@ -27,7 +27,13 @@
 (add-hook 'after-make-frame-functions
           '(lambda (f)
              (with-selected-frame f
-               (when (window-system f) (color-theme-solarized-dark)))))
+               (when (window-system f)
+                 (color-theme-solarized-dark)
+                 (set-face-foreground whitespace-space "deep sky blue")
+                 (set-face-foreground whitespace-newline "deep sky blue")
+                 (set-face-foreground whitespace-indentation "deep sky blue")
+                 (set-face-foreground whitespace-line "deep sky blue")
+                 (set-face-foreground whitespace-tab "deep sky blue")))))
 
 (setq scroll-margin 0
       scroll-conservatively 100000
