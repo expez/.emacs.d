@@ -1,4 +1,6 @@
 (require 'git-commit-mode)
+(require 'magit)
+(require 'evil)
 
 (eval-after-load "git-wip-mode"
  (lambda nil
@@ -22,29 +24,29 @@
       magit-remote-ref-format 'remote-slash-name
       magit-commit-all-when-nothing-staged nil)
 
-(eval-after-load "magit"
-  '(progn
-     (fill-keymap magit-status-mode-map
-                  "W" 'magit-toggle-whitespace
-                  "q" 'magit-quit-session)
+(fill-keymap magit-status-mode-map
+             "W" 'magit-toggle-whitespace
+             "q" 'magit-quit-session)
 
-     (fill-keymap magit-log-mode-map
-                  "j" 'magit-goto-next-section
-                  "k" 'magit-goto-previous-section)
+(fill-keymap magit-log-mode-map
+             "j" 'magit-goto-next-section
+             "k" 'magit-goto-previous-section)
 
-     (eval-after-load "evil"
-       '(progn
-          (evil-add-hjkl-bindings rebase-mode 'emacs
-            "h" 'describe-mode)
+(evil-add-hjkl-bindings magit-mode-map 'emacs)
+(evil-add-hjkl-bindings magit-diff-mode-map 'emacs)
 
-          (evil-add-hjkl-bindings magit-status-mode-map 'emacs
-            "K" 'magit-discard-item
-            "l" 'magit-key-mode-popup-logging
-            "h" 'magit-toggle-diff-refine-hunk)
+(evil-add-hjkl-bindings rebase-mode-map 'emacs
+  "K" 'rebase-mode-kill-line
+  "h" 'describe-mode)
 
-          (evil-add-hjkl-bindings magit-branch-manager-mode-map 'emacs
-            "K" 'magit-discard-item
-            "L" 'magit-key-mode-popup-logging)))))
+(evil-add-hjkl-bindings magit-status-mode-map 'emacs
+  "K" 'magit-discard-item
+  "l" 'magit-key-mode-popup-logging
+  "h" 'magit-toggle-diff-refine-hunk)
+
+(evil-add-hjkl-bindings magit-branch-manager-mode-map 'emacs
+  "K" 'magit-discard-item
+  "L" 'magit-key-mode-popup-logging)
 
 (defun magit-toggle-whitespace ()
   (interactive)
