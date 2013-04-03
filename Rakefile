@@ -1,6 +1,6 @@
 task :default => [:install_packages, :make_link]
 
-packages = ["bartman/git-wip", "Golevka/emacs-clang-complete-async"]
+packages = ["expez/git-wip", "Golevka/emacs-clang-complete-async"]
 
 desc "Takes care of any dependencies not managed by the package manager."
 task :install_packages do
