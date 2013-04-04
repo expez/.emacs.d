@@ -1,7 +1,6 @@
 (require 'yasnippet)
 
-(yas-global-mode 1)
-(yas/reload-all)
+(yas-global-mode)
 (setq yas/root-directory  (concat user-emacs-directory "snippets"))
 (yas/load-directory yas/root-directory)
 (setq yas-prompt-functions '(yas-ido-prompt
