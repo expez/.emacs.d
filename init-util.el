@@ -714,4 +714,8 @@ only works on *nix."
                        which)))
     executable))
 
+(defun inside-string-p ()
+  "T if point is inside a string, NIL otherwise."
+  (nth 3 (syntax-ppss)))
+
 (provide 'init-util)
