@@ -45,7 +45,8 @@ process. "
     (inf-ruby)
     (let* ((lib-dir (concat
                      (car (split-string
-                           (file-name-directory (buffer-file-name)) "lib")) "lib"))
+                           (file-name-directory (buffer-file-name)) "lib"))
+                     "lib"))
            (script (format "$:.unshift '%s'\n" lib-dir)))
       (comint-send-string inf-ruby-buffer script))))
 
@@ -116,5 +117,10 @@ process. "
                           (current-buffer))))
       (switch-to-buffer source-buffer)
       (pop-to-buffer other-buffer))))
+
+
+(defadvice beginning-of-defun (before fix-for-ruby-mode activate)
+  (when (eq major-mode 'ruby-mode)
+    (forward-char 1)))
 
 (provide 'init-ruby-mode)
