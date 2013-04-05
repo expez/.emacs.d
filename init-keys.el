@@ -149,9 +149,9 @@
 
 (eval-after-load "vc-annotate"
   '(fill-keymap vc-annotate-mode-map
-		"j" 'next-line
-		"J" 'vc-annotate-revision-at-line
-		"k" 'previous-line))
+                "j" 'next-line
+                "J" 'vc-annotate-revision-at-line
+                "k" 'previous-line))
 
 (eval-after-load "org-agenda"
   '(fill-keymap org-agenda-mode-map
@@ -163,7 +163,7 @@
 (define-key query-replace-map [return] 'act)
 (define-key query-replace-map [?\C-m] 'act)
 
-(evil-define-key 'normal compilation-minor-mode-map (kbd "RET") 'compile-goto-error)
+(evil-define-key 'normal compilation-minor-mode-map "RET" 'compile-goto-error)
 (evil-define-key 'normal compilation-minor-mode-map "q" 'quit-window)
 
 (defalias 'rfb 'rename-file-and-buffer)
