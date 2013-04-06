@@ -5,25 +5,27 @@
 
 (eval-after-load "evil"
   '(evil-define-key 'normal paredit-mode-map
-       "(" 'paredit-wrap-round
-       ")" 'paredit-close-round-and-newline
-       "C-t" 'transpose-sexps))
+     (kbd "C-t") 'transpose-sexps
+     "(" 'paredit-wrap-round
+     ")" 'paredit-close-round-and-newline))
 
 (fill-keymap paredit-mode-map
-       "M-s" 'paredit-splice-sexp
-       "M-S" 'paredit-split-sexp
-       "M-j" 'paredit-join-sexps
+             "M-s" 'paredit-splice-sexp
+             "M-S" 'paredit-split-sexp
+             "M-j" 'paredit-join-sexps
 
-       "M-l" 'paredit-forward-up
-       "M-L" 'paredit-forward-down
-       "M-h" 'paredit-backward-up
-       "M-H" 'paredit-backward-down
+             "M-o" 'paredit-forward-down
+             "M-O" 'paredit-forward-up
+             "M-u" 'paredit-backward-down
+             "M-U" 'paredit-backward-up
 
-       "M-k" 'paredit-kill
-       "M-(" 'backward-barf-sexp
-       "M-)" 'forward-barf-sexp
-       "C-(" 'backward-slurp-sexp
-       "C-)" 'forward-slurp-sexp)
+             "M-l" 'paredit-forward
+             "M-h" 'paredit-backward
+             "M-k" 'paredit-kill
+             "M-(" 'backward-barf-sexp
+             "M-)" 'forward-barf-sexp
+             "C-(" 'backward-slurp-sexp
+             "C-)" 'forward-slurp-sexp)
 
 (defun forward-barf-sexp (prefix)
   "Calls `paredit-forward-barf-sexp', unless PREFIX is non nil.
