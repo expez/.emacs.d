@@ -14,20 +14,19 @@
 
 (global-eclim-mode)
 
-(add-hook 'java-mode-hook
-          '(lambda ()
-             (setq c-basic-offset 4
-                   c-label-offset 0)
+(add-lambda 'java-mode-hook
+  (setq c-basic-offset 4
+         c-label-offset 0)
 
-             ;; fix indentation for anonymous classes
-             (c-set-offset 'substatement-open 0)
-             (c-set-offset 'inexpr-class 0)
+  ;; fix indentation for anonymous classes
+  (c-set-offset 'substatement-open 0)
+  (c-set-offset 'inexpr-class 0)
 
-             (ac-emacs-eclim-java-setup)
-             (help-at-pt-set-timer)
-             (java-mode-indent-annotations-setup)
-             (when eclim-mode
-               (ac-emacs-eclim-java-setup))))
+  (ac-emacs-eclim-java-setup)
+  (help-at-pt-set-timer)
+  (java-mode-indent-annotations-setup)
+  (when eclim-mode
+    (ac-emacs-eclim-java-setup)))
 
 (defun ant-compile ()
   "Traveling up the path, find build.xml file and run compile."
