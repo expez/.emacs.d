@@ -73,13 +73,10 @@
              "C-e" 'move-end-of-line
              "C-a" 'smart-line-beginning)
 
-(evil-define-key 'normal markdown-mode
-  "j" 'evil-next-visual-line
-  "k" 'evil-previous-visual-line)
-
-(evil-define-key 'normal tex-mode
-  "j" 'evil-next-visual-line
-  "k" 'evil-previous-visual-line)
+(define-key visual-line-mode-map
+  [remap evil-next-line] 'evil-next-visual-line)
+(define-key visual-line-mode-map
+  [remap evil-previous-line] 'evil-previous-visual-line)
 
 (evil-leader/set-key
   "." 'evil-ex
