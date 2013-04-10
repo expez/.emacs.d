@@ -21,7 +21,10 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(ethan-wspace-face ((t (:foreground "deep sky blue" :inverse-video t :underline nil :slant normal :weight normal))))
  '(wg-divider-face ((t nil)))
+ '(wg-filename-face ((t (:foreground "light sky blue"))))
+ '(wg-message-face ((t (:foreground "light sky blue"))))
  '(wg-mode-line-face ((t nil)))
  '(whitespace-indentation ((t (:foreground "deep sky blue"))))
  '(whitespace-newline ((t (:foreground "deep sky blue" :weight normal))))
