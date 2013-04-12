@@ -83,16 +83,14 @@
 
 (mapcar 'set-mode-to-default-emacs
         '(dired
-          shell-mode
-          inferior-emacs-lisp-mode
-          term-mode
-          eshell-mode
-          slime-repl-mode
           occur-mode
-          inf-ruby-mode
           magit-branch-manager-mode
           magit-commit-mode
           magit-log-mode
           log-view-mode))
+
+(defadvice ido-hacks-execute-extended-command (before exit-insert-state
+                                                      activate)
+  (evil-normal-state))
 
 (provide 'init-evil)
