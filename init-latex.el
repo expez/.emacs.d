@@ -25,6 +25,13 @@
 (add-hook 'LaTeX-mode-hook 'my-LaTeX-mode-hook)
 
 (dolist (cmd '("Print" "Queue" "Index" "File"))
-  (setq TeX-command-list (remove* cmd TeX-command-list :test 'equal :key 'car)))
+  (setq TeX-command-list (remove* cmd TeX-command-list
+                                  :test #'equal :key #'car)))
+
+(defun makeglossaries()
+  "Runs the perl script makeglossaries on the current latex file."
+  (interactive)
+  (shell-command (concat "makeglossaries " (file-name-sans-extension
+                                            (buffer-file-name)) ".pdf")))
 
 (provide 'init-latex)
