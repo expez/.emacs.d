@@ -92,6 +92,8 @@
   "f" 'eproject-find-file
   "g" 'magit-status
   "j" 'bookmark-jump
+  "e" 'mc/edit-lines
+  "/" 'mc/mark-all-like-this-dwim
   "k" 'kill-buffer
   "p" 'eproject-revisit-project
   "r" 'revert-buffer
@@ -122,6 +124,8 @@
              "C-x C-c" 'compile
              "C-x s" 'eshell-toggle
              "C-x F" 'find-file-as-root
+             "C->" 'mc/mark-next-like-this
+             "C-<" 'mc/mark-previous-like-this
              "C-x C-b" 'ibuffer
              "C-x r v" 'register-list
              "C-c e" 'eval-and-replace
