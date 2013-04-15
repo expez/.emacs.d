@@ -124,8 +124,8 @@
              "C-x C-c" 'compile
              "C-x s" 'eshell-toggle
              "C-x F" 'find-file-as-root
-             "C->" 'mc/mark-next-like-this
-             "C-<" 'mc/mark-previous-like-this
+             "M->" 'mc/mark-next-like-this
+             "M-<" 'mc/mark-previous-like-this
              "C-x C-b" 'ibuffer
              "C-x r v" 'register-list
              "C-c e" 'eval-and-replace
