@@ -84,6 +84,7 @@
 (mapcar 'set-mode-to-default-emacs
         '(dired
           occur-mode
+          term-mode
           magit-branch-manager-mode
           magit-commit-mode
           magit-log-mode
