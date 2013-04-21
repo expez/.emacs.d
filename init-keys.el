@@ -52,6 +52,9 @@
              "C-e" 'end-of-line
              "C-h" 'backward-delete-char)
 
+(fill-keymap evil-visual-state-map
+             "u" 'undo-tree-undo)
+
 (fill-keymap evil-operator-state-map
              "SPC" 'evil-ace-jump-char-to-mode ; works like `t'
              "C-SPC" 'evil-ace-jump-char-mode ; works like `f'
@@ -122,7 +125,7 @@
              "C-x C-m" 'ido-hacks-execute-extended-command
              "C-x c" 'compile
              "C-x C-c" 'compile
-             "C-x s" 'eshell-toggle
+             "C-x s" '(lambda ()(interactive)(ansi-term "/bin/zsh"))
              "C-x F" 'find-file-as-root
              "M->" 'mc/mark-next-like-this
              "M-<" 'mc/mark-previous-like-this
