@@ -1,8 +1,8 @@
 (require 'package)
 
 (setq package-archives '(("melpa" . "http://melpa.milkbox.net/packages/" )
-			 ("marmalade" . "http://marmalade-repo.org/packages/")
-			 ("gnu" . "http://elpa.gnu.org/packages/")))
+                         ("marmalade" . "http://marmalade-repo.org/packages/")
+                         ("gnu" . "http://elpa.gnu.org/packages/")))
 
 (when (not package-archive-contents)
   (package-refresh-contents))
@@ -54,6 +54,7 @@
     info+
     key-chord
     lorem-ipsum
+    macrostep
     magit
     magit-gh-pulls
     magit-push-remote
