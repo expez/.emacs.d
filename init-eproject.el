@@ -30,8 +30,9 @@
                      "eshell/.*"))
 
 (define-project-type cl (generic)
-  (or (look-for "*asd")
+  (or (look-for "\.asd")
+      (look-for "package.lisp")
       (look-for "packages.lisp"))
-  :irrelevant-files ("*.fasl"))
+  :irrelevant-files ("\.fasl"))
 
 (provide 'init-eproject)
