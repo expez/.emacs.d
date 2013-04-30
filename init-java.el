@@ -46,8 +46,8 @@ For example, if the current buffer is the file x.java,
 then it'll call “java x” in a shell."
   (interactive)
   (let (fnm prog-name cmd-str)
-    (setq fnm (file-name-sans-extension (file-name-nondirectory
-                                         (buffer-file-name))))
+    (setq fnm (file-name-sans-extension
+               (file-name-nondirectory (buffer-file-name))))
     (setq prog-name "java")
     (setq cmd-str (concat prog-name " " fnm " &"))
     (shell-command cmd-str)))
@@ -57,5 +57,12 @@ then it'll call “java x” in a shell."
   (interactive)
   (auto-complete (list 'ac-source-emacs-eclim
                        'ac-source-emacs-eclim-c-dot)))
+
+(defadvice ethan-wspace-clean-before-save-hook (around eclim-compat activate)
+  "Fix spaces being removed while typing because eclim autosaves
+  to get completions and ethan-wspace removes 'trailing
+  whitespace'"
+  (when (and (eql major-mode 'java-mode)
+             (eql evil-state 'insert))))
 
 (provide 'init-java)
