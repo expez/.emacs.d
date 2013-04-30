@@ -28,6 +28,9 @@
   (when eclim-mode
     (ac-emacs-eclim-java-setup)))
 
+(fill-keymap eclim-mode-map
+             "C-c C-e C-d" 'eclim-java-show-documentation-for-current-element)
+
 (defun ant-compile ()
   "Traveling up the path, find build.xml file and run compile."
   (interactive)
@@ -43,7 +46,8 @@ For example, if the current buffer is the file x.java,
 then it'll call “java x” in a shell."
   (interactive)
   (let (fnm prog-name cmd-str)
-    (setq fnm (file-name-sans-extension (file-name-nondirectory (buffer-file-name))))
+    (setq fnm (file-name-sans-extension (file-name-nondirectory
+                                         (buffer-file-name))))
     (setq prog-name "java")
     (setq cmd-str (concat prog-name " " fnm " &"))
     (shell-command cmd-str)))
