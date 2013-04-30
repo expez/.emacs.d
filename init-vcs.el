@@ -2,9 +2,8 @@
 (require 'magit)
 (require 'evil)
 
-(eval-after-load "git-wip-mode"
- (lambda nil
-   ((git-wip-mode))))
+(magit-wip-mode 1)
+(global-magit-wip-save-mode 1)
 
 (setq vc-follow-symlinks t)
 
