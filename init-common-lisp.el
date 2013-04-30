@@ -25,9 +25,9 @@
 
 (fill-keymap lisp-mode-map "C-c l" 'lispdoc)
 (fill-keymaps '(slime-mode-map slime-repl-mode-map)
-             "C-c sl" 'slime-load-system
-             "C-c sb" 'slime-browse-system
-             "C-c so" 'slime-open-system)
+              "C-c sl" 'slime-load-system
+              "C-c sb" 'slime-browse-system
+              "C-c so" 'slime-open-system)
 
 (eval-after-load "evil"
   '(evil-add-hjkl-bindings slime-xref-mode-map 'emacs))
@@ -93,20 +93,20 @@ currently under the curser"
          (inp (read-from-minibuffer
                (if (or word-at-point symbol-at-point)
                    (concat "Symbol (default " default "): ")
-		 "Symbol (no default): "))))
+                 "Symbol (no default): "))))
     (if (and (string= inp "") (not word-at-point) (not
-						   symbol-at-point))
+                                                   symbol-at-point))
         (message "you didn't enter a symbol!")
       (let ((search-type (read-from-minibuffer
-			  "full-text (f) or basic (b) search (default b)? ")))
-	(browse-url (concat "http://lispdoc.com?q="
-			    (if (string= inp "")
-				default
-			      inp)
-			    "&search="
-			    (if (string-equal search-type "f")
-				"full+text+search"
-			      "basic+search")))))))
+                          "full-text (f) or basic (b) search (default b)? ")))
+        (browse-url (concat "http://lispdoc.com?q="
+                            (if (string= inp "")
+                                default
+                              inp)
+                            "&search="
+                            (if (string-equal search-type "f")
+                                "full+text+search"
+                              "basic+search")))))))
 
 (defun scratch-lisp-file ()
   "Insert a template (with DEFPACKAGE and IN-PACKAGE forms) into
@@ -118,5 +118,7 @@ currently under the curser"
     (insert ";;;; " file "\n")
     (insert "\n(defpackage #:" package "\n  (:use #:cl))\n\n")
     (insert "(in-package #:" package ")\n\n")))
+
+(setq redshank-prefix-key "C-c r")
 
 (provide 'init-common-lisp)
