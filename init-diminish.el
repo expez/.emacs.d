@@ -24,4 +24,25 @@
 (eval-after-load "workgroups"
   '(diminish 'workgroups-mode))
 
+(eval-after-load "glasses"
+  '(diminish 'glasses-mode))
+
+(eval-after-load "magit"
+  '(diminish 'magit-wip-save-mode))
+
+(eval-after-load "redshank"
+  '(diminish 'redshank-mode))
+
+(eval-after-load "elisp-slime-nav"
+  '(diminish 'elisp-slime-nav-mode))
+
+(eval-after-load "eldoc"
+  '(diminish 'eldoc-mode))
+
+(eval-after-load "checkdoc"
+  '(diminish 'checkdoc-minor-mode))
+
+(eval-after-load "whitespace"
+  '(diminish 'whitespace-mode))
+
 (provide 'init-diminish)
