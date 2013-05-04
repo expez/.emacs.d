@@ -94,4 +94,7 @@
                                                       activate)
   (evil-normal-state))
 
+(define-key evil-motion-state-map (read-kbd-macro evil-leader/leader)
+  evil-leader/map)
+
 (provide 'init-evil)
