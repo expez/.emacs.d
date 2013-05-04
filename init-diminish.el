@@ -27,9 +27,6 @@
 (eval-after-load "glasses"
   '(diminish 'glasses-mode))
 
-(eval-after-load "magit"
-  '(diminish 'magit-wip-save-mode))
-
 (eval-after-load "redshank"
   '(diminish 'redshank-mode))
 
