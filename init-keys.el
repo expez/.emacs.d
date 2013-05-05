@@ -62,6 +62,7 @@
              "K" misc-map)
 
 (fill-keymap evil-visual-state-map "K" misc-map)
+(fill-keymap evil-motion-state-map "K" misc-map)
 
 (defadvice evil-visual-line (before spc-for-line-jump activate)
   (define-key evil-motion-state-map (kbd "SPC") #'evil-ace-jump-line-mode))
