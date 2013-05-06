@@ -118,9 +118,14 @@ process. "
       (switch-to-buffer source-buffer)
       (pop-to-buffer other-buffer))))
 
-
 (defadvice beginning-of-defun (before fix-for-ruby-mode activate)
   (when (eq major-mode 'ruby-mode)
     (forward-char 1)))
+
+(mapcar (lambda (keyword)
+          (font-lock-add-keywords
+           'ruby-mode
+           `((,(concat ".\\(" keyword "\\)\\_>") 1 font-lock-keyword-face))))
+        (list "each" "collect" "reject" "select" "inject" "include" "map" "reduce"))
 
 (provide 'init-ruby-mode)
