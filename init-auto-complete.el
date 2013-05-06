@@ -19,7 +19,8 @@
   "Stops completing and returns to normal state"
   (interactive "")
   (ac-stop)
-  (evil-force-normal-state))
+  (evil-force-normal-state)
+  (evil-normal-state))
 
 (fill-keymap ac-completing-map
              "C-[" 'ac-exit-to-normal-state
@@ -27,6 +28,7 @@
              "C-j" 'ac-next
              "C-s" 'ac-isearch
              "C-k" 'ac-previous
+             "C-g" 'ac-stop
              "ESC" 'ac-stop)
 
 (provide 'init-auto-complete)
