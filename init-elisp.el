@@ -1,18 +1,18 @@
 (require 'parenface)
 (require 'pretty-mode-plus)
 (require 'elisp-slime-nav)
-(require 'highlight-cl)
+;(require 'highlight-cl)
 
 (set-face-foreground 'paren-face "grey30")
 
-(add-hook 'lisp-interaction-mode-hook 'highlight-cl-add-font-lock-keywords)
+;(add-hook 'lisp-interaction-mode-hook 'highlight-cl-add-font-lock-keywords)
 
 (add-hook 'emacs-lisp-mode-hook
           (lambda ()
             (flycheck-mode 0)
             (elisp-slime-nav-mode 1)
             (turn-on-redshank-mode)
-            (highlight-cl-add-font-lock-keywords)
+            ;(highlight-cl-add-font-lock-keywords)
             (esk-remove-elc-on-save)
             (checkdoc-minor-mode)
             (ac-emacs-lisp-mode-setup)
