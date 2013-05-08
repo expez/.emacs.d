@@ -20,7 +20,7 @@
       TeX-source-correlate-start-server t
       TeX-newline-function #'reindent-then-newline-and-indent
       refTeX-plug-into-AUCTeX t)
-  (orgtbl-mode))
+  (turn-on-orgtbl))
 
 (add-hook 'LaTeX-mode-hook 'my-LaTeX-mode-hook)
 
@@ -31,8 +31,9 @@
 (defun makeglossaries()
   "Runs the perl script makeglossaries on the current latex file."
   (interactive)
-  (shell-command (concat "makeglossaries " (file-name-sans-extension
-                                            (buffer-file-name)) ".pdf")))
+  (shell-command (concat "cd " (file-name-directory (buffer-file-name)) " && "
+                         "makeglossaries " (file-name-sans-extension
+                                            (buffer-name)))))
 
 (defun check-item-entry ()
   "This function is meant to be used as advice for the
