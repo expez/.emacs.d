@@ -12,6 +12,9 @@
 (add-hook 'git-commit-mode-hook 'turn-on-flyspell)
 (add-hook 'magit-mode-hook 'turn-on-magit-push-remote)
 
+;; disables git-wip-mode in favor of magit-git-wip-mode
+(remove-hook 'find-file-hook 'git-wip-mode-if-git)
+
 (setq magit-commit-signoff nil
       magit-process-popup-time 10
       magit-save-some-buffers nil
@@ -78,11 +81,11 @@
   to put the URL into the clipboard, where previously
   was the content of REGION."
   (when (evil-visual-state-p)
-                (let ((p (point))
-                      (m (mark)))
-                  (evil-insert-state)
-                  (goto-char p)
-                  (set-mark m)))
+    (let ((p (point))
+          (m (mark)))
+      (evil-insert-state)
+      (goto-char p)
+      (set-mark m)))
   ad-do-it
   (evil-normal-state))
 
