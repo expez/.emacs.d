@@ -18,8 +18,7 @@
             (rainbow-delimiters-mode 0)
             (fill-keymap evil-normal-state-local-map
                          "M-." 'slime-edit-definition
-                         "M-," 'slime-pop-find-definition-stack
-                         "M-q" 'slime-reindent-defun)
+                         "M-," 'slime-pop-find-definition-stack)
             (evil-paredit-mode 1)
             (set-face-foreground 'paren-face "grey30")))
 
