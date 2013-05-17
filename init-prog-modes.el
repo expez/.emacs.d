@@ -26,7 +26,6 @@
          prepend)))
      (rainbow-delimiters-mode 1)
      (flyspell-prog-mode)
-     (flycheck-mode)
      (yas-minor-mode-on)
      (whitespace-mode 1)
      (glasses-mode 1))))

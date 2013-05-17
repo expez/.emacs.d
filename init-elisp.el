@@ -9,7 +9,6 @@
 
 (add-hook 'emacs-lisp-mode-hook
           (lambda ()
-            (flycheck-mode 0)
             (elisp-slime-nav-mode 1)
             (turn-on-redshank-mode)
             ;(highlight-cl-add-font-lock-keywords)
