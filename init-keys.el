@@ -4,7 +4,7 @@
 (helm-descbinds-mode)
 
 (defkeymap misc-map
-  "c" 'toggle-bury-compilation-buffer
+  "c" 'ethan-wspace-clean-all
   "d" 'diff-current-buffer-with-file
   "D" 'delete-current-file
   "f" 'helm-find-files
@@ -24,6 +24,7 @@
 
 (fill-keymap evil-normal-state-map
              "Y"     (kbd "y$")
+             "Q" (lambda () (interactive) (evil-execute-macro 1 last-kbd-macro))
              "U" 'universal-argument
              "<kp-add>" 'evil-numbers/inc-at-pt
              "<kp-subtract>" 'evil-numbers/dec-at-pt
@@ -92,6 +93,7 @@
   "a" 'ack
   "b" 'eproject-switch-to-buffer
   "c" 'compile
+  "C" 'toggle-bury-compilation-buffer
   "d" 'dired-jump
   "f" 'eproject-find-file
   "g" 'magit-status
