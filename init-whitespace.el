@@ -34,6 +34,8 @@ This supercedes (require 'show-wspace) and show-ws-highlight-tabs."
     (message "Highlighting all whitespace")))
 
 (defun ethan-wspace-clean-all ()
+  "Clean all whitespace errors immediately."
+  (interactive)
   (dolist (type ethan-wspace-errors)
     (ethan-wspace-type-clean type)))
 
