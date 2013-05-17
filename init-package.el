@@ -26,8 +26,8 @@
     deft
     diminish
     dired+
-    dired-dups
-    diredful
+    ;dired-dups
+    ;diredful
     dropdown-list
     eldoc-eval
     elisp-slime-nav
