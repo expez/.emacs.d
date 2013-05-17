@@ -55,6 +55,7 @@
     inf-ruby
     info+
     key-chord
+    lexbind-mode
     lorem-ipsum
     macrostep
     magit
