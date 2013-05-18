@@ -672,7 +672,9 @@ user."
 (defun toggle-bury-compilation-buffer ()
   (interactive)
   (if compilation-finish-function
-      (setq compilation-finish-function nil)
+      (progn
+        (setq compilation-finish-function nil)
+        (message "Bury buffer: OFF."))
     (setq compilation-finish-function
           (lambda (buf str)
             (if (string-match "exited abnormally" str)
@@ -681,7 +683,8 @@ user."
               (run-at-time 1.3 nil #'switch-to-prev-buffer
                            (get-buffer-window buf) 'append)
 
-              (message "Compilation succesful!"))))))
+              (message "Compilation succesful!"))))
+    (message "Bury buffer: ON.")))
 
 (defun chop (string)
   "Returns a new string with the last char removed."
