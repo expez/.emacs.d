@@ -12,9 +12,6 @@
 (add-hook 'git-commit-mode-hook 'turn-on-flyspell)
 (add-hook 'magit-mode-hook 'turn-on-magit-push-remote)
 
-;; disables git-wip-mode in favor of magit-git-wip-mode
-(remove-hook 'find-file-hook 'git-wip-mode-if-git)
-
 (setq magit-commit-signoff nil
       magit-process-popup-time 10
       magit-save-some-buffers nil
