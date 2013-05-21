@@ -15,7 +15,7 @@
 (setq magit-commit-signoff nil
       magit-process-popup-time 10
       magit-save-some-buffers nil
-      magit-diff-refine-hunk t
+      magit-diff-refine-hunk nil
       magit-wip-echo-area-message "Wrote %r"
       magit-repo-dirs '("~/git")
       magit-completing-read-function 'magit-ido-completing-read

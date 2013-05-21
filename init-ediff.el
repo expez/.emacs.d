@@ -3,7 +3,7 @@
       ediff-custom-diff-options "-U3" ;;3 lines of context.
       ediff-combination-pattern
       '("<<<<<<< A: HEAD" A "||||||| Ancestor" Ancestor "=======" B ">>>>>>> B: Incoming")
-      ediff-show-clashes-only 't
+      ediff-show-clashes-only t
       ediff-highlight-all-diffs nil)
 
 ;;Save window configuration prior to ediff, so we can jump to it from ediff if needed,
