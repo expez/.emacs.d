@@ -17,6 +17,7 @@
       evil-ex-hl-update-delay 0.01)
 
 (evil-leader/set-leader ",")
+(global-evil-leader-mode)
 
 (evil-ex-define-cmd "n[ew]" 'evil-window-new)
 
