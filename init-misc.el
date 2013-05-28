@@ -1,6 +1,5 @@
 (require 'workgroups)
 (require 'multiple-cursors)
-(require 'command-frequency)
 (require 'color-moccur)
 (require 'color-theme)
 (require 'cuda-mode)
