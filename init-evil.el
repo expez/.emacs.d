@@ -1,4 +1,3 @@
-(require 'evil-leader)
 (require 'evil-numbers)
 (require 'evil-paredit)
 
@@ -13,11 +12,7 @@
       evil-want-visual-char-semi-exclusive t
       evil-move-cursor-back nil
       evil-want-C-u-scroll t
-      evil-leader/in-all-states t
       evil-ex-hl-update-delay 0.01)
-
-(evil-leader/set-leader ",")
-(global-evil-leader-mode)
 
 (evil-ex-define-cmd "n[ew]" 'evil-window-new)
 
@@ -94,7 +89,5 @@
 (defadvice ido-hacks-execute-extended-command (before exit-insert-state
                                                       activate)
   (evil-normal-state))
-
-(define-key evil-motion-state-map (kbd ",") evil-leader/map)
 
 (provide 'init-evil)

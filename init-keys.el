@@ -3,6 +3,46 @@
 
 (helm-descbinds-mode)
 
+(defkeymap leader-map
+  "." 'evil-ex
+  "B" 'eproject-kill-project-buffers
+  "K" 'kill-buffer-and-window
+  "R" 'revert-all-buffers
+  "W" 'save-some-buffers
+  "A" 'align-regexp
+  "a" 'ack
+  "b" 'eproject-switch-to-buffer
+  "c" 'compile
+  "C" 'toggle-bury-compilation-buffer
+  "d" 'dired-jump
+  "f" 'eproject-find-file
+  "g" 'magit-status
+  "j" 'bookmark-jump
+  "e" 'mc/edit-lines
+  "/" 'mc/mark-all-like-this-dwim
+  "k" 'kill-buffer
+  "p" 'eproject-revisit-project
+  "r" 'revert-buffer
+  "s" 'eshell-toggle
+  "v" 'vc-annotate
+  "w" 'save-buffer
+  "1" 'select-window-1
+  "2" 'select-window-2
+  "3" 'select-window-3
+  "4" 'select-window-4
+  "5" 'select-window-5
+  "6" 'select-window-6
+  "7" 'select-window-7
+  "8" 'select-window-8
+  "9" 'select-window-9
+  "!" 'wg-switch-to-index-1
+  "@" 'wg-switch-to-index-2
+  "#" 'wg-switch-to-index-3
+  "$" 'wg-switch-to-index-4
+  "%" 'wg-switch-to-index-5
+  "^" 'wg-switch-to-index-6
+  "&" 'wg-switch-to-index-7)
+
 (defkeymap misc-map
   "c" 'ethan-wspace-clean-all
   "d" 'diff-current-buffer-with-file
@@ -43,7 +83,7 @@
              "<down>" 'move-text-down
              "<up>" 'move-text-up
              "C-u" 'evil-scroll-up
-             "K" misc-map)
+             "K")
 
 (fill-keymap evil-insert-state-map
              "C-y" 'yank
@@ -51,19 +91,27 @@
              "M-y" 'yank-pop
              "C-d" 'delete-char
              "C-e" 'end-of-line
-             "C-h" 'backward-delete-char)
+             "C-h" 'backward-delete-char
+             "," leader-map)
 
 (fill-keymap evil-visual-state-map
-             "u" 'undo-tree-undo)
+             "u" 'undo-tree-undo
+             "," leader-map
+             "K" misc-map)
 
 (fill-keymap evil-operator-state-map
              "SPC" 'evil-ace-jump-char-to-mode ; works like `t'
              "C-SPC" 'evil-ace-jump-char-mode ; works like `f'
              "S-SPC" 'evil-ace-jump-line-mode
-             "K" misc-map)
+             "K" misc-map
+             "," leader-map)
 
-(fill-keymap evil-visual-state-map "K" misc-map)
-(fill-keymap evil-motion-state-map "K" misc-map)
+(fill-keymap evil-visual-state-map
+             "K" misc-map
+             "," leader-map)
+(fill-keymap evil-motion-state-map
+             "K" misc-map
+             "," leader-map)
 
 (defadvice evil-visual-line (before spc-for-line-jump activate)
   (define-key evil-motion-state-map (kbd "SPC") #'evil-ace-jump-line-mode))
@@ -82,46 +130,6 @@
   [remap evil-next-line] 'evil-next-visual-line)
 (define-key visual-line-mode-map
   [remap evil-previous-line] 'evil-previous-visual-line)
-
-(evil-leader/set-key
-  "." 'evil-ex
-  "B" 'eproject-kill-project-buffers
-  "K" 'kill-buffer-and-window
-  "R" 'revert-all-buffers
-  "W" 'save-some-buffers
-  "A" 'align-regexp
-  "a" 'ack
-  "b" 'eproject-switch-to-buffer
-  "c" 'compile
-  "C" 'toggle-bury-compilation-buffer
-  "d" 'dired-jump
-  "f" 'eproject-find-file
-  "g" 'magit-status
-  "j" 'bookmark-jump
-  "e" 'mc/edit-lines
-  "/" 'mc/mark-all-like-this-dwim
-  "k" 'kill-buffer
-  "p" 'eproject-revisit-project
-  "r" 'revert-buffer
-  "s" 'eshell-toggle
-  "v" 'vc-annotate
-  "w" 'save-buffer
-  "1" 'select-window-1
-  "2" 'select-window-2
-  "3" 'select-window-3
-  "4" 'select-window-4
-  "5" 'select-window-5
-  "6" 'select-window-6
-  "7" 'select-window-7
-  "8" 'select-window-8
-  "9" 'select-window-9
-  "!" 'wg-switch-to-index-1
-  "@" 'wg-switch-to-index-2
-  "#" 'wg-switch-to-index-3
-  "$" 'wg-switch-to-index-4
-  "%" 'wg-switch-to-index-5
-  "^" 'wg-switch-to-index-6
-  "&" 'wg-switch-to-index-7)
 
 (fill-keymap 'global
              "C-x m" 'ido-hacks-execute-extended-command
@@ -162,10 +170,10 @@
 
 (eval-after-load "org-agenda"
   '(fill-keymap org-agenda-mode-map
-               "j" 'org-agenda-next-line
-               "k" 'org-agenda-previous-line
-              ;"J" 'org-agenda-goto-date
-               "K" 'org-agenda-capture))
+                "j" 'org-agenda-next-line
+                "k" 'org-agenda-previous-line
+                                        ;"J" 'org-agenda-goto-date
+                "K" 'org-agenda-capture))
 
 (define-key query-replace-map [return] 'act)
 (define-key query-replace-map [?\C-m] 'act)

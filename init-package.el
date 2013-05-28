@@ -36,7 +36,6 @@
     eshell-manual
     ethan-wspace
     evil
-    evil-leader
     evil-numbers
     evil-paredit
     flycheck
