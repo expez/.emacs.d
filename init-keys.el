@@ -91,8 +91,7 @@
              "M-y" 'yank-pop
              "C-d" 'delete-char
              "C-e" 'end-of-line
-             "C-h" 'backward-delete-char
-             "," leader-map)
+             "C-h" 'backward-delete-char)
 
 (fill-keymap evil-visual-state-map
              "u" 'undo-tree-undo
