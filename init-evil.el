@@ -86,6 +86,8 @@
           magit-log-mode
           log-view-mode))
 
+(evil-set-initial-state 'man-mode 'motion)
+
 (defadvice ido-hacks-execute-extended-command (before exit-insert-state
                                                       activate)
   (evil-normal-state))
