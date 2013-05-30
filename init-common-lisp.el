@@ -33,6 +33,7 @@
 
 (setq inferior-lisp-program "/usr/bin/sbcl --noinform"
       lisp-lambda-list-keyword-alignment t
+      slime-autodoc-use-multiline-p t
       lisp-lambda-list-keyword-parameter-alignment t)
 
 (add-hook 'slime-mode-hook 'set-up-slime-ac)
