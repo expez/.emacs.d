@@ -33,4 +33,21 @@
   (look-for "\.asd")
   :irrelevant-files ("\.fasl"))
 
+;;; Until upstream merges my changes
+(defun eproject--generic-switch-to-buffer (prefix switch-func)
+  (let* ((root (eproject--handle-root-prefix-arg prefix :live-only t))
+         (calling-buffer (current-buffer))
+         (buffers (delq nil (mapcar (lambda (buf)
+                                      (ignore-errors
+                                        (when (equal root (eproject-root buf))
+                                          (unless (eq buf calling-buffer)
+                                            buf))))
+                                    (buffer-list))))
+         (buffers (when (eq eproject-completing-read-function
+                            #'eproject--ido-completing-read)
+                    (mapcar #'buffer-name buffers)))
+         (chosen-buf (eproject--do-completing-read
+                      "switch to buffer in project: " buffers)))
+    (funcall switch-func chosen-buf)))
+
 (provide 'init-eproject)
