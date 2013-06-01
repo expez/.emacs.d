@@ -7,8 +7,9 @@ task :install_packages do
   Dir.mkdir("vendor") unless Dir.exists?("vendor")
   packages.each do |package|
     repo = "https://github.com/#{package}"
-    puts "Installing #{repo}..."
+    print "Installing #{repo}..."
     `cd vendor && git clone #{repo}`
+    print "DONE\n"
   end
   `cd vendor/emacs-clang-complete-async && make`
 end
@@ -19,8 +20,8 @@ task :update_packages do
   dirs.each { |path| path.slice!(/.*\//) }
   dirs.each do |dir|
     print "Updating #{dir}..."
-    print "DONE\n"
     `cd vendor/#{dir} && git pull`
+    print "DONE\n"
   end
   `cd vendor/emacs-clang-complete-async && make`
 end
