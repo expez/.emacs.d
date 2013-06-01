@@ -83,7 +83,8 @@
              "<down>" 'move-text-down
              "<up>" 'move-text-up
              "C-u" 'evil-scroll-up
-             "K")
+             "gs" 'just-one-space
+             "K" misc-map)
 
 (fill-keymap evil-insert-state-map
              "C-y" 'yank
