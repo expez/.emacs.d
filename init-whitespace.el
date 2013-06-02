@@ -1,13 +1,13 @@
 (setq whitespace-style '(face tabs trailing lines-tail empty
-                                      space-before-tab tab-mark))
+                              space-before-tab tab-mark))
 
 (eval-after-load "ethan-wspace"
-  '(define-minor-mode ethan-wspace-highlight-tabs-mode
-     "Minor mode to highlight tabs.
+  '(progn
+     (define-minor-mode ethan-wspace-highlight-tabs-mode
+       :init-value nil :lighter nil :keymap nil)
 
-With arg, turn tab-highlighting on if arg is positive, off otherwise.
-This supercedes (require 'show-wspace) and show-ws-highlight-tabs."
-     :init-value nil :lighter nil :keymap nil))
+     (define-minor-mode ethan-wspace-highlight-eol-mode
+       :init-value nil :lighter nil :keymap nil)))
 
 (global-ethan-wspace-mode 1)
 (setq ethan-wspace-face-customized t)
@@ -20,14 +20,14 @@ This supercedes (require 'show-wspace) and show-ws-highlight-tabs."
       (progn
         (setq whitespace-style '(face tabs trailing lines-tail empty
                                       space-before-tab tab-mark))
-             (setq whitespace-show-all-mode nil)
-             (whitespace-mode 0)
-             (whitespace-mode 1)
-             (message "Highlighting some whitespace"))
+        (setq whitespace-show-all-mode nil)
+        (whitespace-mode 0)
+        (whitespace-mode 1)
+        (message "Highlighting some whitespace"))
     (setq whitespace-style
           '(face tabs spaces trailing lines-tail space-before-tab newline
-                indentation empty space-after-tab space-mark tab-mark
-                newline-mark))
+                 indentation empty space-after-tab space-mark tab-mark
+                 newline-mark))
     (setq whitespace-show-all-mode t)
     (whitespace-mode 0)
     (whitespace-mode 1)
