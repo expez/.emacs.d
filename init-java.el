@@ -16,7 +16,7 @@
 
 (add-lambda 'java-mode-hook
   (setq c-basic-offset 4
-         c-label-offset 0)
+        c-label-offset 0)
 
   ;; fix indentation for anonymous classes
   (c-set-offset 'substatement-open 0)
@@ -62,7 +62,8 @@ then it'll call “java x” in a shell."
   "Fix spaces being removed while typing because eclim autosaves
   to get completions and ethan-wspace removes 'trailing
   whitespace'"
-  (when (and (eql major-mode 'java-mode)
-             (eql evil-state 'insert))))
+  (unless (and (eql major-mode 'java-mode)
+               (eql evil-state 'insert))
+    ad-do-it))
 
 (provide 'init-java)
