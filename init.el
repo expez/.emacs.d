@@ -86,11 +86,11 @@
 (setq echo-keystrokes 0.1)
 
 (when (eq system-type 'windows-nt)
-    (set-default-font
+    (set-frame-font
      "-outline-Consolas-normal-r-normal-normal-14-97-96-96-c-*-iso8859-1"))
 
 (when (eq system-type 'gnu/linux)
-    (set-default-font "Inconsolata-12"))
+    (set-frame-font "Inconsolata-12"))
 
 (add-hook 'comint-output-filter-functions
           'comint-strip-ctrl-m)
