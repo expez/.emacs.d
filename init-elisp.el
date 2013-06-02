@@ -1,6 +1,7 @@
 (require 'parenface)
 (require 'pretty-mode-plus)
 (require 'elisp-slime-nav)
+(require 'evil-paredit)
 ;(require 'highlight-cl)
 
 (set-face-foreground 'paren-face "grey30")

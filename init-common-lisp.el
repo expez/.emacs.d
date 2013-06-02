@@ -1,5 +1,6 @@
 (require 'slime)
 (require 'test-op-mode)
+(require 'evil-paredit)
 
 (slime-setup '(slime-fancy slime-asdf))
 
