@@ -2,19 +2,19 @@
 
 ;; Add everything in and below site-lisp to load-path.
 (let ((default-directory "~/.emacs.d/site-lisp/"))
-      (setq load-path
-            (append
-             (let ((load-path (copy-sequence load-path)))
-               (append
-                (copy-sequence (normal-top-level-add-to-load-path '(".")))
-                (normal-top-level-add-subdirs-to-load-path)))
-             load-path)))
+  (setq load-path
+        (append
+         (let ((load-path (copy-sequence load-path)))
+           (append
+            (copy-sequence (normal-top-level-add-to-load-path '(".")))
+            (normal-top-level-add-subdirs-to-load-path)))
+         load-path)))
 
 (require 'init-util)
 (require 'init-package)
 (load-if-exists "~/quicklisp/slime-helper.el")
 
-(load-all-elisp-files-in-dir user-emacs-directory "^init-.\*")
+(load-elisp-files-in-dir user-emacs-directory "^init-.\*")
 
 (setq custom-file (concat user-emacs-directory "customize.el"))
 (load custom-file)
@@ -28,7 +28,7 @@
           '(lambda (f)
              (with-selected-frame f
                (when (window-system f)
-                 (color-theme-solarized-dark)
+                 (load-theme 'solarized-dark t)
                  (set-face-foreground whitespace-space "deep sky blue")
                  (set-face-foreground whitespace-newline "deep sky blue")
                  (set-face-foreground whitespace-indentation "deep sky blue")
@@ -86,11 +86,11 @@
 (setq echo-keystrokes 0.1)
 
 (when (eq system-type 'windows-nt)
-    (set-frame-font
-     "-outline-Consolas-normal-r-normal-normal-14-97-96-96-c-*-iso8859-1"))
+  (set-frame-font
+   "-outline-Consolas-normal-r-normal-normal-14-97-96-96-c-*-iso8859-1"))
 
 (when (eq system-type 'gnu/linux)
-    (set-frame-font "Inconsolata-12"))
+  (set-frame-font "Inconsolata-12"))
 
 (add-hook 'comint-output-filter-functions
           'comint-strip-ctrl-m)

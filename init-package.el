@@ -20,7 +20,6 @@
     bundler
     c-eldoc
     color-moccur
-    color-theme-solarized
     crontab-mode
     ctypes
     deft
@@ -81,6 +80,7 @@
     ruby-electric
     ruby-interpolation
     rvm
+    solarized-theme
     sr-speedbar
     surround
     toml-mode
