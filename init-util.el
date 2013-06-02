@@ -644,13 +644,19 @@ If the file is emacs lisp, run the byte compiled version if appropriate."
                   (concat "find " vendor-dir " -type f -iname '*.el'")))))
     (mapc #'load files)))
 
-(defun load-all-elisp-files-in-dir (dir &optional regexp)
+(defun load-elisp-files-in-dir (dir &optional regexp count)
   "Load all elisp files in in DIR.  When REGEXP is provided match
-only those files match REGEXP.el"
-  (let ((regexp (if regexp
-                    regexp
-                  ".*\.el\$")))
-    (mapc #'load (directory-files dir t (concat regexp "\.el\$")))))
+only those files with name of form REGEXP.el.  If COUNT is
+provided only load COUNT number of such files.  "
+  (let* ((regexp (if regexp
+                     regexp
+                   ".*"))
+         (files (directory-files dir t (concat regexp "\.el\$")))
+         (count (if count count (length files))))
+    (loop for file in files
+          for file-num to count
+          while (<= file-num count)
+          do (load file))))
 
 (defmacro defkeymap (symbol &rest mappings)
   "Define keymap bound to `symbol'.
