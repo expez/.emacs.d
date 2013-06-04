@@ -27,7 +27,7 @@
   (look-for "init.el")
   :irrelevant-files ("elpa/.*" "vendor/.*" "snippets/.*" "backups/.*" "var/.*"
                      "tramp" "url/.*" "autosaves/.*" "auto-save-list/.*"
-                     "eshell/.*"))
+                     "eshell/.*" "sql/.*"))
 
 (define-project-type cl (generic)
   (look-for "\.asd")

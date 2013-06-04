@@ -53,6 +53,7 @@
   "i" 'indent-region-or-buffer
   "o" 'other-frame
   "p" 'pretty-mode
+  "s" 'flyspell-buffer
   "R" 'rainbow-mode
   "r" 'rename-file-and-buffer
   "t" (lambda () (interactive) (org-capture nil "t"))
@@ -74,7 +75,10 @@
              ":"     'evil-repeat-find-char-reverse
              "C-e" 'move-end-of-line
              "C-a" 'smart-line-beginning
-             "go" 'goto-char
+             "gc" 'goto-char
+             "gf" 'ispell-word
+             "gp" 'flyspell-check-previous-highlighted-word
+             "gn" 'flyspell-check-next-highlighted-word
              "M-," 'pop-tag-mark
              "C-j" 'open-line-below
              "C-k" 'open-line-above
@@ -144,12 +148,8 @@
              "C-x r v" 'register-list
              "C-c e" 'eval-and-replace
              "C-<tab>" 'hippie-expand
-             "<f8>" 'ispell-word
              "<f5>" 'eshell-toggle
              "<end>" 'sr-speedbar-toggle
-             "M-S-<f8>" 'flyspell-buffer
-             "C-<f8>" 'flyspell-check-previous-highlighted-word
-             "M-<f8>" 'flyspell-check-next-highlighted-word
              "C-x r q" 'save-buffers-kill-terminal
              "C-x v t" 'vc-create-tag
              "C-x a r" 'align-regexp

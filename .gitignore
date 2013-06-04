@@ -2,6 +2,7 @@ elpa/
 eshell/
 tramp
 url/
+sql/
 var/
 auto-save-list/
 plugins/.\#*
