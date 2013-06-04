@@ -43,6 +43,7 @@
         '(dired
           occur-mode
           term-mode
+          eshell
           magit-branch-manager-mode
           magit-commit-mode
           magit-log-mode
