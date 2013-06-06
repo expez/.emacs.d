@@ -727,4 +727,10 @@ only works on *nix."
   "T if point is inside a string, NIL otherwise."
   (nth 3 (syntax-ppss)))
 
+(defun eval-and-replace (value)
+  "Evaluate the sexp at point and replace it with its value"
+  (interactive (list (eval-last-sexp nil)))
+  (kill-sexp -1)
+  (insert (format "%S" value)))
+
 (provide 'init-util)
