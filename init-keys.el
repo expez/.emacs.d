@@ -175,6 +175,21 @@
                                         ;"J" 'org-agenda-goto-date
                 "K" 'org-agenda-capture))
 
+(eval-after-load 'macrostep
+  (evil-define-key 'normal macrostep-keymap
+    (kbd "RET") 'macrostep-expand
+    "e" 'macrostep-expand
+
+    "u" 'macrostep-collapse
+    "c" 'macrostep-collapse
+
+    (kbd "TAB") 'macrostep-next-macro
+    "n" 'macrostep-next-macro
+    (kbd "S-TAB") 'macrostep-prev-macro
+    "p" 'macrostep-prev-macro
+    "q" 'macrostep-collapse-all
+    (kbd "C-c C-c") 'macrostep-collapse-all))
+
 (define-key query-replace-map [return] 'act)
 (define-key query-replace-map [?\C-m] 'act)
 
