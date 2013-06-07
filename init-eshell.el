@@ -219,7 +219,7 @@ directory."
   (with-temp-buffer
     (call-process-shell-command "hg" nil (current-buffer) nil "-v" "help")
     (goto-char 0)
-    (search-forward "list of commands:")
+    (ignore-errors (search-forward "list of commands:"))
     (let (commands
           (bound (save-excursion
                    (re-search-forward "^[[:alpha:]]")
