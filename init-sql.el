@@ -1,4 +1,6 @@
-(fill-keymap sql-mode-map "C-c C-a" 'sql-set-sqli-buffer)
+(eval-after-load 'sql
+  '(lambda ()
+     (fill-keymap sql-mode-map "C-c C-a" 'sql-set-sqli-buffer)))
 
 (defvar sql-last-prompt-pos 1
   "position of last prompt when added recording started")
