@@ -12,11 +12,13 @@
           (lambda ()
             (elisp-slime-nav-mode 1)
             (turn-on-redshank-mode)
-            ;(highlight-cl-add-font-lock-keywords)
+          ; (highlight-cl-add-font-lock-keywords)
             (esk-remove-elc-on-save)
             (checkdoc-minor-mode)
+            (local-set-key (kbd "RET") 'newline-and-indent)
             (ac-emacs-lisp-mode-setup)
-            (define-key evil-normal-state-local-map (kbd "M-.") 'elisp-slime-nav-find-elisp-thing-at-point)))
+            (define-key evil-normal-state-local-map (kbd "M-.")
+              'elisp-slime-nav-find-elisp-thing-at-point)))
 
 (defun ielm-auto-complete ()
   "Enables `auto-complete' support in \\[ielm]."
