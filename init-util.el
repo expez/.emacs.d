@@ -727,10 +727,15 @@ only works on *nix."
   "T if point is inside a string, NIL otherwise."
   (nth 3 (syntax-ppss)))
 
-(defun eval-and-replace (value)
-  "Evaluate the sexp at point and replace it with its value"
-  (interactive (list (eval-last-sexp nil)))
-  (kill-sexp -1)
-  (insert (format "%S" value)))
+(defun eval-and-replace ()
+  "Replace the preceding sexp with its value."
+  (interactive)
+  (backward-kill-sexp)
+  (condition-case nil
+      (prin1 (eval (read (current-kill 0)))
+             (current-buffer))
+    (error (message "Invalid expression")
+           (insert (current-kill 0)))))
+
 
 (provide 'init-util)
