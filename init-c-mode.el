@@ -1,6 +1,8 @@
 (require 'google-c-style)
 (require 'ctypes)
 
+(add-auto-mode 'fundamental-mode "\\.lex")
+
 (add-lambda 'c-mode-hook
   (google-set-c-style)
   (google-make-newline-indent)
@@ -8,8 +10,9 @@
   (ac-c-mode-setup))
 
 (defun ac-c-mode-setup ()
-  (setq clang-complete-executable (concat user-emacs-directory
-                                          "vendor/emacs-clang-complete-async/clang-complete"))
+  (setq clang-complete-executable
+        (concat user-emacs-directory
+                "vendor/emacs-clang-complete-async/clang-complete"))
   (setq ac-sources '(ac-source-clang-async))
   (ac-clang-launch-completion-process))
 
