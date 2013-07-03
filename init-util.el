@@ -733,4 +733,19 @@ only works on *nix."
   (kill-sexp -1)
   (insert (format "%S" value)))
 
+(defun debug-config (test-fn)
+  "Repeatedly calls `test-fn' to verify that everything is OK
+while loading init files.  `test-fn' should return NIL to
+indicate failure."
+  (when test-fn
+    (find-file "/tmp/debug-config")
+    (loop for file in (directory-files user-emacs-directory t "init-.*\.el\$")
+          always (funcall test-fn)
+          do (progn
+               (set-buffer "debug-config")
+               (insert (format "Test OK.  Loading file %s..." file))
+               (save-buffer)
+               (load file))
+          finally (delete-file "/tmp/debug-config"))))
+
 (provide 'init-util)
