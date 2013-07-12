@@ -1,7 +1,6 @@
 (require 'workgroups)
 (require 'multiple-cursors)
 (require 'color-moccur)
-(require 'color-theme)
 (require 'cuda-mode)
 (require 'diminish)
 (require 'go-autocomplete)
