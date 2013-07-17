@@ -39,13 +39,15 @@
              "C-c s" 'eclim-goto-super)
 
 (defun eclim-goto-super ()
-  "Jump to the superclass declaration."
+  "Jump to superclass."
   (interactive)
   (save-excursion
     (re-search-backward "extends \\(\\w+\\)" nil t)
-    (forward-word)
-    (forward-char)
-    (eclim-java-find-type (match-string 1))))
+    (if (match-string 1)
+        (eclim-java-find-type (match-string 1))
+      (re-search-forward "extends \\(\\w+\\)" nil t)
+      (when (match-string 1)
+        (eclim-java-find-type (match-string 1))))))
 
 ;;; This version does not visit file in another buffer
 (defun eclim--visit-declaration (line)
