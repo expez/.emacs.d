@@ -205,3 +205,6 @@
       org-capture-templates
       '(("t" "Todo" entry (file+headline "~/org/todo.org" "Tasks")
          "* TODO %?\n  %i\n  %a")))
+
+(setq save-abbrevs nil)
+(setq-default abbrev-mode t)
