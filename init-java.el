@@ -36,6 +36,7 @@
              "C-c t" 'eclim-java-find-type
              "C-c f" 'eclim-java-find-generic
              "C-c r" 'eclim-java-find-references
+             "C-c ," 'eclim-run-test
              "C-c s" 'eclim-goto-super)
 
 (defun eclim-goto-super ()
@@ -55,6 +56,13 @@
   (find-file (assoc-default 'filename line))
   (goto-line (assoc-default 'line line))
   (move-to-column (- (assoc-default 'column line) 1)))
+
+(defun eclim-run-test ()
+  (interactive)
+  (if (not (string= major-mode "java-mode"))
+      (message "Sorry cannot run current buffer."))
+  (compile (concat eclim-executable " -command java_junit -p
+                   " eclim--project-name " -t " (eclim-package-and-class))))
 
 (add-lambda 'eclim-problems-mode-hook
   (define-key evil-normal-state-local-map (kbd "a") 'eclim-problems-show-all)
