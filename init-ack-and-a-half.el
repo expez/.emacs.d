@@ -9,7 +9,8 @@
                                                   activate)
   (setq ad-return-value (delete "--env" ad-return-value))
   (setq ad-return-value (delete "--noenv" ad-return-value))
-  (setq ad-return-value (delete "--nocolor" ad-return-value)))
+  ;;(setq ad-return-value (delete "--nocolor" ad-return-value))
+  )
 
 ;;; until upstream merges my PR
 (defcustom ack-and-a-half-use-ido t
