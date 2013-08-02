@@ -208,3 +208,7 @@
 
 (setq save-abbrevs nil)
 (setq-default abbrev-mode t)
+
+(add-to-list 'org-structure-template-alist
+             '("n" "#+BEGIN_COMMENT\n?\n#+END_COMMENT"
+               "<comment>\n?\n</comment>"))
