@@ -154,6 +154,9 @@
              "C-x v t" 'vc-create-tag
              "C-x a r" 'align-regexp
              "C-h C-f" 'find-function
+             "C-h C-k" 'find-function-on-key
+             "C-h C-v" 'find-variable
+             "C-h C-l" 'find-library
              "C-x i" 'ido-goto-symbol
              "C-x C-r" 'ido-recentf-open
              "<f6>" 'toggle-deft-mode
