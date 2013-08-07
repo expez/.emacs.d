@@ -79,6 +79,8 @@
              "gf" 'ispell-word
              "gp" 'flyspell-check-previous-highlighted-word
              "gn" 'flyspell-check-next-highlighted-word
+             "gu" 'evil-upcase
+             "gU" 'evil-downcase
              "M-," 'pop-tag-mark
              "C-j" 'open-line-below
              "C-k" 'open-line-above
