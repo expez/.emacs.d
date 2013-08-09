@@ -37,4 +37,6 @@
 
 (global-font-lock-mode 1)
 
+(add-hook 'after-init-hook #'global-flycheck-mode)
+
 (provide 'init-prog-modes)

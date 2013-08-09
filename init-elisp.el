@@ -12,6 +12,7 @@
           (lambda ()
             (elisp-slime-nav-mode 1)
             (turn-on-redshank-mode)
+            (flycheck-mode 0)
           ; (highlight-cl-add-font-lock-keywords)
             (esk-remove-elc-on-save)
             (checkdoc-minor-mode)
@@ -31,20 +32,16 @@
   (auto-complete-mode 1))
 (add-hook 'ielm-mode-hook 'ielm-auto-complete)
 
-(defcustom elisp-programming-major-modes
-  '(emacs-lisp-mode
-    lisp-interaction-mode
-    ielm-mode)
-  "Mode that are used to do Elisp programming.")
-
-(dolist (mode elisp-programming-major-modes)
-  (add-hook
-   (intern (concat (symbol-name mode) "-hook"))
-   (lambda ()
-     (turn-on-eldoc-mode)
-     (paredit-mode 1)
-     (evil-paredit-mode 1)
-     (rainbow-delimiters-mode 0))))
+(let ((elisp-programming-major-modes '(emacs-lisp-mode lisp-interaction-mode
+                                                      ielm-mode)))
+  (dolist (mode elisp-programming-major-modes)
+          (add-hook
+           (intern (concat (symbol-name mode) "-hook"))
+           (lambda ()
+             (turn-on-eldoc-mode)
+             (paredit-mode 1)
+             (evil-paredit-mode 1)
+             (rainbow-delimiters-mode 0)))))
 
 (defun esk-remove-elc-on-save ()
   "If you're saving an elisp file, likely the .elc is no longer valid."
