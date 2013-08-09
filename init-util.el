@@ -753,4 +753,10 @@ indicate failure."
                (load file))
           finally (delete-file "/tmp/debug-config"))))
 
+(defmacro after-load (feature &rest body)
+  "After FEATURE is loaded, evaluate BODY."
+  (declare (indent defun))
+  `(eval-after-load ,feature
+     '(progn ,@body)))
+
 (provide 'init-util)
