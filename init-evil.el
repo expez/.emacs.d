@@ -54,7 +54,8 @@
 
 (defadvice ido-hacks-execute-extended-command (before exit-insert-state
                                                       activate)
-  (evil-normal-state))
+  (when (eql evil-state 'insert)
+    (evil-normal-state)))
 
 (defadvice evil-visual-line (before spc-for-line-jump activate)
   (define-key evil-motion-state-map (kbd "SPC") #'evil-ace-jump-line-mode))
