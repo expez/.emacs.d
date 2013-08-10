@@ -23,6 +23,7 @@
 
 (require 'sr-speedbar)
 (require 'uniquify)
+(require 'org)
 
 (add-hook 'after-make-frame-functions
           '(lambda (f)
