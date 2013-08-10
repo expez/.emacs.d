@@ -25,8 +25,6 @@
     deft
     diminish
     dired+
-    ;dired-dups
-    ;diredful
     dropdown-list
     eldoc-eval
     elisp-slime-nav
@@ -52,7 +50,12 @@
     ido-ubiquitous
     inf-ruby
     info+
+    js2-mode
+    js2-refactor
+    js-comint
+    json
     key-chord
+    less-css-mode
     lexbind-mode
     lorem-ipsum
     macrostep
@@ -62,8 +65,8 @@
     magithub
     markdown-mode
     mediawiki
+    mmm-mode
     move-text
-    multiple-cursors
     paredit
     parenface
     pretty-mode-plus
@@ -72,7 +75,6 @@
     redshank
     regex-dsl
     regex-tool
-    register-list
     rinari
     robe
     rspec-mode
@@ -80,22 +82,41 @@
     ruby-electric
     ruby-interpolation
     rvm
+    sass-mode
+    scss-mode
+    skewer-mode
     solarized-theme
     sr-speedbar
     surround
+    tagedit
+    tern
+    tern-auto-complete
     toml-mode
     unbound
     undo-tree
+    wgrep-ack
     workgroups
     yaml-mode
     yard-mode
     yasnippet
-    wgrep-ack
+    zencoding-mode
     )
   "A list of packages to ensure are installed at launch.")
 
 (dolist (p my-packages)
   (when (not (package-installed-p p))
     (package-install p)))
+
+(defun require-package (package &optional min-version no-refresh)
+  "Install given PACKAGE, optionally requiring MIN-VERSION.
+If NO-REFRESH is non-nil, the available package lists will not be
+re-downloaded in order to locate PACKAGE."
+  (if (package-installed-p package min-version)
+      t
+    (if (or (assoc package package-archive-contents) no-refresh)
+        (package-install package)
+      (progn
+        (package-refresh-contents)
+        (require-package package min-version t)))))
 
 (provide 'init-package)
