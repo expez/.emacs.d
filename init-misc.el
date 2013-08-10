@@ -10,6 +10,8 @@
 (require 'mediawiki)
 (require 'window-numbering)
 (require 'ido-hacks)
+(require 'mmm-mode)
+(require 'mmm-auto)
 
 (key-chord-mode 1)
 
@@ -68,12 +70,6 @@
              (loop for i from ?! to ?/ collect i)
              (loop for i from ?: to ?@ collect i)))
 
-(add-hook 'css-mode-hook 'rainbow-turn-on)
-(add-hook 'html-mode-hook 'rainbow-turn-on)
-(add-hook 'sass-mode-hook 'rainbow-turn-on)
-(add-hook 'scss-mode-hook 'rainbow-turn-on)
-(add-hook 'haml-mode-hook 'rainbow-turn-on)
-
 (windmove-default-keybindings)
 (setq windmove-wrap-around t)
 
@@ -99,3 +95,6 @@
         (set-marker p nil)
         (set-marker m nil))
     ad-do-it))
+
+(setq mmm-global-mode 'buffers-with-submode-classes)
+(setq mmm-submode-decoration-level 2)
