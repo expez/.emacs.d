@@ -31,7 +31,11 @@
           '(lambda ()
              (setq mode-name "JS2")
              (skewer-mode)
-             (tern-mode t)))
+             (tern-mode t)
+             (fill-keymap evil-normal-state-local-map
+                                 "M-." 'tern-find-definition
+                                 "M-," 'tern-pop-find-definition
+                                 "C-M-." 'tern-find-definition-by-name)))
 
 (js2-imenu-extras-setup)
 
