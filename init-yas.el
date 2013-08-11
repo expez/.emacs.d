@@ -7,6 +7,8 @@
                              yas-dropdown-prompt
                              yas-completing-prompt))
 
+(add-auto-mode 'snippet-mode "\\.yasnippet")
+
 (add-hook 'yas-before-expand-snippet-hook
           #'(lambda()
               (when (evil-visual-state-p)
