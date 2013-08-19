@@ -33,7 +33,8 @@
 (evil-add-hjkl-bindings magit-mode-map 'emacs)
 (evil-add-hjkl-bindings magit-diff-mode-map 'emacs)
 
-(evil-add-hjkl-bindings rebase-mode-map 'emacs
+(evil-add-hjkl-bindings git-rebase-mode-map 'emacs
+  "e" 'git-rebase-edit
   "K" 'rebase-mode-kill-line
   "h" 'describe-mode)
 
