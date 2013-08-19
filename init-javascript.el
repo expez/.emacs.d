@@ -33,16 +33,21 @@
              (skewer-mode)
              (tern-mode t)
              (fill-keymap evil-normal-state-local-map
-                                 "M-." 'tern-find-definition
-                                 "M-," 'tern-pop-find-definition
-                                 "C-M-." 'tern-find-definition-by-name)))
+                          "M-." 'tern-find-definition
+                          "M-," 'tern-pop-find-definition
+                          "C-M-." 'tern-find-definition-by-name
+                          "M-p" 'flycheck-previous-error
+                          "M-n" 'flycheck-next-error
+                          (kbd "<f1>") 'js-lookup)
+             (fill-keymap js2-mode-map
+                          "C-c C-a" 'jshint-annotate)
+             (local-set-key (kbd "RET") 'newline-and-indent)))
 
 (js2-imenu-extras-setup)
 
 (setq-default js2-use-font-lock-faces t
-              js2-indent-on-enter-key nil
               js2-auto-indent-p t
-              js2-bounce-indent-p nil
+              js2-bounce-indent-p t
               js2-concat-multiline-strings 'eol
               js2-idle-timer-delay 0.1
               js2-highlight-level 3
@@ -59,7 +64,7 @@
   (let ((yas/fallback-behavior 'return-nil))
     (unless (yas/expand)
       (indent-for-tab-command)
-      (if (looking-back "^\s*")
+      (if (looking-back "^\s+")
           (back-to-indentation)))))
 
 (define-key js2-mode-map (kbd "TAB") 'js2-tab-properly)
@@ -153,5 +158,21 @@
                     (:else 0)))))
     (unless first-line
       (indent-line-to offset))))
+
+(defun jshint-annotate ()
+  "Use completing read among to choose among jshint annotations
+to insert above current line"
+  (interactive)
+  (let ((annotation (completing-read "Insert annotation: "
+                                     (list "unused:false"
+                                           "undef:false"
+                                           "strict: true")))
+        (prefix "/*jshint ")
+        (suffix " */"))
+    (save-excursion
+      (open-line-above)
+      (previous-line)
+      (insert prefix annotation suffix)
+      (js2-indent-line))))
 
 (provide 'init-javascript)

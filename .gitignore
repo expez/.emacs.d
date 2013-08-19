@@ -18,3 +18,4 @@ autosaves/
 /.emacs-frequencies
 /vendor
 /.recentf
+.yas-compiled-snippets.el

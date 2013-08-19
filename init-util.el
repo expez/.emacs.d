@@ -532,15 +532,15 @@ A `spec' can be a `read-kbd-macro'-readable string or a vector."
     (cofi/set-key map (car mapping) (cadr mapping)))
   map)
 
-                                        ;(add-hook 'buffer-list-update-hook 'give-my-keybindings-priority)
-
 (defun open-line-below ()
+  "Insert a line below the current line without moving point."
   (interactive)
   (save-excursion
     (end-of-line)
     (newline)))
 
 (defun open-line-above ()
+  "Insert a line above the current line without moving point."
   (interactive)
   (save-excursion
     (beginning-of-line)

@@ -93,6 +93,7 @@
              "K" misc-map)
 
 (fill-keymap evil-insert-state-map
+             "C-a" 'smart-line-beginning
              "C-y" 'yank
              "C-v" 'quoted-insert
              "M-y" 'yank-pop
