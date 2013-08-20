@@ -763,7 +763,7 @@ indicate failure."
   "Use completing read to open one of the configuration files for
   emacs for editing."
   (interactive)
-  (let ((files (directory-files user-emacs-directory t "^init-.*\.el$")))
-    (find-file (completing-read "Edit file: " files nil nil nil "init.el"))))
+  (find-file (ido-read-file-name "Edit file: " user-emacs-directory nil
+                                 "^init-.*\.el$" "init-" )))
 
 (provide 'init-util)
