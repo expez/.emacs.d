@@ -30,7 +30,10 @@
              "j" 'magit-goto-next-section
              "k" 'magit-goto-previous-section)
 
-(evil-add-hjkl-bindings magit-mode-map 'emacs)
+(evil-add-hjkl-bindings magit-mode-map 'emacs
+  "c" 'magit-commit
+  "C" 'magit-key-mode-popup-committing)
+
 (evil-add-hjkl-bindings magit-diff-mode-map 'emacs)
 
 (evil-add-hjkl-bindings git-rebase-mode-map 'emacs
