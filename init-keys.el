@@ -18,8 +18,7 @@
   "f" 'eproject-find-file
   "g" 'magit-status
   "j" 'bookmark-jump
-  "e" 'mc/edit-lines
-  "/" 'mc/mark-all-like-this-dwim
+  "e" 'edit-user-config-file
   "k" 'kill-buffer
   "p" 'eproject-revisit-project
   "r" 'revert-buffer

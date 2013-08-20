@@ -744,7 +744,7 @@ while loading init files.  `test-fn' should return NIL to
 indicate failure."
   (when test-fn
     (find-file "/tmp/debug-config")
-    (loop for file in (directory-files user-emacs-directory t "init-.*\.el\$")
+    (loop for file in (directory-files user-emacs-directory t "^init-.*\.el\$")
           always (funcall test-fn)
           do (progn
                (set-buffer "debug-config")
@@ -758,5 +758,12 @@ indicate failure."
   (declare (indent defun))
   `(eval-after-load ,feature
      '(progn ,@body)))
+
+(defun edit-user-config-file ()
+  "Use completing read to open one of the configuration files for
+  emacs for editing."
+  (interactive)
+  (let ((files (directory-files user-emacs-directory t "^init-.*\.el$")))
+    (find-file (completing-read "Edit file: " files nil nil nil "init.el"))))
 
 (provide 'init-util)
