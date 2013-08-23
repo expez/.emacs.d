@@ -182,6 +182,12 @@
 
 (eval-after-load "vc-annotate"
   '(fill-keymap vc-annotate-mode-map
+                "?" 'evil-search-backward
+                "/" 'evil-search-forward
+                "C-d" 'evil-scroll-down
+                "C-u" 'evil-scroll-up
+                "C-f" 'evil-scroll-page-down
+                "C-b" 'evil-scroll-page-up
                 "j" 'next-line
                 "J" 'vc-annotate-revision-at-line
                 "k" 'previous-line))
