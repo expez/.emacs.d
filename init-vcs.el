@@ -65,8 +65,11 @@
 (defun magit-toggle-whitespace ()
   (interactive)
   (if (member "-w" magit-diff-options)
-      (magit-dont-ignore-whitespace)
-    (magit-ignore-whitespace)))
+      (progn
+        (magit-dont-ignore-whitespace)
+        (message "Showing whitespace in diffs..."))
+    (magit-ignore-whitespace)
+    (message "Ignoring whitespace in diffs...")))
 
 (defun magit-ignore-whitespace ()
   (interactive)
