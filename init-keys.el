@@ -138,6 +138,7 @@
   [remap evil-previous-line] 'evil-previous-visual-line)
 
 (fill-keymap 'global
+             "C-x v p" 'git-messenger:popup-message
              "C-x m" 'ido-hacks-execute-extended-command
              "C-x C-m" 'ido-hacks-execute-extended-command
              "C-x c" 'compile
@@ -163,6 +164,18 @@
              "C-x C-r" 'ido-recentf-open
              "<f6>" 'toggle-deft-mode
              "M-<backspace>" 'delete-indentation)
+
+(evil-add-hjkl-bindings diff-mode-map 'emacs
+  "K" 'diff-hunk-kill
+  "C-x C-k" 'diff-file-kill
+  "h" 'describe-mode
+  "C-d" 'evil-scroll-down
+  "C-u" 'evil-scroll-up
+  "C-f" 'evil-scroll-page-down
+  "C-b" 'evil-scroll-page-up
+  "u" 'diff-undo
+  "/" 'evil-search-forward
+  "?" 'evil-search-backward)
 
 (eval-after-load "workgroups"
   '(fill-keymap 'global "C-x w" wg-map))
