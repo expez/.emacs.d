@@ -98,3 +98,9 @@
 
 (setq mmm-global-mode 'buffers-with-submode-classes)
 (setq mmm-submode-decoration-level 2)
+
+(defadvice httpd-start (around set-httpd-root-with-prefix activate)
+  (when current-prefix-arg
+    (let ((dir (file-name-directory (buffer-file-name))))
+      (setq httpd-root (ido-read-directory-name "Serve dir: " dir))
+      ad-do-it)))
