@@ -22,7 +22,7 @@
   "k" 'kill-buffer
   "p" 'eproject-revisit-project
   "r" 'revert-buffer
-  "s" 'eshell-toggle
+  "s" 'esk-eshell-in-dir
   "v" 'vc-annotate
   "w" 'save-buffer
   "1" 'select-window-1
