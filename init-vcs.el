@@ -54,6 +54,7 @@
 
 (evil-add-hjkl-bindings magit-status-mode-map 'emacs
   "K" 'magit-discard-item
+  "C-x C-k" 'magit-kill-file-on-line
   "l" 'magit-key-mode-popup-logging
   "h" 'magit-toggle-diff-refine-hunk)
 
@@ -100,5 +101,12 @@
       (set-mark m)))
   ad-do-it
   (evil-normal-state))
+
+(defun magit-kill-file-on-line ()
+  "Show file on current magit line and prompt for deletion."
+  (interactive)
+  (magit-visit-item)
+  (delete-current-buffer-file)
+  (magit-refresh))
 
 (provide 'init-vcs)
