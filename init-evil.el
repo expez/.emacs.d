@@ -48,7 +48,8 @@
           magit-branch-manager-mode
           magit-commit-mode
           magit-log-mode
-          log-view-mode))
+          log-view-mode
+          diff-mode))
 
 (evil-set-initial-state 'man-mode 'motion)
 
