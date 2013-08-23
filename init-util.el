@@ -764,6 +764,6 @@ indicate failure."
   emacs for editing."
   (interactive)
   (find-file (ido-read-file-name "Edit file: " user-emacs-directory nil
-                                 "^init-.*\.el$" "init-" )))
+                                 nil "init-")))
 
 (provide 'init-util)
