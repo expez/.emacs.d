@@ -22,10 +22,6 @@
       magit-remote-ref-format 'remote-slash-name
       magit-commit-all-when-nothing-staged nil)
 
-(fill-keymap magit-status-mode-map
-             "W" 'magit-toggle-whitespace
-             "q" 'magit-quit-session)
-
 (fill-keymap magit-log-mode-map
              "j" 'magit-goto-next-section
              "k" 'magit-goto-previous-section)
@@ -53,6 +49,10 @@
   "C-c C-c" 'server-edit)
 
 (evil-add-hjkl-bindings magit-status-mode-map 'emacs
+  "W" 'magit-toggle-whitespace
+  "q" 'magit-quit-session
+  "C-w" 'evil-window-map
+  "M-w" 'magit-copy-item-as-kill
   "K" 'magit-discard-item
   "C-x C-k" 'magit-kill-file-on-line
   "l" 'magit-key-mode-popup-logging
