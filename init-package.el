@@ -43,6 +43,7 @@
     git-commit-mode
     gitconfig-mode
     gitignore-mode
+    git-messenger
     google-c-style
     goto-chg
     haskell-mode
