@@ -29,6 +29,7 @@
 
 (add-hook 'js2-mode-hook
           '(lambda ()
+             (push 'ac-source-yasnippet ac-sources)
              (setq mode-name "JS2")
              (skewer-mode)
              (tern-mode t)

@@ -7,6 +7,7 @@
 (setq ac-auto-start 2
       ac-quick-help-delay 0.5
       ac-fuzzy-enable t
+      ac-use-fuzzzy t
       ac-auto-show-menu 0.2)
 
 (global-auto-complete-mode)
