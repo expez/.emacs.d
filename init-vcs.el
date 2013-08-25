@@ -10,7 +10,7 @@
 (add-auto-mode 'gitconfig-mode "gitconfig$")
 
 (add-hook 'git-commit-mode-hook 'turn-on-flyspell)
-(add-hook 'magit-mode-hook 'turn-on-magit-push-remote)
+;;;(add-hook 'magit-mode-hook 'turn-on-magit-push-remote)
 
 (setq magit-commit-signoff nil
       magit-process-popup-time 10
@@ -125,5 +125,15 @@
 
 (defadvice git-commit-commit (after delete-window activate)
   (delete-window))
+
+(eval-after-load "git-commit-mode"
+  '(define-key git-commit-mode-map (kbd "C-c C-k") 'magit-exit-commit-mode))
+
+(defun magit-exit-commit-mode ()
+  (interactive)
+  ;; prevent "buffer still has clients" prompt
+  (let ((server-buffer-clients ()))
+    (kill-buffer)
+    (delete-window)))
 
 (provide 'init-vcs)
