@@ -26,29 +26,15 @@
              "j" 'magit-goto-next-section
              "k" 'magit-goto-previous-section)
 
-(evil-add-hjkl-bindings magit-mode-map 'emacs
-  "c" 'magit-commit
-  "C" 'magit-key-mode-popup-committing)
-
 (evil-add-hjkl-bindings magit-diff-mode-map 'emacs)
 
 (evil-add-hjkl-bindings git-rebase-mode-map 'emacs
-  "a" 'git-rebase-abort
-  "c" 'git-rebase-pick
-  "e" 'git-rebase-edit
-  "f" 'git-rebase-fixup
-  "r" 'git-rebase-reword
-  "s" 'git-rebase-squash
   "K" 'git-rebase-kill-line
-  "h" 'describe-mode
-  "M-p" 'git-rebase-move-line-up
-  "M-n" 'git-rebase-move-line-down
-  (kbd "RET") 'git-rebase-show-commit
-  "q" 'server-edit
-  "C-c C-k" 'git-rebase-abort
-  "C-c C-c" 'server-edit)
+  "h" 'describe-mode)
 
 (evil-add-hjkl-bindings magit-status-mode-map 'emacs
+  "C" 'magit-key-mode-popup-committing
+  "c" 'magit-commit
   "W" 'magit-toggle-whitespace
   "q" 'magit-quit-session
   "C-w" 'evil-window-map

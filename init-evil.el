@@ -48,6 +48,7 @@
           magit-branch-manager-mode
           magit-commit-mode
           magit-log-mode
+          git-rebase-mode
           log-view-mode
           diff-mode))
 
