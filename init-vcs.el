@@ -37,10 +37,10 @@
   "c" 'magit-commit
   "W" 'magit-toggle-whitespace
   "q" 'magit-quit-session
-  "C-w" 'evil-window-map
+  (kbd "C-w") 'evil-window-map
   "M-w" 'magit-copy-item-as-kill
   "K" 'magit-discard-item
-  "C-x C-k" 'magit-kill-file-on-line
+  (kbd "C-x C-k") 'magit-kill-file-on-line
   "l" 'magit-key-mode-popup-logging
   "h" 'magit-toggle-diff-refine-hunk)
 
