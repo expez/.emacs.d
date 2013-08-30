@@ -5,6 +5,10 @@
                     (sql-set-product "mysql")
                     (sql-set-sqli-buffer)))))
 
+(add-lambda 'sql-mode-hook
+  (modify-syntax-entry ?- "w")
+  (modify-syntax-entry ?_ "w"))
+
 (defvar sql-last-prompt-pos 1
   "position of last prompt when added recording started")
 (make-variable-buffer-local 'sql-last-prompt-pos)
