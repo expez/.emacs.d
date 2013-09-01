@@ -1,7 +1,9 @@
 (require 'yasnippet)
 
 (yas-global-mode)
-(setq yas/root-directory  (concat user-emacs-directory "snippets"))
+(setq yas-snippet-dirs (list
+                        (setq yas/root-directory
+                              (concat user-emacs-directory "snippets"))))
 (yas/load-directory yas/root-directory)
 (setq yas-prompt-functions '(yas-ido-prompt
                              yas-dropdown-prompt
