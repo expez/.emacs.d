@@ -5,6 +5,7 @@
 (setq yas-prompt-functions '(yas-ido-prompt
                              yas-dropdown-prompt
                              yas-completing-prompt))
+(yas/reload-all)
 
 (add-auto-mode 'snippet-mode "\\.yasnippet")
 
