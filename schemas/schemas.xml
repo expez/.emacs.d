@@ -1,0 +1,4 @@
+<?xml version="1.0"?>
+<locatingRules xmlns="http://thaiopensource.com/ns/locating-rules/1.0">
+  <namespace ns="http://www.w3.org/1999/XSL/Transform" uri="xslt20.rnc"/>
+</locatingRules>
