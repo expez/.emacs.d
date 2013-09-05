@@ -640,11 +640,12 @@ If the file is emacs lisp, run the byte compiled version if appropriate."
 
 (defun load-from-vendor-dir ()
   "Loads everything below the vendor folder in `user-emacs-directory'."
-  (let* ((vendor-dir (concat user-emacs-directory "vendor"))
-         (files (split-string
-                 (shell-command-to-string
-                  (concat "find " vendor-dir " -type f -iname '*.el'")))))
-    (mapc #'load files)))
+  (unless (eq system-type 'windows-nt)
+    (let* ((vendor-dir (concat user-emacs-directory "vendor"))
+           (files (split-string
+                   (shell-command-to-string
+                    (concat "find " vendor-dir " -type f -iname '*.el'")))))
+      (mapc #'load files))))
 
 (defun load-elisp-files-in-dir (dir &optional regexp count)
   "Load all elisp files in in DIR.  When REGEXP is provided match

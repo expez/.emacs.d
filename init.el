@@ -18,7 +18,7 @@
 (setq custom-file (concat user-emacs-directory "customize.el"))
 (load custom-file)
 
-(load-from-vendor-dir)
+;(load-from-vendor-dir)
 
 (require 'sr-speedbar)
 (require 'uniquify)
@@ -34,6 +34,10 @@
                  (set-face-foreground whitespace-indentation "deep sky blue")
                  (set-face-foreground whitespace-line "deep sky blue")
                  (set-face-foreground whitespace-tab "deep sky blue")))))
+
+(when (or (eq system-type 'windows-nt)
+          (not (server-running-p)))
+  (load-theme 'solarized-dark))
 
 (setq scroll-margin 0
       scroll-conservatively 100000
