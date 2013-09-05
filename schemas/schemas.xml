@@ -1,4 +1,9 @@
 <?xml version="1.0"?>
 <locatingRules xmlns="http://thaiopensource.com/ns/locating-rules/1.0">
-  <namespace ns="http://www.w3.org/1999/XSL/Transform" uri="xslt20.rnc"/>
+  <uri pattern="*.xsl"
+       uri="xslt20.rnc"/>
+ <uri pattern="pom.xml"
+       uri="maven-v-4_0_0.rnc"/>
+  <uri pattern="build.xml"
+      uri="ant-1.6.rnc"/>
 </locatingRules>
