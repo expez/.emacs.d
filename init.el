@@ -18,7 +18,7 @@
 (setq custom-file (concat user-emacs-directory "customize.el"))
 (load custom-file)
 
-;(load-from-vendor-dir)
+(load-from-vendor-dir)
 
 (require 'sr-speedbar)
 (require 'uniquify)
