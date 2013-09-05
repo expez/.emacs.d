@@ -12,7 +12,6 @@
 
 (require 'init-util)
 (require 'init-package)
-(load-if-exists "~/quicklisp/slime-helper.el")
 
 (load-elisp-files-in-dir user-emacs-directory "^init-.\*")
 

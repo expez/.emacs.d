@@ -1,4 +1,5 @@
-(require 'slime)
+(when (load-if-exists "~/quicklisp/slime-helper.el")
+  (require 'slime))
 (require 'test-op-mode)
 (require 'evil-paredit)
 
