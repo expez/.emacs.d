@@ -1,4 +1,5 @@
 (require 'sgml-mode)
+(require 'know-your-http-well)
 
 (add-hook 'html-mode-hook 'skewer-html-mode)
 (add-hook 'html-mode-hook 'rainbow-mode)
