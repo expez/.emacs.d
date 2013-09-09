@@ -106,7 +106,7 @@ stylesheet.model =
    extension.atts,
    attribute id { xsd:NCName }?,
    attribute extension-element-prefixes { prefixes.datatype }?,
-   attribute exclude-result-prefixes { prefixes.datatype }?,
+   attribute exclude-result-prefixes { prefixes.datatype | "#all" }?,
    attribute version { version },
    attribute xpath-default-namespace { xsd:anyURI }?,
    attribute default-validation { "strict" | "lax" | "preserve" | "strip" }?,
