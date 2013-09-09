@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# name: choose
+# key: c
+# --
+<xsl:choose>
+      <xsl:when test="$1">
+        $2`(if yas-selected-text yas-selected-text (insert ?\n))` </xsl:when>
+      <xsl:otherwise>
+         $0
+      </xsl:otherwise>
+</xsl:choose>
