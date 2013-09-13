@@ -1,9 +1,8 @@
 (when (load-if-exists "~/quicklisp/slime-helper.el")
   (require 'slime))
+
 (require 'test-op-mode)
 (require 'evil-paredit)
-
-(slime-setup '(slime-fancy slime-asdf))
 
 (add-hook 'lisp-mode-hook
           (lambda ()
@@ -25,10 +24,16 @@
             (set-face-foreground 'paren-face "grey30")))
 
 (fill-keymap lisp-mode-map "C-c l" 'lispdoc)
-(fill-keymaps '(slime-mode-map slime-repl-mode-map)
-              "C-c sl" 'slime-load-system
-              "C-c sb" 'slime-browse-system
-              "C-c so" 'slime-open-system)
+(eval-after-load "slime"
+  '(progn
+     (slime-setup '(slime-fancy slime-asdf))
+     (fill-keymaps '(slime-mode-map slime-repl-mode-map)
+                   "C-c sl" 'slime-load-system
+                   "C-c sb" 'slime-browse-system
+                   "C-c so" 'slime-open-system)
+     (defslime-repl-shortcut slime-quickload ("quickload" "ql")
+       (:handler #'cofi/slime-repl-quickload)
+       (:one-liner "Load system from quickload distribution"))))
 
 (eval-after-load "evil"
   '(evil-add-hjkl-bindings slime-xref-mode-map 'emacs))
@@ -68,10 +73,6 @@
     (read-kbd-macro paredit-backward-delete-key) nil))
 (add-hook 'slime-repl-mode-hook 'override-slime-repl-bindings-with-paredit)
 
-(defslime-repl-shortcut slime-quickload ("quickload" "ql")
-  (:handler #'cofi/slime-repl-quickload)
-  (:one-liner "Load system from quickload distribution"))
-
 (defun cofi/slime-repl-quickload ()
   (interactive)
   (let ((system-name
@@ -80,8 +81,8 @@
                                                   (ql:system-list)))
                           nil t)))
     (slime-eval-async
-        `(cl:progn (ql:quickload ,system-name)
-                   (cl:format t "; Loaded system \"~A\".~%" ,system-name)))))
+     `(cl:progn (ql:quickload ,system-name)
+                (cl:format t "; Loaded system \"~A\".~%" ,system-name)))))
 
 (add-auto-mode 'lisp-mode "\.cl$" )
 
