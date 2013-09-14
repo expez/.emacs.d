@@ -246,6 +246,7 @@
      ("min" "MIN" nil 1)
      ("minute" "MINUTE" nil 1)
      ("modifies" "MODIFIES" nil 1)
+     ("modify" "MODIFY" nil 1)
      ("module" "MODULE" nil 1)
      ("month" "MONTH" nil 1)
      ("multiset" "MULTISET" nil 1)
