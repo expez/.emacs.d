@@ -42,6 +42,7 @@
   "K" 'magit-discard-item
   (kbd "C-x C-k") 'magit-kill-file-on-line
   "l" 'magit-key-mode-popup-logging
+  ":" 'magit-git-command
   "h" 'magit-toggle-diff-refine-hunk)
 
 (evil-add-hjkl-bindings magit-branch-manager-mode-map 'emacs
