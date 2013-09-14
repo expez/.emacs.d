@@ -1,4 +1,6 @@
 (require 'auto-complete-nxml)
+(require 'nxml-mode)
+
 (setq auto-complete-nxml-popup-help-key "C-,")
 
 (add-auto-mode
