@@ -1,7 +1,7 @@
 (require 'deft)
 
 (define-derived-mode deft-note-mode org-mode "Deft note"
-  (setq deft-note-mode 1))
+  (set (make-local-variable 'deft-note-mode) t))
 
 (setq deft-extension "deft"
       deft-directory "~/org/deft/"
@@ -25,7 +25,7 @@
   (interactive)
   (if (or
        (eq major-mode 'deft-mode)
-       (not (null deft-note-mode)))
+       (eq major-mode 'deft-note-mode))
       (progn
         (kill-all-deft-notes)
         (kill-buffer "*Deft*"))
