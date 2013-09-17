@@ -42,6 +42,7 @@
 
 (mapcar 'set-mode-to-default-emacs
         '(dired
+          deft-mode
           occur-mode
           term-mode
           eshell
@@ -50,6 +51,7 @@
           magit-log-mode
           git-rebase-mode
           log-view-mode
+          undo-tree-mode
           diff-mode))
 
 (evil-set-initial-state 'man-mode 'motion)

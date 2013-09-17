@@ -214,6 +214,13 @@
     "q" 'macrostep-collapse-all
     (kbd "C-c C-c") 'macrostep-collapse-all))
 
+(evil-add-hjkl-bindings undo-tree-map 'emacs
+  "l" 'undo-tree-visualize-switch-branch-right
+  "h" 'undo-tree-visualize-switch-branch-left
+  "H" 'describe-mode
+  "k" 'undo-tree-visualize-undo
+  "j" 'undo-tree-visualize-redo)
+
 (define-key query-replace-map [return] 'act)
 (define-key query-replace-map [?\C-m] 'act)
 
