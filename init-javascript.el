@@ -166,8 +166,9 @@
 to insert above current line"
   (interactive)
   (let ((annotation (completing-read "Insert annotation: "
-                                     (list "unused:false"
-                                           "undef:false"
+                                     (list "unused: false"
+                                           "undef: false"
+                                           "loopfunc: true"
                                            "strict: true")))
         (prefix "/*jshint ")
         (suffix " */"))
