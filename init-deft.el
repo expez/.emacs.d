@@ -18,7 +18,8 @@
   (save-excursion
     (dolist(buffer (buffer-list))
       (set-buffer buffer)
-      (unless (null deft-note-mode)
+      (unless (or (not (boundp 'deft-note-mode))
+                  (null deft-note-mode))
         (kill-buffer buffer)))))
 
 (defun toggle-deft-mode ()
