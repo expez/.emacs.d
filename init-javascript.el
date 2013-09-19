@@ -165,13 +165,16 @@
   "Use completing read among to choose among jshint annotations
 to insert above current line"
   (interactive)
-  (let ((annotation (completing-read "Insert annotation: "
-                                     (list "unused: false"
-                                           "undef: false"
-                                           "loopfunc: true"
-                                           "strict: true")))
-        (prefix "/*jshint ")
-        (suffix " */"))
+  (let* ((annotation (completing-read "Insert annotation: "
+                                      (list "unused: false"
+                                            "undef: false"
+                                            "loopfunc: true"
+                                            "falls through"
+                                            "strict: true")))
+         (prefix (if (string= annotation "falls through")
+                     "/* "
+                   "/*jshint "))
+         (suffix " */"))
     (save-excursion
       (open-line-above)
       (previous-line)
