@@ -215,7 +215,7 @@
     (kbd "C-c C-c") 'macrostep-collapse-all))
 
 (eval-after-load "undo-tree"
-  '(evil-add-hjkl-bindings undo-tree-map 'emacs
+  '(fill-keymap undo-tree-visualizer-mode-map
      "l" 'undo-tree-visualize-switch-branch-right
      "h" 'undo-tree-visualize-switch-branch-left
      "H" 'describe-mode
