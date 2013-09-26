@@ -14,8 +14,16 @@
 
 (defvar whitespace-show-all-mode nil)
 
-(defun toggle-whitespace-mode ()
+(defun* toggle-whitespace-mode ()
   (interactive)
+  (when current-prefix-arg
+    (if whitespace-mode
+        (progn
+          (whitespace-mode 0)
+          (message "Whitespace mode off"))
+      (whitespace-mode 1)
+      (message "Whitespace mode on"))
+    (return-from toggle-whitespace-mode))
   (if whitespace-show-all-mode
       (progn
         (setq whitespace-style '(face tabs trailing lines-tail empty
