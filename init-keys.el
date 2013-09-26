@@ -19,12 +19,14 @@
   "g" 'magit-status
   "j" 'bookmark-jump
   "e" 'edit-user-config-file
+  "h" 'change-whitespace-line-column
   "k" 'kill-buffer
   "p" 'eproject-revisit-project
   "r" 'revert-buffer
   "s" 'esk-eshell-in-dir
   "v" 'vc-annotate
   "w" 'save-buffer
+  "," 'yas-insert-snippet
   "1" 'select-window-1
   "2" 'select-window-2
   "3" 'select-window-3
