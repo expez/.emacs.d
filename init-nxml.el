@@ -3,6 +3,10 @@
 
 (setq auto-complete-nxml-popup-help-key "C-,")
 
+(add-lambda 'nxml-mode-hook
+  (make-local-variable whitespace-line-column)
+  (setq whitespace-line-column 120))
+
 (add-auto-mode
  'nxml-mode
  (concat "\\."
