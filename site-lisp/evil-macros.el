@@ -3,9 +3,9 @@
 ;; Copyright (C) 2013 Lars Andersen
 
 ;; Author: Lars Andersen <expez@expez.com>
-;; Created: 20 March 2013
-;; Version: 1.0
-;; Keywords: test lisp
+;; Created: 25 September 2013
+;; Version: 0.1
+;; Keywords: evil macro
 ;; X-URL: https://github.com/expez/emacs.d
 
 ;; This program is free software; you can redistribute it and/or
