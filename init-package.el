@@ -36,6 +36,7 @@
     evil
     evil-numbers
     evil-paredit
+    evil-visualstar
     flycheck
     ghc
     ghci-completion

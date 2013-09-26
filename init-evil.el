@@ -1,6 +1,7 @@
 (require 'evil-numbers)
 (require 'evil-paredit)
 (require 'ace-jump-mode)
+(require 'evil-visualstar)
 
 (evil-mode 1)
 
