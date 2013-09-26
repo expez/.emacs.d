@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: <xsl:variable>
+# key: var
+# --
+<xsl:variable name="$1" select="$0" />
