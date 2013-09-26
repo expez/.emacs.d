@@ -1,8 +1,9 @@
 (require 'yasnippet)
 
 (yas-global-mode)
-(setq yas-snippet-dirs (concat user-emacs-directory "snippets"))
-(setq yas-prompt-functions '(yas-ido-prompt
+(setq yas-snippet-dirs (concat user-emacs-directory "snippets")
+      yas-also-auto-indent-first-line t
+      yas-prompt-functions '(yas-ido-prompt
                              yas-dropdown-prompt
                              yas-completing-prompt))
 (yas/reload-all)
