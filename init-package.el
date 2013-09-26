@@ -12,6 +12,7 @@
   '(
     ac-slime
     ace-jump-mode
+    auto-complete-nxml
     ack-and-a-half
     auctex
     auto-complete
