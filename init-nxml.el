@@ -5,7 +5,8 @@
 
 (add-lambda 'nxml-mode-hook
   (make-local-variable whitespace-line-column)
-  (setq whitespace-line-column 120))
+  (setq whitespace-line-column 120)
+  (local-set-key (kbd "RET") 'newline-and-indent))
 
 (add-auto-mode
  'nxml-mode
@@ -27,25 +28,25 @@ between them.  It then indents the markup by using nxml's
 indentation rules."
   (interactive "r")
   (save-excursion
-      (nxml-mode)
-      (goto-char begin)
-      (while (search-forward-regexp "\>[ \\t]*\<" nil t)
-        (backward-char) (insert "\n"))
-      (indent-region begin end)))
+    (nxml-mode)
+    (goto-char begin)
+    (while (search-forward-regexp "\>[ \\t]*\<" nil t)
+      (backward-char) (insert "\n"))
+    (indent-region begin end)))
 
 (defun nxml-where ()
-      "Display the hierarchy of XML elements the point is on as a path."
-      (interactive)
-      (let ((path nil))
-        (save-excursion
-          (save-restriction
-            (widen)
-            (while (condition-case nil
-                       (progn
-                         (nxml-backward-up-element) ; always returns nil
-                         t)
-                     (error nil))
-              (setq path (cons (xmltok-start-tag-local-name) path)))
-            (message "/%s" (mapconcat 'identity path "/"))))))
+  "Display the hierarchy of XML elements the point is on as a path."
+  (interactive)
+  (let ((path nil))
+    (save-excursion
+      (save-restriction
+        (widen)
+        (while (condition-case nil
+                   (progn
+                     (nxml-backward-up-element) ; always returns nil
+                     t)
+                 (error nil))
+          (setq path (cons (xmltok-start-tag-local-name) path)))
+        (message "/%s" (mapconcat 'identity path "/"))))))
 
 (provide 'init-nxml)
