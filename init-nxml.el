@@ -3,10 +3,12 @@
 
 (setq auto-complete-nxml-popup-help-key "C-,")
 
-(add-lambda 'nxml-mode-hook
-  (make-local-variable whitespace-line-column)
+(defun my-nxml-mode-hook ()
+  (make-local-variable 'whitespace-line-column)
   (setq whitespace-line-column 120)
   (local-set-key (kbd "RET") 'newline-and-indent))
+
+(add-hook 'nxml-mode-hook #'my-nxml-mode-hook)
 
 (add-auto-mode
  'nxml-mode
