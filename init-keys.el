@@ -61,8 +61,8 @@
   "T" 'org-todo-list
   "u" 'winner-undo
   "v" 'visual-line-mode
-  "w" 'ethan-wspace-clean-all-modes
-  "W" 'toggle-whitespace-mode)
+  "W" 'ethan-wspace-clean-all-modes
+  "w" 'toggle-whitespace-mode)
 
 (fill-keymap evil-normal-state-map
              "Y"     (kbd "y$")
