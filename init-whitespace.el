@@ -45,6 +45,7 @@
   "Clean all whitespace errors immediately."
   (interactive)
   (dolist (type ethan-wspace-errors)
-    (ethan-wspace-type-clean type)))
+    (ethan-wspace-type-clean type))
+  (indent-buffer))
 
 (provide 'init-whitespace)
