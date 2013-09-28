@@ -776,4 +776,14 @@ indicate failure."
   (setq whitespace-line-column c)
   (message (format "Highlighting lines longer than %s columns." c)))
 
+(defun find-shell-init-file ()
+  "Edit the shell init file in another window."
+  (interactive)
+  (let* ((shell (car (reverse (s-split "/" (getenv "SHELL")))))
+         (shell-init-file (cond
+                           ((s-equals? "zsh" shell) ".zshrc")
+                           ((s-equals? "bash" shell) ".bashrc")
+                           (t (error "Unknown shell")))))
+    (find-file (expand-file-name shell-init-file (getenv "HOME")))))
+
 (provide 'init-util)
