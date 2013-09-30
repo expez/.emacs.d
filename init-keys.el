@@ -65,6 +65,8 @@
   "w" 'toggle-whitespace-mode)
 
 (fill-keymap evil-normal-state-map
+             "'" 'evil-use-register
+             "\"" 'evil-goto-mark-line
              "Y"     (kbd "y$")
              "Q" (lambda () (interactive) (evil-execute-macro 1 last-kbd-macro))
              "U" 'universal-argument
@@ -103,6 +105,8 @@
              "C-h" 'backward-delete-char)
 
 (fill-keymap evil-visual-state-map
+             "'" 'evil-use-register
+             "\"" 'evil-goto-mark-line
              "u" 'undo-tree-undo
              "," leader-map
              "K" misc-map)
