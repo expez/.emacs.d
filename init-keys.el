@@ -89,8 +89,6 @@
              "C-k" 'open-line-above
              "M-n" 'next-error
              "M-p" 'previous-errror
-             "<down>" 'move-text-down
-             "<up>" 'move-text-up
              "C-u" 'evil-scroll-up
              "gs" 'just-one-space
              "K" misc-map)

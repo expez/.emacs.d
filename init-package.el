@@ -69,7 +69,6 @@
     markdown-mode
     mediawiki
     mmm-mode
-    move-text
     paredit
     parenface
     pretty-mode-plus
