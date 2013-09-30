@@ -156,7 +156,7 @@
              "C-c e" 'eval-and-replace
              "C-<tab>" 'hippie-expand
              "<f5>" 'eshell-toggle
-             "<end>" 'sr-speedbar-toggle
+             "<insert>" 'sr-speedbar-toggle
              "C-x r q" 'save-buffers-kill-terminal
              "C-x v t" 'vc-create-tag
              "C-x a r" 'align-regexp
