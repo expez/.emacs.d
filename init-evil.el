@@ -2,10 +2,27 @@
 (require 'evil-paredit)
 (require 'ace-jump-mode)
 (require 'evil-visualstar)
-
+(require 'surround)
 (evil-mode 1)
 
 (global-surround-mode 1)
+
+(setq surround-pairs-alist
+  '((?\( . ("(" . ")"))
+    (?\[ . ("[" . "]"))
+    (?\{ . ("{" . "}"))
+
+    (?\) . ("(" . ")"))
+    (?\] . ("[" . "]"))
+    (?\} . ("{" . "}"))
+
+    (?# . ("#{" . "}"))
+    (?b . ("(" . ")"))
+    (?B . ("{" . "}"))
+    (?> . ("<" . ">"))
+    (?t . surround-read-tag)
+    (?< . surround-read-tag)
+    (?f . surround-function)))
 
 (setq evil-insert-state-cursor '("red" hbar)
       evil-normal-state-cursor '("white" box)
