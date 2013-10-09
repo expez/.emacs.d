@@ -153,7 +153,7 @@
              "M-<" 'mc/mark-previous-like-this
              "C-x C-b" 'ibuffer
              "C-x r v" 'register-list
-             "C-c e" 'eval-and-replace
+             "C-x e" 'eval-and-replace
              "C-<tab>" 'hippie-expand
              "<f5>" 'eshell-toggle
              "<insert>" 'sr-speedbar-toggle
