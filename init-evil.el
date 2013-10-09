@@ -7,22 +7,22 @@
 
 (global-surround-mode 1)
 
-(setq surround-pairs-alist
-  '((?\( . ("(" . ")"))
-    (?\[ . ("[" . "]"))
-    (?\{ . ("{" . "}"))
+(setq-default surround-pairs-alist
+              '((?\( . ("(" . ")"))
+                (?\[ . ("[" . "]"))
+                (?\{ . ("{" . "}"))
 
-    (?\) . ("(" . ")"))
-    (?\] . ("[" . "]"))
-    (?\} . ("{" . "}"))
+                (?\) . ("( " . " )"))
+                (?\] . ("[ " . " ]"))
+                (?\} . ("{ " . " }"))
 
-    (?# . ("#{" . "}"))
-    (?b . ("(" . ")"))
-    (?B . ("{" . "}"))
-    (?> . ("<" . ">"))
-    (?t . surround-read-tag)
-    (?< . surround-read-tag)
-    (?f . surround-function)))
+                (?# . ("#{" . "}"))
+                (?b . ("(" . ")"))
+                (?B . ("{" . "}"))
+                (?> . ("<" . ">"))
+                (?t . surround-read-tag)
+                (?< . surround-read-tag)
+                (?f . surround-function)))
 
 (setq evil-insert-state-cursor '("red" hbar)
       evil-normal-state-cursor '("white" box)
