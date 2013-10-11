@@ -98,6 +98,7 @@
              "C-y" 'yank
              "C-v" 'quoted-insert
              "M-y" 'yank-pop
+             "C-å" 'evil-force-normal-state
              "C-d" 'delete-char
              "C-e" 'end-of-line
              "C-h" 'backward-delete-char)
