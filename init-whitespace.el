@@ -48,4 +48,13 @@
     (ethan-wspace-type-clean type))
   (indent-buffer))
 
+(defun change-whitespace-line-column (c)
+  (interactive "nHighlight beyond column: ")
+  (make-local-variable 'whitespace-line-column)
+  (setq whitespace-line-column c)
+  (whitespace-mode 0)
+  (whitespace-mode 1)
+  (message (format "Highlighting lines longer than %s chars." c)))
+
+
 (provide 'init-whitespace)

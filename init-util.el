@@ -770,12 +770,6 @@ indicate failure."
   (find-file (ido-read-file-name "Edit file: " user-emacs-directory nil
                                  nil "init-")))
 
-(defun change-whitespace-line-column (c)
-  (interactive "nColumn: ")
-  (make-local-variable 'whitespace-line-column)
-  (setq whitespace-line-column c)
-  (message (format "Highlighting lines longer than %s columns." c)))
-
 (defun find-shell-init-file ()
   "Edit the shell init file in another window."
   (interactive)
