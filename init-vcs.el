@@ -41,6 +41,7 @@
   "M-w" 'magit-copy-item-as-kill
   "K" 'magit-discard-item
   (kbd "C-x C-k") 'magit-kill-file-on-line
+  (kbd "C-c C-a") 'magit-just-amend
   "l" 'magit-key-mode-popup-logging
   ":" 'magit-git-command
   "h" 'magit-toggle-diff-refine-hunk)
@@ -136,5 +137,11 @@
   (let ((server-buffer-clients ()))
     (kill-buffer)
     (delete-window)))
+
+(defun magit-just-amend ()
+  (interactive)
+  (save-window-excursion
+    (magit-with-refresh
+      (shell-command "git --no-pager commit --amend --reuse-message=HEAD"))))
 
 (provide 'init-vcs)
