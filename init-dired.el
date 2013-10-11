@@ -1,3 +1,9 @@
+(require 'wdired)
+
+(setq wdired-allow-to-change-permissions t
+      wdired-confirm-overwrite t
+      wdired-use-interactive-rename t)
+
 (put 'dired-find-alternate-file 'disabled nil)
 (setq dired-recursive-copies 'always
       ddired-listing-switches "-aGghlv --group-directories-first --time-style=long-iso")
