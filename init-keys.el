@@ -182,6 +182,9 @@
   "/" 'evil-search-forward
   "?" 'evil-search-backward)
 
+(evil-add-hjkl-bindings package-menu-mode-map 'emacs
+  "h" 'package-menu-quick-help)
+
 (eval-after-load "workgroups"
   '(fill-keymap 'global "C-x w" wg-map))
 
