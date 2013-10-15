@@ -14,12 +14,15 @@
     ace-jump-mode
     auto-complete-nxml
     ack-and-a-half
+    align-cljlet
     auctex
     auto-complete
     backtrace-mode
     bookmark+
     bundler
     c-eldoc
+    clojure-cheatsheet
+    clj-refactor
     clojure-mode
     color-moccur
     crontab-mode
@@ -29,6 +32,7 @@
     dired+
     dropdown-list
     eldoc-eval
+    elein
     elisp-slime-nav
     emacs-eclim
     eproject
@@ -54,6 +58,7 @@
     ido-ubiquitous
     inf-ruby
     info+
+    javap-mode
     js2-mode
     js2-refactor
     js-comint
@@ -71,6 +76,9 @@
     markdown-mode
     mediawiki
     mmm-mode
+    nrepl
+    nrepl-trace
+    nrepl-decompile
     paredit
     parenface
     pretty-mode-plus
@@ -89,6 +97,7 @@
     sass-mode
     scss-mode
     skewer-mode
+    slamhound
     solarized-theme
     sr-speedbar
     surround
