@@ -20,6 +20,7 @@
     bookmark+
     bundler
     c-eldoc
+    clojure-mode
     color-moccur
     crontab-mode
     ctypes
@@ -58,6 +59,7 @@
     js-comint
     json
     key-chord
+    know-your-http-well
     less-css-mode
     lexbind-mode
     lorem-ipsum
