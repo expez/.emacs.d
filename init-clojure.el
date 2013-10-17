@@ -13,7 +13,7 @@
 (add-hook 'nrepl-interaction-mode-hook
           'set-auto-complete-as-completion-at-point-function)
 (add-hook 'nrepl-mode-hook
-          (lambda () (setq show-trailing-whitespace nil))))
+          (lambda () (setq show-trailing-whitespace nil)))
 
 (add-auto-mode 'clojure-mode "\\.cljs\\'")
 
