@@ -645,9 +645,9 @@ If the file is emacs lisp, run the byte compiled version if appropriate."
                                                  (concat user-emacs-directory
                                                          "vendor"))))
     (let* ((vendor-dir (concat user-emacs-directory "vendor"))
-           ((files (split-string
+           (files (split-string
                     (shell-command-to-string
-                     (concat "find " vendor-dir " -type f -iname '*.el'"))))))
+                     (concat "find " vendor-dir " -type f -iname '*.el'")))))
       (mapc #'load files))))
 
 (defun load-elisp-files-in-dir (dir &optional regexp count)
