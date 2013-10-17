@@ -47,6 +47,4 @@
      (defadvice ,mode (after rename-modeline activate)
         (setq mode-name ,new-name))))
 
-(rename-modeline "clojure-mode" clojure-mode "Clj")
-
 (provide 'init-diminish)
