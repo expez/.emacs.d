@@ -11,6 +11,7 @@
 (defvar my-packages
   '(
     ac-slime
+    ac-nrepl
     ace-jump-mode
     auto-complete-nxml
     ack-and-a-half
@@ -24,6 +25,7 @@
     clojure-cheatsheet
     clj-refactor
     clojure-mode
+    clojure-test-mode
     color-moccur
     crontab-mode
     ctypes
@@ -77,7 +79,7 @@
     mediawiki
     mmm-mode
     nrepl
-    nrepl-trace
+    nrepl-tracing
     nrepl-decompile
     paredit
     parenface
