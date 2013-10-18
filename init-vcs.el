@@ -13,7 +13,6 @@
 ;;;(add-hook 'magit-mode-hook 'turn-on-magit-push-remote)
 
 (setq magit-commit-signoff nil
-      magit-process-popup-time 10
       magit-save-some-buffers nil
       magit-diff-refine-hunk nil
       magit-wip-echo-area-message "Wrote %r"
