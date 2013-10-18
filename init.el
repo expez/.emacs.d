@@ -216,4 +216,8 @@
 (add-to-list 'org-structure-template-alist
              '("n" "#+BEGIN_COMMENT\n?\n#+END_COMMENT"
                "<comment>\n?\n</comment>"))
+
 (set-language-environment "UTF-8")
+(set-terminal-coding-system 'utf-8)
+(set-keyboard-coding-system 'utf-8)
+(prefer-coding-system 'utf-8)
