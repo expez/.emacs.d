@@ -19,7 +19,9 @@
       magit-repo-dirs '("~/git")
       magit-completing-read-function 'magit-ido-completing-read
       magit-remote-ref-format 'remote-slash-name
-      magit-commit-all-when-nothing-staged nil)
+      magit-commit-all-when-nothing-staged nil
+      magit-stage-all-confirm nil
+      magit-unstage-all-confirm nil)
 
 (fill-keymap magit-log-mode-map
              "j" 'magit-goto-next-section
