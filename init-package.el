@@ -22,6 +22,9 @@
     bookmark+
     bundler
     c-eldoc
+    cider
+    cider-tracing
+    cider-decompile
     clojure-cheatsheet
     clj-refactor
     clojure-mode
@@ -78,9 +81,6 @@
     markdown-mode
     mediawiki
     mmm-mode
-    nrepl
-    nrepl-tracing
-    nrepl-decompile
     paredit
     parenface
     pretty-mode-plus
