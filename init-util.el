@@ -729,6 +729,8 @@ only works on *nix."
                        which)))
     executable))
 
+
+
 (defun inside-string-p ()
   "T if point is inside a string, NIL otherwise."
   (nth 3 (syntax-ppss)))
@@ -781,5 +783,10 @@ indicate failure."
                            ((s-equals? "bash" shell) ".bashrc")
                            (t (error "Unknown shell")))))
     (find-file (expand-file-name shell-init-file (getenv "HOME")))))
+
+(defun make-current-buffer-executable ()
+  (interactive)
+  "Runs chmod u+x on the current buffer."
+  (chmod (buffer-file-name) (file-modes-rights-to-number "+x" ?u)))
 
 (provide 'init-util)
