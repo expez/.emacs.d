@@ -43,7 +43,7 @@
 (setq ispell-dictionary "english")
 (setq ispell-process-directory (expand-file-name "~/"))
 (setq ispell-program-name "aspell") ;;Use aspell dictionaries.
-(setq ispell-list-command "list") ;;Faster region checking, "list" for aspell, "-1" for ispell.
+(setq ispell-list-command "--list") ;;Faster region checking, "--list" for aspell, "-l" for ispell.
 
 ;;Ultra twice as slow as ispell, fast twice as slow as ultra, normal 10x slower than fast.
 ;;(setq ispell-extra-args '("--sug-mode=ultra"))
