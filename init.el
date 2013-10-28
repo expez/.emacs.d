@@ -36,7 +36,7 @@
                  (set-face-foreground whitespace-tab "deep sky blue")))))
 
 (when (or (eq system-type 'windows-nt)
-          (not (server-running-p)))
+          (not server-clients))
   (load-theme 'solarized-dark))
 
 (setq scroll-margin 0
