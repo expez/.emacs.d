@@ -1,3 +1,5 @@
+(setq evil-search-module 'evil-search)
+(require 'evil)
 (require 'evil-numbers)
 (require 'evil-paredit)
 (require 'ace-jump-mode)
@@ -31,7 +33,6 @@
       evil-want-visual-char-semi-exclusive t
       evil-move-cursor-back nil
       evil-want-C-u-scroll t
-      evil-search-module 'evil-search
       evil-ex-hl-update-delay 0.01)
 
 (evil-ex-define-cmd "n[ew]" 'evil-window-new)
