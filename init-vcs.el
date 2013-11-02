@@ -37,7 +37,6 @@
   "C" 'magit-key-mode-popup-committing
   "c" 'magit-commit
   "W" 'magit-toggle-whitespace
-  "q" 'magit-quit-session
   (kbd "C-w") 'evil-window-map
   "M-w" 'magit-copy-item-as-kill
   "K" 'magit-discard-item
@@ -75,10 +74,7 @@
   ad-do-it
   (delete-other-windows))
 
-(defun magit-quit-session ()
-  "Restores the previous window configuration and kills the magit buffer"
-  (interactive)
-  (kill-buffer)
+(defadvice magit-mode-quit-window (after magit-restore-screen activate)
   (jump-to-register :magit-fullscreen))
 
 (defadvice gist-region-or-buffer (around url-to-clipboard activate)
