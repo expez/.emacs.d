@@ -46,4 +46,7 @@
             (add-hook 'nrepl-interaction-mode-hook 'nrepl-turn-on-eldoc-mode)
             (nrepl-enable-on-existing-clojure-buffers)))
 
+(put-clojure-indent 'match 1)
+(put 'macrolet 'clojure-backtracking-indent '((2) 2))
+
 (provide 'init-clojure)
