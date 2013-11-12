@@ -7,6 +7,7 @@
 (require 'highlight-tags-mode)
 (require 'info+)
 (require 'lorem-ipsum)
+(require 'flx-ido)
 (require 'mediawiki)
 (require 'window-numbering)
 (require 'ido-hacks)
@@ -103,9 +104,9 @@
 
 (defadvice httpd-start (around set-httpd-root-with-prefix activate)
   (if current-prefix-arg
-    (let ((dir (file-name-directory (or (buffer-file-name) user-emacs-directory))))
-      (setq httpd-root (ido-read-directory-name "Serve dir: " dir))
-      ad-do-it)
+      (let ((dir (file-name-directory (or (buffer-file-name) user-emacs-directory))))
+        (setq httpd-root (ido-read-directory-name "Serve dir: " dir))
+        ad-do-it)
     ad-do-it))
 
 (defun net-utils-restore-windows ()
@@ -120,7 +121,13 @@
     (switch-to-buffer buf)
     (delete-other-windows)
     (set-temporary-overlay-map
-      (let ((map (make-sparse-keymap)))
-        (define-key map (kbd "q") 'net-utils-restore-windows)
-        map))
+     (let ((map (make-sparse-keymap)))
+       (define-key map (kbd "q") 'net-utils-restore-windows)
+       map))
     (message "Type \"q\" to restore other windows.")))
+
+(ido-mode 1)
+(ido-everywhere 1)
+(flx-ido-mode 1)
+;; disable ido faces to see flx highlights.
+(setq ido-use-faces nil)
