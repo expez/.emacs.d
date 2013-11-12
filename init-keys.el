@@ -157,7 +157,7 @@
              "C-x e" 'eval-and-replace
              "C-<tab>" 'hippie-expand
              "<f5>" 'eshell-toggle
-             "<insert>" 'sr-speedbar-toggle
+             "<f2>" 'project-explorer-open
              "C-x r q" 'save-buffers-kill-terminal
              "C-x v t" 'vc-create-tag
              "C-x a r" 'align-regexp
@@ -168,6 +168,7 @@
              "C-x i" 'ido-goto-symbol
              "C-x C-r" 'ido-recentf-open
              "<f6>" 'toggle-deft-mode
+             "C-w" 'evil-window-map
              "M-<backspace>" 'delete-indentation)
 
 (evil-add-hjkl-bindings diff-mode-map 'emacs

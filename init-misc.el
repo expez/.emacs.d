@@ -12,7 +12,9 @@
 (require 'ido-hacks)
 (require 'mmm-mode)
 (require 'mmm-auto)
+(require 'ido-vertical-mode)
 
+(ido-vertical-mode)
 (key-chord-mode 1)
 
 (setq ibuffer-saved-filter-groups

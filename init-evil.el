@@ -72,6 +72,7 @@
           git-rebase-mode
           log-view-mode
           undo-tree-mode
+          project-explorer-mode
           diff-mode))
 
 (evil-set-initial-state 'man-mode 'motion)

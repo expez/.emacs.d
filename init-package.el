@@ -61,6 +61,7 @@
     haskell-mode
     helm
     ido-ubiquitous
+    ido-vertical-mode
     inf-ruby
     info+
     javap-mode
@@ -84,6 +85,7 @@
     paredit
     parenface
     pretty-mode-plus
+    project-explorer
     rainbow-delimiters
     rainbow-mode
     redshank
