@@ -1,8 +1,8 @@
 (require 'git-commit-mode)
 (require 'magit)
+(require 'magit-wip)
 (require 'evil)
 
-(magit-wip-mode 1)
 (global-magit-wip-save-mode 1)
 
 (setq vc-follow-symlinks t)
