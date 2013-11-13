@@ -1,4 +1,5 @@
 (require 'clojure-mode)
+(require 'clojure-test-mode)
 (require 'nrepl)
 (require 'ac-nrepl)
 (require 'clj-refactor)
@@ -37,17 +38,20 @@
   (rainbow-delimiters-mode 0)
   (clj-refactor-mode 1)
   (cider-mode 1)
+  (clojure-test-mode 1)
   (paredit-mode 1)
   (cljr-add-keybindings-with-prefix "C-c")
+  (local-set-key (kbd "RET") 'newline-and-indent)
   (fill-keymap evil-normal-state-local-map
                "M-." 'cider-jump
-               "M-," 'cider-jump-back
-               "M-TAB" 'complete-symbol))
+               "M-," 'cider-jump-back))
 
 (add-hook 'clojure-mode-hook #'my-clojure-mode-hook)
 
 (setq nrepl-hide-special-buffers t)
-(setq cider-repl-popup-stacktraces t)
+(setq cider-repl-popup-stacktraces nil)
+(setq cider-popup-stacktraces nil)
+(setq cider-popup-on-error nil)
 (setq cider-repl-history-file "~/.emacs.d/nrepl-history")
 
 (add-hook 'nrepl-connected-hook
