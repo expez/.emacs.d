@@ -83,7 +83,7 @@
     mediawiki
     mmm-mode
     paredit
-    parenface
+    parenface-plus
     pretty-mode-plus
     project-explorer
     rainbow-delimiters

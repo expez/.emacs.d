@@ -1,4 +1,4 @@
-(require 'parenface)
+(require 'parenface-plus)
 (require 'pretty-mode-plus)
 (require 'elisp-slime-nav)
 (require 'evil-paredit)
