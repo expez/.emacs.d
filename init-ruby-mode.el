@@ -19,7 +19,6 @@
   (ac-ruby-mode-setup)
   (local-set-key [f1] 'yari)
   (rinari-minor-mode 1)
-  (inf-ruby-setup-keybindings)
   (setq completion-at-point-functions '(auto-complete))
   (push 'ac-source-robe ac-sources)
   (setq webjump-api-sites '(("Ruby" . "http://apidock.com/ruby/")
