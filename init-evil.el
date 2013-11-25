@@ -91,4 +91,7 @@
 (defadvice evil-visual-block (before spc-for-char-jump activate)
   (define-key evil-motion-state-map (kbd "SPC") #'evil-ace-jump-char-mode))
 
+(defadvice evil-goto-mark (after center-mark activate)
+  (evil-scroll-line-to-center nil))
+
 (provide 'init-evil)
