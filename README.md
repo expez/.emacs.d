@@ -14,7 +14,6 @@ All the customizations, for the various packages, live in files named `init-<pac
 The exception to this rule is the stuff produced by Emacs' customize facilities, they live in the file `customize.el`.  Settings affecting Emacs proper live toward the bottom of the file `init.el`.
 
 ## Language support
-At present, or in the recent past, I have taken the time to setup Emacs for the following languages:
 
 * Haskell
 * Common lisp
@@ -22,6 +21,8 @@ At present, or in the recent past, I have taken the time to setup Emacs for the 
 * C
 * Java
 * Elisp
+* Clojure
+* Javascript
 
 ## Installation
 Just clone this repository so the file `init.el` ends up at `~/.emacs.d/init.el`.  If you care for the packages found in the rakefile, additionally run ` rake` in the .emacs.d directory and occasionally run `rake update_packages` to update the packages.
