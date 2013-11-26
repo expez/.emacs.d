@@ -17,6 +17,9 @@
       (look-for ".*\\.gemspec"))
   :irrelevant-files (".*~"))
 
+(define-project-type enonic (generic)
+  (look-for "WebDAV.iml"))
+
 (define-project-type ruby-on-rails (generic)
   (and (look-for "Gemfile") (look-for "config/application.rb"))
   :irrelevant-files ("app/assets/images/.*" "tmp/.*" "log/.*" "public/.*"
