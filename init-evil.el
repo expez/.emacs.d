@@ -1,10 +1,14 @@
+(require-package 'undo-tree)
 (setq evil-search-module 'evil-search)
-(require 'evil)
-(require 'evil-numbers)
-(require 'evil-paredit)
-(require 'ace-jump-mode)
-(require 'evil-visualstar)
-(require 'surround)
+
+(require-package 'surround)
+(require-package 'evil-visualstar)
+(require-package 'evil-paredit)
+(require-package 'evil-numbers)
+(require-package 'evil)
+(require-package 'ace-jump-mode)
+(require-package 'goto-chg)
+
 (evil-mode 1)
 
 (global-surround-mode 1)

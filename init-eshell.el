@@ -1,3 +1,4 @@
+(require-package 'eshell-manual)
 (require 'esh-opt)
 (require 'eshell)
 (require 'em-smart)

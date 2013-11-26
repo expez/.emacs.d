@@ -1,3 +1,4 @@
+(require-package 'ethan-wspace)
 (setq whitespace-style '(face tabs trailing lines-tail empty
                               space-before-tab tab-mark))
 

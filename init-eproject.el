@@ -1,5 +1,5 @@
+(require-package 'eproject)
 (require 'eproject)
-(require 'eproject-extras)
 
 (setf eproject-completing-read-function 'eproject--ido-completing-read)
 

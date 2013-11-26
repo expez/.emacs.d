@@ -1,3 +1,4 @@
+(require-package 'deft)
 (require 'deft)
 
 (define-derived-mode deft-note-mode org-mode "Deft note"

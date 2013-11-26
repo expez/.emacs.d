@@ -1,3 +1,6 @@
+(require-package 'haskell-mode)
+(require-package 'ghci-completion)
+(require-package 'ghc)
 (require 'hpaste)
 
 (defun my-haskell-mode-hook ()

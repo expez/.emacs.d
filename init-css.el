@@ -1,8 +1,14 @@
+(require-package 'less-css-mode)
+(require-package 'scss-mode)
+(require-package 'sass-mode)
+(require-package 'rainbow-mode)
 (require 'sass-mode)
 (require 'css-mode)
 
 (dolist (hook '(css-mode-hook sass-mode-hook haml-mode-hook))
   (add-hook hook 'rainbow-mode))
+
+(add-hook 'css-mode-hook 'ac-css-mode-setup)
 
 ;;; Embedding in html
 (after-load 'mmm-vars

@@ -1,6 +1,6 @@
+(require-package 'auto-complete)
 (require 'auto-complete-config)
 (require 'flyspell)
-(require 'auto-complete-latex)
 
 (add-to-list 'ac-dictionary-directories (concat user-emacs-directory "ac-dict"))
 (ac-config-default)
@@ -12,8 +12,6 @@
 
 (global-auto-complete-mode)
 
-(add-hook 'LaTeX-mode-hook 'ac-l-setup)
-(add-hook 'css-mode-hook 'ac-css-mode-setup)
 (ac-flyspell-workaround)
 
 (defun ac-exit-to-normal-state

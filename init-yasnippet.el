@@ -1,4 +1,5 @@
-(require 'yasnippet)
+(require-package 'yasnippet)
+(require-package 'dropdown-list)
 
 (yas-global-mode)
 (setq yas-snippet-dirs (concat user-emacs-directory "snippets")
@@ -18,3 +19,5 @@
                   (evil-insert-state)
                   (goto-char p)
                   (set-mark m)))))
+
+(provide 'init-yasnippet)

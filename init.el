@@ -20,7 +20,6 @@
 
 (load-from-vendor-dir)
 
-(require 'sr-speedbar)
 (require 'uniquify)
 (require 'org)
 

@@ -1,7 +1,9 @@
+(require-package 'auctex)
 (require 'tex)
 (require 'auto-complete-latex)
 
 (defun my-LaTeX-mode-hook ()
+  (ac-l-setup)
   (visual-line-mode 1)
   (flyspell-mode 1)
   (LaTeX-math-mode 1)

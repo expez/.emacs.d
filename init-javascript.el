@@ -1,12 +1,10 @@
-(require 'js2-mode)
-(require 'js2-imenu-extras)
-(require 'skewer-mode)
-(require 'skewer-repl)
-(require 'skewer-html)
-(require 'skewer-css)
-(require 'js2-refactor)
-(require 'tern)
-(require 'tern-auto-complete)
+(require-package 'tern-auto-complete)
+(require-package 'tern)
+(require-package 'json)
+(require-package 'js-comint)
+(require-package 'js2-refactor)
+(require-package 'js2-mode)
+(require-package 'skewer-mode)
 (require 'js-lookup)
 
 ;;; bookmarklet to load skewer:
@@ -28,24 +26,25 @@
 (tern-ac-setup)
 (add-auto-mode 'js2-mode "\\.js")
 
-(add-hook 'js2-mode-hook
-          '(lambda ()
-             (push 'ac-source-yasnippet ac-sources)
-             (setq mode-name "JS2")
-             (skewer-mode)
-             (tern-mode t)
-             (fill-keymap evil-normal-state-local-map
-                          "M-." 'tern-find-definition
-                          "M-," 'tern-pop-find-definition
-                          "C-M-." 'tern-find-definition-by-name
-                          "M-p" 'flycheck-previous-error
-                          "M-n" 'flycheck-next-error
-                          (kbd "<f1>") 'js-lookup)
-             (fill-keymap js2-mode-map
-                          "C-c C-a" 'jshint-annotate)
-             (local-set-key (kbd "RET") 'newline-and-indent)))
+(defun my-js2-mode-hook ()
+  (js2-imenu-extras-setup)
+  (push 'ac-source-yasnippet ac-sources)
+  (setq mode-name "JS2")
+  (skewer-mode)
+  (tern-mode t)
+  (fill-keymap evil-normal-state-local-map
+               "M-." 'tern-find-definition
+               "M-," 'tern-pop-find-definition
+               "C-M-." 'tern-find-definition-by-name
+               "M-p" 'flycheck-previous-error
+               "M-n" 'flycheck-next-error
+               (kbd "<f1>") 'js-lookup)
+  (fill-keymap js2-mode-map
+               "C-c C-a" 'jshint-annotate)
+  (local-set-key (kbd "RET") 'newline-and-indent))
 
-(js2-imenu-extras-setup)
+(add-hook 'js2-mode-hook
+          #'my-js2-mode-hook)
 
 (setq-default js2-use-font-lock-faces t
               js2-auto-indent-p t

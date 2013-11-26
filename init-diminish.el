@@ -1,4 +1,4 @@
-(require 'diminish)
+(require-package 'diminish)
 
 (eval-after-load "undo-tree"
   '(diminish 'undo-tree-mode))

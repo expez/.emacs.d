@@ -1,3 +1,4 @@
+(require-package 'dired+)
 (require 'wdired)
 
 (setq wdired-allow-to-change-permissions t

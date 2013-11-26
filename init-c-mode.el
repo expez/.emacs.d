@@ -1,13 +1,16 @@
-(require 'google-c-style)
-(require 'ctypes)
+(require-package 'google-c-style)
+(require-package 'ctypes)
+(require-package 'c-eldoc)
 
 (add-auto-mode 'fundamental-mode "\\.lex")
 
-(add-lambda 'c-mode-hook
+(defun my-c-mode-hook ()
   (google-set-c-style)
   (google-make-newline-indent)
   (c-turn-on-eldoc-mode)
   (ac-c-mode-setup))
+
+(add-hook 'c-mode-hook #'my-c-mode-hook)
 
 (defun ac-c-mode-setup ()
   (setq clang-complete-executable

@@ -1,7 +1,10 @@
+(require-package 'macrostep)
+(require-package 'lexbind-mode)
+(require-package 'pretty-mode-plus)
+(require-package 'elisp-slime-nav)
+(require-package 'parenface-plus)
 (require 'parenface-plus)
-(require 'pretty-mode-plus)
-(require 'elisp-slime-nav)
-(require 'evil-paredit)
+(require-package 'paredit)
 
 (set-face-foreground 'paren-face "grey30")
 
@@ -10,6 +13,7 @@
   (elisp-slime-nav-mode 1)
   (turn-on-redshank-mode)
   (flycheck-mode 0)
+  (lexbind-mode)
   (esk-remove-elc-on-save)
   (checkdoc-minor-mode)
   (local-set-key (kbd "RET") 'newline-and-indent)

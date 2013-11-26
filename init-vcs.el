@@ -1,7 +1,13 @@
-(require 'git-commit-mode)
-(require 'magit)
-(require 'magit-wip)
-(require 'evil)
+(require-package 'git-messenger)
+(require-package 'gitignore-mode)
+(require-package 'gitconfig-mode)
+(require-package 'git-commit-mode)
+(require-package 'git-blame)
+(require-package 'gist)
+(require-package 'magithub)
+(require-package 'magit-push-remote)
+(require-package 'magit-gh-pulls)
+(require-package 'magit)
 
 (global-magit-wip-save-mode 1)
 
@@ -9,7 +15,7 @@
 
 (add-auto-mode 'gitconfig-mode "gitconfig$")
 
-(add-hook 'git-commit-mode-hook 'turn-on-flyspell)
+;; (add-hook 'git-commit-mode-hook 'turn-on-flyspell)
 ;;;(add-hook 'magit-mode-hook 'turn-on-magit-push-remote)
 
 (setq magit-commit-signoff nil

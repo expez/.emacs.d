@@ -1,3 +1,5 @@
+(require-package 'redshank)
+(require-package 'ac-slime)
 (when (load-if-exists "~/quicklisp/slime-helper.el")
   (require 'slime))
 

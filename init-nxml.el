@@ -1,4 +1,4 @@
-(require 'auto-complete-nxml)
+(require-package 'auto-complete-nxml)
 (require 'nxml-mode)
 
 (setq auto-complete-nxml-popup-help-key "C-,")
@@ -8,6 +8,7 @@
   (setq whitespace-line-column 120)
   (whitespace-mode 0)
   (whitespace-mode 1)
+  (flycheck-mode 0)
   (local-set-key (kbd "RET") 'newline-and-indent))
 
 (add-hook 'nxml-mode-hook #'my-nxml-mode-hook)

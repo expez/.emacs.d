@@ -1,3 +1,4 @@
+(require-package 'emacs-eclim)
 (require 'ac-emacs-eclim-source)
 (require 'eclim)
 (require 'eclimd)

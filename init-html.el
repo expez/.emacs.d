@@ -1,3 +1,6 @@
+(require-package 'zencoding-mode)
+(require-package 'tagedit)
+(require-package 'know-your-http-well)
 (require 'sgml-mode)
 (require 'know-your-http-well)
 (require 'nxml-mode)

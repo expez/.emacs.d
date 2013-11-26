@@ -1,4 +1,4 @@
-(require 'yasnippet)
+(require-package 'flycheck)
 (require 'flycheck)
 
 (defcustom programming-language-major-modes

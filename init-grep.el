@@ -1,3 +1,6 @@
+(require-package 'wgrep-ack)
+(require-package 'ack-and-a-half)
+
 (let ((ag (path-to-executable "ag")))
   (when ag
       (setq ack-and-a-half-executable ag)))
