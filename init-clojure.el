@@ -47,6 +47,8 @@
   (local-set-key (kbd "RET") 'newline-and-indent)
   (fill-keymap evil-normal-state-local-map
                "M-." 'cider-jump
+               "C->" 'cljr-thread
+               "C-<" 'cljr-unwind
                "M-," 'cider-jump-back))
 
 (add-hook 'clojure-mode-hook #'my-clojure-mode-hook)
