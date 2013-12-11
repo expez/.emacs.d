@@ -4,6 +4,7 @@
       ediff-combination-pattern
       '("<<<<<<< A: HEAD" A "||||||| Ancestor" Ancestor "=======" B ">>>>>>> B: Incoming")
       ediff-show-clashes-only t
+      ediff-split-window-function #'split-window-horizontally
       ediff-highlight-all-diffs nil)
 
 ;;Save window configuration prior to ediff, so we can jump to it from ediff if needed,
