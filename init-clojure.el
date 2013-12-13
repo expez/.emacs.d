@@ -49,7 +49,8 @@
                "M-." 'cider-jump
                "C->" 'cljr-thread
                "C-<" 'cljr-unwind
-               "M-," 'cider-jump-back))
+               "M-," 'cider-jump-back
+               "C-c e" 'eval-and-insert))
 
 (add-hook 'clojure-mode-hook #'my-clojure-mode-hook)
 
@@ -77,5 +78,16 @@
   (HEAD 2)
   (ANY 2)
   (context 2))
+
+(defun eval-and-insert ()
+  "Evals the expression at point and inserts the result on the line
+  below."
+  (interactive)
+  (let ((res (cider-eval-and-get-value (cider-defun-at-point) (cider-current-ns))))
+    (save-excursion
+      (open-line-below)
+      (forward-line)
+      (beginning-of-line)
+      (insert ";= " res))))
 
 (provide 'init-clojure)
