@@ -21,3 +21,4 @@ autosaves/
 .yas-compiled-snippets.el
 /nrepl-history
 .cask/
+project-explorer-cache/
