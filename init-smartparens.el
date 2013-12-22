@@ -30,6 +30,7 @@
   '(evil-define-key 'normal sp-keymap
      (kbd "C-t") 'sp-transpose-sexp
      "M-i" 'sp-splice-sexp-killing-forward
+     "M-;" 'sp-comment
      "(" 'sp-wrap-round))
 
 (fill-keymap sp-keymap
