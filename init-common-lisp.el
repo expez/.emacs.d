@@ -4,19 +4,25 @@
   (require 'slime))
 
 (require 'test-op-mode)
+(require 'evil-paredit)
 
 (add-hook 'lisp-mode-hook
           (lambda ()
+            (paredit-mode +1)
             (set (make-local-variable 'lisp-indent-function)
                  'common-lisp-indent-function)
             (slime-mode 1)
             (test-op-mode)
             (turn-on-eldoc-mode)
             (turn-on-redshank-mode)
+            (eldoc-add-command
+             'paredit-backward-delete
+             'paredit-close-round)
             (rainbow-delimiters-mode 0)
             (fill-keymap evil-normal-state-local-map
                          "M-." 'slime-edit-definition
                          "M-," 'slime-pop-find-definition-stack)
+            (evil-paredit-mode 1)
             (set-face-foreground 'paren-face "grey30")))
 
 (fill-keymap lisp-mode-map "C-c l" 'lispdoc)
@@ -53,9 +59,21 @@
 (eval-after-load "auto-complete"
   '(add-to-list 'ac-modes 'slime-repl-mode))
 
+(add-hook 'slime-repl-mode-hook
+          (lambda ()
+            (paredit-mode +1)
+            (evil-paredit-mode 1)))
+
 (defun cliki:start-slime ()
   (unless (slime-connected-p)
     (save-excursion (slime))))
+
+;; Stop SLIME's REPL from grabbing DEL,
+;; which is annoying when backspacing over a '('
+(defun override-slime-repl-bindings-with-paredit ()
+  (define-key slime-repl-mode-map
+    (read-kbd-macro paredit-backward-delete-key) nil))
+(add-hook 'slime-repl-mode-hook 'override-slime-repl-bindings-with-paredit)
 
 (defun cofi/slime-repl-quickload ()
   (interactive)
