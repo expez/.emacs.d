@@ -4,7 +4,6 @@
 (require-package 'elisp-slime-nav)
 (require-package 'parenface-plus)
 (require 'parenface-plus)
-(require-package 'paredit)
 
 (set-face-foreground 'paren-face "grey30")
 
@@ -42,8 +41,6 @@
      (intern (concat (symbol-name mode) "-hook"))
      (lambda ()
        (turn-on-eldoc-mode)
-       (paredit-mode 1)
-       (evil-paredit-mode 1)
        (rainbow-delimiters-mode 0)))))
 
 (defun esk-remove-elc-on-save ()

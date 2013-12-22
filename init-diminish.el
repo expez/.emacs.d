@@ -9,9 +9,6 @@
 (eval-after-load "yas-minor-mode"
   '(diminish 'yas-minor-mode))
 
-(eval-after-load "paredit"
-  '(diminish 'paredit-mode))
-
 (eval-after-load "auto-complete"
   '(diminish 'auto-complete-mode))
 

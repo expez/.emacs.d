@@ -19,3 +19,4 @@ autosaves/
 /vendor
 /.recentf
 .yas-compiled-snippets.el
+/nrepl-history

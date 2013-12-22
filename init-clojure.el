@@ -33,8 +33,7 @@
 
 (defun my-cider-repl-mode-hook ()
   (setq show-trailing-whitespace nil)
-  (ac-nrepl-setup)
-  (paredit-mode 1))
+  (ac-nrepl-setup))
 (add-hook 'cider-repl-mode-hook 'my-cider-repl-mode-hook)
 
 (defun my-clojure-mode-hook ()
@@ -42,7 +41,6 @@
   (clj-refactor-mode 1)
   (cider-mode 1)
   (clojure-test-mode 1)
-  (paredit-mode 1)
   (cljr-add-keybindings-with-prefix "C-c")
   (local-set-key (kbd "RET") 'newline-and-indent)
   (fill-keymap evil-normal-state-local-map
