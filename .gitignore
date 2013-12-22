@@ -20,3 +20,4 @@ autosaves/
 /.recentf
 .yas-compiled-snippets.el
 /nrepl-history
+.cask/
