@@ -17,6 +17,7 @@
   (esk-remove-elc-on-save)
   (checkdoc-minor-mode)
   (local-set-key (kbd "RET") 'newline-and-indent)
+  (local-set-key (kbd "C-x C-d") 'eval-defun)
   (ac-emacs-lisp-mode-setup)
   (push '(?` . ("`" . "'")) surround-pairs-alist)
   (define-key evil-normal-state-local-map (kbd "M-.")

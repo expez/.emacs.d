@@ -148,8 +148,6 @@
              "C-x m" 'ido-hacks-execute-extended-command
              "C-x C-m" 'ido-hacks-execute-extended-command
              "C-x c" 'compile
-             "C-x C-e" 'eval-last-sexp
-             "C-x C-d" 'eval-defun
              "C-x C-c" 'compile
              "C-x s" '(lambda ()(interactive)(ansi-term "/bin/zsh"))
              "C-x F" 'find-file-as-root
