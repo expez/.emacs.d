@@ -8,16 +8,31 @@
 
 (set-face-foreground 'paren-face "grey30")
 
+(defun describe-thing-in-popup ()
+  (interactive)
+  (let* ((thing (symbol-at-point))
+         (help-xref-following t)
+         (description (save-window-excursion
+                        (with-temp-buffer
+                          (help-mode)
+                          (help-xref-interned thing)
+                          (buffer-string)))))
+    (popup-tip description
+               :point (point)
+               :around t
+               :height 30
+               :scroll-bar t
+               :margin t)))
 
 (defun my-elisp-mode-hook ()
-  (elisp-slime-nav-mode 1)
   (turn-on-redshank-mode)
   (flycheck-mode 0)
   (lexbind-mode)
   (esk-remove-elc-on-save)
   (checkdoc-minor-mode)
   (local-set-key (kbd "RET") 'newline-and-indent)
-  (local-set-key (kbd "C-x C-d") 'eval-defun)
+  (local-set-key (kbd "C-c C-e") 'eval-defun)
+  (local-set-key (kbd "C-c C-d") 'describe-thing-in-popup)
   (ac-emacs-lisp-mode-setup)
   (push '(?` . ("`" . "'")) surround-pairs-alist)
   (define-key evil-normal-state-local-map (kbd "M-.")
