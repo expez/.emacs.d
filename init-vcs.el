@@ -104,7 +104,7 @@
   (magit-refresh))
 
 (defadvice git-commit-commit (after restore-magit-status activate)
-  (pop-to-buffer-same-window (magit-find-status-buffer))
+  (pop-to-buffer-same-window (magit-find-buffer 'magit-status-mode (magit-get-top-dir)))
   (delete-other-windows))
 
 (defun vc-annotate-quit ()
