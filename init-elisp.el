@@ -33,6 +33,8 @@
   (local-set-key (kbd "RET") 'newline-and-indent)
   (local-set-key (kbd "C-c C-e") 'eval-defun)
   (local-set-key (kbd "C-c C-d") 'describe-thing-in-popup)
+  (local-set-key (kbd "C-c d") 'toggle-debug-on-error)
+  (local-set-key (kbd "C-c t") 'bind-test-to)
   (ac-emacs-lisp-mode-setup)
   (push '(?` . ("`" . "'")) surround-pairs-alist)
   (define-key evil-normal-state-local-map (kbd "M-.")
@@ -69,5 +71,10 @@
             (lambda ()
               (if (file-exists-p (concat buffer-file-name "c"))
                   (delete-file (concat buffer-file-name "c"))))))
+
+(defun bind-test-to ()
+  (interactive)
+  (let ((fn (read-from-minibuffer "Bind ,t to: ")))
+    (define-key leader-map "t" (intern fn))))
 
 (provide 'init-lisp)
