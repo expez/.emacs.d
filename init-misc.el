@@ -25,6 +25,7 @@
 (require 'ibuffer)
 (require 'workgroups)
 (require 'ido-hacks)
+(require 'project-explorer)
 
 (ido-vertical-mode)
 (key-chord-mode 1)
