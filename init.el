@@ -22,7 +22,7 @@
 
 (require 'uniquify)
 (require 'org)
-
+(require 'server)
 (add-hook 'after-make-frame-functions
           '(lambda (f)
              (with-selected-frame f
