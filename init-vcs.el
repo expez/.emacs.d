@@ -4,7 +4,6 @@
 (require-package 'git-commit-mode)
 (require-package 'git-blame)
 (require-package 'gist)
-(require-package 'magithub)
 (require-package 'magit-push-remote)
 (require-package 'magit-gh-pulls)
 (require-package 'magit)
