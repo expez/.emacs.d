@@ -10,9 +10,10 @@
 (require-package 'cider-decompile)
 (require-package 'cider-tracing)
 (require-package 'ac-nrepl)
+(require-package 'nrepl-ritz)
 (require 'cider-eldoc)
 
-(eval-after-load 'cider
+(eval-after-load "cider"
   '(define-key cider-mode-map (kbd "C-c C-d") 'ac-nrepl-popup-doc))
 
 (add-auto-mode 'clojure-mode "\\.cljs\\'")
@@ -34,8 +35,9 @@
 (defun my-cider-repl-mode-hook ()
   (setq show-trailing-whitespace nil)
   (ac-nrepl-setup)
-  (paredit-mode 1))
-(add-hook 'cider-repl-mode-hook 'my-cider-repl-mode-hook)
+  (paredit-mode 1)
+  (evil-paredit 1))
+(add-hook 'cider-repl-mode-hook #'my-cider-repl-mode-hook)
 
 (defun my-clojure-mode-hook ()
   (rainbow-delimiters-mode 0)
