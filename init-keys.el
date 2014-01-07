@@ -43,7 +43,9 @@
   "$" 'wg-switch-to-index-4
   "%" 'wg-switch-to-index-5
   "^" 'wg-switch-to-index-6
-  "&" 'wg-switch-to-index-7)
+  "&" 'wg-switch-to-index-7
+  "*" 'wg-switch-to-index-8
+  "(" 'wg-switch-to-index-9)
 
 (defkeymap misc-map
   "c" 'ethan-wspace-clean-all
@@ -211,26 +213,26 @@
 
 (eval-after-load "macrostep"
   '(evil-define-key 'normal macrostep-keymap
-    (kbd "RET") 'macrostep-expand
-    "e" 'macrostep-expand
+     (kbd "RET") 'macrostep-expand
+     "e" 'macrostep-expand
 
-    "u" 'macrostep-collapse
-    "c" 'macrostep-collapse
+     "u" 'macrostep-collapse
+     "c" 'macrostep-collapse
 
-    (kbd "TAB") 'macrostep-next-macro
-    "n" 'macrostep-next-macro
-    (kbd "S-TAB") 'macrostep-prev-macro
-    "p" 'macrostep-prev-macro
-    "q" 'macrostep-collapse-all
-    (kbd "C-c C-c") 'macrostep-collapse-all))
+     (kbd "TAB") 'macrostep-next-macro
+     "n" 'macrostep-next-macro
+     (kbd "S-TAB") 'macrostep-prev-macro
+     "p" 'macrostep-prev-macro
+     "q" 'macrostep-collapse-all
+     (kbd "C-c C-c") 'macrostep-collapse-all))
 
 (eval-after-load "undo-tree"
   '(fill-keymap undo-tree-visualizer-mode-map
-     "l" 'undo-tree-visualize-switch-branch-right
-     "h" 'undo-tree-visualize-switch-branch-left
-     "H" 'describe-mode
-     "k" 'undo-tree-visualize-undo
-     "j" 'undo-tree-visualize-redo))
+                "l" 'undo-tree-visualize-switch-branch-right
+                "h" 'undo-tree-visualize-switch-branch-left
+                "H" 'describe-mode
+                "k" 'undo-tree-visualize-undo
+                "j" 'undo-tree-visualize-redo))
 
 (define-key query-replace-map [return] 'act)
 (define-key query-replace-map [?\C-m] 'act)
