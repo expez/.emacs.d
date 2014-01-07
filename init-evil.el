@@ -75,7 +75,7 @@
           magit-log-mode
           git-rebase-mode
           log-view-mode
-          undo-tree-mode
+          ;; undo-tree-mode
           project-explorer-mode
           diff-mode))
 
