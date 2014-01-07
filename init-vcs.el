@@ -14,8 +14,8 @@
 
 (add-auto-mode 'gitconfig-mode "gitconfig$")
 
-;; (add-hook 'git-commit-mode-hook 'turn-on-flyspell)
-;;;(add-hook 'magit-mode-hook 'turn-on-magit-push-remote)
+(add-hook 'git-commit-mode-hook 'turn-on-flyspell)
+(add-hook 'magit-mode-hook 'turn-on-magit-push-remote)
 
 (setq magit-commit-signoff nil
       magit-save-some-buffers nil
