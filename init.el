@@ -144,10 +144,10 @@
 
 (add-to-list 'auto-mode-alist '("\\.cmd\\'" . ntcmd-mode))
 
-;;(setq recentf-auto-cleanup 'never) ;; disable before we start recentf! If using Tramp a lot.
-(recentf-mode t)
+(setq recentf-auto-cleanup 'never) ;; disable before we start recentf! If using Tramp a lot.
 (setq recentf-max-saved-items 300
-      recentf-save-file (concat user-emacs-directory ".recentf"))
+     recentf-save-file (concat user-emacs-directory ".recentf"))
+ (recentf-mode)
 (run-with-timer 500 500 (lambda () (recentf-save-list)))
 
 (setq recentf-exclude '("\\.recentf"
