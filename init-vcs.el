@@ -4,7 +4,6 @@
 (require-package 'git-commit-mode)
 (require-package 'git-blame)
 (require-package 'gist)
-(require-package 'magit-push-remote)
 (require-package 'magit-gh-pulls)
 (require-package 'magit)
 
@@ -15,7 +14,6 @@
 (add-auto-mode 'gitconfig-mode "gitconfig$")
 
 (add-hook 'git-commit-mode-hook 'turn-on-flyspell)
-(add-hook 'magit-mode-hook 'turn-on-magit-push-remote)
 
 (setq magit-commit-signoff nil
       magit-save-some-buffers nil
