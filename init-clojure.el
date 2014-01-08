@@ -2,15 +2,14 @@
 (require-package 'elein)
 (require-package 'align-cljlet)
 (require-package 'slamhound)
-(require-package 'cider)
-(require-package 'clojure-test-mode)
 (require-package 'clojure-mode)
+(require-package 'clojure-test-mode)
+(require-package 'cider)
 (require-package 'clj-refactor)
 (require-package 'clojure-cheatsheet)
 (require-package 'cider-decompile)
 (require-package 'cider-tracing)
 (require-package 'ac-nrepl)
-(require-package 'nrepl-ritz)
 (require 'cider-eldoc)
 
 (eval-after-load "cider"
@@ -36,7 +35,8 @@
   (setq show-trailing-whitespace nil)
   (ac-nrepl-setup)
   (paredit-mode 1)
-  (evil-paredit 1))
+  ;; (evil-paredit 1)
+  )
 (add-hook 'cider-repl-mode-hook #'my-cider-repl-mode-hook)
 
 (defun my-clojure-mode-hook ()
