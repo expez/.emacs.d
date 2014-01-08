@@ -2,6 +2,7 @@
 (setq evil-search-module 'evil-search)
 
 (require-package 'surround)
+(require 'surround)
 (require-package 'evil-visualstar)
 (require-package 'evil-paredit)
 (require-package 'evil-numbers)

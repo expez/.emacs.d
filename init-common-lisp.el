@@ -4,7 +4,6 @@
   (require 'slime))
 
 (require 'test-op-mode)
-(require 'evil-paredit)
 
 (add-hook 'lisp-mode-hook
           (lambda ()

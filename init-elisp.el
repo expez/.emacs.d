@@ -5,6 +5,10 @@
 (require-package 'parenface-plus)
 (require 'parenface-plus)
 (require-package 'paredit)
+(require-package 'evil-paredit)
+(require 'evil-paredit)
+(require-package 'rainbow-delimiters)
+(require-package 'flycheck)
 
 (set-face-foreground 'paren-face "grey30")
 

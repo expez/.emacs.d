@@ -1,5 +1,7 @@
 (require 'paredit-ext)
 (require 'paredit)
+(require-package 'evil-paredit)
+(require 'evil-paredit)
 
 (add-hook 'minibuffer-setup-hook 'conditionally-enable-paredit-mode)
 
