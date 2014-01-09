@@ -12,9 +12,6 @@
 (require-package 'ac-nrepl)
 (require 'cider-eldoc)
 
-(eval-after-load "cider"
-  '(define-key cider-mode-map (kbd "C-c C-d") 'ac-nrepl-popup-doc))
-
 (add-auto-mode 'clojure-mode "\\.cljs\\'")
 
 (eval-after-load "auto-complete"
@@ -35,7 +32,7 @@
   (setq show-trailing-whitespace nil)
   (ac-nrepl-setup)
   (paredit-mode 1)
-  ;; (evil-paredit 1)
+                                        ;  (evil-paredit 1)
   )
 (add-hook 'cider-repl-mode-hook #'my-cider-repl-mode-hook)
 
