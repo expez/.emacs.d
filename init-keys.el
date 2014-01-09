@@ -120,9 +120,6 @@
              "K" misc-map
              "," leader-map)
 
-(fill-keymap evil-visual-state-map
-             "K" misc-map
-             "," leader-map)
 (fill-keymap evil-motion-state-map
              "K" misc-map
              "," leader-map)
