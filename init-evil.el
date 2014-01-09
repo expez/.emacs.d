@@ -8,6 +8,7 @@
 (require-package 'evil-numbers)
 (require-package 'evil)
 (require-package 'ace-jump-mode)
+(require 'ace-jump-mode)
 (require-package 'goto-chg)
 
 (evil-mode 1)
