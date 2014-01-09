@@ -1,6 +1,7 @@
 (require-package 'eproject)
 (require 'eproject)
-
+(require 'eproject-extras)
+(require 'eproject-clojure-leiningen)
 (setf eproject-completing-read-function 'eproject--ido-completing-read)
 
 (fill-keymap eproject-mode-map
