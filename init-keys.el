@@ -68,8 +68,6 @@
   "w" 'toggle-whitespace-mode)
 
 (fill-keymap evil-normal-state-map
-             "\/" 'evil-ex-search-forward
-             "\?" 'evil-ex-search-backward
              "'" 'evil-use-register
              "\"" 'evil-goto-mark-line
              "Y"     (kbd "y$")
@@ -113,8 +111,6 @@
              "\"" 'evil-goto-mark-line
              "u" 'undo-tree-undo
              "," leader-map
-             "\/" 'evil-ex-search-forward
-             "\?" 'evil-ex-search-backward
              "K" misc-map)
 
 (fill-keymap evil-operator-state-map
@@ -124,6 +120,9 @@
              "K" misc-map
              "," leader-map)
 
+(fill-keymap evil-visual-state-map
+             "K" misc-map
+             "," leader-map)
 (fill-keymap evil-motion-state-map
              "K" misc-map
              "," leader-map)
