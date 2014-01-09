@@ -1,5 +1,4 @@
 (require-package 'undo-tree)
-(setq evil-search-module 'evil-search)
 
 (require-package 'surround)
 (require 'surround)
