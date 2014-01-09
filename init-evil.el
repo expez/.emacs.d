@@ -76,7 +76,7 @@
           magit-log-mode
           git-rebase-mode
           log-view-mode
-          ;; undo-tree-mode
+          cider-popup-buffer-mode
           project-explorer-mode
           diff-mode))
 
