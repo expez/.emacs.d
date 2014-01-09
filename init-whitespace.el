@@ -16,6 +16,10 @@
 (defvar whitespace-show-all-mode nil)
 
 (defun* toggle-whitespace-mode ()
+  "Toggles whitespace modes between modes where some whitespace
+is highligted and all whitespace is higlighted.
+
+With a prefix argument whitespac-mode is turned off."
   (interactive)
   (when current-prefix-arg
     (if whitespace-mode
@@ -57,5 +61,9 @@
   (whitespace-mode 1)
   (message (format "Highlighting lines longer than %s chars." c)))
 
+(defadvice popup-tip (around disable-ethan-wspace activate)
+  (whitespace-mode 0)
+  ad-do-it
+(whitespace-mode 1))
 
 (provide 'init-whitespace)
