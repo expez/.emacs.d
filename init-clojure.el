@@ -43,7 +43,8 @@
   (clojure-test-mode 1)
   (paredit-mode 1)
   (evil-paredit-mode 1)
-  (cljr-add-keybindings-with-prefix "C-c")
+  (cljr-add-keybindings-with-prefix "C-c r")
+  (fill-keymap clj-refactor-map "C")
   (local-set-key (kbd "RET") 'newline-and-indent)
   (fill-keymap evil-normal-state-local-map
                "M-." 'cider-jump
@@ -52,6 +53,7 @@
                "M-," 'cider-jump-back
                "C-c e" 'eval-and-insert))
 
+(define-key clj-refactor-map (funcall key-fn "cc") 'live-cycle-clj-coll)
 (add-hook 'clojure-mode-hook #'my-clojure-mode-hook)
 
 (setq nrepl-hide-special-buffers t)
@@ -89,5 +91,40 @@
       (forward-line)
       (beginning-of-line)
       (insert ";= " res))))
+
+(defun cider-namespace-refresh ()
+  (interactive)
+  (cider-interactive-eval
+   "(require 'clojure.tools.namespace.repl)
+    (clojure.tools.namespace.repl/refresh)"))
+
+(defun live-delete-and-extract-sexp ()
+  "Delete the sexp and return it."
+  (interactive)
+  (let* ((begin (point)))
+    (forward-sexp)
+    (let* ((result (buffer-substring-no-properties begin (point))))
+      (delete-region begin (point))
+      result)))
+
+(defun live-cycle-clj-coll ()
+  "Convert the coll at (point) from (x) -> {x} -> [x] -> (x) recur"
+  (interactive)
+  (let* ((original-point (point)))
+    (while (and (> (point) 1)
+                (not (equal "(" (buffer-substring-no-properties (point) (+ 1 (point)))))
+                (not (equal "{" (buffer-substring-no-properties (point) (+ 1 (point)))))
+                (not (equal "[" (buffer-substring-no-properties (point) (+ 1 (point))))))
+      (backward-char))
+    (cond
+     ((equal "(" (buffer-substring-no-properties (point) (+ 1 (point))))
+      (insert "{" (substring (live-delete-and-extract-sexp) 1 -1) "}"))
+     ((equal "{" (buffer-substring-no-properties (point) (+ 1 (point))))
+      (insert "[" (substring (live-delete-and-extract-sexp) 1 -1) "]"))
+     ((equal "[" (buffer-substring-no-properties (point) (+ 1 (point))))
+      (insert "(" (substring (live-delete-and-extract-sexp) 1 -1) ")"))
+     ((equal 1 (point))
+      (message "beginning of file reached, this was probably a mistake.")))
+    (goto-char original-point)))
 
 (provide 'init-clojure)
