@@ -1,7 +1,7 @@
 (require-package 'eproject)
 (require 'eproject)
 (require 'eproject-extras)
-(require 'eproject-clojure-leiningen)
+
 (setf eproject-completing-read-function 'eproject--ido-completing-read)
 
 (fill-keymap eproject-mode-map
@@ -36,6 +36,12 @@
 (define-project-type cl (generic)
   (look-for "\.asd")
   :irrelevant-files ("\.fasl"))
+
+(define-project-type clojure-leiningen (generic)
+  (look-for "project.clj")
+  :irrelevant-files ("*.class" "*.jar")
+  :tasks (("test" :shell "lein test")
+          ("jar" :shell "lein jar")))
 
 ;;; Until upstream merges my changes
 (defun eproject--generic-switch-to-buffer (prefix switch-func)
