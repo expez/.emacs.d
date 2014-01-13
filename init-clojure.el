@@ -44,7 +44,6 @@
   (paredit-mode 1)
   (evil-paredit-mode 1)
   (cljr-add-keybindings-with-prefix "C-c r")
-  (fill-keymap clj-refactor-map "C")
   (local-set-key (kbd "RET") 'newline-and-indent)
   (fill-keymap evil-normal-state-local-map
                "M-." 'cider-jump
@@ -53,7 +52,7 @@
                "M-," 'cider-jump-back
                "C-c e" 'eval-and-insert))
 
-(define-key clj-refactor-map (funcall key-fn "cc") 'live-cycle-clj-coll)
+(eval-after-load 'clj-refactor '(define-key clj-refactor-map (funcall key-fn "cc") 'live-cycle-clj-coll))
 (add-hook 'clojure-mode-hook #'my-clojure-mode-hook)
 
 (setq nrepl-hide-special-buffers t)
