@@ -22,3 +22,4 @@ autosaves/
 /nrepl-history
 .cask/
 project-explorer-cache/
+request/
