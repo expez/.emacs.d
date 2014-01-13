@@ -94,10 +94,10 @@
 
 (defun cider-namespace-refresh ()
   (interactive)
-  (cider-interactive-eval
-   "(require 'clojure.tools.namespace.repl)
-    (clojure.tools.namespace.repl/refresh)"))
-
+  (cider-eval-sync
+   "(require '[clojure.tools.namespace.repl :refer [refresh]])
+    (refresh)"
+   (cider-current-ns)))
 
 (defun live-delete-and-extract-sexp ()
   "Delete the sexp and return it."
