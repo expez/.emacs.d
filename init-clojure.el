@@ -43,7 +43,6 @@
   (clojure-test-mode 1)
   (paredit-mode 1)
   (evil-paredit-mode 1)
-  (cljr-add-keybindings-with-prefix "C-c r")
   (local-set-key (kbd "RET") 'newline-and-indent)
   (fill-keymap evil-normal-state-local-map
                "M-." 'cider-jump
@@ -52,14 +51,17 @@
                "M-," 'cider-jump-back
                "C-c e" 'eval-and-insert))
 
-(eval-after-load 'clj-refactor '(define-key clj-refactor-map (funcall key-fn "cc") 'live-cycle-clj-coll))
+(cljr-add-keybindings-with-prefix "C-c r")
+(define-key clj-refactor-map (kbd "C-c rcc") 'live-cycle-clj-coll)
+(define-key cider-mode-map (kbd "C-c c-e") 'eval-defun)
+
 (add-hook 'clojure-mode-hook #'my-clojure-mode-hook)
 
-(setq nrepl-hide-special-buffers t)
-(setq cider-repl-popup-stacktraces nil)
-(setq cider-popup-stacktraces nil)
-(setq cider-popup-on-error nil)
-(setq cider-repl-history-file "~/.emacs.d/nrepl-history")
+(setq nrepl-hide-special-buffers t
+      cider-repl-popup-stacktraces nil
+      cider-popup-stacktraces nil
+      cider-popup-on-error nil
+      cider-repl-history-file "~/.emacs.d/nrepl-history")
 
 (add-hook 'nrepl-connected-hook
           (defun my-nrepl-eldoc-hook ()
@@ -160,5 +162,29 @@
      ((equal 1 (point))
       (message "beginning of file reached, this was probably a mistake.")))
     (goto-char original-point)))
+
+;; custom test locations instead of foo_test.c use test/foo.c
+(defun my-clojure-test-for (namespace)
+  (let* ((namespace (clojure-underscores-for-hyphens namespace))
+         (segments (split-string namespace "\\."))
+         (before (subseq segments 0 1))
+         (after (subseq segments 1))
+         (test-segments (append before (list "test") after)))
+    (format "%stest/%s.clj"
+            (locate-dominating-file buffer-file-name "src/")
+            (mapconcat 'identity test-segments "/"))))
+
+(defun my-clojure-test-implementation-for (namespace)
+  (let* ((namespace (clojure-underscores-for-hyphens namespace))
+         (segments (split-string namespace "\\."))
+         (before (subseq segments 0 1))
+         (after (subseq segments 2))
+         (impl-segments (append before after)))
+    (format "%s/src/%s.clj"
+            (locate-dominating-file buffer-file-name "src/")
+            (mapconcat 'identity impl-segments "/"))))
+
+(setq clojure-test-for-fn 'my-clojure-test-for
+      clojure-test-implementation-for-fn 'my-clojure-test-implementation-for)
 
 (provide 'init-clojure)
