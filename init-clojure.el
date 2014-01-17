@@ -54,7 +54,6 @@
 
 (cljr-add-keybindings-with-prefix "C-c r")
 (define-key clj-refactor-map (kbd "C-c rcc") 'live-cycle-clj-coll)
-(define-key cider-mode-map (kbd "C-c c-e") 'eval-defun)
 
 (add-hook 'clojure-mode-hook #'my-clojure-mode-hook)
 
