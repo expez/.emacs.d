@@ -26,7 +26,11 @@
 (tern-ac-setup)
 (add-auto-mode 'js2-mode "\\.js")
 
+(defun my-js2-exit-snippet-hook ()
+  (indent-region yas-snippet-beg yas-snippet-end))
+
 (defun my-js2-mode-hook ()
+  (setq-local yas-after-exit-snippet-hook #'my-js2-exit-snippet-hook)
   (js2-imenu-extras-setup)
   (push 'ac-source-yasnippet ac-sources)
   (setq mode-name "JS2")
@@ -55,6 +59,7 @@
               js2-mode-show-parse-errors nil
               js2-strict-missing-semi-warning nil
               js2-strict-inconsistent-return-warning nil
+              js2-basic-offset 2
               js2-strict-trailing-comma-warning t)
 
 (js2r-add-keybindings-with-prefix "C-c C-m")
@@ -179,5 +184,24 @@ to insert above current line"
       (previous-line)
       (insert prefix annotation suffix)
       (js2-indent-line))))
+
+(defun debug-in-region ()
+  "Inserts console.log() statements on each line in region."
+  (interactive)
+  (when (region-active-p)
+    (let ((line-end (+ (line-number-at-pos (region-beginning))
+                       (* 2
+                          (count-lines-region
+                           (region-beginning) (region-end)))))
+          (count 0))
+      (message "line count %s" line-end)
+      (save-excursion
+        (goto-char (region-beginning))
+        (while (< (line-number-at-pos) line-end)
+          (open-line-below)
+          (forward-line)
+          (insert (format "console.log(%s)" count))
+          (forward-line)
+          (setq count (1+ count)))))))
 
 (provide 'init-javascript)
