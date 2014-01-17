@@ -44,6 +44,7 @@
   (paredit-mode 1)
   (evil-paredit-mode 1)
   (local-set-key (kbd "RET") 'newline-and-indent)
+  (define-key cider-mode-map (kbd "C-c c-e") 'cider-eval-defun-at-point)
   (fill-keymap evil-normal-state-local-map
                "M-." 'cider-jump
                "C->" 'cljr-thread
