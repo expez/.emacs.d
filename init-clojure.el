@@ -100,69 +100,6 @@
     (refresh)"
    (cider-current-ns)))
 
-(defun live-delete-and-extract-sexp ()
-  "Delete the sexp and return it."
-  (interactive)
-  (let* ((begin (point)))
-    (forward-sexp)
-    (let* ((result (buffer-substring-no-properties begin (point))))
-      (delete-region begin (point))
-      result)))
-
-(defun toggle-clj-keyword-string ()
-  "convert the string or keyword at (point) from string->keyword or keyword->string."
-  (interactive)
-  (let* ((original-point (point)))
-    (while (and
-            (> (point) 1)
-            (not (equal "\"" (buffer-substring-no-properties (point) (+ 1 (point)))))
-            (not (equal ":" (buffer-substring-no-properties (point) (+ 1 (point))))))
-      (backward-char))
-    (cond
-     ((equal 1 (point))
-      (message "beginning of file reached, this was probably a mistake."))
-     ((equal "\"" (buffer-substring-no-properties (point) (+ 1 (point))))
-      (insert ":" (substring (live-delete-and-extract-sexp) 1 -1)))
-     ((equal ":" (buffer-substring-no-properties (point) (+ 1 (point))))
-      (insert "\"" (substring (live-delete-and-extract-sexp) 1) "\"")))
-    (goto-char original-point)))
-
-(defun cycle-clj-coll ()
-  "convert the coll at (point) from (x) -> {x} -> [x] -> -> #{x} -> (x) recur"
-  (interactive)
-  (let* ((original-point (point)))
-    (while (and
-            (> (point) 1)
-            (not (equal "(" (buffer-substring-no-properties (point) (+ 1 (point)))))
-            (not (equal "#{" (buffer-substring-no-properties (point) (+ 2 (point)))))
-            (not (equal "{" (buffer-substring-no-properties (point) (+ 1 (point)))))
-            (not (equal "[" (buffer-substring-no-properties (point) (+ 1 (point))))))
-      (backward-char))
-
-    (cond
-     ((equal "(" (buffer-substring-no-properties (point) (+ 1 (point))))
-      (insert "{" (substring (live-delete-and-extract-sexp) 1 -1) "}"))
-
-     ((equal "#" (buffer-substring-no-properties (point) (+ 1 (point))))
-      (progn
-        (delete-char 1)
-        (insert "(" (substring (live-delete-and-extract-sexp) 1 -1) ")")))
-
-     ((equal "{" (buffer-substring-no-properties (point) (+ 1 (point))))
-      (if (equal ?# (char-before))
-          (progn
-            (backward-char)
-            (delete-char 1)
-            (insert "(" (substring (live-delete-and-extract-sexp) 1 -1) ")"))
-        (insert "[" (substring (live-delete-and-extract-sexp) 1 -1) "]")))
-
-     ((equal "[" (buffer-substring-no-properties (point) (+ 1 (point))))
-      (insert "#{" (substring (live-delete-and-extract-sexp) 1 -1) "}"))
-
-     ((equal 1 (point))
-      (message "beginning of file reached, this was probably a mistake.")))
-    (goto-char original-point)))
-
 ;; custom test locations instead of foo_test.c use test/foo.c
 (defun my-clojure-test-for (namespace)
   (let* ((namespace (clojure-underscores-for-hyphens namespace))
