@@ -51,7 +51,6 @@
           #'my-js2-mode-hook)
 
 (setq-default js2-use-font-lock-faces t
-              js2-auto-indent-p t
               js2-bounce-indent-p t
               js2-concat-multiline-strings 'eol
               js2-idle-timer-delay 0.1
