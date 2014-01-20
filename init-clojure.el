@@ -38,6 +38,7 @@
 
 (defun my-clojure-mode-hook ()
   (rainbow-delimiters-mode 0)
+  (setq-local evil-symbol-word-search t)
   (clj-refactor-mode 1)
   (cider-mode 1)
   (clojure-test-mode 1)
