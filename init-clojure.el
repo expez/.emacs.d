@@ -46,7 +46,8 @@
   (paredit-mode 1)
   (evil-paredit-mode 1)
   (local-set-key (kbd "RET") 'newline-and-indent)
-  (define-key cider-mode-map (kbd "C-c c-e") 'cider-eval-defun-at-point)
+  (fill-keymap cider-mode-map
+    "C-c c-e" 'cider-eval-defun-at-point)
   (fill-keymap evil-normal-state-local-map
                "M-." 'cider-jump
                "C->" 'cljr-thread
@@ -54,8 +55,7 @@
                "M-," 'cider-jump-back
                "C-c e" 'eval-and-insert))
 
-(cljr-add-keybindings-with-prefix "C-c r")
-(define-key clj-refactor-map (kbd "C-c rcc") 'live-cycle-clj-coll)
+(cljr-add-keybindings-with-prefix "C-c C-m")
 
 (add-hook 'clojure-mode-hook #'my-clojure-mode-hook)
 
