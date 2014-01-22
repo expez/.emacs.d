@@ -31,6 +31,7 @@
 (defun my-cider-repl-mode-hook ()
   (setq show-trailing-whitespace nil)
   (ac-nrepl-setup)
+  (cider-turn-on-eldoc-mode)
   (paredit-mode 1)
                                         ;  (evil-paredit 1)
   )
@@ -63,12 +64,6 @@
       cider-popup-stacktraces nil
       cider-popup-on-error nil
       cider-repl-history-file "~/.emacs.d/nrepl-history")
-
-(add-hook 'nrepl-connected-hook
-          (defun my-nrepl-eldoc-hook ()
-            (add-hook 'clojure-mode-hook 'turn-on-eldoc-mode)
-            (add-hook 'cider-repl-mode-hook 'cider-turn-on-eldoc-mode)
-            (nrepl-enable-on-existing-clojure-buffers)))
 
 (put-clojure-indent 'match 1)
 (put 'macrolet 'clojure-backtracking-indent '((2) 2))
