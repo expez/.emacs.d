@@ -42,12 +42,15 @@
   (setq-local evil-symbol-word-search t)
   (clj-refactor-mode 1)
   (cider-mode 1)
+  (fill-keymap cider-mode-map
+               "C-c c-e" 'cider-eval-defun-at-point
+               "C-c C-m" nil
+               "C-c m" 'cider-macroexpand-1)
+  (cljr-add-keybindings-with-prefix "C-c C-m")
   (clojure-test-mode 1)
   (paredit-mode 1)
   (evil-paredit-mode 1)
   (local-set-key (kbd "RET") 'newline-and-indent)
-  (fill-keymap cider-mode-map
-    "C-c c-e" 'cider-eval-defun-at-point)
   (fill-keymap evil-normal-state-local-map
                "M-." 'cider-jump
                "C->" 'cljr-thread
