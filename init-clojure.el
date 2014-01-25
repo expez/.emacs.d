@@ -45,6 +45,7 @@
   (fill-keymap cider-mode-map
                "C-c c-e" 'cider-eval-defun-at-point
                "C-c C-m" nil
+               "C-c C-h" 'clojure-cheatsheet
                "C-c m" 'cider-macroexpand-1)
   (cljr-add-keybindings-with-prefix "C-c C-m")
   (clojure-test-mode 1)
