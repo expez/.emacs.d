@@ -12,8 +12,6 @@
 (require-package 'ac-nrepl)
 (require 'cider-eldoc)
 
-(add-auto-mode 'clojure-mode "\\.cljs\\'")
-
 (eval-after-load "auto-complete"
   '(add-to-list 'ac-modes 'cider-repl-mode))
 
