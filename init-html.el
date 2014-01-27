@@ -4,7 +4,13 @@
 (require 'sgml-mode)
 (require 'know-your-http-well)
 (require 'nxml-mode)
-(add-hook 'html-mode-hook 'skewer-html-mode)
+
+(defun my-html-mode-hook ()
+  (skewer-html-mode 1)
+  (zencoding-mode 1)
+  (tagedit-mode 1))
+
+(add-hook 'html-mode-hook #'my-html-mode-hook)
 
 (defun html-wrap-in-tag (beg end)
   (interactive "r")
@@ -18,8 +24,6 @@
     (unless oneline? (newline-and-indent))
     (indent-region beg (+ end 11))
     (goto-char (+ beg 4))))
-
-(add-hook 'sgml-mode-hook 'zencoding-mode)
 
 (fill-keymaps '(html-mode-map nxml-mode-map)
               (kbd "C-c C-w") 'html-wrap-in-tag
@@ -35,7 +39,6 @@
               (kbd "M-<return>") 'tagedit-toggle-multiline-tag)
 
 (tagedit-add-experimental-features)
-(add-hook 'html-mode-hook (lambda () (tagedit-mode 1)))
 
 (defadvice sgml-delete-tag (after reindent activate)
   (indent-region (point-min) (point-max)))
