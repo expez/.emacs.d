@@ -1,9 +1,20 @@
 (require-package 'zencoding-mode)
 (require-package 'tagedit)
 (require-package 'know-your-http-well)
+(require-package 'web-mode)
 (require 'sgml-mode)
 (require 'know-your-http-well)
 (require 'nxml-mode)
+
+(add-auto-mode 'web-mode "\\.mustache")
+
+(defun my-web-mode-hook ()
+  "For some reason the manual says to apply mode settings in a
+hook."
+  (setq web-mode-markup-indent-offset 2
+        web-mode-css-indent-offset 2
+        web-mode-code-indent-offset 2))
+(add-hook 'web-mode-hook #'my-web-mode-hook)
 
 (defun my-html-mode-hook ()
   (skewer-html-mode 1)
@@ -36,9 +47,9 @@
               (kbd "M-?") 'tagedit-convolute-tags
               (kbd "M-k") 'tagedit-kill
               (kbd "M-K") 'tagedit-kill-attribute
-              (kbd "M-<return>") 'tagedit-toggle-multiline-tag)
-
-(tagedit-add-experimental-features)
+              (kbd "M-<return>") 'tagedit-toggle-multiline-tag
+              "M-l" 'sgml-skip-tag-forward
+              "M-h" 'sgml-skip-tag-backward)
 
 (defadvice sgml-delete-tag (after reindent activate)
   (indent-region (point-min) (point-max)))
