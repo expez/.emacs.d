@@ -5,7 +5,6 @@
 (require 'know-your-http-well)
 (require 'nxml-mode)
 (add-hook 'html-mode-hook 'skewer-html-mode)
-(add-hook 'html-mode-hook 'rainbow-mode)
 
 (defun html-wrap-in-tag (beg end)
   (interactive "r")
