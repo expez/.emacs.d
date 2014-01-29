@@ -9,8 +9,11 @@
 (add-auto-mode 'web-mode "\\.mustache")
 
 (defun my-web-mode-hook ()
-  "For some reason the manual says to apply mode settings in a
-hook."
+  ;; According to manual whitespace and rainbow-mode messes with
+  ;; syntax highlighting in web-mode
+  (whitespace-mode 0)
+  (add-hook 'local-write-file-hooks (lambda () (delete-trailing-whitespace) nil))
+  ;; For some reason the manual says to apply mode settings in a hook.
   (setq web-mode-markup-indent-offset 2
         web-mode-css-indent-offset 2
         web-mode-code-indent-offset 2))
