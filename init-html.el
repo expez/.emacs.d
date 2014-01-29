@@ -1,23 +1,13 @@
 (require-package 'zencoding-mode)
 (require-package 'tagedit)
 (require-package 'know-your-http-well)
-(require-package 'web-mode)
 (require 'sgml-mode)
 (require 'know-your-http-well)
 (require 'nxml-mode)
+(require 'tagedit)
 
 (add-auto-mode 'web-mode "\\.mustache")
-
-(defun my-web-mode-hook ()
-  ;; According to manual whitespace and rainbow-mode messes with
-  ;; syntax highlighting in web-mode
-  (whitespace-mode 0)
-  (add-hook 'local-write-file-hooks (lambda () (delete-trailing-whitespace) nil))
-  ;; For some reason the manual says to apply mode settings in a hook.
-  (setq web-mode-markup-indent-offset 2
-        web-mode-css-indent-offset 2
-        web-mode-code-indent-offset 2))
-(add-hook 'web-mode-hook #'my-web-mode-hook)
+(add-auto-mode 'web-mode "\\.hbs")
 
 (defun my-html-mode-hook ()
   (skewer-html-mode 1)
@@ -40,6 +30,7 @@
     (goto-char (+ beg 4))))
 
 (fill-keymaps '(html-mode-map nxml-mode-map)
+              (kbd "RET") 'newline-and-indent
               (kbd "C-c C-w") 'html-wrap-in-tag
               (kbd "C-)") 'tagedit-forward-slurp-tag
               (kbd "M-)") 'tagedit-forward-barf-tag
