@@ -5,23 +5,23 @@
 
 (defkeymap leader-map
   "." 'evil-ex
-  "B" 'eproject-kill-project-buffers
+  "B" 'projectile-kill-buffers
   "K" 'kill-buffer-and-window
   "R" 'revert-all-buffers
   "W" 'save-some-buffers
   "A" 'align-regexp
   "a" 'ack
-  "b" 'eproject-switch-to-buffer
+  "b" 'projectile-switch-buffer
   "c" 'compile
   "C" 'toggle-bury-compilation-buffer
   "d" 'dired-jump
-  "f" 'eproject-find-file
+  "f" 'projectile-find-file
   "g" 'magit-status
   "j" 'bookmark-jump
   "e" 'edit-user-config-file
   "h" 'change-whitespace-line-column
   "k" 'kill-buffer
-  "p" 'eproject-revisit-project
+  "p" 'projectile-switch-project
   "r" 'revert-buffer
   "s" 'esk-eshell-in-dir
   "t" 'test
