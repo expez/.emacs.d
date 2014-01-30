@@ -1,6 +1,8 @@
 (require-package 'flycheck)
 (require 'flycheck)
 
+(setq fic-highlighted-words '("FIXME", "TODO", "HACK", "NOTE", "BUG", "REFACTOR"))
+
 (defcustom programming-language-major-modes
   '(prog-mode     ; This is the mode perl, makefile, lisp-mode, scheme-mode,
                   ; emacs-lisp-mode, sh-mode, java-mode, c-mode, c++-mode,
@@ -20,13 +22,7 @@
   (add-hook
    (intern (concat (symbol-name mode) "-hook"))
    (lambda ()
-     (font-lock-add-keywords
-      nil
-      '(("\\<\\(FIXME\\|HACK\\|XXX\\|TODO\\|NOTE\\|REFACTOR\\)"
-         1
-         '(:box (:color "grey10" :line-width 2) :background "red" :bold t
-                :foreground "yellow")
-         prepend)))
+     (fic-mode 1)
      (rainbow-delimiters-mode 1)
      (flyspell-prog-mode)
      (yas-minor-mode-on)
