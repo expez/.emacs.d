@@ -1,7 +1,9 @@
 (require-package 'flycheck)
 (require 'flycheck)
 
-(setq fic-highlighted-words '("FIXME", "TODO", "HACK", "NOTE", "BUG", "REFACTOR"))
+(setq fic-highlighted-words '("FIXME", "FIXME:", "TODO",  "TODO:",
+                              "HACK",  "HACK:", "NOTE",  "NOTE:",
+                              "BUG",  "BUG:", "REFACTOR",  "REFACTOR:"))
 
 (defcustom programming-language-major-modes
   '(prog-mode     ; This is the mode perl, makefile, lisp-mode, scheme-mode,
