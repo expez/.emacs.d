@@ -11,7 +11,7 @@
   "W" 'save-some-buffers
   "A" 'align-regexp
   "a" 'ack
-  "b" 'projectile-switch-buffer
+  "b" 'projectile-switch-to-buffer
   "c" 'compile
   "C" 'toggle-bury-compilation-buffer
   "d" 'dired-jump
