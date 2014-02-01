@@ -26,9 +26,16 @@
       magit-stage-all-confirm nil
       magit-unstage-all-confirm nil)
 
+
+(evil-add-hjkl-bindings magit-commit-mode-map 'emacs
+  "h" 'magit-key-mode-popup-diff-options
+  "l" 'magit-key-mode-popup-logging
+  (kbd "C-w") 'evil-window-map)
+
 (fill-keymap magit-log-mode-map
              "j" 'magit-goto-next-section
-             "k" 'magit-goto-previous-section)
+             "k" 'magit-goto-previous-section
+             "C-w" 'evil-window-map)
 
 (evil-add-hjkl-bindings magit-diff-mode-map 'emacs)
 
