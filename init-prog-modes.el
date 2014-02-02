@@ -38,6 +38,7 @@
 (global-font-lock-mode 1)
 
 (add-hook 'after-init-hook #'global-flycheck-mode)
+(setq flycheck-completion-system 'ido)
 
 (defun magnars/adjust-flycheck-automatic-syntax-eagerness ()
   "Adjust how often we check for errors based on if there are any.
