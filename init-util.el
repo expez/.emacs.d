@@ -363,8 +363,7 @@ the current position of point, then move it to the beginning of the line."
         (unless (or (null position) (null name)
                     (string= (car imenu--rescan-item) name))
           (add-to-list 'symbol-names name)
-          (add-to-list 'name-and-pos (cons name position)))))))
-  (evil-scroll-line-to-top nil))
+          (add-to-list 'name-and-pos (cons name position))))))))
 
 (defun mediawiki-insert-sub-header ()
   "Insert subheader  via  === (e.g. === FOO ===.)"
