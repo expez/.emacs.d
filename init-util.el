@@ -128,10 +128,8 @@ If the current buffer is not associated with a file, its a error."
   (let (cfile bfilename)
     (setq cfile (buffer-file-name))
     (setq bfilename (concat cfile "~"))
-
     (while (file-exists-p bfilename)
       (setq bfilename (concat bfilename "~")))
-
     (copy-file cfile bfilename t)
     (message (concat "Backup saved as: " (file-name-nondirectory bfilename)))))
 
@@ -139,7 +137,8 @@ If the current buffer is not associated with a file, its a error."
   "Open the current buffer as unix root.
 This command works on unixes only."
   (interactive)
-  (when buffer-file-name (find-alternate-file (concat "/sudo:root@localhost:" buffer-file-name))))
+  (when buffer-file-name
+    (find-alternate-file (concat "/sudo:root@localhost:" buffer-file-name))))
 
 (defun change-file-newline (fpath eol-system)
   "Change file's line ending to unix convention.
@@ -168,7 +167,6 @@ Toggles between: “all lower”, “Init Caps”, “ALL CAPS”."
         (setq p1 (region-beginning) p2 (region-end))
       (let ((bds (bounds-of-thing-at-point 'word)))
         (setq p1 (car bds) p2 (cdr bds))))
-
     (when (not (eq last-command this-command))
       (save-excursion
         (goto-char p1)
@@ -179,7 +177,6 @@ Toggles between: “all lower”, “Init Caps”, “ALL CAPS”."
          ((looking-at "[[:lower:]]") (put this-command 'state "all lower"))
          ((looking-at "[[:upper:]]") (put this-command 'state "all caps"))
          (t (put this-command 'state "all lower")))))
-
     (cond
      ((string= "all lower" (get this-command 'state))
       (upcase-initials-region p1 p2) (put this-command 'state "init caps"))
