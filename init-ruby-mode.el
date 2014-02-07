@@ -22,7 +22,6 @@
   (eldoc-mode 1)
   (auto-complete-mode 1)
   (ac-ruby-mode-setup)
-  (local-set-key [f1] 'yari)
   (rinari-minor-mode 1)
   (setq completion-at-point-functions '(auto-complete))
   (push 'ac-source-robe ac-sources)
@@ -131,5 +130,12 @@ process. "
            'ruby-mode
            `((,(concat ".\\(" keyword "\\)\\_>") 1 font-lock-keyword-face))))
         (list "each" "collect" "reject" "select" "inject" "include" "map" "reduce"))
+
+(defun ruby-insert-end ()
+  "Insert \"end\" at point and reindent current line."
+  (interactive)
+  (insert "end")
+  (ruby-indent-line t)
+  (end-of-line))
 
 (provide 'init-ruby-mode)
