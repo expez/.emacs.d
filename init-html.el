@@ -1,13 +1,22 @@
 (require-package 'zencoding-mode)
 (require-package 'tagedit)
 (require-package 'know-your-http-well)
+(require-package 'web-mode)
 (require 'sgml-mode)
 (require 'know-your-http-well)
 (require 'nxml-mode)
 (require 'tagedit)
 
+(defun my-web-mode-hook ()
+  (add-hook 'local-write-file-hooks (lambda () (delete-trailing-whitespace) nil))
+  ;; For some reason the manual says to apply mode settings in a hook.
+  (setq web-mode-markup-indent-offset 2
+        web-mode-css-indent-offset 2
+        web-mode-code-indent-offset 2)
+  (tagedit-mode 1))
 (add-auto-mode 'web-mode "\\.mustache")
 (add-auto-mode 'web-mode "\\.hbs")
+(add-auto-mode 'web-mode "\\.erb")
 
 (defun my-html-mode-hook ()
   (skewer-html-mode 1)
@@ -29,7 +38,7 @@
     (indent-region beg (+ end 11))
     (goto-char (+ beg 4))))
 
-(fill-keymaps '(html-mode-map nxml-mode-map)
+(fill-keymaps '(html-mode-map nxml-mode-map web-mode-map)
               (kbd "RET") 'newline-and-indent
               (kbd "C-c C-w") 'html-wrap-in-tag
               (kbd "C-)") 'tagedit-forward-slurp-tag
