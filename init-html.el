@@ -6,6 +6,7 @@
 (require 'know-your-http-well)
 (require 'nxml-mode)
 (require 'tagedit)
+(require 'web-mode)
 
 (defun my-web-mode-hook ()
   (add-hook 'local-write-file-hooks (lambda () (delete-trailing-whitespace) nil))
