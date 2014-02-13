@@ -35,16 +35,19 @@
   (esk-remove-elc-on-save)
   (checkdoc-minor-mode)
   (local-set-key (kbd "RET") 'newline-and-indent)
-  (local-set-key (kbd "C-c C-e") 'eval-defun)
-  (local-set-key (kbd "C-c C-d") 'describe-thing-in-popup)
-  (local-set-key (kbd "C-c d") 'toggle-debug-on-error)
-  (local-set-key (kbd "C-c t") 'bind-test-to)
   (ac-emacs-lisp-mode-setup)
   (push '(?` . ("`" . "'")) surround-pairs-alist)
   (define-key evil-normal-state-local-map (kbd "M-.")
     'elisp-slime-nav-find-elisp-thing-at-point))
 
 (add-hook 'emacs-lisp-mode-hook #'my-elisp-mode-hook)
+
+(fill-keymap 'emacs-lisp-mode-map
+  "C-c C-e" 'eval-defun
+  "C-c C-d" 'describe-thing-in-popup
+  "C-c d" 'toggle-debug-on-error
+  "C-c t" 'bind-test-to
+  "C-c e" 'eval-buffer)
 
 (defun ielm-auto-complete ()
   "Enables `auto-complete' support in \\[ielm]."
