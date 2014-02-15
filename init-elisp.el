@@ -43,7 +43,7 @@
 
 (add-hook 'emacs-lisp-mode-hook #'my-elisp-mode-hook)
 
-(fill-keymap 'emacs-lisp-mode-map
+(fill-keymap emacs-lisp-mode-map
   "C-c C-e" 'eval-defun
   "C-c C-d" 'describe-thing-in-popup
   "C-c d" 'toggle-debug-on-error
