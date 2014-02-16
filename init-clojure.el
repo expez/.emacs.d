@@ -12,6 +12,8 @@
 (require-package 'ac-nrepl)
 (require 'cider-eldoc)
 
+(add-to-list 'auto-mode-alist '("\\.edn\\'" . clojure-mode))
+
 (eval-after-load "auto-complete"
   '(add-to-list 'ac-modes 'cider-repl-mode))
 
