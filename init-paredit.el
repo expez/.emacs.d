@@ -129,4 +129,12 @@
          (end (evil-paredit-kill-end)))
     (evil-paredit-yank beg end type register)))
 
+(defadvice evil-backward-paragraph (around wrap-with-prefix activate)
+  (when current-prefix-arg
+    (paredit-wrap-curly)))
+
+(defadvice evil-forward-paragraph (around wrap-with-prefix activate)
+  (when current-prefix-arg
+    (paredit-wrap-square)))
+
 (provide 'init-paredit)
