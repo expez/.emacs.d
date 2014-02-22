@@ -45,7 +45,8 @@
                (kbd "<f1>") 'js-lookup)
   (fill-keymap js2-mode-map
                "C-c C-a" 'jshint-annotate)
-  (local-set-key (kbd "RET") 'newline-and-indent))
+  (local-set-key (kbd "<return>") 'newline-and-indent)
+  (local-set-key (kbd "C-m") 'js-insert-block))
 
 (add-hook 'js2-mode-hook
           #'my-js2-mode-hook)
@@ -202,5 +203,14 @@ to insert above current line"
           (insert (format "console.log(%s)" count))
           (forward-line)
           (setq count (1+ count)))))))
+
+(defun js-insert-block ()
+  "Insert a block."
+  (interactive)
+  (insert "{}")
+  (backward-char)
+  (open-line 2)
+  (forward-line 1)
+  (indent-for-tab-command))
 
 (provide 'init-javascript)
