@@ -122,14 +122,4 @@
 
      (define-key vc-annotate-mode-map (kbd "q") 'vc-annotate-quit)))
 
-(eval-after-load "git-commit-mode"
-  '(define-key git-commit-mode-map (kbd "C-c C-k") 'magit-exit-commit-mode))
-
-(defun magit-exit-commit-mode ()
-  (interactive)
-  ;; prevent "buffer still has clients" prompt
-  (let ((server-buffer-clients ()))
-    (kill-buffer)
-    (delete-window)))
-
 (provide 'init-vcs)
