@@ -208,3 +208,5 @@
                 ido-common-completion-map
                 ido-file-completion-map
                 ido-file-dir-completion-map)))
+
+(setq pe/omit-regex "^\\.\\|^#\\|~$\\|node_modules")
