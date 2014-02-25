@@ -179,11 +179,6 @@
                    (format "Directory %s does not exist. Create it?" dir)))
          (make-directory dir t))))))
 
-(setq whitespace-display-mappings
-      '((space-mark 32 [183] [46])
-        (newline-mark 10 [36 10])
-        (tab-mark 9 [9655 9] [92 9])))
-
 (setq bookmark-version-control 't
       bookmark-save-flag 1
       bookmark-default-file (concat user-emacs-directory "bookmarks"))

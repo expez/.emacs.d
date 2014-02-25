@@ -2,6 +2,11 @@
 (setq whitespace-style '(face tabs trailing lines-tail empty
                               space-before-tab tab-mark))
 
+(setq whitespace-display-mappings
+      '((space-mark 32 [183] [46])
+        (newline-mark 10 [36 10])
+        (tab-mark 9 [9655 9] [92 9])))
+
 (eval-after-load "ethan-wspace"
   '(progn
      (define-minor-mode ethan-wspace-highlight-tabs-mode
