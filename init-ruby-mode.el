@@ -21,6 +21,8 @@
   (fill-keymap evil-normal-state-local-map
                "M-," 'pop-tag-mark
                "M-." 'robe-jump)
+  (fill-keymap evil-insert-state-map
+               (kbd "RET") 'reindent-then-newline-and-indent)
   (yard-mode 1)
   (eldoc-mode 1)
   (auto-complete-mode 1)
