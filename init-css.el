@@ -12,6 +12,8 @@
 (add-hook 'css-mode-hook 'ac-emmet-css-setup)
 (add-hook 'css-mode-hook  'emmet-mode)
 
+(setq css-indent-offset 2)
+
 ;;; Embedding in html
 (after-load 'mmm-vars
             (mmm-add-group

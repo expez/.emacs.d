@@ -163,8 +163,6 @@
 
 (setq sr-speedbar-right-side nil)
 
-(setq css-indent-offset 2)
-
 (winner-mode 1)
 
 (fill-keymap winner-mode-map
