@@ -9,6 +9,8 @@
   (add-hook hook 'rainbow-mode))
 
 (add-hook 'css-mode-hook 'ac-css-mode-setup)
+(add-hook 'css-mode-hook 'ac-emmet-css-setup)
+(add-hook 'css-mode-hook  'emmet-mode)
 
 ;;; Embedding in html
 (after-load 'mmm-vars

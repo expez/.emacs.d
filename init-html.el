@@ -1,4 +1,5 @@
-(require-package 'zencoding-mode)
+(require-package 'emmet-mode)
+(require-package 'ac-emmet)
 (require-package 'tagedit)
 (require-package 'know-your-http-well)
 (require-package 'web-mode)
@@ -7,6 +8,7 @@
 (require 'nxml-mode)
 (require 'tagedit)
 (require 'web-mode)
+(require 'emmet-mode)
 
 (defun my-web-mode-hook ()
   (add-hook 'local-write-file-hooks (lambda () (delete-trailing-whitespace) nil))
@@ -21,10 +23,12 @@
 
 (defun my-html-mode-hook ()
   (skewer-html-mode 1)
-  (zencoding-mode 1)
   (tagedit-mode 1))
-
 (add-hook 'html-mode-hook #'my-html-mode-hook)
+
+(add-hook 'sgml-mode-hook 'emmet-mode)
+(add-hook 'sgml-mode-hook 'ac-emmet-html-setup)
+(add-hook 'emmet-mode-hook (lambda () (setq emmet-indentation 2)))
 
 (defun html-wrap-in-tag (beg end)
   (interactive "r")
