@@ -9,6 +9,9 @@
 (require-package 'rinari)
 (require-package 'inf-ruby)
 (require-package 'bundler)
+(require-package 'projectile-rails)
+
+(add-hook 'projectile-mode-hook 'projectile-rails-on)
 
 (defun my-ruby-mode-hook ()
   (rvm-activate-corresponding-ruby)
