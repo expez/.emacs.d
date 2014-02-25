@@ -29,21 +29,6 @@
   (setq completion-at-point-functions '(auto-complete))
   (push 'ac-source-robe ac-sources)
   (setq webjump-api-sites '(("Ruby" . "http://apidock.com/ruby/")
-                            ("Rails" . "http://apidock.com/rails/")))(rvm-activate-corresponding-ruby)
-  (ruby-electric-mode 1)
-  (electric-pair-mode 0)
-  (robe-mode 1)
-  (fill-keymap evil-normal-state-local-map
-               "M-," 'pop-tag-mark
-               "M-." 'robe-jump)
-  (yard-mode 1)
-  (eldoc-mode 1)
-  (auto-complete-mode 1)
-  (ac-ruby-mode-setup)
-  (rinari-minor-mode 1)
-  (setq completion-at-point-functions '(auto-complete))
-  (push 'ac-source-robe ac-sources)
-  (setq webjump-api-sites '(("Ruby" . "http://apidock.com/ruby/")
                             ("Rails" . "http://apidock.com/rails/"))))
 
 (add-hook 'ruby-mode-hook #'my-ruby-mode-hook)
