@@ -15,8 +15,12 @@
   ;; For some reason the manual says to apply mode settings in a hook.
   (setq web-mode-markup-indent-offset 2
         web-mode-css-indent-offset 2
-        web-mode-code-indent-offset 2)
-  (tagedit-mode 1))
+        web-mode-code-indent-offset 2
+        web-mode-disable-auto-pairing nil
+        web-mode-enable-current-element-highlight t)
+  (tagedit-mode 1)
+  (emmet-mode 1))
+(add-hook 'web-mode-hook #'my-web-mode-hook)
 (add-auto-mode 'web-mode "\\.mustache")
 (add-auto-mode 'web-mode "\\.hbs")
 (add-auto-mode 'web-mode "\\.erb")
