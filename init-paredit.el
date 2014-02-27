@@ -30,6 +30,14 @@
              "C-(" 'backward-slurp-sexp
              "C-)" 'forward-slurp-sexp)
 
+(defun my-paredit-mode-hook ()
+  (make-local-variable 'surround-operator-alist)
+  (add-to-list 'surround-operator-alist
+               '(evil-paredit-change . change))
+  (add-to-list 'surround-operator-alist
+               '(evil-paredit-delete . delete)))
+(add-hook 'paredit-mode-hook #'my-paredit-mode-hook)
+
 (defun forward-barf-sexp (prefix)
   "Calls `paredit-forward-barf-sexp', unless PREFIX is non nil.
   With prefix it calls `paredit-barf-all-the-way-forward'"
