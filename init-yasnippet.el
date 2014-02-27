@@ -20,4 +20,8 @@
                   (goto-char p)
                   (set-mark m)))))
 
+(defun my-snippet-mode-hook ()
+  (ethan-wspace-highlight-no-nl-eof-mode 1))
+(add-hook 'snippet-mode-hook #'my-snippet-mode-hook)
+
 (provide 'init-yasnippet)
