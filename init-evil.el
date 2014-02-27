@@ -99,4 +99,19 @@
 (defadvice evil-goto-mark (after center-mark activate)
   (evil-scroll-line-to-center nil))
 
+(defun comint-goto-end-and-insert ()
+  (interactive)
+  (if (not (comint-after-pmark-p))
+      (progn (comint-goto-process-mark)
+       (evil-append-line nil))
+    (evil-insert 1)))
+
+(evil-define-key 'normal comint-mode-map "i" 'comint-goto-end-and-insert)
+(after-load 'inf-ruby-mode
+  (evil-define-key 'normal inf-ruby-mode-map "i" 'comint-goto-end-and-insert))
+
+(evil-define-key 'insert comint-mode-map
+  (kbd "<up>") 'comint-previous-input
+  (kbd "<down>") 'comint-next-input)
+
 (provide 'init-evil)
