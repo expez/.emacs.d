@@ -180,7 +180,8 @@
   "C-b" 'evil-scroll-page-up
   "u" 'diff-undo
   "/" 'evil-search-forward
-  "?" 'evil-search-backward)
+  "?" 'evil-search-backward
+  "q" (lambda () (interactive) (kill-buffer)))
 
 (evil-add-hjkl-bindings package-menu-mode-map 'emacs
   "h" 'package-menu-quick-help)
