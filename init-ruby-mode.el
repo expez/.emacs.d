@@ -16,7 +16,9 @@
 
 (eval-after-load 'rspec-mode
   '(rspec-install-snippets))
-
+(eval-after-load 'ruby-electric
+  (define-key ruby-electric-mode-map [remap reindent-then-newline-and-indent]
+    'ruby-electric-space/return))
 (eval-after-load 'auto-complete
   '(add-to-list 'ac-modes 'inf-ruby-mode))
 
@@ -162,5 +164,8 @@ process. "
   (insert "end")
   (ruby-indent-line t)
   (end-of-line))
+
+(defadvice ruby-electric-space/return (after ident-ffs activate)
+  (ruby-indent-line))
 
 (provide 'init-ruby-mode)
