@@ -33,6 +33,10 @@
 (defadvice inf-ruby-console-auto (before activate-rvm-for-robe activate)
   (rvm-activate-corresponding-ruby))
 
+(defun disable-backup-files-when-guard-is-active ()
+  (unless (s-blank? (shell-command-to-string "pgrep -f guard"))
+    (setq-local make-backup-files nil)))
+
 (defun my-ruby-mode-hook ()
   (rvm-activate-corresponding-ruby)
   (ruby-electric-mode 1)
@@ -51,7 +55,8 @@
   (setq completion-at-point-functions '(auto-complete))
   (push 'ac-source-robe ac-sources)
   (setq webjump-api-sites '(("Ruby" . "http://apidock.com/ruby/")
-                            ("Rails" . "http://apidock.com/rails/"))))
+                            ("Rails" . "http://apidock.com/rails/")))
+  (disable-backup-files-when-guard-is-active))
 
 (add-hook 'ruby-mode-hook #'my-ruby-mode-hook)
 
