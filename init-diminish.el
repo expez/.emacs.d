@@ -3,8 +3,8 @@
 (eval-after-load "undo-tree"
   '(diminish 'undo-tree-mode))
 
-(eval-after-load "eproject"
-  '(diminish 'eproject-mode))
+(eval-after-load "projectile"
+  '(diminish 'projectile-mode))
 
 (eval-after-load "yas-minor-mode"
   '(diminish 'yas-minor-mode))
@@ -41,6 +41,15 @@
 
 (eval-after-load "whitespace"
   '(diminish 'whitespace-mode))
+
+(eval-after-load 'flycheck
+  '(diminish 'flycheck-mode))
+
+(diminish 'abbrev-mode)
+(diminish 'auto-revert-mode)
+
+(eval-after-load 'magit-wip
+  '(diminish 'magit-wip-save-mode))
 
 (defmacro rename-modeline (package-name mode new-name)
   `(eval-after-load ,package-name
