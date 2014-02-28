@@ -91,7 +91,7 @@
              "C-j" 'open-line-below
              "C-k" 'open-line-above
              "M-n" 'next-error
-             "M-p" 'previous-errror
+             "M-p" 'previous-error
              "C-u" 'evil-scroll-up
              "gs" 'just-one-space
              "K" misc-map)
