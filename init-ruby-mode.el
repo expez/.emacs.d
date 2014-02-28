@@ -1,3 +1,4 @@
+(require-package 'ac-inf-ruby)
 (require-package 'yard-mode)
 (require-package 'toml-mode)
 (require-package 'rvm)
@@ -12,6 +13,20 @@
 (require-package 'projectile-rails)
 
 (add-hook 'projectile-mode-hook 'projectile-rails-on)
+
+(eval-after-load 'auto-complete
+  '(add-to-list 'ac-modes 'inf-ruby-mode))
+
+(defun my-inf-ruby-mode-hook ()
+  (set (make-local-variable 'ac-auto-start) 2)
+  (set (make-local-variable 'ac-auto-show-menu) t)
+  (ac-inf-ruby-enable)
+  (ruby-electric-mode 1)
+  (auto-complete-mode 1))
+(add-hook 'inf-ruby-mode-hook 'my-inf-ruby-mode-hook)
+
+(defadvice inf-ruby-console-auto (before activate-rvm-for-robe activate)
+  (rvm-activate-corresponding-ruby))
 
 (defun my-ruby-mode-hook ()
   (rvm-activate-corresponding-ruby)
@@ -52,7 +67,7 @@ of the currently active file--to the load path of the inf-ruby
 process. "
   (interactive)
   (if (null inf-ruby-buffer)
-    (inf-ruby)
+      (inf-ruby)
     (let* ((lib-dir (concat
                      (car (split-string
                            (file-name-directory (buffer-file-name)) "lib"))
