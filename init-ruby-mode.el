@@ -14,6 +14,9 @@
 
 (add-hook 'projectile-mode-hook 'projectile-rails-on)
 
+(eval-after-load 'rspec-mode
+  '(rspec-install-snippets))
+
 (eval-after-load 'auto-complete
   '(add-to-list 'ac-modes 'inf-ruby-mode))
 
