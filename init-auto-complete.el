@@ -22,6 +22,7 @@
   (evil-normal-state))
 
 (fill-keymap ac-completing-map
+             (kbd "<tab>") nil
              "C-[" 'ac-exit-to-normal-state
              "C-l" 'ac-expand-common
              "C-j" 'ac-next
