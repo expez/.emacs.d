@@ -185,25 +185,6 @@ to insert above current line"
       (insert prefix annotation suffix)
       (js2-indent-line))))
 
-(defun debug-in-region ()
-  "Inserts console.log() statements on each line in region."
-  (interactive)
-  (when (region-active-p)
-    (let ((line-end (+ (line-number-at-pos (region-beginning))
-                       (* 2
-                          (count-lines-region
-                           (region-beginning) (region-end)))))
-          (count 0))
-      (message "line count %s" line-end)
-      (save-excursion
-        (goto-char (region-beginning))
-        (while (< (line-number-at-pos) line-end)
-          (open-line-below)
-          (forward-line)
-          (insert (format "console.log(%s)" count))
-          (forward-line)
-          (setq count (1+ count)))))))
-
 (defun js-insert-block ()
   "Insert a block."
   (interactive)
