@@ -46,6 +46,21 @@
     (indent-region beg (+ end 11))
     (goto-char (+ beg 4))))
 
+(defun html-wrap-in-tag (tag &optional beg end)
+  "Add a tag to beginning and ending of current word or text selection."
+  (interactive "sEnter tag name: ")
+  (if (or (use-region-p)
+          (and beg end))
+      (progn
+        (setq beg (or beg (region-beginning)))
+        (setq end (or end (region-end))))
+    (let ((bds (bounds-of-thing-at-point 'symbol)))
+      (setq beg (car bds))
+      (setq end (cdr bds))))
+  (goto-char end)
+  (insert "</" tag ">")
+  (goto-char beg)
+  (insert "<" tag ">"))
 (fill-keymaps '(html-mode-map nxml-mode-map web-mode-map)
               (kbd "RET") 'newline-and-indent
               (kbd "C-c C-w") 'html-wrap-in-tag
