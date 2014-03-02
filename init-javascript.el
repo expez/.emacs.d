@@ -43,10 +43,12 @@
                "M-p" 'flycheck-previous-error
                "M-n" 'flycheck-next-error
                (kbd "<f1>") 'js-lookup)
+  (fill-keymap evil-insert-state-local-map
+               (kbd "C-m") 'js-insert-block-and-semi
+               (kbd "M-m" 'js-insert-block))
   (fill-keymap js2-mode-map
                "C-c C-a" 'jshint-annotate)
-  (local-set-key (kbd "<return>") 'newline-and-indent)
-  (local-set-key (kbd "C-m") 'js-insert-block))
+  (local-set-key (kbd "<return>") 'newline-and-indent))
 
 (add-hook 'js2-mode-hook
           #'my-js2-mode-hook)
@@ -185,8 +187,20 @@ to insert above current line"
       (insert prefix annotation suffix)
       (js2-indent-line))))
 
+(defun js-insert-block-and-semi ()
+  "Insert a block, and semicolon and line end. "
+  (interactive)
+  (save-excursion
+    (goto-char (point-at-eol))
+    (insert ";"))
+  (insert "{}")
+  (backward-char)
+  (open-line 2)
+  (forward-line 1)
+  (indent-for-tab-command))
+
 (defun js-insert-block ()
-  "Insert a block."
+  "Insert a block, and semicolon and line end. "
   (interactive)
   (insert "{}")
   (backward-char)
