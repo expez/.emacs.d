@@ -61,6 +61,29 @@
   (insert "</" tag ">")
   (goto-char beg)
   (insert "<" tag ">"))
+
+(defun html-create-list ()
+  "Creates a unordered list from the lines in REGION.
+
+With a prefix it creates an ordered list."
+  (interactive)
+  (when (use-region-p)
+    (let ((list-type (if current-prefix-arg "ol" "ul"))
+          last-line)
+      (save-excursion
+        (goto-char (region-end))
+        (end-of-line)
+        (open-line 1)
+        (insert "<" list-type "/>")
+        (setq last-line (1+ (line-number-at-pos)))
+        (goto-char (region-beginning))
+        (open-line 1)
+        (insert "<" list-type ">")
+        (forward-line)
+        (while (< (line-number-at-pos) last-line)
+          (html-wrap-in-tag "li" (point-at-bol) (point-at-eol))
+          (forward-line))))))
+
 (fill-keymaps '(html-mode-map nxml-mode-map web-mode-map)
               (kbd "RET") 'newline-and-indent
               (kbd "C-c C-w") 'html-wrap-in-tag
@@ -75,7 +98,8 @@
               (kbd "M-K") 'tagedit-kill-attribute
               (kbd "M-<return>") 'tagedit-toggle-multiline-tag
               "M-l" 'sgml-skip-tag-forward
-              "M-h" 'sgml-skip-tag-backward)
+              "M-h" 'sgml-skip-tag-backward
+              "C-c l" 'html-create-list)
 
 (defadvice sgml-delete-tag (after reindent activate)
   (indent-region (point-min) (point-max)))
