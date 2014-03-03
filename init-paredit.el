@@ -95,26 +95,19 @@
   "Returns the position where paredit-kill would kill to"
   ;; (when (paredit-in-char-p)             ; Move past the \ and prefix.
   ;;   (backward-char 2))                  ; (# in Scheme/CL, ? in elisp)
-  (let* ((eol (point-at-eol))
-         (end-of-list-p (save-excursion
-                          (paredit-forward-sexps-to-kill (point) eol))))
-    (if end-of-list-p (progn (up-list) (backward-char)))
+  (let ((depth-at-eol (save-excursion (progn (goto-char (point-at-eol))
+                                             (first (paredit-current-parse-state)))))
+        (depth-at-at-line-beginning (save-excursion
+                                      (goto-char (point-at-bol))
+                                      (first (paredit-current-parse-state)))))
     (cond ((paredit-in-string-p)
-           (if (save-excursion (paredit-skip-whitespace t (point-at-eol))
-                               (eolp))
-               (kill-line)
-             (save-excursion
-               ;; Be careful not to split an escape sequence.
-               (if (paredit-in-string-escape-p)
-                   (backward-char))
-               (min (point-at-eol)
-                    (cdr (paredit-string-start+end-points))))))
+           (save-excursion (progn (paredit-forward-up) (backward-char) (point))))
+          ((= depth-at-eol depth-at-at-line-beginning)
+           (point-at-eol))
           ((paredit-in-comment-p)
-           eol)
-          (t (if (and (not end-of-list-p)
-                      (eq (point-at-eol) eol))
-                 eol
-               (point))))))
+           (paredit-check-forward-delete-in-comment)
+           (evil-paredit-delete (point) (1+ (point-at-eol))))
+          (t (save-excursion (paredit-forward) (point))))))
 
 (evil-define-operator evil-paredit-delete-line
   (beg end type register yank-handler)
