@@ -46,7 +46,8 @@
   '(diminish 'flycheck-mode))
 
 (diminish 'abbrev-mode)
-(diminish 'auto-revert-mode)
+(eval-after-load 'auto-revert-mode
+  '(diminish 'auto-revert-mode))
 
 (eval-after-load 'magit-wip
   '(diminish 'magit-wip-save-mode))
