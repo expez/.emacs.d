@@ -45,7 +45,7 @@
                (kbd "<f1>") 'js-lookup)
   (fill-keymap evil-insert-state-local-map
                (kbd "C-m") 'js-insert-block-and-semi
-               (kbd "M-m" 'js-insert-block))
+               (kbd "M-m") 'js-insert-block)
   (fill-keymap js2-mode-map
                "C-c C-a" 'jshint-annotate)
   (local-set-key (kbd "<return>") 'newline-and-indent))
@@ -196,6 +196,9 @@ to insert above current line"
   (insert "{}")
   (backward-char)
   (open-line 2)
+  (save-excursion
+    (forward-line 2)
+    (indent-for-tab-command))
   (forward-line 1)
   (indent-for-tab-command))
 
@@ -205,6 +208,9 @@ to insert above current line"
   (insert "{}")
   (backward-char)
   (open-line 2)
+  (save-excursion
+    (forward-line 2)
+    (indent-for-tab-command))
   (forward-line 1)
   (indent-for-tab-command))
 
