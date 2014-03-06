@@ -166,6 +166,7 @@ process. "
   (end-of-line))
 
 (defadvice ruby-electric-space/return (after ident-ffs activate)
-  (ruby-indent-line))
+  (when (eq major-mode 'ruby-mode)
+    (ruby-indent-line)))
 
 (provide 'init-ruby-mode)
