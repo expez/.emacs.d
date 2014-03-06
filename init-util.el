@@ -688,6 +688,7 @@ Then saves the buffer."
   (interactive)
   (indent-buffer)
   (ethan-wspace-clean-all)
-  (save-buffer))
+  (save-buffer)
+  (indent-for-tab-command))
 
 (provide 'init-util)
