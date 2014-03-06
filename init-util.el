@@ -688,8 +688,8 @@ Then saves the buffer."
   (interactive)
   (indent-buffer)
   (ethan-wspace-clean-all)
-  (save-buffer)
-  (indent-for-tab-command))
+  (indent-for-tab-command)
+  (save-buffer))
 
 (defun screaming-case ()
   (let ((c (capitalize (char-before))))
