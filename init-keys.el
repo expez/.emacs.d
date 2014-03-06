@@ -158,7 +158,7 @@
              "C-x e" 'eval-and-replace
              "C-<tab>" 'hippie-expand
              "<f5>" 'eshell-toggle
-             "<f2>" 'project-explorer-open
+             "<f2>" 'toggle-project-explorer
              "C-x r q" 'save-buffers-kill-terminal
              "C-x v t" 'vc-create-tag
              "C-x a r" 'align-regexp

@@ -210,3 +210,9 @@
                 ido-file-dir-completion-map)))
 
 (setq pe/omit-regex "^\\.\\|^#\\|~$\\|node_modules")
+
+(defun toggle-project-explorer ()
+  (interactive)
+  (-if-let (window (get-buffer-window (pe/get-current-project-explorer-buffer)))
+      (delete-window window)
+    (project-explorer-open)))
