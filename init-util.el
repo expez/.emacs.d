@@ -541,8 +541,8 @@ If the file is emacs lisp, run the byte compiled version if appropriate."
                                                          "vendor"))))
     (let* ((vendor-dir (concat user-emacs-directory "vendor"))
            (files (split-string
-                    (shell-command-to-string
-                     (concat "find " vendor-dir " -type f -iname '*.el'")))))
+                   (shell-command-to-string
+                    (concat "find " vendor-dir " -type f -iname '*.el'")))))
       (mapc #'load files))))
 
 (defun load-elisp-files-in-dir (dir &optional regexp count)
@@ -681,5 +681,13 @@ indicate failure."
   (interactive)
   "Runs chmod u+x on the current buffer."
   (chmod (buffer-file-name) (file-modes-rights-to-number "+x" ?u)))
+
+(defun clean-and-save-buffer ()
+  "Reindents the buffer and cleans up any whitespace errors.
+Then saves the buffer."
+  (interactive)
+  (indent-buffer)
+  (ethan-wspace-clean-all)
+  (save-buffer))
 
 (provide 'init-util)

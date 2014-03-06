@@ -21,6 +21,7 @@
   "e" 'edit-user-config-file
   "h" 'change-whitespace-line-column
   "k" 'kill-buffer
+  "m" 'clean-and-save-buffer
   "p" 'projectile-switch-project
   "r" 'revert-buffer
   "s" 'esk-eshell-in-dir
