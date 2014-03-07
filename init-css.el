@@ -15,33 +15,39 @@
 (setq css-indent-offset 2)
 (setq scss-compile-at-save nil)
 
+(defun my-css-mode-hook ()
+  (skewer-css-mode)
+  (fill-keymap evil-insert-state-local-map
+               (kbd "M-m") 'js-insert-block))
+(add-hook 'css-mode-hook 'my-css-mode-hook)
+(define-key emmet-preview-keymap (kbd "C-j") 'emmet-preview-accept)
+
 ;;; Embedding in html
 (after-load 'mmm-vars
-            (mmm-add-group
-             'html-css
-             '((css-cdata
-                :submode css-mode
-                :face mmm-code-submode-face
-                :front "<style[^>]*>[ \t\n]*\\(//\\)?<!\\[CDATA\\[[ \t]*\n?"
-                :back "[ \t]*\\(//\\)?]]>[ \t\n]*</style>"
-                :insert ((?j js-tag nil @ "<style type=\"text/css\">"
-                             @ "\n" _ "\n" @ "</script>" @)))
-               (css
-                :submode css-mode
-                :face mmm-code-submode-face
-                :front "<style[^>]*>[ \t]*\n?"
-                :back "[ \t]*</style>"
-                :insert ((?j js-tag nil @ "<style type=\"text/css\">"
-                             @ "\n" _ "\n" @ "</style>" @)))
-               (css-inline
-                :submode css-mode
-                :face mmm-code-submode-face
-                :front "style=\""
-                :back "\"")))
-            (dolist (mode (list 'html-mode 'nxml-mode))
-              (mmm-add-mode-ext-class mode "\\.r?html\\(\\.erb\\)?\\'" 'html-css)))
+  (mmm-add-group
+   'html-css
+   '((css-cdata
+      :submode css-mode
+      :face mmm-code-submode-face
+      :front "<style[^>]*>[ \t\n]*\\(//\\)?<!\\[CDATA\\[[ \t]*\n?"
+      :back "[ \t]*\\(//\\)?]]>[ \t\n]*</style>"
+      :insert ((?j js-tag nil @ "<style type=\"text/css\">"
+                   @ "\n" _ "\n" @ "</script>" @)))
+     (css
+      :submode css-mode
+      :face mmm-code-submode-face
+      :front "<style[^>]*>[ \t]*\n?"
+      :back "[ \t]*</style>"
+      :insert ((?j js-tag nil @ "<style type=\"text/css\">"
+                   @ "\n" _ "\n" @ "</style>" @)))
+     (css-inline
+      :submode css-mode
+      :face mmm-code-submode-face
+      :front "style=\""
+      :back "\"")))
+  (dolist (mode (list 'html-mode 'nxml-mode))
+    (mmm-add-mode-ext-class mode "\\.r?html\\(\\.erb\\)?\\'" 'html-css)))
 
-(add-hook 'css-mode-hook 'skewer-css-mode)
 (defvar sanityinc/skewer-less-mode-map
   (let ((m (make-sparse-keymap)))
     (define-key m (kbd "C-c C-k") 'sanityinc/skewer-less-save-and-reload)
