@@ -59,8 +59,6 @@
                "M-," 'cider-jump-back
                "C-c e" 'eval-and-insert))
 
-(cljr-add-keybindings-with-prefix "C-c C-m")
-
 (add-hook 'clojure-mode-hook #'my-clojure-mode-hook)
 
 (setq nrepl-hide-special-buffers t
