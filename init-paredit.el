@@ -106,7 +106,7 @@
           ((paredit-in-comment-p)
            (paredit-check-forward-delete-in-comment)
            (evil-paredit-delete (point) (1+ (point-at-eol))))
-          (t (save-excursion (paredit-forward) (point))))))
+          (t (save-excursion (paredit-forward-up) (1- (point)))))))
 
 (evil-define-operator evil-paredit-delete-line
   (beg end type register yank-handler)
