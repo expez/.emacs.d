@@ -28,4 +28,4 @@
 (add-hook 'multiple-cursors-mode-disabled-hook
           'my-mc-evil-back-to-previous-state)
 
-(provide init-multiple-cursors)
+(provide 'init-multiple-cursors)

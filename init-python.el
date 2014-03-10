@@ -1,6 +1,8 @@
 (require-package 'python-mode)
+(require-package 'company)
 (require-package 'company-jedi)
 (require-package 'autopair)
+(require 'company)
 
 (when (featurep 'python) (unload-feature 'python t))
 (autoload 'python-mode "python-mode" "Python Mode." t)

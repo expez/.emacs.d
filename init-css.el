@@ -4,6 +4,7 @@
 (require-package 'rainbow-mode)
 (require 'sass-mode)
 (require 'css-mode)
+(require 'emmet-mode)
 
 (dolist (hook '(css-mode-hook sass-mode-hook haml-mode-hook))
   (add-hook hook 'rainbow-mode))
