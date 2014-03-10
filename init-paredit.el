@@ -96,12 +96,12 @@
   ;; (when (paredit-in-char-p)             ; Move past the \ and prefix.
   ;;   (backward-char 2))                  ; (# in Scheme/CL, ? in elisp)
   (let ((depth-at-point (first (paredit-current-parse-state)))
-        (depth-at-at-line-beginning (save-excursion
-                                      (goto-char (point-at-bol))
+        (depth-at-eol (save-excursion
+                                      (goto-char (point-at-eol))
                                       (first (paredit-current-parse-state)))))
     (cond ((paredit-in-string-p)
            (save-excursion (progn (paredit-forward-up) (backward-char) (point))))
-          ((= depth-at-point depth-at-at-line-beginning)
+          ((= depth-at-point depth-at-eol)
            (point-at-eol))
           ((paredit-in-comment-p)
            (paredit-check-forward-delete-in-comment)
