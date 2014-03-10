@@ -21,10 +21,10 @@
   "e" 'edit-user-config-file
   "h" 'change-whitespace-line-column
   "k" 'kill-buffer
-  "m" 'clean-and-save-buffer
+  "SPC" 'clean-and-save-buffer
   "p" 'projectile-switch-project
   "q" 'toggle-screaming-case
-  "SPC" 'toggle-snake-case
+  "m" 'toggle-snake-case
   "r" 'revert-buffer
   "s" 'esk-eshell-in-dir
   "t" 'test
