@@ -702,9 +702,10 @@ Then saves the buffer."
   (if (member 'screaming-case post-self-insert-hook)
       (progn
         (setq post-self-insert-hook (delq 'screaming-case post-self-insert-hook))
-        (message "Screaming case off."))
+        (message "Screaming case off"))
     (push #'screaming-case post-self-insert-hook)
-    (message "Screaming case on.")))
+    (evil-insert-state)
+    (message "Screaming case on")))
 
 (defun snake-case ()
   (when (looking-back " ")
@@ -717,8 +718,9 @@ and get 'snake_case'"
   (interactive)
   (if (member 'snake-case post-self-insert-hook)
       (progn (setq post-self-insert-hook (delq 'snake-case post-self-insert-hook))
-             (message "Snake case off."))
+             (message "Snake case off"))
     (push #'snake-case post-self-insert-hook)
-    (message "Snake case on.")))
+    (evil-insert-state)
+    (message "Snake case on")))
 
 (provide 'init-util)
