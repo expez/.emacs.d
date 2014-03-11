@@ -33,7 +33,12 @@
   (ac-nrepl-setup)
   (cider-turn-on-eldoc-mode)
   (paredit-mode 1)
-                                        ;  (evil-paredit 1)
+  (fill-keymaps '(evil-insert-state-local-map evil-normal-state-local-map)
+                (kbd "C-a") 'cider-repl-bol
+                (kbd "M-p") 'cider-repl-previous-input
+                (kbd "M-n") 'cider-repl-next-input)
+  (whitespace-mode 0)
+ ;(evil-paredit 1)
   )
 (add-hook 'cider-repl-mode-hook #'my-cider-repl-mode-hook)
 
