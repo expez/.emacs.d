@@ -213,6 +213,6 @@
 
 (defun toggle-project-explorer ()
   (interactive)
-  (-if-let (window (get-buffer-window (pe/get-current-project-explorer-buffer)))
-      (delete-window window)
+  (-if-let (pe-buffer (pe/get-current-project-explorer-buffer))
+      (delete-window (get-buffer-window pe-buffer))
     (project-explorer-open)))
