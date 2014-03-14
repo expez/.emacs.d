@@ -2,6 +2,7 @@
 (require-package 'scss-mode)
 (require-package 'sass-mode)
 (require-package 'rainbow-mode)
+(require-package 'emmet-mode)
 (require 'sass-mode)
 (require 'css-mode)
 (require 'emmet-mode)
