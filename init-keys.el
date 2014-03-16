@@ -27,6 +27,7 @@
   "m" 'toggle-snake-case
   "r" 'revert-buffer
   "s" 'esk-eshell-in-dir
+  "S" 'find-shell-init-file
   "t" 'test
   "v" 'vc-annotate
   "w" 'save-buffer
