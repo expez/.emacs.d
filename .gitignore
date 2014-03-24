@@ -4,6 +4,7 @@ tramp
 url/
 sql/
 var/
+jedi/
 auto-save-list/
 plugins/.\#*
 *.el~
