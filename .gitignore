@@ -25,3 +25,4 @@ autosaves/
 project-explorer-cache/
 request/
 /projectile-bookmarks.eld
+.python-environments/
