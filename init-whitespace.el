@@ -67,8 +67,10 @@ With a prefix argument whitespac-mode is turned off."
   (message (format "Highlighting lines longer than %s chars." c)))
 
 (defadvice popup-tip (around disable-ethan-wspace activate)
-  (whitespace-mode 0)
+  (let ((whitespace-mode whitespace-mode))
+    (whitespace-mode 0))
   ad-do-it
-(whitespace-mode 1))
+  (when whitespace-mode
+    (whitespace-mode 1)))
 
 (provide 'init-whitespace)
