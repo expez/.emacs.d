@@ -10,6 +10,7 @@
 (require 'ace-jump-mode)
 (require-package 'goto-chg)
 
+(setq evil-symbol-word-search t)
 (evil-mode 1)
 
 (global-surround-mode 1)
