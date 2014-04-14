@@ -1,4 +1,5 @@
 (require-package 'markdown-mode)
+(require 'markdown-mode)
 
 (add-auto-mode 'markdown-mode "\\.md\\'")
 
