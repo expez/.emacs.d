@@ -1,6 +1,6 @@
 (require 'evil)
 (require 'helm-descbinds)
-
+(require-package 'key-chord)
 (helm-descbinds-mode)
 
 (defkeymap leader-map
