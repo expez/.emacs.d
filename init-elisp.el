@@ -9,6 +9,7 @@
 (require 'evil-paredit)
 (require-package 'rainbow-delimiters)
 (require-package 'flycheck)
+(require 'surround)
 
 (set-face-foreground 'paren-face "grey30")
 
