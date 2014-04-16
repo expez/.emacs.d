@@ -137,4 +137,35 @@
   (when current-prefix-arg
     (paredit-wrap-square)))
 
+(defun depth-at-point ()
+  "Returns the depth in s-expressions, or strings, at point."
+  (let ((depth (first (paredit-current-parse-state))))
+    (if (paredit-in-string-p)
+        (1+ depth)
+      depth)))
+
+(evil-define-operator evil-paredit-delete
+  (beg end type register yank-handler)
+  "Delete text from BEG to END with TYPE respecting parenthesis.
+Save in REGISTER or in the kill-ring with YANK-HANDLER."
+  (interactive "<R><x><y>")
+  ;; dwim, don't just fail, delete as much as possible
+  (when (eq type 'line)
+      (save-excursion
+        (let ((depth-beg (progn (goto-char beg) (depth-at-point)))
+              (depth-end (progn (goto-char end) (depth-at-point))))
+          (unless (eq depth-beg depth-end)
+            (move-end-of-line nil)
+            (paredit-backward-down (- depth-beg depth-end))
+            (setq end (point))))))
+
+  (evil-paredit-yank beg end type register yank-handler)
+  (if (eq type 'block)
+      (evil-apply-on-block #'delete-region beg end nil)
+    (kill-region beg end))
+  ;; place cursor on beginning of line
+  (when (and (evil-called-interactively-p)
+             (eq type 'line))
+    (evil-first-non-blank)))
+
 (provide 'init-paredit)
