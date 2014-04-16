@@ -167,7 +167,8 @@ Save in REGISTER or in the kill-ring with YANK-HANDLER."
   ;; place cursor on beginning of line
   (when (and (evil-called-interactively-p)
              (eq type 'line))
-    (evil-first-non-blank)))
+    (evil-first-non-blank))
+  (indent-for-tab-command))
 
 (evil-define-operator evil-paredit-yank (beg end type register yank-handler)
   "Saves the characters in motion into the kill-ring."
@@ -195,7 +196,10 @@ Save in REGISTER or in the kill-ring with YANK-HANDLER."
   "Switch to Insert state at the end of the current line.
 The insertion will be repeated COUNT times.  If VCOUNT is non nil
 it should be number > 0. The insertion will be repeated in the
-next VCOUNT - 1 lines below the current one."
+next VCOUNT - 1 lines below the current one.
+
+This version moves to the EOL or to the paren matching the depth
+at line start."
   (interactive "p")
   (let ((depth-beg (save-excursion (move-beginning-of-line nil) (depth-at-point))))
     (evil-move-end-of-line)
@@ -210,5 +214,26 @@ next VCOUNT - 1 lines below the current one."
                    #'end-of-line
                    vcount)))
   (evil-insert-state 1))
+
+(defun evil-paredit-open-below (count)
+  "Insert a new line below point and switch to Insert state.
+The insertion will be repeated COUNT times.
+
+This version helps you in situations where the line ends with )))
+and you want to add another line at the current depth."
+  (interactive "p")
+  (let ((depth (depth-at-point))
+        (depth-at-eol (progn (move-end-of-line nil) (depth-at-point))))
+    (if (eq depth depth-at-eol)
+        (evil-open-below count)
+      (paredit-backward-down (- depth depth-at-eol))
+      (newline-and-indent)))
+  (setq evil-insert-count count
+        evil-insert-lines t
+        evil-insert-vcount nil)
+  (evil-insert-state 1)
+  (add-hook 'post-command-hook #'evil-maybe-remove-spaces)
+  (when evil-auto-indent
+    (indent-according-to-mode)))
 
 (provide 'init-paredit)
