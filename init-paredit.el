@@ -97,8 +97,8 @@
   ;;   (backward-char 2))                  ; (# in Scheme/CL, ? in elisp)
   (let ((depth-at-point (first (paredit-current-parse-state)))
         (depth-at-eol (save-excursion
-                                      (goto-char (point-at-eol))
-                                      (first (paredit-current-parse-state)))))
+                        (goto-char (point-at-eol))
+                        (first (paredit-current-parse-state)))))
     (cond ((paredit-in-string-p)
            (save-excursion (progn (paredit-forward-up) (backward-char) (point))))
           ((= depth-at-point depth-at-eol)
@@ -151,13 +151,13 @@ Save in REGISTER or in the kill-ring with YANK-HANDLER."
   (interactive "<R><x><y>")
   ;; dwim, don't just fail, delete as much as possible
   (when (eq type 'line)
-      (save-excursion
-        (let ((depth-beg (progn (goto-char beg) (depth-at-point)))
-              (depth-end (progn (goto-char end) (depth-at-point))))
-          (unless (eq depth-beg depth-end)
-            (move-end-of-line nil)
-            (paredit-backward-down (- depth-beg depth-end))
-            (setq end (point))))))
+    (save-excursion
+      (let ((depth-beg (progn (goto-char beg) (depth-at-point)))
+            (depth-end (progn (goto-char end) (depth-at-point))))
+        (unless (eq depth-beg depth-end)
+          (move-end-of-line nil)
+          (paredit-backward-down (- depth-beg depth-end))
+          (setq end (point))))))
 
   (evil-paredit-yank beg end type register yank-handler)
   (if (eq type 'block)
@@ -167,5 +167,27 @@ Save in REGISTER or in the kill-ring with YANK-HANDLER."
   (when (and (evil-called-interactively-p)
              (eq type 'line))
     (evil-first-non-blank)))
+
+(evil-define-operator evil-paredit-yank (beg end type register yank-handler)
+  "Saves the characters in motion into the kill-ring."
+  :move-point nil
+  :repeat nil
+  (interactive "<R><x><y>")
+  (unless
+      (and (eq type 'block)
+           (-every?
+            (lambda (s)
+              (not
+               (s-contains? "\\((\\)\\|\\()\\)" s))) (extract-rectangle beg end)))
+    (if (fboundp 'paredit-check-region-state)
+        (-evil-paredit-check-region beg end)
+      (paredit-check-region-for-delete beg end)))
+  (cond
+   ((eq type 'block)
+    (evil-yank-rectangle beg end register yank-handler))
+   ((eq type 'line)
+    (evil-yank-lines beg end register yank-handler))
+   (t
+    (evil-yank-characters beg end register yank-handler))))
 
 (provide 'init-paredit)
