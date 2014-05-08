@@ -11,14 +11,19 @@
   (add-hook hook 'rainbow-mode))
 
 (add-hook 'css-mode-hook 'ac-css-mode-setup)
+(add-hook 'sass-mode-hook 'ac-css-mode-setup)
 (add-hook 'css-mode-hook 'ac-emmet-css-setup)
 (add-hook 'css-mode-hook  'emmet-mode)
 
 (setq css-indent-offset 2)
-(setq scss-compile-at-save nil)
+(setq scss-compile-at-save t)
 
 (defun my-css-mode-hook ()
   (skewer-css-mode)
+  (fill-keymap skewer-css-mode-map
+               "C-c C-c" 'nil
+               "C-c C-r" 'skewer-css-clear-all)
+  (local-set-key (kbd "<return>") 'newline-and-indent)
   (fill-keymap evil-insert-state-local-map
                (kbd "M-m") 'js-insert-block))
 (add-hook 'css-mode-hook 'my-css-mode-hook)
