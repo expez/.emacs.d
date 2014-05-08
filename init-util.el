@@ -663,38 +663,6 @@ Then saves the buffer."
   (indent-for-tab-command)
   (save-buffer))
 
-(defun screaming-case ()
-  (let ((c (capitalize (char-before))))
-    (backward-delete-char 1)
-    (insert c)))
-
-(defun toggle-screaming-case ()
-  "Function that turns on caps lock."
-  (interactive)
-  (if (member 'screaming-case post-self-insert-hook)
-      (progn
-        (setq post-self-insert-hook (delq 'screaming-case post-self-insert-hook))
-        (message "Screaming case off"))
-    (push #'screaming-case post-self-insert-hook)
-    (evil-insert-state)
-    (message "Screaming case on")))
-
-(defun snake-case ()
-  (when (looking-back " ")
-    (backward-delete-char 1)
-    (insert "_")))
-
-(defun toggle-snake-case ()
-  "Turns spaces into underscores, letting you type 'snake case'
-and get 'snake_case'"
-  (interactive)
-  (if (member 'snake-case post-self-insert-hook)
-      (progn (setq post-self-insert-hook (delq 'snake-case post-self-insert-hook))
-             (message "Snake case off"))
-    (push #'snake-case post-self-insert-hook)
-    (evil-insert-state)
-    (message "Snake case on")))
-
 (defun what-face (pos)
   "Returns the face at `POS'"
   (interactive "d")

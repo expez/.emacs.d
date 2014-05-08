@@ -23,8 +23,6 @@
   "k" 'kill-buffer
   "SPC" 'clean-and-save-buffer
   "p" 'projectile-switch-project
-  "q" 'toggle-screaming-case
-  "m" 'toggle-snake-case
   "r" 'revert-buffer
   "s" 'esk-eshell-in-dir
   "S" 'find-shell-init-file
