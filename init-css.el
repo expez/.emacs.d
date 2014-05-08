@@ -3,20 +3,22 @@
 (require-package 'sass-mode)
 (require-package 'rainbow-mode)
 (require-package 'emmet-mode)
+(require-package 'css-eldoc)
 (require 'sass-mode)
 (require 'css-mode)
 (require 'emmet-mode)
 
+
 (dolist (hook '(css-mode-hook sass-mode-hook haml-mode-hook))
   (add-hook hook 'rainbow-mode))
 
-(add-hook 'css-mode-hook 'ac-css-mode-setup)
-(add-hook 'sass-mode-hook 'ac-css-mode-setup)
 (add-hook 'css-mode-hook 'ac-emmet-css-setup)
 (add-hook 'css-mode-hook  'emmet-mode)
 
 (setq css-indent-offset 2)
 (setq scss-compile-at-save t)
+
+(turn-on-css-eldoc)
 
 (defun my-css-mode-hook ()
   (skewer-css-mode)
