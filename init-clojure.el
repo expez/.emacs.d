@@ -7,9 +7,8 @@
 (require-package 'cider)
 (require-package 'clj-refactor)
 (require-package 'clojure-cheatsheet)
-(require-package 'cider-decompile)
 (require-package 'cider-tracing)
-(require-package 'ac-nrepl)
+
 (require 'cider-eldoc)
 
 (add-to-list 'auto-mode-alist '("\\.edn\\'" . clojure-mode))
@@ -30,7 +29,7 @@
 
 (defun my-cider-repl-mode-hook ()
   (setq show-trailing-whitespace nil)
-  (ac-nrepl-setup)
+  (company-mode 1)
   (cider-turn-on-eldoc-mode)
   (paredit-mode 1)
   (fill-keymaps '(evil-insert-state-local-map evil-normal-state-local-map)
@@ -38,12 +37,14 @@
                 (kbd "M-p") 'cider-repl-previous-input
                 (kbd "M-n") 'cider-repl-next-input)
   (whitespace-mode 0)
- ;(evil-paredit 1)
+                                        ;(evil-paredit 1)
   )
 (add-hook 'cider-repl-mode-hook #'my-cider-repl-mode-hook)
 
 (defun my-clojure-mode-hook ()
   (rainbow-delimiters-mode 0)
+  (auto-complete-mode 0)
+  (company-mode 1)
   (setq-local evil-symbol-word-search t)
   (clj-refactor-mode 1)
   (cider-mode 1)
@@ -84,6 +85,11 @@
   (HEAD 2)
   (ANY 2)
   (context 2))
+
+(defun austin-connnect-string ()
+  (interactive)
+  "Call to use from the cider repl to connect to a bREPL"
+  (insert "(cemerick.piggieback/cljs-repl :repl-env (cemerick.austin/exec-env))"))
 
 (defun eval-and-insert ()
   "Evals the expression at point and inserts the result on the line
