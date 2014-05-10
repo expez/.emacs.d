@@ -21,12 +21,15 @@
 (require-package 'window-numbering)
 (require-package 'ido-hacks)
 (require-package 'solarized-theme)
+(require-package 'popwin)
+(require 'popwin)
 (require 'mmm-auto)
 (require 'ibuffer)
 (require 'workgroups)
 (require 'ido-hacks)
 (require 'project-explorer)
 
+(popwin-mode 1)
 (ido-vertical-mode)
 (key-chord-mode 1)
 
