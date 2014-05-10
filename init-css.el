@@ -4,6 +4,7 @@
 (require-package 'rainbow-mode)
 (require-package 'emmet-mode)
 (require-package 'css-eldoc)
+(require 'css-eldoc)
 (require 'sass-mode)
 (require 'css-mode)
 (require 'emmet-mode)
