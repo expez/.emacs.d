@@ -13,9 +13,6 @@
 
 (add-to-list 'auto-mode-alist '("\\.edn\\'" . clojure-mode))
 
-(eval-after-load "auto-complete"
-  '(add-to-list 'ac-modes 'cider-repl-mode))
-
 (defadvice clojure-test-run-tests (before save-first activate)
   (save-buffer))
 
