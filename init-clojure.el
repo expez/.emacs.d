@@ -8,7 +8,7 @@
 (require-package 'clj-refactor)
 (require-package 'clojure-cheatsheet)
 (require-package 'cider-tracing)
-
+(require-package 'refheap)
 (require 'cider-eldoc)
 
 (add-to-list 'auto-mode-alist '("\\.edn\\'" . clojure-mode))
