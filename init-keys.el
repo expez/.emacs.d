@@ -170,6 +170,7 @@
              "C-x C-r" 'ido-recentf-open
              "<f6>" 'toggle-deft-mode
              "C-w" 'evil-window-map
+             "C-x C-t" 'anchored-transpose
              "M-<backspace>" 'delete-indentation)
 
 (evil-add-hjkl-bindings diff-mode-map 'emacs
