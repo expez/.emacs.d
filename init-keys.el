@@ -171,7 +171,9 @@
              "<f6>" 'toggle-deft-mode
              "C-w" 'evil-window-map
              "C-x C-t" 'anchored-transpose
-             "M-<backspace>" 'delete-indentation)
+             "M-<backspace>" 'delete-indentation
+             "<C-kp-subtract>" 'text-scale-decrease
+             "<C-kp-add>" 'text-scale-increase)
 
 (evil-add-hjkl-bindings diff-mode-map 'emacs
   "K" 'diff-hunk-kill
