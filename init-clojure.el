@@ -74,6 +74,11 @@
 (put 'macrolet 'clojure-backtracking-indent '((2) 2))
 
 (define-clojure-indent
+  (apply 1)
+  (are 'defun)
+  (go-loop 1)
+  (run* 1)
+  (fresh 1)
   (defroutes 'defun)
   (GET 2)
   (POST 2)
