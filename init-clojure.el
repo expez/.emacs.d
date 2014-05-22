@@ -34,7 +34,7 @@
                 (kbd "M-p") 'cider-repl-previous-input
                 (kbd "M-n") 'cider-repl-next-input)
   (whitespace-mode 0)
-                                        ;(evil-paredit 1)
+  ;; (evil-paredit 1)
   )
 (add-hook 'cider-repl-mode-hook #'my-cider-repl-mode-hook)
 
@@ -90,10 +90,26 @@
   (ANY 2)
   (context 2))
 
-(defun austin-connnect-string ()
+(defun austin-connnect ()
   (interactive)
   "Call to use from the cider repl to connect to a bREPL"
-  (insert "(cemerick.piggieback/cljs-repl :repl-env (cemerick.austin/exec-env))"))
+  (cider-eval-sync "(cemerick.piggieback/cljs-repl :repl-env (cemerick.austin/exec-env))"))
+
+(defun weasel-connect ()
+  (interactive)
+  "Connect the repl to weasel"
+  (cider-eval-sync
+   "(require 'weasel.repl.websocket) (cemerick.piggieback/cljs-repl :repl-env (weasel.repl.websocket/repl-env :ip \"0.0.0.0\" :port 9001))"))
+
+(defun insert-weasel-and-fighweel-client-code ()
+  (insert)
+  "(enable-console-print!)
+   (fw/watch-and-reload
+ :jsload-callback (fn [] (print \"reloaded\")))
+
+(if-not (ws-repl/alive?)
+        (ws-repl/connect \"ws://localhost:9001\"
+                         :verbose true))")
 
 (defun eval-and-insert ()
   "Evals the expression at point and inserts the result on the line
