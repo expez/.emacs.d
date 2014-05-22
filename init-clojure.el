@@ -68,9 +68,10 @@
       cider-repl-popup-stacktraces nil
       cider-popup-stacktraces nil
       cider-popup-on-error nil
+      cider-repl-popup-stacktraces t
+      cider-interactive-eval-result-prefix ";; => "
       cider-repl-history-file "~/.emacs.d/nrepl-history")
 
-(put-clojure-indent 'match 1)
 (put 'macrolet 'clojure-backtracking-indent '((2) 2))
 
 (define-clojure-indent
@@ -79,6 +80,7 @@
   (go-loop 1)
   (run* 1)
   (fresh 1)
+  (match 1)
   (defroutes 'defun)
   (GET 2)
   (POST 2)
