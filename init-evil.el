@@ -1,5 +1,4 @@
 (require-package 'undo-tree)
-
 (require-package 'surround)
 (require 'surround)
 (require-package 'evil-visualstar)
@@ -9,7 +8,7 @@
 (require-package 'ace-jump-mode)
 (require 'ace-jump-mode)
 (require-package 'goto-chg)
-
+(require 'evil-numbers)
 (setq evil-symbol-word-search t)
 (evil-mode 1)
 
