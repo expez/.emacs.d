@@ -20,8 +20,7 @@
   (save-buffer))
 
 (defun my-cider-mode-hook ()
-  (cider-turn-on-eldoc-mode)
-  (ac-nrepl-setup))
+  (cider-turn-on-eldoc-mode))
 (add-hook 'cider-mode-hook 'my-cider-mode-hook)
 
 (defun my-cider-repl-mode-hook ()
