@@ -3,7 +3,8 @@
 
 (setq company-idle-delay t
       company-tooltip-limit 10
-      company-minimum-prefix-length 2)
+      company-minimum-prefix-length 2
+      company-require-match nil)
 
 (fill-keymap company-active-map
              "C-h" 'company-show-doc-buffer
