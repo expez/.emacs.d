@@ -67,7 +67,7 @@
 
 (mapcar 'set-mode-to-default-emacs
         '(dired
-          cider-stacktrace-mo
+          cider-stacktrace-mode
           deft-mode
           occur-mode
           term-mode
