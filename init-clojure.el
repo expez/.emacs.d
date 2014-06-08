@@ -73,21 +73,22 @@
 
 (put 'macrolet 'clojure-backtracking-indent '((2) 2))
 
-(define-clojure-indent
-  (apply 1)
-  (are 'defun)
-  (go-loop 1)
-  (run* 1)
-  (fresh 1)
-  (match 1)
-  (defroutes 'defun)
-  (GET 2)
-  (POST 2)
-  (PUT 2)
-  (DELETE 2)
-  (HEAD 2)
-  (ANY 2)
-  (context 2))
+(add-hook 'clojure-mode-hook
+          (define-clojure-indent
+            (apply 1)
+            (are 'defun)
+            (go-loop 1)
+            (run* 1)
+            (fresh 1)
+            (match 1)
+            (defroutes 'defun)
+            (GET 2)
+            (POST 2)
+            (PUT 2)
+            (DELETE 2)
+            (HEAD 2)
+            (ANY 2)
+            (context 2)))
 
 (defun austin-connnect ()
   (interactive)
