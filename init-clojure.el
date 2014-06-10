@@ -47,7 +47,7 @@
   (fill-keymap cider-mode-map
                "C-c c-e" 'cider-eval-defun-at-point
                "C-c C-m" nil
-               "C-c C-h" 'clojure-cheatsheet
+               "C-c h" 'clojure-cheatsheet
                "C-c m" 'cider-macroexpand-1)
   (cljr-add-keybindings-with-prefix "C-c C-m")
   (clojure-test-mode 1)
@@ -64,9 +64,10 @@
 (add-hook 'clojure-mode-hook #'my-clojure-mode-hook)
 
 (setq nrepl-hide-special-buffers t
+      nrepl-auto-select-error-buffer t
       cider-repl-popup-stacktraces nil
       cider-popup-stacktraces nil
-      cider-popup-on-error nil
+      cider-popup-on-error t
       cider-repl-popup-stacktraces t
       cider-interactive-eval-result-prefix ";; => "
       cider-repl-history-file "~/.emacs.d/nrepl-history")
@@ -128,29 +129,5 @@
    "(require '[clojure.tools.namespace.repl :refer [refresh]])
     (refresh)"
    (cider-current-ns)))
-
-;; custom test locations instead of foo_test.c use test/foo.c
-(defun my-clojure-test-for (namespace)
-  (let* ((namespace (clojure-underscores-for-hyphens namespace))
-         (segments (split-string namespace "\\."))
-         (before (subseq segments 0 1))
-         (after (subseq segments 1))
-         (test-segments (append before (list "test") after)))
-    (format "%stest/%s.clj"
-            (locate-dominating-file buffer-file-name "src/")
-            (mapconcat 'identity test-segments "/"))))
-
-(defun my-clojure-test-implementation-for (namespace)
-  (let* ((namespace (clojure-underscores-for-hyphens namespace))
-         (segments (split-string namespace "\\."))
-         (before (subseq segments 0 1))
-         (after (subseq segments 2))
-         (impl-segments (append before after)))
-    (format "%s/src/%s.clj"
-            (locate-dominating-file buffer-file-name "src/")
-            (mapconcat 'identity impl-segments "/"))))
-
-(setq clojure-test-for-fn 'my-clojure-test-for
-      clojure-test-implementation-for-fn 'my-clojure-test-implementation-for)
 
 (provide 'init-clojure)
