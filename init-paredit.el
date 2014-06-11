@@ -8,7 +8,7 @@
 (eval-after-load "evil"
   '(evil-define-key 'normal paredit-mode-map
      (kbd "C-t") 'transpose-sexps
-     "A" 'evil-paredit-append-line
+     "o" 'evil-paredit-open-below
      "(" 'paredit-wrap-round
      ")" 'paredit-close-round-and-newline))
 
@@ -191,29 +191,6 @@ Save in REGISTER or in the kill-ring with YANK-HANDLER."
     (evil-yank-lines beg end register yank-handler))
    (t
     (evil-yank-characters beg end register yank-handler))))
-
-(defun evil-paredit-append-line (count &optional vcount)
-  "Switch to Insert state at the end of the current line.
-The insertion will be repeated COUNT times.  If VCOUNT is non nil
-it should be number > 0. The insertion will be repeated in the
-next VCOUNT - 1 lines below the current one.
-
-This version moves to the EOL or to the paren matching the depth
-at line start."
-  (interactive "p")
-  (let ((depth-beg (save-excursion (move-beginning-of-line nil) (depth-at-point))))
-    (evil-move-end-of-line)
-    (unless (eq depth-beg (depth-at-point))
-      (ignore-errors (paredit-backward-down (- depth-beg (depth-at-point))))))
-  (setq evil-insert-count count
-        evil-insert-lines nil
-        evil-insert-vcount
-        (and vcount
-             (> vcount 1)
-             (list (line-number-at-pos)
-                   #'end-of-line
-                   vcount)))
-  (evil-insert-state 1))
 
 (defun evil-paredit-open-below (count)
   "Insert a new line below point and switch to Insert state.
