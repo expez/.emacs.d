@@ -7,9 +7,12 @@
 
 (eval-after-load "evil"
   '(evil-define-key 'normal paredit-mode-map
-     (kbd "C-t") 'transpose-sexps
-     "(" 'paredit-wrap-round
-     ")" 'paredit-close-round-and-newline))
+     "C-t" 'transpose-sexps
+     "(" 'backward-barf-sexp
+     ")" 'forward-barf-sexp
+     "9" 'paredit-wrap-round
+     "[" 'paredit-wrap-square
+     "{" 'paredit-wrap-curly))
 
 (fill-keymap paredit-mode-map
              "M-;" 'paredit-comment-dwim
@@ -25,10 +28,8 @@
              "M-l" 'paredit-forward
              "M-h" 'paredit-backward
              "M-k" 'paredit-kill
-             "M-(" 'backward-barf-sexp
-             "M-)" 'forward-barf-sexp
-             "C-(" 'backward-slurp-sexp
-             "C-)" 'forward-slurp-sexp)
+             "M-(" 'backward-slurp-sexp
+             "M-)" 'forward-slurp-sexp)
 
 (defun my-paredit-mode-hook ()
   (make-local-variable 'surround-operator-alist)
