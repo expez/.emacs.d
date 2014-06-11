@@ -8,7 +8,6 @@
 (eval-after-load "evil"
   '(evil-define-key 'normal paredit-mode-map
      (kbd "C-t") 'transpose-sexps
-     "o" 'evil-paredit-open-below
      "(" 'paredit-wrap-round
      ")" 'paredit-close-round-and-newline))
 
@@ -191,26 +190,5 @@ Save in REGISTER or in the kill-ring with YANK-HANDLER."
     (evil-yank-lines beg end register yank-handler))
    (t
     (evil-yank-characters beg end register yank-handler))))
-
-(defun evil-paredit-open-below (count)
-  "Insert a new line below point and switch to Insert state.
-The insertion will be repeated COUNT times.
-
-This version helps you in situations where the line ends with )))
-and you want to add another line at the current depth."
-  (interactive "p")
-  (let ((depth (depth-at-point))
-        (depth-at-eol (progn (move-end-of-line nil) (depth-at-point))))
-    (if (eq depth depth-at-eol)
-        (evil-open-below count)
-      (paredit-backward-down (- depth depth-at-eol))
-      (newline-and-indent)))
-  (setq evil-insert-count count
-        evil-insert-lines t
-        evil-insert-vcount nil)
-  (evil-insert-state 1)
-  (add-hook 'post-command-hook #'evil-maybe-remove-spaces)
-  (when evil-auto-indent
-    (indent-according-to-mode)))
 
 (provide 'init-paredit)
