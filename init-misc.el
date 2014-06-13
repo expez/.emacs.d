@@ -30,6 +30,7 @@
 (require 'project-explorer)
 
 (popwin-mode 1)
+(eldoc-in-minibuffer-mode 1)
 (ido-vertical-mode)
 (key-chord-mode 1)
 
