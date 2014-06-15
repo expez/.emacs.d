@@ -2,7 +2,7 @@
 (require 'company)
 (require 'pos-tip)
 
-(defun company-quick-help--frontend (command)
+(defun company-quickhelp-frontend (command)
   "`company-mode' front-end showing documentation in a
   `pos-tip' popup."
   (pcase command
@@ -10,35 +10,41 @@
     (`hide (pos-tip-hide))))
 
 (defun company-quickhelp-show ()
-  (with-no-warnings
-    (pos-tip-show (company-fetch-metadata)
-                  nil
-                  nil
-                  nil
-                  300
-                  80
-                  nil (+ 200
-                         (overlay-get company-pseudo-tooltip-overlay 'company-width))
-                  nil)))
-
-(defadvice company-cancel (after remove-quickhelp-timer activate)
+  (let ((selected (nth company-selection company-candidates)))
+    (with-no-warnings
+      (pos-tip-show (company-call-backend 'doc selected)
+                    nil
+                    nil
+                    nil
+                    300
+                    80
+                    nil
+                    (* (frame-char-width)
+                       (overlay-get company-pseudo-tooltip-overlay
+                                    'company-width))
+                    nil)))
   (company-quickhelp-cancel-timer))
 
 (defvar company-quickhelp-timer nil
-  "Quick help idle timer.")
+  "Quickhelp idle timer.")
 
 (defvar company-quickhelp-delay 0.5
   "Delay, in seconds, before the quickhelp popup appears.")
 
+(defadvice company-cancel (after remove-quickhelp-timer activate)
+ (company-quickhelp-cancel-timer))
+
 (defun company-quickhelp-set-timer ()
   (when (null company-quickhelp-timer)
-    (setq company-quickhelp-timer (run-with-idle-timer company-quickhelp-delay nil 'company-quickhelp-show))))
+    (setq company-quickhelp-timer
+          (run-with-idle-timer company-quickhelp-delay nil
+                               'company-quickhelp-show))))
 
 (defun company-quickhelp-cancel-timer ()
-  (when (timerp company-quick-help-timer)
-    (cancel-timer company-quick-help-timer)
-    (setq company-quick-help-timer nil)))
+  (when (timerp company-quickhelp-timer)
+    (cancel-timer company-quickhelp-timer)
+    (setq company-quickhelp-timer nil)))
 
-(setq company-frontends (cons 'company-quick-help-frontend company-frontends))
+(setq company-frontends (cons 'company-quickhelp-frontend company-frontends))
 
 (provide 'company-quickhelp)

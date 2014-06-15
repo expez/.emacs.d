@@ -644,23 +644,6 @@ Example:
                                                (if w32-frame 3 0))
                                          ry (+ ry pixel-height)
                                          mframe)))
-    (message "String: %s
-mframe: %s
-parms: %s
-timeout: %s
-dx: %s
-dy: %s" string mframe
-             `((border-width . ,pos-tip-border-width)
-               (internal-border-width . ,pos-tip-internal-border-width)
-               ,@(and (not use-dxdy) `((left . ,ax)
-                                       (top . ,ay)))
-               (font . ,(frame-parameter frame 'font))
-               ,@(and spacing `((line-spacing . ,spacing)))
-               ,@(and (stringp fg) `((foreground-color . ,fg)))
-               ,@(and (stringp bg) `((background-color . ,bg))))
-             (and timeout (> timeout 0) timeout)
-             (and use-dxdy (- rx (cadr mpos)))
-             (and use-dxdy (- ry (cddr mpos))))
     (x-show-tip string mframe
                 `((border-width . ,pos-tip-border-width)
                   (internal-border-width . ,pos-tip-internal-border-width)
