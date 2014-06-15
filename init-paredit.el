@@ -7,7 +7,7 @@
 
 (eval-after-load "evil"
   '(evil-define-key 'normal paredit-mode-map
-     "C-t" 'transpose-sexps
+     (kbd "C-t") 'transpose-sexps
      "(" 'backward-barf-sexp
      ")" 'forward-barf-sexp
      "9" 'paredit-wrap-round
