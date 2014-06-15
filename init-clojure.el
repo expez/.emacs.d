@@ -10,6 +10,7 @@
 (require-package 'cider-tracing)
 (require-package 'refheap)
 (require 'cider-eldoc)
+(require 'clojure-mode)
 
 (add-to-list 'auto-mode-alist '("\\.edn\\'" . clojure-mode))
 
@@ -48,7 +49,8 @@
                "C-c c-e" 'cider-eval-defun-at-point
                "C-c C-m" nil
                "C-c h" 'clojure-cheatsheet
-               "C-c m" 'cider-macroexpand-1)
+               "C-c m" 'cider-macroexpand-1
+               "C-c M" 'cider-macroexpand-all)
   (cljr-add-keybindings-with-prefix "C-c C-m")
   (clojure-test-mode 1)
   (paredit-mode 1)
@@ -74,22 +76,21 @@
 
 (put 'macrolet 'clojure-backtracking-indent '((2) 2))
 
-(add-hook 'clojure-mode-hook
-          (define-clojure-indent
-            (apply 1)
-            (are 'defun)
-            (go-loop 1)
-            (run* 1)
-            (fresh 1)
-            (match 1)
-            (defroutes 'defun)
-            (GET 2)
-            (POST 2)
-            (PUT 2)
-            (DELETE 2)
-            (HEAD 2)
-            (ANY 2)
-            (context 2)))
+(define-clojure-indent
+  (apply 1)
+  (are 'defun)
+  (go-loop 1)
+  (run* 1)
+  (fresh 1)
+  (match 1)
+  (defroutes 'defun)
+  (GET 2)
+  (POST 2)
+  (PUT 2)
+  (DELETE 2)
+  (HEAD 2)
+  (ANY 2)
+  (context 2))
 
 (defun austin-connnect ()
   (interactive)
