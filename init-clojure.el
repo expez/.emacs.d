@@ -3,7 +3,6 @@
 (require-package 'align-cljlet)
 (require-package 'slamhound)
 (require-package 'clojure-mode)
-(require-package 'clojure-test-mode)
 (require-package 'cider)
 (require-package 'clj-refactor)
 (require-package 'clojure-cheatsheet)
@@ -52,7 +51,6 @@
                "C-c m" 'cider-macroexpand-1
                "C-c M" 'cider-macroexpand-all)
   (cljr-add-keybindings-with-prefix "C-c C-m")
-  (clojure-test-mode 1)
   (paredit-mode 1)
   (evil-paredit-mode 1)
   (local-set-key (kbd "RET") 'newline-and-indent)
