@@ -1,6 +1,6 @@
 (require-package 'undo-tree)
-(require-package 'surround)
-(require 'surround)
+(require-package 'evil-surround)
+(require 'evil-surround)
 (require-package 'evil-visualstar)
 (require-package 'evil-paredit)
 (require-package 'evil-numbers)
@@ -12,7 +12,7 @@
 (setq evil-symbol-word-search t)
 (evil-mode 1)
 
-(global-surround-mode 1)
+(global-evil-surround-mode 1)
 
 (setq-default surround-pairs-alist
               '((?\( . ("(" . ")"))
