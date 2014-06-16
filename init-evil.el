@@ -14,7 +14,7 @@
 
 (global-evil-surround-mode 1)
 
-(setq-default surround-pairs-alist
+(setq-default evil-surround-pairs-alist
               '((?\( . ("(" . ")"))
                 (?\[ . ("[" . "]"))
                 (?\{ . ("{" . "}"))
@@ -27,9 +27,9 @@
                 (?b . ("(" . ")"))
                 (?B . ("{" . "}"))
                 (?> . ("<" . ">"))
-                (?t . surround-read-tag)
-                (?< . surround-read-tag)
-                (?f . surround-function)))
+                (?t . evil-surround-read-tag)
+                (?< . evil-surround-read-tag)
+                (?f . evil-surround-function)))
 
 (setq evil-insert-state-cursor '("red" hbar)
       evil-normal-state-cursor '("white" box)
@@ -104,7 +104,7 @@
   (interactive)
   (if (not (comint-after-pmark-p))
       (progn (comint-goto-process-mark)
-       (evil-append-line nil))
+             (evil-append-line nil))
     (evil-insert 1)))
 
 (evil-define-key 'normal comint-mode-map "i" 'comint-goto-end-and-insert)
