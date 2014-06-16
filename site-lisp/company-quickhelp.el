@@ -10,9 +10,13 @@
     (`hide (pos-tip-hide))))
 
 (defun company-quickhelp-show ()
-  (let ((selected (nth company-selection company-candidates)))
+  (let* ((selected (nth company-selection company-candidates))
+         (doc-buffer (or (company-call-backend 'doc-buffer selected)
+                         (error "No documentation available")))
+         (doc (with-current-buffer doc-buffer
+                (buffer-substring (point-min) (point-max)))))
     (with-no-warnings
-      (pos-tip-show (company-call-backend 'doc selected)
+      (pos-tip-show doc
                     nil
                     nil
                     nil
