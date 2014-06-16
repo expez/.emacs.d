@@ -2,10 +2,13 @@
   '(lambda ()
      (fill-keymap sql-mode-map "C-c C-a"
                   (lambda
-                    (sql-set-product "mysql")
+                    (sql-set-product "postgres")
                     (sql-set-sqli-buffer)))))
 
-(add-lambda 'sql-mode-hook
+(add-hook 'sql-mode-hook #'my-sql-mode-hook)
+
+(defun my-sql-mode-hook ()
+  (setq tab-width 4)
   (modify-syntax-entry ?- "w")
   (modify-syntax-entry ?_ "w"))
 
@@ -399,3 +402,5 @@
      ("write" "WRITE" nil 1)
      ("year" "YEAR" nil 1)
      ("zone" "ZONE" nil 1) ))
+
+(provide 'init-sql)
