@@ -177,7 +177,7 @@
                   (haskell-session-current-dir (haskell-session)))))))
 
 (defun hasktags ()
-  "regenerate TAGS file using hasktags in the project root (found by TAGS file)"
+  "Regenerate TAGS file using hasktags in the project root (found by TAGS file)"
   (if (eq major-mode 'haskell-mode)
       (start-process "*generate-hasktags*" "*generate-hasktags*" "generate-hasktags.sh")))
 
