@@ -9,7 +9,8 @@
 (require 'evil-paredit)
 (require-package 'rainbow-delimiters)
 (require-package 'flycheck)
-(require 'surround)
+(require-package 'evil-surround)
+(require 'evil-surround)
 
 (set-face-foreground 'paren-face "grey30")
 
@@ -38,7 +39,7 @@
   (checkdoc-minor-mode)
   (local-set-key (kbd "RET") 'newline-and-indent)
   (ac-emacs-lisp-mode-setup)
-  (push '(?` . ("`" . "'")) surround-pairs-alist)
+  (push '(?` . ("`" . "'")) evil-surround-pairs-alist)
   (define-key evil-normal-state-local-map (kbd "M-.")
     'elisp-slime-nav-find-elisp-thing-at-point))
 

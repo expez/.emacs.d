@@ -32,10 +32,10 @@
              "M-)" 'forward-slurp-sexp)
 
 (defun my-paredit-mode-hook ()
-  (make-local-variable 'surround-operator-alist)
-  (add-to-list 'surround-operator-alist
+  (make-local-variable 'evil-surround-operator-alist)
+  (add-to-list 'evil-surround-operator-alist
                '(evil-paredit-change . change))
-  (add-to-list 'surround-operator-alist
+  (add-to-list 'evil-surround-operator-alist
                '(evil-paredit-delete . delete)))
 (add-hook 'paredit-mode-hook #'my-paredit-mode-hook)
 
