@@ -131,4 +131,13 @@
     (refresh)"
    (cider-current-ns)))
 
+(defun cider-repl-reset ()
+  "The reset to go along with Component."
+  (interactive)
+  (save-some-buffers)
+  (with-current-buffer (cider-current-repl-buffer)
+    (goto-char (point-max))
+    (insert "(user/reset)")
+    (cider-repl-return)))
+
 (provide 'init-clojure)
