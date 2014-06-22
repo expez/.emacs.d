@@ -30,6 +30,8 @@
   (paredit-mode 1)
   (fill-keymaps '(evil-insert-state-local-map evil-normal-state-local-map)
                 (kbd "C-a") 'cider-repl-bol
+                "M-." 'cider-jump
+                "M-," 'cider-jump-back
                 (kbd "M-p") 'cider-repl-previous-input
                 (kbd "M-n") 'cider-repl-next-input)
   (whitespace-mode 0)
@@ -56,9 +58,9 @@
   (local-set-key (kbd "RET") 'newline-and-indent)
   (fill-keymap evil-normal-state-local-map
                "M-." 'cider-jump
+               "M-," 'cider-jump-back
                "C->" 'cljr-thread
                "C-<" 'cljr-unwind
-               "M-," 'cider-jump-back
                "C-c e" 'eval-and-insert))
 
 (add-hook 'clojure-mode-hook #'my-clojure-mode-hook)
