@@ -151,7 +151,8 @@
 Save in REGISTER or in the kill-ring with YANK-HANDLER."
   (interactive "<R><x><y>")
   ;; dwim, don't just fail, delete as much as possible
-  (when (eq type 'line)
+  (when (or (eq type 'line)
+            (eq tupe 'block))
     (save-excursion
       (let ((depth-beg (progn (goto-char beg) (depth-at-point)))
             (depth-end (progn (goto-char end) (depth-at-point))))
