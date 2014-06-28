@@ -3,8 +3,9 @@
 (require 'company-dabbrev-code)
 
 (setq company-idle-delay 0.2
+      company-show-numbers t
       company-tooltip-limit 10
-      company-minimum-prefix-length 2
+      company-minimum-prefix-length 0
       company-selection-wrap-around t
       company-selection-changed t
       company-require-match nil)
