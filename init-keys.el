@@ -103,10 +103,9 @@
              "C-y" 'yank
              "C-v" 'quoted-insert
              "M-y" 'yank-pop
-             "C-Ã¥" 'evil-force-normal-state
+             "C-å" 'evil-force-normal-state
              "C-d" 'delete-char
-             "C-e" 'end-of-line
-             "C-h" 'backward-delete-char)
+             "C-e" 'end-of-line)
 
 (fill-keymap evil-visual-state-map
              "'" 'evil-use-register
