@@ -27,4 +27,8 @@
   (fill-keymap evil-insert-state-map
                "C-n" 'company-complete-dabbrev))
 
+(defadvice evil-normal-state (after cancel-company activate)
+  (when company-candidates
+      (company-abort)))
+
 (define-key global-map (kbd "C-l") 'company-complete)
