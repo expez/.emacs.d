@@ -69,18 +69,30 @@
   "W" 'ethan-wspace-clean-all-modes
   "w" 'toggle-whitespace-mode)
 
+(defun evil-execute-last-kbd-macro (count)
+  "Calls the most recently defined kbd macro COUNT times"
+  (interactive
+   (let (count)
+     (setq count (if current-prefix-arg
+                     (if (numberp current-prefix-arg)
+                         current-prefix-arg
+                       0) 1))
+
+     (list count)))
+  (evil-execute-macro count last-kbd-macro))
+
 (fill-keymap evil-normal-state-map
              "'" 'evil-use-register
              "\"" 'evil-goto-mark-line
              "Y"     (kbd "y$")
-             "Q" (lambda () (interactive) (evil-execute-macro 1 last-kbd-macro))
+             "Q" 'evil-execute-last-kbd-macro
              "U" 'universal-argument
              "<kp-add>" 'evil-numbers/inc-at-pt
              "<kp-subtract>" 'evil-numbers/dec-at-pt
              "C-SPC" 'evil-ace-jump-char-mode
              "SPC" 'evil-ace-jump-word-mode
              "S-SPC" 'evil-ace-jump-line-mode
-             ":"     'evil-repeat-find-char-reverse
+             ":" 'evil-repeat-find-char-reverse
              "C-e" 'move-end-of-line
              "C-a" 'smart-line-beginning
              "gc" 'goto-char
