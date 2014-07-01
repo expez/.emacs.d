@@ -115,7 +115,7 @@
              "C-y" 'yank
              "C-v" 'quoted-insert
              "M-y" 'yank-pop
-             "C-å" 'evil-force-normal-state
+             "C-Ã¥" 'evil-force-normal-state
              "C-d" 'delete-char
              "C-e" 'end-of-line)
 
@@ -156,6 +156,7 @@
   [remap evil-previous-line] 'evil-previous-visual-line)
 
 (fill-keymap 'global
+             "C-h h" nil
              "C-x v p" 'git-messenger:popup-message
              "C-x m" 'ido-hacks-execute-extended-command
              "C-x C-m" 'ido-hacks-execute-extended-command
