@@ -685,4 +685,9 @@ Then saves the buffer."
   (interactive)
   (set-buffer-file-coding-system 'iso-latin-1-mac t))
 
+(defun buffer-to-utf8 ()
+  (interactive)
+  (set-buffer-file-coding-system 'utf-8 t)
+  (save-buffer))
+
 (provide 'init-util)

@@ -53,6 +53,7 @@
   "c" 'ethan-wspace-clean-all
   "d" 'diff-current-buffer-with-file
   "D" 'delete-current-file
+  "e" 'buffer-to-utf8
   "f" 'helm-find-files
   "g" 'gist-region-or-buffer
   "l" 'gist-list
