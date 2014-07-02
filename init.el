@@ -215,9 +215,16 @@
 (prefer-coding-system 'utf-8)
 (setq make-backup-files nil)
 
-(defadvice find-file (before make-directory-maybe (filename &optional wildcards) activate)
+(defadvice find-file (before make-directory-maybe (filename &optional wildcards)
+                             activate)
   "Create parent directory if not exists while visiting file."
   (unless (file-exists-p filename)
     (let ((dir (file-name-directory filename)))
       (unless (file-exists-p dir)
         (make-directory dir)))))
+
+(setq view-read-only t)
+
+(add-lambda 'view-mode-hook
+  (after-load 'evil
+    (define-key evil-normal-state-local-map "q" 'View-quit)))
