@@ -186,7 +186,11 @@
              "C-x C-t" 'anchored-transpose
              "M-<backspace>" 'delete-indentation
              "<C-kp-subtract>" 'text-scale-decrease
-             "<C-kp-add>" 'text-scale-increase)
+             "<C-kp-add>" 'text-scale-increase
+             "C-w M-l" 'buf-move-right
+             "C-w M-h" 'buf-move-left
+             "C-w M-k" 'buf-move-up
+             "C-w M-j" 'buf-move-down)
 
 (evil-add-hjkl-bindings diff-mode-map 'emacs
   "K" 'diff-hunk-kill
