@@ -13,7 +13,7 @@
 (add-hook 'sql-mode-hook #'my-sql-mode-hook)
 
 (defun my-sql-mode-hook ()
-  (sqlup-mode 1)
+  (sql-set-product "postgres")
   (setq tab-width 4))
 
 (defvar sql-last-prompt-pos 1
