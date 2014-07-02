@@ -1,4 +1,3 @@
-;; (require-package 'company)
 ;; (require-package 'company-jedi)
 ;; (require-package 'company-inf-python)
 (require-package 'virtualenvwrapper)
@@ -9,7 +8,8 @@
 (setq venv-location "~/.virtualenvs")
 (setq python-shell-virtualenv-path "~/.virtualenvs/ml")
 
-(setq ein:use-auto-complete-superpack t)
+(setq ein:use-auto-complete-superpack t
+      ein:console-executable "/opt/anaconda/bin/ipython")
 
 (defun my-ein-notebook-mode-hook ()
   (auto-complete-mode 1)
@@ -17,13 +17,12 @@
   (whitespace-mode 0)
   (setq-local electric-pair-mode nil)
   (autopair-mode)
-  (message "ein:notebook hook"))
+  (define-key evil-insert-state-local-map
+    (kbd "RET") 'newline-and-indent)
+  (define-key ein:notebook-mode-map (kbd "C-c C-d")
+    'ein:pytools-request-tooltip-or-help)
+  (setq autopair-extra-pairs '(:code ((?' . ?')))))
 (add-hook 'ein:notebook-mode-hook #'my-ein-notebook-mode-hook)
-
-;; (fill-keymap company-active-map
-;;              "C-l" 'company-complete-common
-;;              "C-j" 'company-select-next
-;;              "C-k" 'company-select-previous)
 
 ;; (autoload 'pymacs-apply "pymacs")
 ;; (autoload 'pymacs-call "pymacs")
