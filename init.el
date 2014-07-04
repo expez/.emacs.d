@@ -1,5 +1,7 @@
 (push user-emacs-directory load-path)
 
+(require 'init-locale)
+
 ;; Add everything in and below site-lisp to load-path.
 (let ((default-directory "~/.emacs.d/site-lisp/"))
   (setq load-path
