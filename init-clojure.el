@@ -57,6 +57,7 @@
   (evil-paredit-mode 1)
   (local-set-key (kbd "RET") 'newline-and-indent)
   (fill-keymap evil-normal-state-local-map
+               "M-q" '(lambda () (interactive) (clojure-fill-paragraph))
                "M-." 'cider-jump
                "M-," 'cider-jump-back
                "C->" 'cljr-thread
