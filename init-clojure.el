@@ -62,6 +62,7 @@
                "M-," 'cider-jump-back
                "C->" 'cljr-thread
                "C-<" 'cljr-unwind
+               "C-c s" 'toggle-spy
                "C-c e" 'eval-and-insert))
 
 (add-hook 'clojure-mode-hook #'my-clojure-mode-hook)
@@ -140,5 +141,18 @@
     (goto-char (point-max))
     (insert "(user/reset)")
     (cider-repl-return)))
+
+(defun toggle-spy (prefix)
+  (interactive "P")
+  (save-excursion
+    (if prefix
+        (unspy)
+      (insert "#spy/d "))))
+
+(defun unspy ()
+  (save-excursion
+    (let ((start (progn (cljr--goto-toplevel) (point)))
+          (end (progn (paredit-forward) (point))))
+      (replace-regexp "#spy/d " "" nil start end))))
 
 (provide 'init-clojure)
