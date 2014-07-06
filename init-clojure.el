@@ -63,6 +63,7 @@
                "C->" 'cljr-thread
                "C-<" 'cljr-unwind
                "C-c s" 'toggle-spy
+               "C-c r" 'cider-repl-reset
                "C-c e" 'eval-and-insert))
 
 (add-hook 'clojure-mode-hook #'my-clojure-mode-hook)
