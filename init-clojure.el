@@ -16,6 +16,12 @@
 (defadvice cider-load-current-buffer (before save-first activate)
   (save-buffer))
 
+(after-load 'clj-refactor
+  (setq cljr-magic-require-namespaces
+        (-concat cljr-magic-require-namespaces
+                 '(("component" . "com.stuartsirra.component")
+                   ("s" . "schema.core")))))
+
 (defun my-cider-mode-hook ()
   (cider-turn-on-eldoc-mode))
 (add-hook 'cider-mode-hook 'my-cider-mode-hook)
