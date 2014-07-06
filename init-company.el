@@ -5,7 +5,7 @@
 (setq company-idle-delay 0.2
       company-show-numbers t
       company-tooltip-limit 10
-      company-minimum-prefix-length 0
+      company-minimum-prefix-length 1
       company-selection-wrap-around t
       company-selection-changed t
       company-require-match nil)
