@@ -13,9 +13,6 @@
 
 (add-to-list 'auto-mode-alist '("\\.edn\\'" . clojure-mode))
 
-(defadvice clojure-test-run-tests (before save-first activate)
-  (save-buffer))
-
 (defadvice cider-load-current-buffer (before save-first activate)
   (save-buffer))
 
