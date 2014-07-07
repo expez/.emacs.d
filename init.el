@@ -44,17 +44,45 @@
       scroll-conservatively 100000
       scroll-up-aggressively 0
       scroll-down-aggressively 0
-      scroll-preserve-screen-position t)
+      scroll-preserve-screen-position t
 
-(setq uniquify-buffer-name-style 'post-forward
+      uniquify-buffer-name-style 'post-forward
       uniquify-separator ":"
       uniquify-after-kill-buffer-p t
-      uniquify-ignore-buffers-re "^\\*")
+      uniquify-ignore-buffers-re "^\\*"
+
+      inhibit-startup-message t
+      inhibit-startup-echo-area-message t
+
+      echo-keystrokes 0.1
+      initial-scratch-message
+      ";; scratch buffer created -- happy hacking\n"
+      ido-enable-flex-matching t
+      ido-create-new-buffer 'always
+
+      show-paren-delay 0
+      show-paren-style 'parenthesis
+      reb-re-syntax 'string
+      delete-by-moving-to-trash t
+
+      auto-save-file-name-transforms '((".*" "~/.emacs.d/autosaves/\\1" t))
+      backup-directory-alist '((".*" . "~/.emacs.d/backups/"))
+      tramp-backup-directory-alist backup-directory-alist
+      browse-url-browser-function 'browse-url-generic
+      browse-url-generic-program "conkeror"
+      vc-make-backup-files t
+      backup-by-copying t
+      delete-old-versions t
+      kept-new-versions 6
+      kept-old-versions 2
+      version-control t
+      create-lockfiles nil)
+
+(menu-bar-mode -1)
+(tool-bar-mode -1)
+(scroll-bar-mode -1)
 
 (ido-mode 'both)
-(setq ido-enable-flex-matching t
-      ido-create-new-buffer 'always)
-
 (add-hook 'ido-setup-hook
           (lambda ()
             ;; Go straight home
@@ -66,29 +94,11 @@
                     (insert "~/")
                   (call-interactively 'self-insert-command))))))
 
-(setq reb-re-syntax 'string)
-
 (fset 'yes-or-no-p 'y-or-n-p)
 
-(setq delete-by-moving-to-trash t)
-
 (show-paren-mode 1)
-(setq show-paren-delay 0
-      show-paren-style 'parenthesis)
-
-(setq initial-scratch-message
-      ";; scratch buffer created -- happy hacking\n")
 
 (put 'set-goal-column 'disabled nil)
-
-(setq inhibit-startup-message t
-      inhibit-startup-echo-area-message t)
-
-(menu-bar-mode -1)
-(tool-bar-mode -1)
-(scroll-bar-mode -1)
-
-(setq echo-keystrokes 0.1)
 
 (when (eq system-type 'windows-nt)
   (set-frame-font
@@ -104,23 +114,9 @@
 
 (put 'downcase-region 'disabled nil)
 
-(setq auto-save-file-name-transforms '((".*" "~/.emacs.d/autosaves/\\1" t))
-      backup-directory-alist '((".*" . "~/.emacs.d/backups/"))
-      tramp-backup-directory-alist backup-directory-alist)
-
 (make-directory (concat user-emacs-directory "autosaves/") t)
 
-(setq vc-make-backup-files t
-      backup-by-copying t
-      delete-old-versions t
-      kept-new-versions 6
-      kept-old-versions 2
-      version-control t)
-
 (global-undo-tree-mode 1)
-
-(setq browse-url-browser-function 'browse-url-generic
-      browse-url-generic-program "conkeror")
 
 (auto-image-file-mode 1)
 
