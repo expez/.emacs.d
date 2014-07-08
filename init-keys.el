@@ -171,6 +171,7 @@
              "C-<tab>" 'hippie-expand
              "<f5>" 'eshell-toggle
              "<f2>" 'toggle-project-explorer
+             "<pause>" 'toggle-debug-on-error
              "C-x r q" 'save-buffers-kill-terminal
              "C-x v t" 'vc-create-tag
              "C-x a r" 'align-regexp
