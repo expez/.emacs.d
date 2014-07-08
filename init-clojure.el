@@ -19,7 +19,7 @@
 (after-load 'clj-refactor
   (setq cljr-magic-require-namespaces
         (-concat cljr-magic-require-namespaces
-                 '(("component" . "com.stuartsirra.component")
+                 '(("component" . "com.stuartsierra.component")
                    ("s" . "schema.core")))
         cljr--magic-requires-re
         (concat "(\\("
