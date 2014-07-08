@@ -20,7 +20,10 @@
   (setq cljr-magic-require-namespaces
         (-concat cljr-magic-require-namespaces
                  '(("component" . "com.stuartsirra.component")
-                   ("s" . "schema.core")))))
+                   ("s" . "schema.core")))
+        cljr--magic-requires-re
+        (concat "(\\("
+                (regexp-opt (-map 'car cljr-magic-require-namespaces)) "\\)/")))
 
 (defun my-cider-mode-hook ()
   (cider-turn-on-eldoc-mode))
