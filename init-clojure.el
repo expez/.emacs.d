@@ -20,7 +20,8 @@
   (setq cljr-magic-require-namespaces
         (-concat cljr-magic-require-namespaces
                  '(("component" . "com.stuartsierra.component")
-                   ("s" . "schema.core")))
+                   ("s" . "schema.core")
+                   ("log" . "taoensso.timbre")))
         cljr--magic-requires-re
         (concat "(\\("
                 (regexp-opt (-map 'car cljr-magic-require-namespaces)) "\\)/")))
