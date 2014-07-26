@@ -89,10 +89,10 @@
   :motion evil-end-of-line
   (interactive "<R><x><y>")
   (let* ((beg (point))
-         (end (evil-paredit-kill-end)))
+         (end (evil-paredit-kill-to)))
     (evil-paredit-change beg end type register yank-handler)))
 
-(defun evil-paredit-kill-end ()
+(defun evil-paredit-kill-to ()
   "Returns the position where paredit-kill would kill to"
   ;; (when (paredit-in-char-p)             ; Move past the \ and prefix.
   ;;   (backward-char 2))                  ; (# in Scheme/CL, ? in elisp)
@@ -101,7 +101,8 @@
                         (goto-char (point-at-eol))
                         (first (paredit-current-parse-state)))))
     (cond ((paredit-in-string-p)
-           (save-excursion (progn (paredit-forward-up) (backward-char) (point))))
+           (min (point-at-eol)
+                (cdr (paredit-string-start+end-points))))
           ((= depth-at-point depth-at-eol)
            (point-at-eol))
           ((paredit-in-comment-p)
@@ -117,7 +118,7 @@
   (interactive "<R><x>")
   ;; act linewise in Visual state
   (let* ((beg (point))
-         (end (evil-paredit-kill-end)))
+         (end (evil-paredit-kill-to)))
     (evil-paredit-delete beg end
                          type register yank-handler)))
 
@@ -127,7 +128,7 @@
   :move-point nil
   (interactive "<R><x>")
   (let* ((beg (point))
-         (end (evil-paredit-kill-end)))
+         (end (evil-paredit-kill-to)))
     (evil-paredit-yank beg end type register)))
 
 (defadvice evil-backward-paragraph (around wrap-with-prefix activate)
