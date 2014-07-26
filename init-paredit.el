@@ -99,7 +99,7 @@
   (let ((depth-at-point (first (paredit-current-parse-state)))
         (depth-at-eol (save-excursion
                         (goto-char (point-at-eol))
-                        (first (paredit-current-parse-state)))))
+                        (evil-paredit-depth-at-point))))
     (cond ((paredit-in-string-p)
            (min (point-at-eol)
                 (cdr (paredit-string-start+end-points))))
@@ -139,7 +139,7 @@
   (when current-prefix-arg
     (paredit-wrap-square)))
 
-(defun depth-at-point ()
+(defun evil-paredit-depth-at-point ()
   "Returns the depth in s-expressions, or strings, at point."
   (let ((depth (first (paredit-current-parse-state))))
     (if (paredit-in-string-p)
@@ -156,9 +156,9 @@ Save in REGISTER or in the kill-ring with YANK-HANDLER."
             (eq type 'block))
     (save-excursion
       (let ((depth-beg (progn (goto-char beg) (if (looking-at "(")
-                                                  (1- (depth-at-point))
-                                                  (depth-at-point))))
-            (depth-end (progn (goto-char end) (depth-at-point))))
+                                                  (1- (evil-paredit-depth-at-point))
+                                                  (evil-paredit-depth-at-point))))
+            (depth-end (progn (goto-char end) (evil-paredit-depth-at-point))))
         (unless (eq depth-beg depth-end)
           (move-end-of-line nil)
           (paredit-backward-down (- depth-beg depth-end))
