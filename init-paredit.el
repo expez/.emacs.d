@@ -155,9 +155,10 @@ Save in REGISTER or in the kill-ring with YANK-HANDLER."
   (when (or (eq type 'line)
             (eq type 'block))
     (save-excursion
-      (let ((depth-beg (progn (goto-char beg) (if (looking-at "(")
-                                                  (1- (evil-paredit-depth-at-point))
-                                                  (evil-paredit-depth-at-point))))
+      (let ((depth-beg (progn (goto-char beg)
+                              (if (looking-at "(")
+                                  (max 0 (1- (evil-paredit-depth-at-point)))
+                                (evil-paredit-depth-at-point))))
             (depth-end (progn (goto-char end) (evil-paredit-depth-at-point))))
         (unless (eq depth-beg depth-end)
           (move-end-of-line nil)
