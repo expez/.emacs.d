@@ -16,7 +16,7 @@
 (require-package 'yaml-mode)
 (require-package 'crontab-mode)
 (require-package 'color-moccur)
-(require-package 'workgroups)
+(require-package 'workgroups2)
 (require-package 'flx-ido)
 (require-package 'window-numbering)
 (require-package 'ido-hacks)
@@ -26,7 +26,7 @@
 (require 'popwin)
 (require 'mmm-auto)
 (require 'ibuffer)
-(require 'workgroups)
+(require 'workgroups2)
 (require 'ido-hacks)
 (require 'project-explorer)
 (require 'buffer-move)
@@ -98,10 +98,10 @@
 
 (setq helm-ff-default-directory "~/git")
 
+(setq wg-use-default-session-file nil
+ wg-default-session-file (concat user-emacs-directory "workgroups"))
+(setq wg-prefix-key (kbd "C-x w"))
 (workgroups-mode 1)
-(setq wg-morph-on nil
-      wg-file (concat user-emacs-directory "workgroups"))
-(wg-load wg-file)
 
 (ido-hacks-mode)
 

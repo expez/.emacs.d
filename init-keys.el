@@ -39,15 +39,15 @@
   "7" 'select-window-7
   "8" 'select-window-8
   "9" 'select-window-9
-  "!" 'wg-switch-to-index-1
-  "@" 'wg-switch-to-index-2
-  "#" 'wg-switch-to-index-3
-  "$" 'wg-switch-to-index-4
-  "%" 'wg-switch-to-index-5
-  "^" 'wg-switch-to-index-6
-  "&" 'wg-switch-to-index-7
-  "*" 'wg-switch-to-index-8
-  "(" 'wg-switch-to-index-9)
+  "!" 'wg-switch-to-workgroup-at-index-0
+  "@" 'wg-switch-to-workgroup-at-index-1
+  "#" 'wg-switch-to-workgroup-at-index-2
+  "$" 'wg-switch-to-workgroup-at-index-3
+  "%" 'wg-switch-to-workgroup-at-index-4
+  "^" 'wg-switch-to-workgroup-at-index-5
+  "&" 'wg-switch-to-workgroup-at-index-6
+  "*" 'wg-switch-to-workgroup-at-index-7
+  "(" 'wg-switch-to-workgroup-at-index-8)
 
 (defkeymap misc-map
   "c" 'ethan-wspace-clean-all
@@ -118,7 +118,8 @@
              "M-y" 'yank-pop
              "C-å" 'evil-force-normal-state
              "C-d" 'delete-char
-             "C-e" 'end-of-line)
+             "C-e" 'end-of-line
+             "C-k" nil)
 
 (fill-keymap evil-visual-state-map
              "'" 'evil-use-register
