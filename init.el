@@ -57,6 +57,7 @@
       echo-keystrokes 0.1
       initial-scratch-message
       ";; scratch buffer created -- happy hacking\n"
+      initial-major-mode 'emacs-lisp-mode
       ido-enable-flex-matching t
       ido-create-new-buffer 'always
 
