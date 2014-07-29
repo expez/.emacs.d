@@ -66,7 +66,7 @@
                "C-c h" 'clojure-cheatsheet
                "C-c M-b" 'cider-browse-ns-all
                "C-c m" 'cider-macroexpand-1
-               "C-c M" 'cider-macroexpand-all)
+               "C-c M" 'cider-macroexpand)
   (cljr-add-keybindings-with-prefix "C-c C-m")
   (paredit-mode 1)
   (evil-paredit-mode 1)
