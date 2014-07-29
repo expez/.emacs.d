@@ -4,6 +4,7 @@
 (require-package 'slamhound)
 (require-package 'clojure-mode)
 (require-package 'cider)
+(require-package 'cider-browse-ns)
 (require-package 'clj-refactor)
 (require-package 'clojure-cheatsheet)
 (require-package 'cider-tracing)
@@ -29,6 +30,12 @@
 (defun my-cider-mode-hook ()
   (cider-turn-on-eldoc-mode))
 (add-hook 'cider-mode-hook 'my-cider-mode-hook)
+
+(defun my-cider-browse-ns-mode-hook ()
+  (message "hi")
+  (fill-keymap evil-normal-state-local-map (kbd "q")
+               'cider-popup-buffer-quit-function))
+(add-hook 'cider-browse-ns-mode-hook 'my-cider-browse-ns-mode-hook)
 
 (defun my-cider-repl-mode-hook ()
   (setq show-trailing-whitespace nil)
@@ -57,6 +64,7 @@
                "C-c c-e" 'cider-eval-defun-at-point
                "C-c C-m" nil
                "C-c h" 'clojure-cheatsheet
+               "C-c M-b" 'cider-browse-ns-all
                "C-c m" 'cider-macroexpand-1
                "C-c M" 'cider-macroexpand-all)
   (cljr-add-keybindings-with-prefix "C-c C-m")
