@@ -77,13 +77,6 @@
 
 (define-key js2-mode-map (kbd "TAB") 'js2-tab-properly)
 
-;; Use lambda for anonymous functions
-(font-lock-add-keywords
- 'js2-mode `(("\\(function\\) *("
-              (0 (progn (compose-region (match-beginning 1)
-                                        (match-end 1) "\u0192")
-                        nil)))))
-
 (defun my-aget (key map)
   (cdr (assoc key map)))
 
