@@ -98,7 +98,7 @@
 
 (setq helm-ff-default-directory "~/git")
 
-(setq wg-use-default-session-file nil
+(setq wg-use-default-session-file t
  wg-default-session-file (concat user-emacs-directory "workgroups"))
 (setq wg-prefix-key (kbd "C-x w"))
 (workgroups-mode 1)
