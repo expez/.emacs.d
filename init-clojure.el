@@ -53,6 +53,10 @@
   )
 (add-hook 'cider-repl-mode-hook #'my-cider-repl-mode-hook)
 
+(defun cider-clear-errors ()
+  (interactive)
+  (remove-overlays (point-min) (point-max) 'cider-note-p t))
+
 (defun my-clojure-mode-hook ()
   (rainbow-delimiters-mode 0)
   (auto-complete-mode 0)
@@ -66,7 +70,8 @@
                "C-c h" 'clojure-cheatsheet
                "C-c M-b" 'cider-browse-ns-all
                "C-c m" 'cider-macroexpand-1
-               "C-c M" 'cider-macroexpand)
+               "C-c c" 'cider-clear-errors
+               "C-c M" 'cider-macroexpand-all)
   (cljr-add-keybindings-with-prefix "C-c C-m")
   (paredit-mode 1)
   (evil-paredit-mode 1)
