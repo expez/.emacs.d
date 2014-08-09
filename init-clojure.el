@@ -65,7 +65,7 @@
   (clj-refactor-mode 1)
   (cider-mode 1)
   (fill-keymap cider-mode-map
-               "C-c c-e" 'cider-eval-defun-at-point
+               "C-c C-e" 'cider-eval-defun-at-point
                "C-c C-m" nil
                "C-c h" 'clojure-cheatsheet
                "C-c M-b" 'cider-browse-ns-all
