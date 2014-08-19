@@ -29,6 +29,11 @@
 (defun my-js2-exit-snippet-hook ()
   (indent-region yas-snippet-beg yas-snippet-end))
 
+(defun maybe-allow-tabs ()
+  (when (string= system-name "NOLD0042")
+    (allow-tabs)
+    (setq tab-width 4)))
+
 (defun my-js2-mode-hook ()
   (setq-local yas-after-exit-snippet-hook #'my-js2-exit-snippet-hook)
   (js2-imenu-extras-setup)
@@ -48,7 +53,8 @@
                (kbd "M-m") 'js-insert-block)
   (fill-keymap js2-mode-map
                "C-c C-a" 'jshint-annotate)
-  (local-set-key (kbd "<return>") 'newline-and-indent))
+  (local-set-key (kbd "<return>") 'newline-and-indent)
+  (maybe-allow-tabs))
 
 (add-hook 'js2-mode-hook
           #'my-js2-mode-hook)

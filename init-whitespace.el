@@ -17,6 +17,24 @@
 (global-ethan-wspace-mode 1)
 (setq ethan-wspace-face-customized t)
 
+(defun toggle-tabs ()
+  "Whether we should be cleaning tabs or not. "
+  (interactive)
+  (if (not (memq 'tabs whitespace-style))
+      (progn
+        (ethan-wspace-type-deactivate 'tabs)
+        (setq-local whitespace-style (remq 'tabs whitespace-style))
+        (message "Tabs are OK!"))
+    (ethan-wspace-type-activate 'tabs)
+    (setq-local whitespace-style (cons 'tabs whitespace-style))
+    (message "Tabs are not OK!"))
+  (whitespace-mode 0)
+  (whitespace-mode 1))
+
+(defun allow-tabs ()
+  (ethan-wspace-type-deactivate 'tabs)
+  (setq-local whitespace-style (remq 'tabs whitespace-style)))
+
 (defvar whitespace-show-all-mode nil)
 
 (defun* toggle-whitespace-mode ()
