@@ -1,6 +1,5 @@
 (require-package 'ethan-wspace)
-(setq whitespace-style '(face tabs trailing lines-tail empty
-                              space-before-tab tab-mark))
+(setq whitespace-style '(face tabs lines-tail))
 
 (setq whitespace-display-mappings
       '((space-mark 32 [183] [46])
@@ -13,9 +12,6 @@
 (eval-after-load "ethan-wspace"
   '(progn
      (define-minor-mode ethan-wspace-highlight-tabs-mode
-       :init-value nil :lighter nil :keymap nil)
-
-     (define-minor-mode ethan-wspace-highlight-eol-mode
        :init-value nil :lighter nil :keymap nil)))
 
 (global-ethan-wspace-mode 1)

@@ -22,7 +22,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(ein:cell-input-area ((t (:background "#073642"))) t)
- '(ethan-wspace-face ((t (:foreground "deep sky blue" :inverse-video t :underline nil :slant normal :weight normal))))
+ '(ethan-wspace-face ((t (:foreground "#882C02" :inverse-video t :weight bold))))
  '(web-mode-builtin-face ((t (:inherit font-lock-builtin-face :foreground "font-lock-builtin-face"))))
  '(wg-divider-face ((t nil)))
  '(wg-filename-face ((t (:foreground "light sky blue"))))
