@@ -54,12 +54,6 @@ With a prefix argument whitespac-mode is turned off."
     (whitespace-mode 1)
     (message "Highlighting all whitespace")))
 
-(defun ethan-wspace-clean-all ()
-  "Clean all whitespace errors immediately."
-  (interactive)
-  (dolist (type ethan-wspace-errors)
-    (ethan-wspace-type-clean type)))
-
 (defun change-whitespace-line-column (c)
   (interactive "nHighlight beyond column: ")
   (make-local-variable 'whitespace-line-column)
