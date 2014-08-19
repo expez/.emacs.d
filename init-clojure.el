@@ -32,7 +32,6 @@
 (add-hook 'cider-mode-hook 'my-cider-mode-hook)
 
 (defun my-cider-browse-ns-mode-hook ()
-  (message "hi")
   (fill-keymap evil-normal-state-local-map (kbd "q")
                'cider-popup-buffer-quit-function))
 (add-hook 'cider-browse-ns-mode-hook 'my-cider-browse-ns-mode-hook)
