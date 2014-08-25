@@ -79,8 +79,7 @@
                "C->" 'cljr-thread
                "C-<" 'cljr-unwind
                "C-c s" 'toggle-spy
-               "C-c r" 'cider-repl-reset
-               "C-c e" 'eval-and-insert))
+               "C-c r" 'cider-repl-reset))
 
 (add-hook 'clojure-mode-hook #'my-clojure-mode-hook)
 
@@ -132,16 +131,6 @@
         (ws-repl/connect \"ws://localhost:9001\"
                          :verbose true))")
 
-(defun eval-and-insert ()
-  "Evals the expression at point and inserts the result on the line
-  below."
-  (interactive)
-  (let ((res (cider-eval-and-get-value (cider-defun-at-point) (cider-current-ns))))
-    (save-excursion
-      (open-line-below)
-      (forward-line)
-      (beginning-of-line)
-      (insert ";= " res))))
 
 (defun cider-namespace-refresh ()
   (interactive)
