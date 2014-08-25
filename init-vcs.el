@@ -8,7 +8,7 @@
 (require-package 'magit)
 
 (add-hook 'magit-mode-hook 'turn-on-magit-gh-pulls)
-(global-magit-wip-save-mode 1)
+(global-magit-wip-save-mode 0)
 
 (setq vc-follow-symlinks t)
 

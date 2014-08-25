@@ -47,7 +47,8 @@
       scroll-preserve-screen-position t
 
       uniquify-buffer-name-style 'post-forward
-      uniquify-separator ":"
+      uniquify-separator " • "
+      uniquify-strip-common-suffix t
       uniquify-after-kill-buffer-p t
       uniquify-ignore-buffers-re "^\\*"
 
