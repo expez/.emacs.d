@@ -119,24 +119,26 @@
   (interactive)
   "Connect the repl to weasel"
   (cider-eval-sync
-   "(require 'weasel.repl.websocket) (cemerick.piggieback/cljs-repl :repl-env (weasel.repl.websocket/repl-env :ip \"0.0.0.0\" :port 9001))"))
+   (s-join "\n" '("(require 'weasel.repl.websocket)"
+                  "(cemerick.piggieback/cljs-repl :repl-env"
+                  "(weasel.repl.websocket/repl-env"
+                  ":ip \"0.0.0.0\" :port 9001))"))))
 
 (defun insert-weasel-and-fighweel-client-code ()
-  (insert)
-  "(enable-console-print!)
-   (fw/watch-and-reload
- :jsload-callback (fn [] (print \"reloaded\")))
+  (insert
+   (s-join "\n"
+           '("(enable-console-print!)"
+             "(fw/watch-and-reload"
+             ":jsload-callback (fn [] (print \"reloaded\")))"
 
-(if-not (ws-repl/alive?)
-        (ws-repl/connect \"ws://localhost:9001\"
-                         :verbose true))")
-
+             "(if-not (ws-repl/alive?)"
+             "(ws-repl/connect \"ws://localhost:9001\""
+             ":verbose true))"))))
 
 (defun cider-namespace-refresh ()
   (interactive)
   (cider-eval-sync
-   "(require '[clojure.tools.namespace.repl :refer [refresh]])
-    (refresh)"
+   "(require '[clojure.tools.namespace.repl :refer [refresh]]) (refresh)"
    (cider-current-ns)))
 
 (defun cider-repl-reset ()
