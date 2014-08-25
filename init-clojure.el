@@ -148,12 +148,18 @@
     (insert "(user/reset)")
     (cider-repl-return)))
 
-(defun toggle-spy (prefix)
-  (interactive "P")
+(defun toggle-spy ()
+  (interactive)
   (save-excursion
-    (if prefix
+    (if (spy-p)
         (unspy)
       (insert "#spy/d "))))
+
+(defun spy-p ()
+  (save-excursion
+    (cljr--goto-toplevel)
+    (let ((end (save-excursion (progn (paredit-forward) (point)))))
+      (re-search-forward "#spy/d" end t))))
 
 (defun unspy ()
   (save-excursion
@@ -161,6 +167,7 @@
           (end (progn (paredit-forward) (point))))
       (replace-regexp "#spy/d " "" nil start end))))
 
+;;; modified to place s/def{,} into the imenu, when using Schemas
 (defun clojure-match-next-def ()
   "Scans the buffer backwards for the next top-level definition.
 Called by `imenu--generic-function'."
