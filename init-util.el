@@ -590,7 +590,8 @@ file of a buffer in an external program."
   "Returns the path to `program' or NIL.  Relies on which, so
 only works on *nix."
   (let* ((which (chomp (shell-command-to-string (concat "which " program))))
-         (executable (if (string-match "not found" which)
+         (executable (if (or (string-match "not found" which)
+                             (string-match "no \\w+ in" which))
                          nil
                        which)))
     executable))
