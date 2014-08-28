@@ -25,9 +25,7 @@
              (kbd "<tab>") nil
              "C-[" 'ac-exit-to-normal-state
              "C-l" 'ac-expand-common
-             "C-j" 'ac-next
              "C-s" 'ac-isearch
-             "C-k" 'ac-previous
              "C-g" 'ac-stop
              "ESC" 'ac-stop)
 

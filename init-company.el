@@ -13,11 +13,7 @@
 
 (add-to-list 'company-dabbrev-code-modes 'clojure-mode)
 
-(fill-keymap company-active-map
-             "C-h" 'company-show-doc-buffer
-             "C-j" 'company-select-next
-             "C-k" 'company-select-previous
-             "C-l" 'company-complete-common)
+(fill-keymap company-active-map "C-l" 'company-complete-common)
 
 (defun company-complete-dabbrev ()
   (interactive)
