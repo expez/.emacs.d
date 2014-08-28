@@ -3,6 +3,15 @@
 (require-package 'evil-paredit)
 (require 'evil-paredit)
 
+(add-hook 'minibuffer-setup-hook 'conditionally-enable-paredit-mode)
+
+(defun paredit-nonlisp ()
+  "Turn on paredit mode for non-lisps."
+  (interactive)
+  (set (make-local-variable 'paredit-space-for-delimiter-predicates)
+       '((lambda (endp delimiter) nil)))
+  (paredit-mode 1))
+
 (eval-after-load "evil"
   '(progn (evil-define-key 'normal paredit-mode-map
             (kbd "C-t") 'transpose-sexps
