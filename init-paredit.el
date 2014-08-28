@@ -3,6 +3,11 @@
 (require-package 'evil-paredit)
 (require 'evil-paredit)
 
+(eval-after-load "eldoc"
+  '(eldoc-add-command
+    'paredit-backward-delete
+    'paredit-close-round))
+
 (add-hook 'minibuffer-setup-hook 'conditionally-enable-paredit-mode)
 
 (defun paredit-nonlisp ()
