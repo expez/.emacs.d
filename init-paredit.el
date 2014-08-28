@@ -3,16 +3,17 @@
 (require-package 'evil-paredit)
 (require 'evil-paredit)
 
-(add-hook 'minibuffer-setup-hook 'conditionally-enable-paredit-mode)
-
 (eval-after-load "evil"
-  '(evil-define-key 'normal paredit-mode-map
-     (kbd "C-t") 'transpose-sexps
-     "(" 'backward-barf-sexp
-     ")" 'forward-barf-sexp
-     "9" 'paredit-wrap-round
-     "[" 'paredit-wrap-square
-     "{" 'paredit-wrap-curly))
+  '(progn (evil-define-key 'normal paredit-mode-map
+            (kbd "C-t") 'transpose-sexps
+            "(" 'paredit-wrap-round
+            "[" 'paredit-wrap-square
+            "{" 'paredit-wrap-curly)
+          (fill-keymap evil-normal-state-local-map
+                       "C-9" 'backward-barf-sexp
+                       "C-0" 'forward-barf-sexp
+                       "M-9" 'backward-slurp-sexp
+                       "M-0" 'forward-slurp-sexp)))
 
 (fill-keymap paredit-mode-map
              "M-;" 'paredit-comment-dwim
@@ -27,9 +28,7 @@
 
              "M-l" 'paredit-forward
              "M-h" 'paredit-backward
-             "M-k" 'paredit-kill
-             "M-(" 'backward-slurp-sexp
-             "M-)" 'forward-slurp-sexp)
+             "M-k" 'paredit-kill)
 
 (defun my-paredit-mode-hook ()
   (make-local-variable 'evil-surround-operator-alist)
