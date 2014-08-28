@@ -5,7 +5,12 @@
 (require-package 'js2-refactor)
 (require-package 'js2-mode)
 (require-package 'skewer-mode)
+(require-package 'angular-snippets)
+(require 'angular-snippets)
 (require 'js-lookup)
+
+(eval-after-load "sgml-mode"
+  '(define-key html-mode-map (kbd "C-c C-d") 'ng-snip-show-docs-at-point))
 
 ;;; bookmarklet to load skewer:
 ;;; javascript:(function(){var d=document;var s=d.createElement('script');s.src='http://localhost:8023/skewer';d.body.appendChild(s);})()
@@ -24,6 +29,11 @@
     (skewer-repl)))
 
 (tern-ac-setup)
+(when (eq system-type 'windows-nt)
+  (setq tern-command
+        (list "node"
+              (concat (getenv "HOME")
+                      "\\appdata\\roaming\\npm\\node_modules\\tern\\bin\\tern"))))
 (add-auto-mode 'js2-mode "\\.js")
 
 (defun my-js2-exit-snippet-hook ()
@@ -32,7 +42,7 @@
 (defun maybe-allow-tabs ()
   (when (string= system-name "NOLD0042")
     (allow-tabs)
-    (setq tab-width 4)))
+    (setq tab-width 2)))
 
 (defun my-js2-mode-hook ()
   (setq-local yas-after-exit-snippet-hook #'my-js2-exit-snippet-hook)
@@ -41,6 +51,8 @@
   (setq mode-name "JS2")
   (skewer-mode)
   (tern-mode t)
+  (paredit-nonlisp)
+  (evil-paredit-mode 1)
   (fill-keymap evil-normal-state-local-map
                "M-." 'tern-find-definition
                "M-," 'tern-pop-find-definition
@@ -50,17 +62,17 @@
                (kbd "<f1>") 'js-lookup)
   (fill-keymap evil-insert-state-local-map
                (kbd "C-m") 'js-insert-block-and-semi
-               (kbd "M-m") 'js-insert-block)
+               (kbd "M-m") 'js-insert-block
+               (kbd "<return>") 'newline-and-indent)
   (fill-keymap js2-mode-map
                "C-c C-a" 'jshint-annotate)
-  (local-set-key (kbd "<return>") 'newline-and-indent)
   (maybe-allow-tabs))
 
 (add-hook 'js2-mode-hook
           #'my-js2-mode-hook)
 
 (setq-default js2-use-font-lock-faces t
-              js2-bounce-indent-p t
+              js2-bounce-indent-p nil
               js2-concat-multiline-strings 'eol
               js2-idle-timer-delay 0.1
               js2-highlight-level 3
