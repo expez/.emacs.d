@@ -12,7 +12,7 @@
                "C-c C-r" 'prolog-consult-line-or-region))
 
 (defun prolog-consult-line-or-region ()
-  "Consult region between BEG and END."
+  "Consult region or the current line."
   (interactive)
   (save-window-excursion
     (if (region-active-p)
