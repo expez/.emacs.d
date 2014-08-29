@@ -1,5 +1,7 @@
 (require-package 'ethan-wspace)
-(setq whitespace-style '(face tabs lines-tail))
+
+(setq my-whitespace-style '(face tabs lines-tail))
+(setq whitespace-style my-whitespace-style)
 
 (setq whitespace-display-mappings
       '((space-mark 32 [183] [46])
@@ -53,8 +55,7 @@ With a prefix argument whitespac-mode is turned off."
     (return-from toggle-whitespace-mode))
   (if whitespace-show-all-mode
       (progn
-        (setq whitespace-style '(face tabs trailing lines-tail empty
-                                      space-before-tab tab-mark))
+        (setq whitespace-style my-whitespace-style)
         (setq whitespace-show-all-mode nil)
         (whitespace-mode 0)
         (whitespace-mode 1)
