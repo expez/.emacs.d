@@ -7,7 +7,17 @@
 (defun my-prolog-mode-hook ()
   (paredit-nonlisp)
   (evil-paredit-mode 1)
-  (define-key prolog-mode-map (kbd "C-c C-e") 'prolog-eval-line-or-region))
+  (fill-keymap prolog-mode-map
+               "C-c C-e" 'prolog-eval-line-or-region
+               "C-c C-r" 'prolog-consult-line-or-region))
+
+(defun prolog-consult-line-or-region ()
+  "Consult region between BEG and END."
+  (interactive)
+  (save-window-excursion
+    (if (region-active-p)
+        (prolog-consult-region (region-beginning) (region-end))
+      (prolog-consult-region (point-at-bol) (point-at-eol)))))
 
 (defun prolog-eval-line-or-region ()
   "Sends the current region or line to the prolog buffer and
@@ -17,8 +27,8 @@ evals it."
     (if (region-active-p)
         (let ((code (buffer-substring (region-beginning) (region-end))))
           (prolog--insert-and-eval code))
-      (let ((code (buffer-substring (point-at-bol) (point-at-eol))))
-        (prolog--insert-and-eval code)))))
+      (prolog--insert-and-eval
+       (buffer-substring (point-at-bol) (point-at-eol))))))
 
 (defun prolog--insert-and-eval (code)
   (save-window-excursion
