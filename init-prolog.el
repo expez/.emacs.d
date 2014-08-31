@@ -6,10 +6,15 @@
 
 (defun my-prolog-mode-hook ()
   (paredit-nonlisp)
-  (evil-paredit-mode 1)
-  (fill-keymap prolog-mode-map
-               "C-c C-e" 'prolog-eval-line-or-region
-               "C-c C-r" 'prolog-consult-line-or-region))
+  (evil-paredit-mode 1))
+
+(eval-after-load 'prolog-mode
+  '(fill-keymap prolog-mode-map
+                "C-c C-e" 'prolog-eval-line-or-region
+                "C-c C-r" 'prolog-consult-line-or-region))
+
+(add-hook 'prolog-mode-hook #'my-prolog-mode-hook)
+(add-hook 'prolog-inferior-mode #'my-prolog-mode-hook)
 
 (defun prolog-consult-line-or-region ()
   "Consult region or the current line."
@@ -40,9 +45,6 @@ evals it."
     ;; TODO get this fucker to actually scroll so the new output is visible
     (with-selected-window (get-buffer-window "*prolog*")
       (goto-char (point-max)))))
-
-(add-hook 'prolog-mode-hook #'my-prolog-mode-hook)
-(add-hook 'prolog-inferior-mode #'my-prolog-mode-hook)
 
 (defun specify-prolog-mode ()
   "Adds a file local variable indicating that this file should be
