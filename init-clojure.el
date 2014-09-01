@@ -1,5 +1,4 @@
 (require-package 'javap-mode)
-(require-package 'elein)
 (require-package 'clojure-mode)
 (require-package 'cider)
 (require-package 'cider-browse-ns)
