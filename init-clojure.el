@@ -79,7 +79,8 @@
                "C->" 'cljr-thread
                "C-<" 'cljr-unwind
                "C-c s" 'toggle-spy
-               "C-c r" 'cider-repl-reset))
+               "C-c r" 'cider-refresh
+               "C-c R" 'cider-component-reset))
 
 (add-hook 'clojure-mode-hook #'my-clojure-mode-hook)
 
@@ -135,13 +136,7 @@
              "(ws-repl/connect \"ws://localhost:9001\""
              ":verbose true))"))))
 
-(defun cider-namespace-refresh ()
-  (interactive)
-  (cider-eval-sync
-   "(require '[clojure.tools.namespace.repl :refer [refresh]]) (refresh)"
-   (cider-current-ns)))
-
-(defun cider-repl-reset ()
+(defun cider-component-reset ()
   "The reset to go along with Component."
   (interactive)
   (save-some-buffers)
