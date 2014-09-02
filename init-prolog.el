@@ -54,6 +54,7 @@ treated as a prolog file."
   (save-excursion
     (goto-char (point-min))
     (insert "% -*- mode: prolog -*-")
+    (prolog-mode)
     (newline-and-indent)))
 
 (provide 'init-prolog)
