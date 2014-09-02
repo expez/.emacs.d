@@ -8,7 +8,7 @@
   (paredit-nonlisp)
   (evil-paredit-mode 1))
 
-(eval-after-load 'prolog-mode
+(eval-after-load 'prolog
   '(fill-keymap prolog-mode-map
                 "C-c C-e" 'prolog-eval-line-or-region
                 "C-c C-r" 'prolog-consult-line-or-region))
