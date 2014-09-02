@@ -35,6 +35,7 @@
 (defun my-cider-repl-mode-hook ()
   (setq show-trailing-whitespace nil)
   (company-mode 1)
+  (cljr-update-artifact-cache)
   (cider-turn-on-eldoc-mode)
   (paredit-mode 1)
   (fill-keymaps '(evil-insert-state-local-map evil-normal-state-local-map)
@@ -77,6 +78,7 @@
                "M-," 'cider-jump-back
                "C->" 'cljr-thread
                "C-<" 'cljr-unwind
+               "C-c C-m ap" 'cljr-add-project-dependency
                "C-c s" 'toggle-spy
                "C-c r" 'cider-refresh
                "C-c R" 'cider-component-reset))
@@ -185,5 +187,65 @@ Called by `imenu--generic-function'."
               (setq found? t)
               (set-match-data (list def-beg def-end)))))
         (goto-char start)))))
+
+(eval-after-load 'clj-refactor
+  '(progn
+    (defun cljr--get-artifacts-from-middlewere (force)
+     (message "Retrieving list of available libraries...")
+     (let ((nrepl-sync-request-timeout nil))
+       (s-split " " (plist-get (nrepl-send-request-sync
+                                (list "op" "artifact-list"
+                                      "force" (if force "true" "false")))
+                               :value))))
+
+    (defun cljr-update-artifact-cache ()
+      (interactive)
+      (nrepl-send-request (list "op" "artifact-list"
+                                "force" "true")
+                          (lambda (_) (message "Artifact cache updated"))))
+
+    (defun cljr--get-versions-from-middlewere (artifact)
+      (s-split " " (plist-get (nrepl-send-request-sync
+                               (list "op" "artifact-versions"
+                                     "artifact" artifact))
+                              :value)))
+
+    (defun cljr--prompt-user-for (prompt choices)
+      (completing-read prompt choices))
+
+    (defun cljr--add-project-dependency (artifact version)
+      (save-window-excursion
+        (find-file (cljr--project-file))
+        (goto-char (point-min))
+        (re-search-forward ":dependencies")
+        (paredit-forward)
+        (paredit-backward-down)
+        (newline-and-indent)
+        (insert "[" artifact " \"" version "\"]")
+        (save-buffer))
+      (message "Added %s version %s as a project dependency" artifact version))
+
+    (defun cljr--assert-middlewere ()
+      (unless (featurep 'cider)
+        (error "CIDER isn't installed!"))
+      (unless (cider-connected-p)
+        (error "CIDER isn't connected!"))
+      (unless (nrepl-op-supported-p "refactor")
+        (error "nrepl-refactor middlewere not available!")))
+
+    (defun cljr--assert-leiningen-project ()
+      (unless (string= (file-name-nondirectory (or (cljr--project-file) ""))
+                       "project.clj")
+        (error "Can't find project.clj!")))
+
+    (defun cljr-add-project-dependency (force)
+      (interactive "P")
+      (cljr--assert-leiningen-project)
+      (cljr--assert-middlewere)
+      (-when-let* ((lib-name (->> (cljr--get-artifacts-from-middlewere force)
+                               (cljr--prompt-user-for "Artifact: ")))
+                   (version (->> (cljr--get-versions-from-middlewere lib-name)
+                              (cljr--prompt-user-for "Version: "))))
+        (cljr--add-project-dependency lib-name version)))))
 
 (provide 'init-clojure)
