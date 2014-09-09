@@ -14,6 +14,7 @@
 (add-to-list 'company-dabbrev-code-modes 'clojure-mode)
 
 (fill-keymap company-active-map "C-l" 'company-complete-common)
+(define-key global-map (kbd "C-l") 'company-complete)
 
 (defun company-complete-dabbrev ()
   (interactive)
@@ -27,13 +28,3 @@
 (defadvice evil-normal-state (after cancel-company activate)
   (when company-candidates
     (company-abort)))
-
-(define-key global-map (kbd "C-l") 'company-complete)
-
-(eval-after-load 'evil
-  '(dotimes (i 10)
-     (define-key evil-insert-state-map
-       (vector (+ (aref (kbd "M-0") 0) i))
-       `(lambda ()
-          (interactive)
-          (company-complete-number ,(if (zerop i) 10 i))))))
