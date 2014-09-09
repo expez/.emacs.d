@@ -1,4 +1,4 @@
-(require-package 'tern-auto-complete)
+(require-package 'company-tern)
 (require-package 'tern)
 (require-package 'json)
 (require-package 'js-comint)
@@ -28,7 +28,6 @@
     (run-skewer)
     (skewer-repl)))
 
-(tern-ac-setup)
 (when (eq system-type 'windows-nt)
   (setq tern-command
         (list "node"
@@ -44,8 +43,12 @@
     (allow-tabs)
     (setq tab-width 2)))
 
+(add-to-list 'company-backends 'company-tern)
+
 (defun my-js2-mode-hook ()
   (setq-local yas-after-exit-snippet-hook #'my-js2-exit-snippet-hook)
+  (auto-complete-mode 0)
+  (company-mode 1)
   (js2-imenu-extras-setup)
   (push 'ac-source-yasnippet ac-sources)
   (setq mode-name "JS2")
