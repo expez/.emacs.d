@@ -34,6 +34,10 @@
                 (?< . evil-surround-read-tag)
                 (?f . evil-surround-function)))
 
+(add-hook 'evil-local-mode-hook (lambda ()
+                                  (setq-local interprogram-cut-function nil)
+                                  (setq-local interprogram-paste-function nil)))
+
 (setq evil-insert-state-cursor '("red" hbar)
       evil-normal-state-cursor '("white" box)
       evil-visual-state-cursor '("green" box)
