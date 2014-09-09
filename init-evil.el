@@ -5,7 +5,7 @@
 (require 'evil-visualstar)
 (require-package 'evil-paredit)
 (require-package 'evil-numbers)
-(require-package 'evil-jumpers)
+(require-package 'evil-jumper)
 (require 'evil-jumper)
 (require-package 'evil)
 (require-package 'ace-jump-mode)
