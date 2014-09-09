@@ -1,7 +1,6 @@
 (require-package 'javap-mode)
 (require-package 'clojure-mode)
 (require-package 'cider)
-(require-package 'cider-browse-ns)
 (require-package 'clj-refactor)
 (require-package 'clojure-cheatsheet)
 (require-package 'refheap)
