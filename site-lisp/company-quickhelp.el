@@ -1,4 +1,4 @@
-;;; WIP, not yet usable
+;;; WIP, somewhat usable
 (require 'company)
 (require 'pos-tip)
 
@@ -7,38 +7,36 @@
   `pos-tip' popup."
   (pcase command
     (`post-command (company-quickhelp--set-timer))
-    (`hide (pos-tip-hide))))
+    (`hide
+     (company-quickhelp--cancel-timer)
+     (pos-tip-hide))))
 
 (defun company-quickhelp--show ()
+  (company-quickhelp--cancel-timer)
   (let* ((selected (nth company-selection company-candidates))
-         (doc-buffer (or (company-call-backend 'doc-buffer selected)
-                         (error "No documentation available")))
-         (doc (with-current-buffer doc-buffer
-                (buffer-substring (point-min) (point-max)))))
-    (with-no-warnings
-      (pos-tip-show doc
-                    nil
-                    company-point
-                    nil
-                    300
-                    80
-                    nil
-                    (- (* (frame-char-width)
-                          (overlay-get company-pseudo-tooltip-overlay
-                                       'company-width))
-                       (* (frame-char-width)
-                          5))
-                    nil)))
-  (company-quickhelp--cancel-timer))
+         (doc-buffer (company-call-backend 'doc-buffer selected))
+         (ovl company-pseudo-tooltip-overlay))
+    (when (and ovl doc-buffer)
+      (with-no-warnings
+        (let* ((width (overlay-get ovl 'company-width))
+               (col (overlay-get ovl 'company-column))
+               (extra (- (+ width col) (company--window-width))))
+          (pos-tip-show (with-current-buffer doc-buffer (buffer-string))
+                        nil
+                        nil
+                        nil
+                        300
+                        80
+                        nil
+                        (* (frame-char-width)
+                           (- width (length company-prefix)
+                              (if (< 0 extra) extra 1)))))))))
 
 (defvar company-quickhelp--timer nil
   "Quickhelp idle timer.")
 
 (defcustom company-quickhelp--delay 0.5
   "Delay, in seconds, before the quickhelp popup appears.")
-
-(defadvice company-cancel (after remove-quickhelp-timer activate)
-  (company-quickhelp--cancel-timer))
 
 (defun company-quickhelp--set-timer ()
   (when (null company-quickhelp--timer)
@@ -52,13 +50,13 @@
     (setq company-quickhelp--timer nil)))
 
 ;;;###autoload
-(define-minor-mode company-quickhelp-mode nil nil nil nil
-  "Provides documentation popups for `company-mode'."
+(define-minor-mode company-quickhelp-mode
+  "Provides documentation popups for `company-mode' using `pos-tip'."
+  :global t
   (if company-quickhelp-mode
-      (progn (setq company-frontends
-                   (delq 'company-quickhelp-frontend company-frontends))
-             (company-quickhelp--cancel-timer))
+      (push 'company-quickhelp-frontend company-frontends)
     (setq company-frontends
-          (cons 'company-quickhelp-frontend company-frontends))))
+          (delq 'company-quickhelp-frontend company-frontends))
+    (company-quickhelp--cancel-timer)))
 
 (provide 'company-quickhelp)
