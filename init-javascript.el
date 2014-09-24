@@ -44,6 +44,7 @@
     (setq tab-width 2)))
 
 (add-to-list 'company-backends 'company-tern)
+(add-to-list 'company-backends 'company-yasnippet)
 
 (defun my-js2-mode-hook ()
   (setq-local yas-after-exit-snippet-hook #'my-js2-exit-snippet-hook)
@@ -54,6 +55,7 @@
   (setq mode-name "JS2")
   (skewer-mode)
   (tern-mode t)
+  (flycheck-mode t)
   (paredit-nonlisp)
   (evil-paredit-mode 1)
   (fill-keymap evil-normal-state-local-map
