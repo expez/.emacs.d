@@ -28,3 +28,7 @@ request/
 .python-environments/
 /.#nrepl-history
 /workgroups
+/abbrev_defs
+/projectile.cache
+/workgroups~
+/server/
