@@ -34,7 +34,6 @@
 (defun my-cider-repl-mode-hook ()
   (setq show-trailing-whitespace nil)
   (company-mode 1)
-  (cljr-update-artifact-cache)
   (cider-turn-on-eldoc-mode)
   (paredit-mode 1)
   (fill-keymaps '(evil-insert-state-local-map evil-normal-state-local-map)
@@ -44,9 +43,9 @@
                 (kbd "M-p") 'cider-repl-previous-input
                 (kbd "M-n") 'cider-repl-next-input)
   (whitespace-mode 0)
-  ;; (evil-paredit 1)
-  )
+  (evil-paredit-mode 1))
 (add-hook 'cider-repl-mode-hook #'my-cider-repl-mode-hook)
+(add-hook 'nrepl-connected-hook #'cljr-update-artifact-cache)
 
 (defun cider-clear-errors ()
   (interactive)
