@@ -636,7 +636,7 @@ indicate failure."
   "Use completing read to open one of the configuration files for
   emacs for editing."
   (interactive)
-  (find-file (ido-read-file-name "Edit file: " user-emacs-directory nil
+  (find-file (ido-read-file-name "Edit file: " my-config-dir nil
                                  nil "init-")))
 
 (defun find-shell-init-file ()

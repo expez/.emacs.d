@@ -1,4 +1,5 @@
-(push user-emacs-directory load-path)
+(defvar my-config-dir (concat user-emacs-directory "lisp"))
+(push my-config-dir load-path)
 
 (require 'init-locale)
 
@@ -15,7 +16,7 @@
 (require 'init-util)
 (require 'init-package)
 
-(load-elisp-files-in-dir user-emacs-directory "^init-.\*")
+(load-elisp-files-in-dir my-config-dir "^init-.\*")
 
 (setq custom-file (concat user-emacs-directory "customize.el"))
 (load custom-file)
