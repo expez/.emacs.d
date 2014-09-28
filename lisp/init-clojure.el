@@ -76,7 +76,6 @@
                "M-," 'cider-jump-back
                "M->" 'cljr-thread
                "M-<" 'cljr-unwind
-               "C-c C-m ap" 'cljr-add-project-dependency
                "C-c s" 'toggle-spy
                "C-c r" 'cider-refresh
                "C-c R" 'cider-component-reset))
