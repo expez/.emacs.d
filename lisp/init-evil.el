@@ -73,6 +73,7 @@
           cider-stacktrace-mode
           cider-test-report-mode
           cider-doc-mode
+          cider-docview-mode
           deft-mode
           occur-mode
           term-mode
