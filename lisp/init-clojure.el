@@ -74,8 +74,8 @@
                "M-q" '(lambda () (interactive) (clojure-fill-paragraph))
                "M-." 'cider-jump
                "M-," 'cider-jump-back
-               "C->" 'cljr-thread
-               "C-<" 'cljr-unwind
+               "M->" 'cljr-thread
+               "M-<" 'cljr-unwind
                "C-c C-m ap" 'cljr-add-project-dependency
                "C-c s" 'toggle-spy
                "C-c r" 'cider-refresh
@@ -191,5 +191,19 @@ Called by `imenu--generic-function'."
               (setq found? t)
               (set-match-data (list def-beg def-end)))))
         (goto-char start)))))
+
+;;; cider 0.8
+(defun cljr--get-artifacts-from-middlewere (force)
+  (message "Retrieving list of available libraries...")
+  (s-split " " (nrepl-dict-get (nrepl-send-sync-request
+                                (list "op" "artifact-list"
+                                      "force" (if force "true" "false")))
+                               "value")))
+
+(defun cljr--get-versions-from-middlewere (artifact)
+  (s-split " " (nrepl-dict-get (nrepl-send-request-sync
+                                (list "op" "artifact-versions"
+                                      "artifact" artifact))
+                               "value")))
 
 (provide 'init-clojure)
