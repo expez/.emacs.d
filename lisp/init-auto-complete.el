@@ -14,19 +14,10 @@
 
 (ac-flyspell-workaround)
 
-(defun ac-exit-to-normal-state
-  "Stops completing and returns to normal state"
-  (interactive "")
-  (ac-stop)
-  (evil-force-normal-state)
-  (evil-normal-state))
-
 (fill-keymap ac-completing-map
              (kbd "<tab>") nil
-             "C-[" 'ac-exit-to-normal-state
              "C-l" 'ac-expand-common
-             "C-s" 'ac-isearch
-             "C-g" 'ac-stop
-             "ESC" 'ac-stop)
+             "C-s" 'ac-isearch)
+
 
 (provide 'init-auto-complete)
