@@ -39,9 +39,10 @@
   (indent-region yas-snippet-beg yas-snippet-end))
 
 (defun maybe-allow-tabs ()
-  (when (string= system-name "NOLD0042")
-    (allow-tabs)
-    (setq tab-width 2)))
+  (when (and (string= system-name "NOLD0042")
+             (eq (indentation-style) 'tabs)
+         (allow-tabs)
+         (setq tab-width 2))))
 
 (add-to-list 'company-backends 'company-tern)
 
