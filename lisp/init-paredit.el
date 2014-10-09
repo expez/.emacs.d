@@ -17,18 +17,6 @@
        '((lambda (endp delimiter) nil)))
   (paredit-mode 1))
 
-(eval-after-load "evil"
-  '(progn (evil-define-key 'normal paredit-mode-map
-            (kbd "C-t") 'transpose-sexps
-            "(" 'paredit-wrap-round
-            "[" 'paredit-wrap-square
-            "{" 'paredit-wrap-curly)
-          (fill-keymap evil-normal-state-local-map
-                       "C-9" 'backward-barf-sexp
-                       "C-0" 'forward-barf-sexp
-                       "M-9" 'backward-slurp-sexp
-                       "M-0" 'forward-slurp-sexp)))
-
 (fill-keymap paredit-mode-map
              "M-;" 'paredit-comment-dwim
              "M-s" 'paredit-splice-sexp
@@ -49,7 +37,18 @@
   (add-to-list 'evil-surround-operator-alist
                '(evil-paredit-change . change))
   (add-to-list 'evil-surround-operator-alist
-               '(evil-paredit-delete . delete)))
+               '(evil-paredit-delete . delete))
+  (eval-after-load "evil"
+    '(progn (evil-define-key 'normal paredit-mode-map
+              (kbd "C-t") 'transpose-sexps
+              "(" 'paredit-wrap-round
+              "[" 'paredit-wrap-square
+              "{" 'paredit-wrap-curly)
+            (fill-keymap evil-normal-state-local-map
+                         "C-9" 'backward-barf-sexp
+                         "C-0" 'forward-barf-sexp
+                         "M-9" 'backward-slurp-sexp
+                         "M-0" 'forward-slurp-sexp))))
 (add-hook 'paredit-mode-hook #'my-paredit-mode-hook)
 
 (defun forward-barf-sexp (prefix)
@@ -236,8 +235,8 @@ By default OPEN and CLOSE are round delimiters."
       (backward-char)))
   (save-excursion (if (not (eq open ?\{))
                       (paredit-backward-up)
-                      (paredit-backward)
-                      (backward-char))
+                    (paredit-backward)
+                    (backward-char))
                   (indent-sexp)))
 
 (provide 'init-paredit)
