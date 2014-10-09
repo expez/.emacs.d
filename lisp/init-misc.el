@@ -215,7 +215,7 @@
               ido-file-completion-map
               ido-file-dir-completion-map)))
 
-(setq pe/omit-regex "^\\.\\|^#\\|~$\\|node_modules")
+(setq pe/omit-regex "^\\.\\|^#\\|~$\\|node_modules\\|bower_components")
 
 (defun toggle-project-explorer ()
   (interactive)
