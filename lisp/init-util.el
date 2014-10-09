@@ -160,7 +160,7 @@ For Mac OS X, use “'unix”."
 
 (defun how-many-in-region (begin end regexp &optional interactive)
   "Print number of non-trivial matches for REGEXP in region.
- Non-interactive arguments are Begin End Regexp"
+ Non-interactive arguments are BEGIN END REGEXP"
   (interactive "r\nsHow many matches for (regexp): \np")
   (let ((count 0) opoint)
     (save-excursion
@@ -174,13 +174,13 @@ For Mac OS X, use “'unix”."
       (if interactive (message "%d occurrences" count))
       count)))
 
-(defun infer-indentation-style ()
-  ;; if our source file uses tabs, we use tabs, if spaces spaces, and if
-  ;; neither, we use the current indent-tabs-mode
-  (let ((space-count (how-many-region (point-min) (point-max) "^  "))
-        (tab-count (how-many-region (point-min) (point-max) "^\t")))
-    (if (> space-count tab-count) (setq indent-tabs-mode nil))
-    (if (> tab-count space-count) (setq indent-tabs-mode t))))
+(defun indentation-style ()
+  "Returns 'tabs if tabs, 'spaces if spaces."
+  (let ((space-count (how-many-in-region (point-min) (point-max) "^  "))
+        (tab-count (how-many-in-region (point-min) (point-max) "^\t")))
+    (if (> space-count tab-count)
+        'spaces
+      'tabs)))
 
 (defun flyspell-check-next-highlighted-word ()
   "Custom function to spell check next highlighted word"
