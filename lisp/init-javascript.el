@@ -1,16 +1,10 @@
 (require-package 'company-tern)
 (require-package 'tern)
 (require-package 'json)
-(require-package 'js-comint)
 (require-package 'js2-refactor)
 (require-package 'js2-mode)
 (require-package 'skewer-mode)
-(require-package 'angular-snippets)
-(require 'angular-snippets)
 (require 'js-lookup)
-
-(eval-after-load "sgml-mode"
-  '(define-key html-mode-map (kbd "C-c C-d") 'ng-snip-show-docs-at-point))
 
 ;;; bookmarklet to load skewer:
 ;;; javascript:(function(){var d=document;var s=d.createElement('script');s.src='http://localhost:8023/skewer';d.body.appendChild(s);})()
