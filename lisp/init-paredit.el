@@ -210,4 +210,34 @@ Save in REGISTER or in the kill-ring with YANK-HANDLER."
    (t
     (evil-yank-characters beg end register yank-handler))))
 
+;;; The original uses `backward-up-list`, so only works correctly when wrapping parens
+(defun paredit-wrap-sexp (&optional argument open close)
+  "Wrap the following S-expression.
+If a `C-u' prefix argument is given, wrap all S-expressions following
+  the point until the end of the buffer or of the enclosing list.
+If a numeric prefix argument N is given, wrap N S-expressions.
+Automatically indent the newly wrapped S-expression.
+As a special case, if the point is at the end of a list, simply insert
+  a parenthesis pair, rather than inserting a lone opening delimiter
+  and then signalling an error, in the interest of preserving
+  structure.
+By default OPEN and CLOSE are round delimiters."
+  (interactive "P")
+  (paredit-lose-if-not-in-sexp 'paredit-wrap-sexp)
+  (let ((open (or open ?\( ))
+        (close (or close ?\) )))
+    (paredit-handle-sexp-errors
+        ((lambda (n) (paredit-insert-pair n open close 'goto-char))
+         (cond ((integerp argument) argument)
+               ((consp argument) (paredit-count-sexps-forward))
+               ((paredit-region-active-p) nil)
+               (t 1)))
+      (insert close)
+      (backward-char)))
+  (save-excursion (if (not (eq open ?\{))
+                      (paredit-backward-up)
+                      (paredit-backward)
+                      (backward-char))
+                  (indent-sexp)))
+
 (provide 'init-paredit)
