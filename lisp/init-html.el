@@ -3,12 +3,14 @@
 (require-package 'tagedit)
 (require-package 'know-your-http-well)
 (require-package 'web-mode)
+(require-package 'angular-snippets)
 (require 'sgml-mode)
 (require 'know-your-http-well)
 (require 'nxml-mode)
 (require 'tagedit)
 (require 'web-mode)
 (require 'emmet-mode)
+(require 'angular-snippets)
 
 (defun my-web-mode-hook ()
   (add-hook 'local-write-file-hooks (lambda () (delete-trailing-whitespace) nil))
@@ -32,6 +34,8 @@
 (add-hook 'sgml-mode-hook 'emmet-mode)
 (add-hook 'sgml-mode-hook 'ac-emmet-html-setup)
 (add-hook 'emmet-mode-hook (lambda () (setq emmet-indentation 2)))
+(eval-after-load "sgml-mode"
+  '(define-key html-mode-map (kbd "C-c C-d") 'ng-snip-show-docs-at-point))
 
 (setq emmet-move-cursor-between-quotes t)
 
