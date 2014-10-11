@@ -690,4 +690,15 @@ Then saves the buffer."
   (set-buffer-file-coding-system 'utf-8 t)
   (save-buffer))
 
+(defun run-term (&optional arg)
+  "Spawns an urxvt client in the buffer directory"
+  (interactive "P")
+  (let ((default-directory default-directory))
+    (when arg
+     (when (string-match "^.*/src/$" default-directory)
+       (cd "../")
+       (when (file-directory-p "build")
+         (cd "build"))))
+    (start-process "my-urxvt" nil "urxvtc")))
+
 (provide 'init-util)
