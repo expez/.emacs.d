@@ -46,19 +46,6 @@
              "J" 'ibuffer-jump-to-buffer
              "K" 'ibuffer-do-kill-lines)
 
-(defadvice iswitchb-kill-buffer (after rescan-after-kill activate)
-  "*Regenerate the list of matching buffer names after a kill.
-    Necessary if using `uniquify' with `uniquify-after-kill-buffer-p'
-    set to non-nil."
-  (setq iswitchb-buflist iswitchb-matches)
-  (iswitchb-rescan))
-
-(defun iswitchb-rescan ()
-  "*Regenerate the list of matching buffer names."
-  (interactive)
-  (iswitchb-make-buflist iswitchb-default)
-  (setq iswitchb-rescan t))
-
 (setq flyspell-issue-message-flag nil)
 
 (setq ispell-dictionary "english")
