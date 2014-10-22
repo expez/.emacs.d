@@ -30,7 +30,8 @@
 
              "M-l" 'paredit-forward
              "M-h" 'paredit-backward
-             "M-k" 'paredit-kill)
+             "M-k" 'paredit-splice-sexp-killing-backward
+             "M-K" 'paredit-splice-sexp-killing-forward)
 
 (defun my-paredit-mode-hook ()
   (make-local-variable 'evil-surround-operator-alist)
