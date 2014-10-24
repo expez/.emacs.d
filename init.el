@@ -1,4 +1,5 @@
 (defvar my-config-dir (concat user-emacs-directory "lisp"))
+(setq load-prefer-newer t)
 (push my-config-dir load-path)
 
 (require 'init-locale)
@@ -30,6 +31,9 @@
           '(lambda (f)
              (with-selected-frame f
                (when (window-system f)
+                 (menu-bar-mode -1)
+                 (tool-bar-mode -1)
+                 (scroll-bar-mode -1)
                  (load-theme 'solarized-dark t)
                  (set-face-foreground whitespace-space "deep sky blue")
                  (set-face-foreground whitespace-newline "deep sky blue")
