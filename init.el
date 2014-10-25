@@ -47,8 +47,8 @@
 
 (setq scroll-margin 0
       scroll-conservatively 100000
-      scroll-up-aggressively 0
-      scroll-down-aggressively 0
+      scroll-up-aggressively 0.0
+      scroll-down-aggressively 0.0
       scroll-preserve-screen-position t
 
       uniquify-buffer-name-style 'post-forward
