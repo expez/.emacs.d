@@ -72,7 +72,7 @@
   (local-set-key (kbd "RET") 'newline-and-indent)
   (fill-keymap evil-normal-state-local-map
                "M-q" '(lambda () (interactive) (clojure-fill-paragraph))
-               "M-." 'cider-jump
+               "M-." 'cider-jump-to-var
                "M-," 'cider-jump-back
                "M->" 'cljr-thread
                "M-<" 'cljr-unwind
