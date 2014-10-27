@@ -124,4 +124,9 @@
   (kbd "<up>") 'comint-previous-input
   (kbd "<down>") 'comint-next-input)
 
+;;; until https://bitbucket.org/lyro/evil/issue/436/electric-pair-open-newline-between-pairs
+;;; is closed
+(define-key evil-insert-state-map [remap newline] nil)
+(define-key evil-insert-state-map [remap newline-and-indent] nil)
+
 (provide 'init-evil)
