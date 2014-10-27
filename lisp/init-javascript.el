@@ -49,9 +49,8 @@
   (setq mode-name "JS2")
   (skewer-mode)
   (tern-mode t)
+  (electric-pair-mode)
   (flycheck-mode t)
-  (paredit-nonlisp)
-  (evil-paredit-mode 1)
   (fill-keymap evil-normal-state-local-map
                "M-." 'tern-find-definition
                "M-," 'tern-pop-find-definition
