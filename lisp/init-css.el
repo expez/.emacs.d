@@ -9,8 +9,14 @@
 (require 'css-mode)
 (require 'emmet-mode)
 
+(defun my-scss-mode-hook ()
+  (auto-complete-mode 0)
+  (company-mode 1)
+  (turn-on-css-eldoc))
 
-(dolist (hook '(css-mode-hook sass-mode-hook haml-mode-hook))
+(add-hook 'scss-mode-hook #'my-scss-mode-hook)
+
+(dolist (hook '(css-mode-hook sass-mode-hook haml-mode-hook scss-mode-hook))
   (add-hook hook 'rainbow-mode))
 
 (add-hook 'css-mode-hook 'ac-emmet-css-setup)
@@ -18,8 +24,6 @@
 
 (setq css-indent-offset 2)
 (setq scss-compile-at-save t)
-
-(turn-on-css-eldoc)
 
 (defun my-css-mode-hook ()
   (skewer-css-mode)
