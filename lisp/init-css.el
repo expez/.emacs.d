@@ -4,6 +4,7 @@
 (require-package 'rainbow-mode)
 (require-package 'emmet-mode)
 (require-package 'css-eldoc)
+(require-package 'edit-color-stamp)
 (require 'css-eldoc)
 (require 'sass-mode)
 (require 'css-mode)
@@ -22,8 +23,16 @@
 (add-hook 'css-mode-hook 'ac-emmet-css-setup)
 (add-hook 'css-mode-hook  'emmet-mode)
 
-(setq css-indent-offset 2)
-(setq scss-compile-at-save t)
+(setq css-indent-offset 2
+      scss-compile-at-save t)
+
+(defun edit-or-insert-color-stamp ()
+  (interactive)
+  (-if-let (color-at-point (ecs-color-at-point-hex))
+      (edit-color-stamp)
+    (insert "#fff")
+    (backward-char)
+    (edit-color-stamp)))
 
 (defun my-css-mode-hook ()
   (skewer-css-mode)
