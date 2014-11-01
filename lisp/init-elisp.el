@@ -10,6 +10,7 @@
 (require-package 'rainbow-delimiters)
 (require-package 'flycheck)
 (require-package 'evil-surround)
+(require-package 'edebug-x)
 (require 'evil-surround)
 
 (set-face-foreground 'paren-face "grey30")
