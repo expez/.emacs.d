@@ -13,7 +13,8 @@
 (defun my-scss-mode-hook ()
   (auto-complete-mode 0)
   (company-mode 1)
-  (turn-on-css-eldoc))
+  (turn-on-css-eldoc)
+  (fill-keymap sass-mode-map (kbd "C-c C-e" 'edit-or-insert-color-stamp)))
 
 (add-hook 'scss-mode-hook #'my-scss-mode-hook)
 
@@ -39,9 +40,7 @@
   (fill-keymap skewer-css-mode-map
                "C-c C-c" 'nil
                "C-c C-r" 'skewer-css-clear-all)
-  (local-set-key (kbd "<return>") 'newline-and-indent)
-  (fill-keymap evil-insert-state-local-map
-               (kbd "M-m") 'js-insert-block))
+  (local-set-key (kbd "<return>") 'newline-and-indent))
 (add-hook 'css-mode-hook 'my-css-mode-hook)
 (define-key emmet-preview-keymap (kbd "C-j") 'emmet-preview-accept)
 
