@@ -639,7 +639,7 @@ indicate failure."
   (let ((files (cons (concat user-emacs-directory "init.el")
                      (directory-files my-config-dir t "init-.*?\.el\$"))))
     (find-file (ido-read-file-name "Edit file: " my-config-dir nil
-                                 nil "init-")))
+                                 nil "init-"))))
 
 (defun find-shell-init-file ()
   "Edit the shell init file in another window."
