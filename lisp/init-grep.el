@@ -1,19 +1,14 @@
 (require-package 'wgrep-ack)
-(require-package 'ack-and-a-half)
+(require-package 'ag)
+(require-package 'wgrep-ag)
 
-(let ((ag (path-to-executable "ag")))
-  (when ag
-      (setq ack-and-a-half-executable ag)))
-
-(setq ack-and-a-half-prompt-for-directory t)
-
-(defadvice ack-and-a-half-arguments-from-options (after
-                                                  compatible-ag-options
-                                                  activate)
-  (setq ad-return-value (delete "--env" ad-return-value))
-  (setq ad-return-value (delete "--noenv" ad-return-value))
-  ;;(setq ad-return-value (delete "--nocolor" ad-return-value))
-  )
+(after-load 'ag
+  (fill-keymap ag-mode-map
+               (kbd "k") 'compilation-previous-error
+               (kbd "j") 'compilation-next-error
+               (kbd "q") '(lambda () (interactive)
+                            (let (kill-buffer-query-functions) (kill-buffer)))))
+(setq ag-reuse-buffers 't)
 
 (defun rgrep-fullscreen (regexp &optional files dir confirm)
   "Open grep in full screen, saving windows."
