@@ -12,10 +12,14 @@
 (require 'ace-jump-mode)
 (require-package 'goto-chg)
 (require 'evil-numbers)
+(require-package 'evil-exchange)
+
 (setq evil-symbol-word-search t)
 (evil-mode 1)
+(evil-exchange-install)
 
 (global-evil-surround-mode 1)
+(setq evil-exchange-highlight-face 'region)
 
 (setq-default evil-surround-pairs-alist
               '((?\( . ("(" . ")"))
