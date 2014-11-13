@@ -38,12 +38,11 @@
   (paredit-mode 1)
   (fill-keymaps '(evil-insert-state-local-map evil-normal-state-local-map)
                 (kbd "C-a") 'cider-repl-bol
-                "M-." 'cider-jump
-                "M-," 'cider-jump-back
-                (kbd "M-p") 'cider-repl-previous-input
-                (kbd "M-n") 'cider-repl-next-input)
+                "M-." 'cider-jump-to-var
+                "M-," 'cider-jump-back)
   (whitespace-mode 0)
-  (evil-paredit-mode 1))
+  (evil-paredit-mode 1)
+  (evil-force-normal-state))
 (add-hook 'cider-repl-mode-hook #'my-cider-repl-mode-hook)
 (add-hook 'nrepl-connected-hook #'cljr-update-artifact-cache)
 
