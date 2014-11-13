@@ -148,18 +148,11 @@
     (insert "(user/reset)")
     (cider-repl-return)))
 
-(defun toggle-spy ()
-  (interactive)
-  (save-excursion
-    (if (spy-p)
-        (unspy)
-      (insert "#spy/d "))))
-
-(defun spy-p ()
-  (save-excursion
-    (cljr--goto-toplevel)
-    (let ((end (save-excursion (progn (paredit-forward) (point)))))
-      (re-search-forward "#spy/d" end t))))
+(defun toggle-spy (p)
+  (interactive "P")
+  (if current-prefix-arg
+      (unspy)
+    (insert "#spy/d ")))
 
 (defun unspy ()
   (save-excursion
