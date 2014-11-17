@@ -1,6 +1,9 @@
 (require-package 'flycheck)
+(require-package 'aggressive-indent)
 (require 'flycheck)
 (require 'fic-mode)
+
+(define-key aggressive-indent-mode-map (kbd "C-c C-q") nil)
 
 (setq fic-highlighted-words '("FIXME" "FIXME:" "TODO" "TODO:"
                               "HACK" "HACK:" "NOTE" "NOTE:"
@@ -31,6 +34,7 @@
        (flyspell-prog-mode))
      (yas-minor-mode-on)
      (whitespace-mode 1)
+     (aggressive-indent-mode 1)
      (glasses-mode 1))))
 
 (setq compilation-ask-about-save nil
