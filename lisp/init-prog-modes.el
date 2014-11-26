@@ -3,7 +3,8 @@
 (require 'flycheck)
 (require 'fic-mode)
 
-(define-key aggressive-indent-mode-map (kbd "C-c C-q") nil)
+(after-load 'aggressive-indent
+  (define-key aggressive-indent-mode-map (kbd "C-c C-q") nil))
 
 (setq fic-highlighted-words '("FIXME" "FIXME:" "TODO" "TODO:"
                               "HACK" "HACK:" "NOTE" "NOTE:"
