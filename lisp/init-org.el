@@ -1,5 +1,29 @@
 (require-package 'deft)
 (require 'deft)
+(require 'org)
+
+(setq org-src-fontify-natively t
+      org-src-preserve-indentation t
+      org-log-done t
+      org-agenda-files (list "~/org/todo.org")
+      org-agenda-skip-unavailable-files t
+      org-agenda-skip-deadline-if-done t
+      org-agenda-skip-scheduled-if-done t
+      org-agenda-skip-scheduled-if-deadline-is-shown t
+      org-agenda-start-on-weekday nil
+      org-indirect-buffer-display 'current-window
+      org-agenda-restore-windows-after-quit t
+      org-agenda-window-setup 'other-window
+      org-agenda-show-all-dates t
+      org-capture-templates
+      '(("t" "Todo" entry (file+headline "~/org/todo.org" "Tasks")
+         "* TODO %?\n  %i\n  %a")))
+(add-to-list 'org-structure-template-alist
+             '("n" "#+BEGIN_COMMENT\n?\n#+END_COMMENT"
+               "<comment>\n?\n</comment>"))
+
+(defun new-todo ()
+  (interactive) (org-capture nil "t"))
 
 (define-derived-mode deft-note-mode org-mode "Deft note"
   (set (make-local-variable 'deft-note-mode) t))

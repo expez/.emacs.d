@@ -64,7 +64,7 @@
   "s" 'flyspell-buffer
   "R" 'rainbow-mode
   "r" 'rename-file-and-buffer
-  "t" (lambda () (interactive) (org-capture nil "t"))
+  "t" 'new-todo
   "T" 'org-todo-list
   "u" 'winner-undo
   "v" 'visual-line-mode

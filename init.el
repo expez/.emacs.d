@@ -25,7 +25,6 @@
 (load-from-vendor-dir)
 
 (require 'uniquify)
-(require 'org)
 (require 'server)
 (add-hook 'after-make-frame-functions
           '(lambda (f)
@@ -189,30 +188,8 @@
       bookmark-default-file (concat user-emacs-directory "bookmarks"))
 
 (setq tags-revert-without-query 1)
-
-(setq org-src-fontify-natively t
-      org-src-preserve-indentation t
-      org-log-done t
-      org-agenda-files (list "~/org/todo.org")
-      org-agenda-skip-unavailable-files t
-      org-agenda-skip-deadline-if-done t
-      org-agenda-skip-scheduled-if-done t
-      org-agenda-skip-scheduled-if-deadline-is-shown t
-      org-agenda-start-on-weekday nil
-      org-indirect-buffer-display 'current-window
-      org-agenda-restore-windows-after-quit t
-      org-agenda-window-setup 'other-window
-      org-agenda-show-all-dates t
-      org-capture-templates
-      '(("t" "Todo" entry (file+headline "~/org/todo.org" "Tasks")
-         "* TODO %?\n  %i\n  %a")))
-
 (setq save-abbrevs nil)
 (setq-default abbrev-mode t)
-
-(add-to-list 'org-structure-template-alist
-             '("n" "#+BEGIN_COMMENT\n?\n#+END_COMMENT"
-               "<comment>\n?\n</comment>"))
 
 (set-language-environment "UTF-8")
 (set-terminal-coding-system 'utf-8)
