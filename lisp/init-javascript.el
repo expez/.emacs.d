@@ -100,39 +100,6 @@
 (defun my-aget (key map)
   (cdr (assoc key map)))
 
-(defun js2-fetch-autolint-externs (file)
-  (let* ((settings (with-temp-buffer
-                     (insert-file-literally file)
-                     (javascript-mode)
-                     (let (kill-ring) (kill-comment 1000))
-                     (->> (buffer-substring (point-min) (point-max))
-                       (s-trim)
-                       (s-chop-prefix "module.exports = ")
-                       (s-chop-suffix ";")
-                       (json-read-from-string))))
-         (predef (->> settings
-                   (my-aget 'linterOptions)
-                   (my-aget 'predef))))
-    (--each (append predef nil)
-      (add-to-list 'js2-additional-externs it))))
-
-;; After js2 has parsed a js file, we look for jslint globals decl comment ("/* global Fred, _, Harry */") and
-;; add any symbols to a buffer-local var of acceptable global vars
-;; Note that we also support the "symbol: true" way of specifying names via a hack (remove any ":true"
-;; to make it look like a plain decl, and any ':false' are left behind so they'll effectively be ignored as
-;; you can;t have a symbol called "someName:false"
-(add-hook 'js2-post-parse-callbacks
-          (lambda ()
-            (when (> (buffer-size) 0)
-              (let ((btext (replace-regexp-in-string
-                            ": *true" " "
-                            (replace-regexp-in-string "[\n\t ]+" " " (buffer-substring-no-properties 1 (buffer-size)) t t))))
-                (mapc (apply-partially 'add-to-list 'js2-additional-externs)
-                      (split-string
-                       (if (string-match "/\\* *global *\\(.*?\\) *\\*/" btext) (match-string-no-properties 1 btext) "")
-                       " *, *" t))
-                ))))
-
 (defun cjsp--eldoc-innards (beg)
   (save-excursion
     (goto-char beg)
