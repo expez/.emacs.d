@@ -148,7 +148,7 @@
       (indent-line-to offset))))
 
 (defun jshint-annotate ()
-  "Use completing read among to choose among jshint annotations
+  "Use completing read to choose among jshint annotations
 to insert above current line"
   (interactive)
   (let* ((annotation (completing-read "Insert annotation: "
@@ -183,7 +183,7 @@ to insert above current line"
   (indent-for-tab-command))
 
 (defun js-insert-block ()
-  "Insert a block, and semicolon and line end. "
+  "Insert a block"
   (interactive)
   (insert "{}")
   (backward-char)
