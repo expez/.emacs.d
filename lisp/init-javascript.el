@@ -74,6 +74,10 @@
               js2-concat-multiline-strings 'eol
               js2-idle-timer-delay 0.1
               js2-highlight-level 3
+              js2-global-externs '("module" "require" "assert" "refute"
+                                   "setTimeout" "clearTimeout" "setInterval"
+                                   "clearInterval" "location" "__dirname"
+                                   "console" "JSON")
               js2-mode-show-parse-errors nil
               js2-strict-missing-semi-warning nil
               js2-strict-inconsistent-return-warning nil
