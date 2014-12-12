@@ -4,6 +4,7 @@
 (require-package 'js2-refactor)
 (require-package 'js2-mode)
 (require-package 'skewer-mode)
+(require-package 'restclient)
 (require 'js-lookup)
 
 ;;; bookmarklet to load skewer:
@@ -22,11 +23,6 @@
     (run-skewer)
     (skewer-repl)))
 
-(when (eq system-type 'windows-nt)
-  (setq tern-command
-        (list "node"
-              (concat (getenv "HOME")
-                      "\\appdata\\roaming\\npm\\node_modules\\tern\\bin\\tern"))))
 (add-auto-mode 'js2-mode "\\.js")
 
 (defun my-js2-exit-snippet-hook ()
@@ -34,18 +30,31 @@
 
 (defun maybe-allow-tabs ()
   (when (and (string= system-name "NOLD0042")
-             (eq (indentation-style) 'tabs)
-         (allow-tabs)
-         (setq tab-width 2))))
+             (eq (indentation-style) 'tabs))
+    (allow-tabs)
+    (setq tab-width 2)
+    (setq-local indent-tabs-mode t)
+    (setq whitespace-line-column 120)
+    (whitespace-mode 0)
+    (whitespace-mode 1)))
 
 (add-to-list 'company-backends 'company-tern)
+
+(defun add-test-externs()
+  (-when-let (name (buffer-file-name))
+    (or (string-match "_spec.js" name)
+        (string-match "_test.js" name))
+    (setq js2-additional-externs
+          '("describe" "it" "xit" "expect" "spyOn" "jasmine"
+            "beforeEach" "runs" "waits" "waitsFor" "afterEach"
+            "xdescribe" "element" "by" "browser" "yasmine" "inject"))))
 
 (defun my-js2-mode-hook ()
   (setq-local yas-after-exit-snippet-hook #'my-js2-exit-snippet-hook)
   (auto-complete-mode 0)
   (company-mode 1)
   (js2-imenu-extras-setup)
-  (push 'ac-source-yasnippet ac-sources)
+  (add-test-externs)
   (setq mode-name "JS2")
   (skewer-mode)
   (tern-mode t)
@@ -57,6 +66,7 @@
                "C-M-." 'tern-find-definition-by-name
                "M-p" 'flycheck-previous-error
                "M-n" 'flycheck-next-error
+               "C-c b" 'web-beautify-js
                (kbd "<f1>") 'js-lookup)
   (fill-keymap evil-insert-state-local-map
                (kbd "C-m") 'js-insert-block-and-semi
@@ -77,7 +87,7 @@
               js2-global-externs '("module" "require" "assert" "refute"
                                    "setTimeout" "clearTimeout" "setInterval"
                                    "clearInterval" "location" "__dirname"
-                                   "console" "JSON")
+                                   "console" "JSON" "angular")
               js2-mode-show-parse-errors nil
               js2-strict-missing-semi-warning nil
               js2-strict-inconsistent-return-warning nil
