@@ -28,4 +28,9 @@
 (add-hook 'multiple-cursors-mode-disabled-hook
           'my-mc-evil-back-to-previous-state)
 
+(add-hook 'multiple-cursors-mode-enabled-hook
+          (lambda ()
+            (push
+             `(apply multiple-cursors-mode . ,(list 0)) buffer-undo-list)))
+
 (provide 'init-multiple-cursors)
