@@ -84,8 +84,7 @@
 (setq nrepl-hide-special-buffers t
       nrepl-auto-select-error-buffer t
       cider-repl-popup-stacktraces nil
-      cider-popup-stacktraces nil
-      cider-popup-on-error t
+      cider-popup-stacktraces t
       cider-repl-popup-stacktraces t
       cider-interactive-eval-result-prefix ";; => "
       cider-repl-history-file "~/.emacs.d/nrepl-history")
