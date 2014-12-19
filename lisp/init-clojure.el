@@ -183,18 +183,4 @@ Called by `imenu--generic-function'."
               (set-match-data (list def-beg def-end)))))
         (goto-char start)))))
 
-;;; cider 0.8
-(defun cljr--get-artifacts-from-middlewere (force)
-  (message "Retrieving list of available libraries...")
-  (s-split " " (nrepl-dict-get (nrepl-send-sync-request
-                                (list "op" "artifact-list"
-                                      "force" (if force "true" "false")))
-                               "value")))
-
-(defun cljr--get-versions-from-middlewere (artifact)
-  (s-split " " (nrepl-dict-get (nrepl-send-request-sync
-                                (list "op" "artifact-versions"
-                                      "artifact" artifact))
-                               "value")))
-
 (provide 'init-clojure)
