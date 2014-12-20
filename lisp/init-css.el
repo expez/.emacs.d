@@ -9,6 +9,7 @@
 (require 'sass-mode)
 (require 'css-mode)
 (require 'emmet-mode)
+(require 'edit-color-stamp)
 
 (defun my-scss-mode-hook ()
   (auto-complete-mode 0)
