@@ -93,10 +93,6 @@
 (add-hook 'comint-output-filter-functions
           'comint-strip-ctrl-m)
 
-(put 'upcase-region 'disabled nil)
-
-(put 'downcase-region 'disabled nil)
-
 (make-directory (concat user-emacs-directory "autosaves/") t)
 
 (global-undo-tree-mode 1)
