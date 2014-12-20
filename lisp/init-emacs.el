@@ -1,0 +1,189 @@
+(setq custom-file (concat user-emacs-directory "customize.el"))
+(load custom-file)
+
+(require 'uniquify)
+(require 'server)
+(add-hook 'after-make-frame-functions
+          '(lambda (f)
+             (with-selected-frame f
+               (when (window-system f)
+                 (menu-bar-mode -1)
+                 (tool-bar-mode -1)
+                 (scroll-bar-mode -1)
+                 (load-theme 'solarized-dark t)
+                 (set-face-foreground whitespace-space "deep sky blue")
+                 (set-face-foreground whitespace-newline "deep sky blue")
+                 (set-face-foreground whitespace-indentation "deep sky blue")
+                 (set-face-foreground whitespace-line "deep sky blue")
+                 (set-face-foreground whitespace-tab "deep sky blue")))))
+
+(when (or (eq system-type 'windows-nt)
+          (not server-clients))
+  (load-theme 'solarized-dark))
+
+(setq scroll-margin 0
+      scroll-conservatively 100000
+      scroll-up-aggressively 0.0
+      scroll-down-aggressively 0.0
+      scroll-preserve-screen-position t
+
+      uniquify-buffer-name-style 'post-forward
+      uniquify-separator " • "
+      uniquify-strip-common-suffix t
+      uniquify-after-kill-buffer-p t
+      uniquify-ignore-buffers-re "^\\*"
+
+      inhibit-startup-message t
+      inhibit-startup-echo-area-message t
+
+      echo-keystrokes 0.1
+      initial-scratch-message
+      ";; scratch buffer created -- happy hacking\n"
+      initial-major-mode 'emacs-lisp-mode
+      ido-enable-flex-matching t
+      ido-create-new-buffer 'always
+
+      show-paren-delay 0
+      show-paren-style 'parenthesis
+      reb-re-syntax 'string
+      delete-by-moving-to-trash t
+
+      auto-save-file-name-transforms '((".*" "~/.emacs.d/autosaves/\\1" t))
+      backup-directory-alist '((".*" . "~/.emacs.d/backups/"))
+      tramp-backup-directory-alist backup-directory-alist
+      browse-url-browser-function 'browse-url-generic
+      browse-url-generic-program "conkeror"
+      vc-make-backup-files t
+      backup-by-copying t
+      delete-old-versions t
+      kept-new-versions 6
+      kept-old-versions 2
+      version-control t
+      create-lockfiles nil)
+
+(menu-bar-mode -1)
+(tool-bar-mode -1)
+(scroll-bar-mode -1)
+
+(ido-mode 'both)
+(add-hook 'ido-setup-hook
+          (lambda ()
+            ;; Go straight home
+            (define-key ido-file-completion-map
+              (kbd "~")
+              (lambda ()
+                (interactive)
+                (if (looking-back "/")
+                    (insert "~/")
+                  (call-interactively 'self-insert-command))))))
+
+(fset 'yes-or-no-p 'y-or-n-p)
+
+(show-paren-mode 1)
+
+(put 'set-goal-column 'disabled nil)
+
+(when (eq system-type 'windows-nt)
+  (set-frame-font
+   "-outline-Consolas-normal-r-normal-normal-14-97-96-96-c-*-iso8859-1"))
+
+(when (eq system-type 'gnu/linux)
+  (set-frame-font "Inconsolata-12"))
+
+(add-hook 'comint-output-filter-functions
+          'comint-strip-ctrl-m)
+
+(put 'upcase-region 'disabled nil)
+
+(put 'downcase-region 'disabled nil)
+
+(make-directory (concat user-emacs-directory "autosaves/") t)
+
+(global-undo-tree-mode 1)
+
+(auto-image-file-mode 1)
+
+(defadvice save-buffers-kill-emacs (around no-query-kill-emacs activate)
+  "Prevent annoying \"Active processes exist\" query when you quit Emacs."
+  (flet ((process-list ())) ad-do-it))
+
+(defadvice shell-command (after shell-in-new-buffer (command &optional output-buffer error-buffer))
+  (when (get-buffer "*Async Shell Command*")
+    (with-current-buffer "*Async Shell Command*"
+      (rename-uniquely))))
+(ad-activate 'shell-command)
+
+(electric-pair-mode 1)
+
+(setq electric-pair-pairs '((?\" . ?\")
+                            (?\{ . ?\})
+                            (?\[ . ?\])))
+
+(setq-default indent-tabs-mode nil)
+
+(column-number-mode 1)
+
+(add-to-list 'auto-mode-alist '("\\.cmd\\'" . ntcmd-mode))
+
+(setq recentf-auto-cleanup 'never) ;; disable before we start recentf! If using Tramp a lot.
+(setq recentf-max-saved-items 300
+      recentf-save-file (concat user-emacs-directory ".recentf"))
+(recentf-mode)
+(run-with-timer 500 500 (lambda () (recentf-save-list)))
+
+(setq recentf-exclude '("\\.recentf"
+                        file-remote-p
+                        "\\.ido\\.last"
+                        "\\.keychain/.*?-sh\\(-gpg\\)?"))
+
+(add-hook 'server-done-hook (lambda nil (kill-buffer nil)))
+
+(setq tramp-default-method "ssh")
+
+(setq enable-recursive-minibuffers t)
+
+(winner-mode 1)
+
+(fill-keymap winner-mode-map
+             "C-x 7" 'winner-undo
+             "C-x 9" 'winner-redo)
+
+(add-hook
+ 'before-save-hook
+ (lambda ()
+   (when buffer-file-name
+     (let ((dir (file-name-directory buffer-file-name)))
+       (when (and (not (file-exists-p dir))
+                  (y-or-n-p
+                   (format "Directory %s does not exist. Create it?" dir)))
+         (make-directory dir t))))))
+
+(setq bookmark-version-control 't
+      bookmark-save-flag 1
+      bookmark-default-file (concat user-emacs-directory "bookmarks"))
+
+(setq tags-revert-without-query 1)
+(setq save-abbrevs nil)
+(setq-default abbrev-mode t)
+
+(set-language-environment "UTF-8")
+(set-terminal-coding-system 'utf-8)
+(set-keyboard-coding-system 'utf-8)
+(prefer-coding-system 'utf-8)
+(setq make-backup-files nil)
+
+(defadvice find-file (before make-directory-maybe (filename &optional wildcards)
+                             activate)
+  "Create parent directory if not exists while visiting file."
+  (unless (file-exists-p filename)
+    (let ((dir (file-name-directory filename)))
+      (unless (file-exists-p dir)
+        (make-directory dir)))))
+
+(setq view-read-only t)
+
+(add-lambda 'view-mode-hook
+  (after-load 'evil
+    (define-key evil-normal-state-local-map "q" 'View-quit)))
+
+(provide 'init-emacs)
