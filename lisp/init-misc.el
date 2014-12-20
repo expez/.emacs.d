@@ -5,8 +5,6 @@
 (require-package 'mediawiki)
 (require-package 'bookmark+)
 (require-package 'helm)
-(require-package 'ido-ubiquitous)
-(require-package 'ido-vertical-mode)
 (require-package 'info+)
 (require-package 'lorem-ipsum)
 (require-package 'project-explorer)
@@ -17,9 +15,7 @@
 (require-package 'crontab-mode)
 (require-package 'color-moccur)
 (require-package 'workgroups2)
-(require-package 'flx-ido)
 (require-package 'window-numbering)
-(require-package 'ido-hacks)
 (require-package 'solarized-theme)
 (require-package 'popwin)
 (require-package 'buffer-move)
@@ -27,13 +23,11 @@
 (require 'mmm-auto)
 (require 'ibuffer)
 (require 'workgroups2)
-(require 'ido-hacks)
 (require 'project-explorer)
 (require 'buffer-move)
 
 (popwin-mode 1)
 (eldoc-in-minibuffer-mode 1)
-(ido-vertical-mode)
 (key-chord-mode 1)
 
 (setq ibuffer-saved-filter-groups
@@ -90,7 +84,6 @@
 (setq wg-prefix-key (kbd "C-x w"))
 (workgroups-mode 1)
 
-(ido-hacks-mode)
 
 (defadvice undo-tree-undo (around keep-region activate)
   "Keep region when undoing in region"
@@ -130,12 +123,6 @@
        (define-key map (kbd "q") 'net-utils-restore-windows)
        map))
     (message "Type \"q\" to restore other windows.")))
-
-(ido-mode 1)
-(ido-everywhere 1)
-(flx-ido-mode 1)
-;; disable ido faces to see flx highlights.
-(setq ido-use-faces nil)
 
 (defun split-window-vertically-and-switch ()
   (interactive)

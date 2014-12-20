@@ -40,8 +40,6 @@
       initial-scratch-message
       ";; scratch buffer created -- happy hacking\n"
       initial-major-mode 'emacs-lisp-mode
-      ido-enable-flex-matching t
-      ido-create-new-buffer 'always
 
       show-paren-delay 0
       show-paren-style 'parenthesis
@@ -64,18 +62,6 @@
 (menu-bar-mode -1)
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
-
-(ido-mode 'both)
-(add-hook 'ido-setup-hook
-          (lambda ()
-            ;; Go straight home
-            (define-key ido-file-completion-map
-              (kbd "~")
-              (lambda ()
-                (interactive)
-                (if (looking-back "/")
-                    (insert "~/")
-                  (call-interactively 'self-insert-command))))))
 
 (fset 'yes-or-no-p 'y-or-n-p)
 
