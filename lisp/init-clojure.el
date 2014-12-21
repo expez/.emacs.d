@@ -54,6 +54,7 @@
   (rainbow-delimiters-mode 0)
   (auto-complete-mode 0)
   (company-mode 1)
+  (flycheck-mode 1)
   (setq-local evil-symbol-word-search t)
   (clj-refactor-mode 1)
   (cider-mode 1)
@@ -82,6 +83,7 @@
 (add-hook 'clojure-mode-hook #'my-clojure-mode-hook)
 
 (setq nrepl-hide-special-buffers t
+      squiggly-clojure-checkers '(eastwood kibit)
       nrepl-auto-select-error-buffer t
       cider-repl-popup-stacktraces nil
       cider-popup-stacktraces t

@@ -1,7 +1,11 @@
 (require-package 'flycheck)
 (require-package 'aggressive-indent)
+(require-package 'flycheck-pos-tip)
 (require 'flycheck)
 (require 'fic-mode)
+
+(after-load 'flycheck
+  (setq flycheck-display-errors-function #'flycheck-pos-tip-error-messages))
 
 (after-load 'aggressive-indent
   (define-key aggressive-indent-mode-map (kbd "C-c C-q") nil))
