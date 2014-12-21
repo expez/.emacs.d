@@ -91,6 +91,9 @@
       cider-interactive-eval-result-prefix ";; => "
       cider-repl-history-file "~/.emacs.d/nrepl-history")
 
+(defadvice cider-repl-return (before normal-mode activate)
+  (evil-normal-state))
+
 (put 'macrolet 'clojure-backtracking-indent '((2) 2))
 
 (define-clojure-indent
