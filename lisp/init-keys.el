@@ -50,6 +50,11 @@
   "*" 'wg-switch-to-workgroup-at-index-7
   "(" 'wg-switch-to-workgroup-at-index-8)
 
+;;; quick hack because wg rebound it
+(defun winner-undo- ()
+  (interactive)
+  (winner-undo))
+
 (defkeymap misc-map
   "c" 'ethan-wspace-clean-all
   "d" 'diff-current-buffer-with-file
@@ -66,7 +71,7 @@
   "r" 'rename-file-and-buffer
   "t" 'new-todo
   "T" 'org-todo-list
-  "u" 'winner-undo
+  "u" 'winner-undo-
   "v" 'visual-line-mode
   "W" 'ethan-wspace-clean-all-modes
   "w" 'toggle-whitespace-mode)
