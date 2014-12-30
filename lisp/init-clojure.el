@@ -58,6 +58,7 @@
   (setq-local evil-symbol-word-search t)
   (clj-refactor-mode 1)
   (cider-mode 1)
+  (setq-local flycheck-disabled-checkers '(clojure-cider-typed))
   (fill-keymap cider-mode-map
                "C-c C-e" 'cider-eval-defun-at-point
                "C-c C-m" nil
@@ -77,13 +78,11 @@
                "M->" 'cljr-thread
                "M-<" 'cljr-unwind
                "C-c s" 'toggle-spy
-               "C-c r" 'cider-refresh
                "C-c R" 'cider-component-reset))
 
 (add-hook 'clojure-mode-hook #'my-clojure-mode-hook)
 
 (setq nrepl-hide-special-buffers t
-      squiggly-clojure-checkers '(eastwood kibit)
       nrepl-auto-select-error-buffer t
       cider-repl-popup-stacktraces nil
       cider-popup-stacktraces t
