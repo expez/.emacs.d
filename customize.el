@@ -25,7 +25,8 @@
  '(glasses-original-separator "")
  '(glasses-separate-capital-groups nil)
  '(glasses-separate-parentheses-p nil)
- '(glasses-separator ""))
+ '(glasses-separator "")
+ '(paradox-github-token t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

@@ -20,4 +20,6 @@ re-downloaded in order to locate PACKAGE."
         (package-refresh-contents)
         (require-package package min-version t)))))
 
+(require-package 'paradox)
+
 (provide 'init-package)
