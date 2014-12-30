@@ -2,11 +2,9 @@
 (require-package 'evil-surround)
 (require 'evil-surround)
 (require-package 'evil-visualstar)
-(require 'evil-visualstar)
 (require-package 'evil-paredit)
 (require-package 'evil-numbers)
 (require-package 'evil-jumper)
-(require 'evil-jumper)
 (require-package 'evil)
 (require-package 'ace-jump-mode)
 (require 'ace-jump-mode)
@@ -17,6 +15,9 @@
 (setq evil-symbol-word-search t)
 (evil-mode 1)
 (evil-exchange-install)
+
+(global-evil-visualstar-mode)
+(global-evil-jumper-mode)
 
 (global-evil-surround-mode 1)
 (setq evil-exchange-highlight-face 'region)
