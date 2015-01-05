@@ -261,6 +261,14 @@
                 "k" 'undo-tree-visualize-undo
                 "j" 'undo-tree-visualize-redo))
 
+(after-load 'git-gutter
+  (global-set-key (kbd "C-x C-g") 'git-gutter:toggle)
+  (global-set-key (kbd "C-x v =") 'git-gutter:popup-hunk)
+  (global-set-key (kbd "C-x p") 'git-gutter:previous-hunk)
+  (global-set-key (kbd "C-x n") 'git-gutter:next-hunk)
+  (global-set-key (kbd "C-x v s") 'git-gutter:stage-hunk)
+  (global-set-key (kbd "C-x v r") 'git-gutter:revert-hunk))
+
 (define-key query-replace-map [return] 'act)
 (define-key query-replace-map [?\C-m] 'act)
 
