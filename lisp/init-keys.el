@@ -20,6 +20,7 @@
   "j" 'bookmark-jump
   "e" 'edit-user-config-file
   "h" 'change-whitespace-line-column
+  "i" 'evil-iedit-state/iedit-mode
   "k" 'kill-buffer
   "SPC" 'clean-and-save-buffer
   "p" 'projectile-switch-project

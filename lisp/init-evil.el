@@ -11,6 +11,18 @@
 (require-package 'goto-chg)
 (require 'evil-numbers)
 (require-package 'evil-exchange)
+(require-package 'evil-iedit-state)
+
+(progn
+  (evil-define-state iedit
+    "`iedit state' interfacing iedit mode."
+    :tag " <i> "
+    :enable (normal)
+    :cursor box
+    :message "-- IEDIT --"
+    ;; force iedit mode
+    (if (evil-replace-state-p) (call-interactively 'iedit-mode)))
+  (require 'evil-iedit-state))
 
 (setq evil-symbol-word-search t)
 (evil-mode 1)
