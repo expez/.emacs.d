@@ -166,6 +166,8 @@
 
 (fill-keymap 'global
              "C-h h" nil
+             "C-h g" nil
+             "C-h c" nil
              "C-x v p" 'git-messenger:popup-message
              "C-x m" 'ido-hacks-execute-extended-command
              "C-x C-m" 'ido-hacks-execute-extended-command
