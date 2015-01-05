@@ -26,6 +26,7 @@
  '(glasses-separate-capital-groups nil)
  '(glasses-separate-parentheses-p nil)
  '(glasses-separator "")
+ '(magit-use-overlays t)
  '(paradox-github-token t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.

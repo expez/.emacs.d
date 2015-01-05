@@ -169,4 +169,4 @@
     (when evil-normal-state-local-map
       (define-key evil-normal-state-local-map "q" 'View-quit))))
 
-(provide 'init-emacs))
+(provide 'init-emacs)
