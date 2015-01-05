@@ -216,50 +216,50 @@
 (evil-add-hjkl-bindings package-menu-mode-map 'emacs
   "h" 'package-menu-quick-help)
 
-(eval-after-load "workgroups"
-  '(fill-keymap 'global "C-x w" wg-map))
+(after-load 'workgroups
+  (fill-keymap 'global "C-x w" wg-map))
 
-(eval-after-load "vc-annotate"
-  '(fill-keymap vc-annotate-mode-map
-                "?" 'evil-search-backward
-                "/" 'evil-search-forward
-                "C-d" 'evil-scroll-down
-                "C-u" 'evil-scroll-up
-                "C-f" 'evil-scroll-page-down
-                "C-b" 'evil-scroll-page-up
-                "j" 'next-line
-                "J" 'vc-annotate-revision-at-line
-                "k" 'previous-line))
+(after-load 'vc-annotate
+  (fill-keymap vc-annotate-mode-map
+               "?" 'evil-search-backward
+               "/" 'evil-search-forward
+               "C-d" 'evil-scroll-down
+               "C-u" 'evil-scroll-up
+               "C-f" 'evil-scroll-page-down
+               "C-b" 'evil-scroll-page-up
+               "j" 'next-line
+               "J" 'vc-annotate-revision-at-line
+               "k" 'previous-line))
 
-(eval-after-load "org-agenda"
-  '(fill-keymap org-agenda-mode-map
-                "j" 'org-agenda-next-line
-                "k" 'org-agenda-previous-line
+(after-load 'org-agenda
+  (fill-keymap org-agenda-mode-map
+               "j" 'org-agenda-next-line
+               "k" 'org-agenda-previous-line
                                         ;"J" 'org-agenda-goto-date
-                "K" 'org-agenda-capture))
+               "K" 'org-agenda-capture))
 
-(eval-after-load "macrostep"
-  '(evil-define-key 'normal macrostep-keymap
-     (kbd "RET") 'macrostep-expand
-     "e" 'macrostep-expand
+(after-load 'macrostep
+  (evil-define-key 'normal macrostep-keymap
+    (kbd "RET") 'macrostep-expand
+    "e" 'macrostep-expand
 
-     "u" 'macrostep-collapse
-     "c" 'macrostep-collapse
+    "u" 'macrostep-collapse
+    "c" 'macrostep-collapse
 
-     (kbd "TAB") 'macrostep-next-macro
-     "n" 'macrostep-next-macro
-     (kbd "S-TAB") 'macrostep-prev-macro
-     "p" 'macrostep-prev-macro
-     "q" 'macrostep-collapse-all
-     (kbd "C-c C-c") 'macrostep-collapse-all))
+    (kbd "TAB") 'macrostep-next-macro
+    "n" 'macrostep-next-macro
+    (kbd "S-TAB") 'macrostep-prev-macro
+    "p" 'macrostep-prev-macro
+    "q" 'macrostep-collapse-all
+    (kbd "C-c C-c") 'macrostep-collapse-all))
 
-(eval-after-load "undo-tree"
-  '(fill-keymap undo-tree-visualizer-mode-map
-                "l" 'undo-tree-visualize-switch-branch-right
-                "h" 'undo-tree-visualize-switch-branch-left
-                "H" 'describe-mode
-                "k" 'undo-tree-visualize-undo
-                "j" 'undo-tree-visualize-redo))
+(after-load 'undo-tree
+  (fill-keymap undo-tree-visualizer-mode-map
+               "l" 'undo-tree-visualize-switch-branch-right
+               "h" 'undo-tree-visualize-switch-branch-left
+               "H" 'describe-mode
+               "k" 'undo-tree-visualize-undo
+               "j" 'undo-tree-visualize-redo))
 
 (after-load 'git-gutter
   (global-set-key (kbd "C-x C-g") 'git-gutter:toggle)
