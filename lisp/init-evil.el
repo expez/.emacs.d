@@ -90,6 +90,7 @@
           log-view-mode
           cider-popup-buffer-mode
           project-explorer-mode
+          paradox-menu-mode
           diff-mode))
 
 (evil-set-initial-state 'man-mode 'motion)
