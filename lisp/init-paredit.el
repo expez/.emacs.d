@@ -172,7 +172,7 @@ Save in REGISTER or in the kill-ring with YANK-HANDLER."
                               (if (looking-at "(")
                                   (max 0 (1- (evil-paredit-depth-at-point)))
                                 (evil-paredit-depth-at-point))))
-            (depth-end (progn (goto-char end) (evil-paredit-depth-at-point))))
+            (depth-end (progn (goto-char (1- end)) (evil-paredit-depth-at-point))))
         (unless (eq depth-beg depth-end)
           (move-end-of-line nil)
           (paredit-backward-down (- depth-beg depth-end))
