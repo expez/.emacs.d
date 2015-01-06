@@ -38,17 +38,30 @@
   (require 'cl-lib)
   (require 'cl-macs))
 
-(defun evil-sp--override (oldfun beg end &rest rest)
+(defun evil-sp--shrink-region (oldfun beg end &rest rest)
   (apply oldfun beg (evil-sp--happy-ending beg end) rest))
 
+(defun evil-sp--emulate-sp-kill-sexp (oldfun &rest rest)
+  "Enlarge the region bounded by BEG END until it matches
+  `paredit-kill' at BEG.'"
+  (let ((safe-end  (save-excursion
+                     (save-restriction
+                       (while (sp-forward-sexp))
+                       (point)))))
+    (evil-delete (point) safe-end)))
+
+(defun evil-sp--enlarge-region (oldfun beg end &rest rest)
+  (apply oldfun beg (evil-sp--emulate-paredit-kill beg end) rest))
+
 (defun evil-sp--activate-advice ()
-  (advice-add 'evil-delete :around #'evil-sp--override)
-  (advice-add 'evil-yank :around #'evil-sp--override))
+  (advice-add 'evil-delete :around #'evil-sp--shrink-region)
+  (advice-add 'evil-yank :around #'evil-sp--shrink-region)
+  (advice-add 'evil-delete-line :around #'evil-sp--emulate-sp-kill-sexp))
 
 (defun evil-sp--deactivate-advice ()
   (dolist (fn evil-sp--advised-functions)
-    (advice-remove 'evil-delete #'evil-sp--override)
-    (advice-remove 'evil-yank #'evil-sp--override)))
+    (advice-remove 'evil-delete #'evil-sp--shrink-region)
+    (advice-remove 'evil-yank #'evil-sp--shrink-region)))
 
 ;;;###autoload
 (define-minor-mode evil-smartparens-mode
