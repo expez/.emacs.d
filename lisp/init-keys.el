@@ -10,7 +10,7 @@
   "R" 'revert-all-buffers
   "W" 'save-some-buffers
   "A" 'align-regexp
-  "a" 'ag
+  "a" 'ag-regexp
   "b" 'projectile-switch-to-buffer
   "c" 'compile
   "C" 'toggle-bury-compilation-buffer
