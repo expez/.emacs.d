@@ -44,17 +44,15 @@
 (defun evil-sp--emulate-sp-kill-sexp (oldfun &rest rest)
   "Enlarge the region bounded by BEG END until it matches
   `paredit-kill' at BEG.'"
-  (evil-delete (point) (save-excursion (sp-up-sexp) (point))))
-
-(defun evil-sp--enlarge-region (oldfun beg end &rest rest)
-  (apply oldfun beg (evil-sp--emulate-paredit-kill beg end) rest))
+  (evil-delete (point) (max (save-excursion (sp-up-sexp) (point))
+                            (save-excursion (sp-forward-sexp) (point))
+                            (point-at-eol))))
 
 (defun evil-sp--activate-advice ()
   (advice-add 'evil-delete :around #'evil-sp--shrink-region)
   (advice-add 'evil-yank :around #'evil-sp--shrink-region)
   (advice-add 'evil-delete-line :around #'evil-sp--emulate-sp-kill-sexp)
   (advice-add 'evil-change-line :around #'evil-sp--emulate-sp-kill-sexp))
-
 
 (defun evil-sp--deactivate-advice ()
   (dolist (fn evil-sp--advised-functions)
