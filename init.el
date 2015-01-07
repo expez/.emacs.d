@@ -22,5 +22,5 @@
 (require 'init-package)
 (require 'init-util)
 
-(load-elisp-files-in-dir my-config-dir "^init-.\*")
+(safe-load-init-files my-config-dir)
 (load-from-vendor-dir)

@@ -1,4 +1,5 @@
 (require 'cl)
+(require 's)
 
 (defun add-auto-mode (mode &rest patterns)
   "Associate every pattern in `PATTERNS' with `MODE'."
@@ -516,19 +517,31 @@ If the file is emacs lisp, run the byte compiled version if appropriate."
                     (concat "find " vendor-dir " -type f -iname '*.el'")))))
       (mapc #'load files))))
 
-(defun load-elisp-files-in-dir (dir &optional regexp count)
-  "Load all elisp files in in DIR.  When REGEXP is provided match
-only those files with name of form REGEXP.el.  If COUNT is
-provided only load COUNT number of such files.  "
-  (let* ((regexp (if regexp
-                     regexp
-                   ".*"))
-         (files (directory-files dir t (concat regexp "\.el\$")))
-         (count (if count count (length files))))
-    (loop for file in files
-          for file-num to count
-          while (<= file-num count)
-          do (load file))))
+(defun report-init-results (errors)
+  (message "======================================")
+  (if errors
+      (message (mapconcat #'identity errors "\n"))
+    (message "Initialization successful!"))
+  (message "======================================"))
+
+(defun file-to-feature (file)
+  (intern (file-name-nondirectory (s-chop-suffix "\.el" file))))
+
+(defun safe-load-init-files (dir &optional regexp)
+  "Require all elisp files in DIR.  When REGEXP is provided match
+only those files with name of form REGEXP.el.
+
+REGEXP defaults to ^init-.*\.el$"
+  (let* ((regexp (if regexp regexp "^init-.\*\.el\$"))
+         (files (directory-files dir t regexp))
+         (features (mapcar #'file-to-feature files))
+         (init-errors nil))
+    (loop for feature in features
+          do (condition-case err
+                 (load (symbol-name feature))
+               (error (push (format "Error requiring %s: %s" feature err)
+                            init-errors))))
+    (report-init-results init-errors)))
 
 (defmacro defkeymap (symbol &rest mappings)
   "Define keymap bound to `symbol'.
