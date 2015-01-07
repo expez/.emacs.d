@@ -518,11 +518,11 @@ If the file is emacs lisp, run the byte compiled version if appropriate."
       (mapc #'load files))))
 
 (defun report-init-results (errors)
-  (message "======================================")
-  (if errors
-      (message (mapconcat #'identity errors "\n"))
-    (message "Initialization successful!"))
-  (message "======================================"))
+  (if (not errors)
+      (message "Initialization successful!")
+    (message "Errors during init, see buffer *init-errors*")
+    (switch-to-buffer "*init-errors*")
+    (insert (mapconcat #'identity errors "\n"))))
 
 (defun file-to-feature (file)
   (intern (file-name-nondirectory (s-chop-suffix "\.el" file))))
@@ -709,10 +709,10 @@ Then saves the buffer."
   (interactive "P")
   (let ((default-directory default-directory))
     (when arg
-     (when (string-match "^.*/src/$" default-directory)
-       (cd "../")
-       (when (file-directory-p "build")
-         (cd "build"))))
+      (when (string-match "^.*/src/$" default-directory)
+        (cd "../")
+        (when (file-directory-p "build")
+          (cd "build"))))
     (start-process "my-urxvt" nil "urxvtc")))
 
 (defun narrow-or-widen-dwim (p)
