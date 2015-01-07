@@ -21,8 +21,8 @@
 (eval-after-load "flyspell"
   '(diminish 'flyspell-mode))
 
-(eval-after-load "workgroups"
-  '(diminish 'workgroups-mode))
+(after-load 'workgroups2
+  (diminish 'workgroups-mode))
 
 (eval-after-load "glasses"
   '(diminish 'glasses-mode))
@@ -51,6 +51,12 @@
 
 (eval-after-load 'magit-wip
   '(diminish 'magit-wip-save-mode))
+
+(after-load 'magit
+  (diminish 'magit-auto-revert-mode))
+
+(after-load 'git-gutter
+  (diminish 'git-gutter-mode))
 
 (defmacro rename-modeline (package-name mode new-name)
   `(eval-after-load ,package-name
