@@ -88,4 +88,4 @@
   (let ((fn (read-from-minibuffer "Bind ,t to: ")))
     (define-key leader-map "t" (intern fn))))
 
-(provide 'init-lisp)
+(provide 'init-elisp)

@@ -28,3 +28,5 @@
 (defadvice evil-normal-state (after cancel-company activate)
   (when company-candidates
     (company-abort)))
+
+(provide 'init-company)

@@ -68,4 +68,4 @@
              "r" 'deft-rename-file
              "t" 'deft-toggle-incremental-search)
 
-(provide 'init-deft)
+(provide 'init-org)

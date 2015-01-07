@@ -84,7 +84,6 @@
 (setq wg-prefix-key (kbd "C-x w"))
 (workgroups-mode 1)
 
-
 (defadvice undo-tree-undo (around keep-region activate)
   "Keep region when undoing in region"
   (if (use-region-p)
@@ -216,3 +215,5 @@
            ;; functions.
            (narrow-to-defun)
            (iedit-start (current-word) (point-min) (point-max))))))))
+
+(provide 'init-misc)
