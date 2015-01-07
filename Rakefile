@@ -1,6 +1,6 @@
-task :default => [:install_packages, :make_link]
+task :default => [:install_packages]
 
-packages = ["expez/git-wip", "Golevka/emacs-clang-complete-async"]
+packages = ["Golevka/emacs-clang-complete-async"]
 
 desc "Takes care of any dependencies not managed by the package manager."
 task :install_packages do
@@ -24,11 +24,4 @@ task :update_packages do
     print "DONE\n"
   end
   `cd vendor/emacs-clang-complete-async && make`
-end
-
-task :make_link do
-  target = File.join(File.dirname(__FILE__), "vendor", "git-wip", "git-wip")
-  link_name = File.join(Dir.home, "bin", "git-wip")
-  `ln -s #{target} #{link_name}`
-  `chmod u+x #{link_name}`
 end
