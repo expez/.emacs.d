@@ -23,7 +23,7 @@
                 (regexp-opt (-map 'car cljr-magic-require-namespaces)) "\\)/")))
 
 (defun my-cider-mode-hook ()
-  (cider-turn-on-eldoc-mode))
+  (eldoc-mode))
 (add-hook 'cider-mode-hook 'my-cider-mode-hook)
 
 (defun my-cider-browse-ns-mode-hook ()
@@ -34,7 +34,7 @@
 (defun my-cider-repl-mode-hook ()
   (setq show-trailing-whitespace nil)
   (company-mode 1)
-  (cider-turn-on-eldoc-mode)
+  (eldoc-mode)
   (paredit-mode 1)
   (fill-keymaps '(evil-insert-state-local-map evil-normal-state-local-map)
                 (kbd "C-a") 'cider-repl-bol
