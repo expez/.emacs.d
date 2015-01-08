@@ -30,7 +30,7 @@
   (window-configuration-to-register ?$)
   (rgrep regexp files dir confirm)
   (switch-to-buffer "*grep*")
-  (delete-other-windows)
+  (goto-char (point-min))
   (beginning-of-buffer))
 
 (defun rgrep-quit-window ()
@@ -70,7 +70,7 @@
     (grep command)
     (switch-to-buffer "*grep*")
     (delete-other-windows)
-    (beginning-of-buffer)))
+    (goto-char (point-min))))
 
 (eval-after-load "grep"
   '(progn
