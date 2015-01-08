@@ -116,6 +116,7 @@
              "M-p" 'previous-error
              "C-u" 'evil-scroll-up
              "gs" 'just-one-space
+             "gS" 'delete-blank-lines
              "K" misc-map
              "," leader-map)
 
