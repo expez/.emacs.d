@@ -1,7 +1,6 @@
 (require-package 'unbound)
 (require-package 'eldoc-eval)
 (require-package 'key-chord)
-(require-package 'mmm-mode)
 (require-package 'mediawiki)
 (require-package 'bookmark+)
 (require-package 'helm)
@@ -20,7 +19,6 @@
 (require-package 'popwin)
 (require-package 'buffer-move)
 (require 'popwin)
-(require 'mmm-auto)
 (require 'ibuffer)
 (require 'workgroups2)
 (require 'project-explorer)
@@ -95,9 +93,6 @@
         (set-marker p nil)
         (set-marker m nil))
     ad-do-it))
-
-(setq mmm-global-mode 'buffers-with-submode-classes)
-(setq mmm-submode-decoration-level 2)
 
 (defadvice httpd-start (around set-httpd-root-with-prefix activate)
   (if current-prefix-arg
