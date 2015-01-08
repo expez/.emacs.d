@@ -38,8 +38,16 @@
   (require 'cl-lib)
   (require 'cl-macs))
 
-(defun evil-sp--shrink-region (oldfun beg end &rest rest)
-  (apply oldfun beg (evil-sp--happy-ending beg end) rest))
+(defun evil-sp--new-beginning (beg)
+  (min beg
+       (or (when (sp-point-in-empty-sexp)
+             (save-excursion (sp-backward-up-sexp) (point)))
+           (point-max))))
+
+(defun evil-sp--modify-region (oldfun beg end &rest rest)
+  (let ((new-beg ))
+    (apply oldfun (evil-sp--new-beginning beg)
+           (evil-sp--happy-ending beg end) rest)))
 
 (defun evil-sp--emulate-sp-kill-sexp (oldfun &rest rest)
   "Enlarge the region bounded by BEG END until it matches
@@ -48,16 +56,26 @@
                             (save-excursion (sp-forward-sexp) (point))
                             (point-at-eol))))
 
+(defun evil-sp--override-delete-backward-char (oldfun beg end &rest rest)
+  (if (save-excursion (forward-char) (sp-point-in-empty-sexp))
+      (apply #'evil-delete beg (incf end) rest)
+    (apply oldfun beg end rest)))
+
 (defun evil-sp--activate-advice ()
-  (advice-add 'evil-delete :around #'evil-sp--shrink-region)
-  (advice-add 'evil-yank :around #'evil-sp--shrink-region)
+  (advice-add 'evil-delete :around #'evil-sp--modify-region)
+  (advice-add 'evil-yank :around #'evil-sp--modify-region)
   (advice-add 'evil-delete-line :around #'evil-sp--emulate-sp-kill-sexp)
-  (advice-add 'evil-change-line :around #'evil-sp--emulate-sp-kill-sexp))
+  (advice-add 'evil-change-line :around #'evil-sp--emulate-sp-kill-sexp)
+  (advice-add 'evil-delete-backward-char :around
+              #'evil-sp--override-delete-backward-char))
 
 (defun evil-sp--deactivate-advice ()
-  (dolist (fn evil-sp--advised-functions)
-    (advice-remove 'evil-delete #'evil-sp--shrink-region)
-    (advice-remove 'evil-yank #'evil-sp--shrink-region)))
+  (advice-remove 'evil-delete #'evil-sp--modify-region)
+  (advice-remove 'evil-yank #'evil-sp--modify-region)
+  (advice-remove 'evil-delete-line #'evil-sp--emulate-sp-kill-sexp)
+  (advice-remove 'evil-change-line #'evil-sp--emulate-sp-kill-sexp)
+  (advice-remove 'evil-delete-backward-char
+                 #'evil-sp--override-delete-backward-char))
 
 ;;;###autoload
 (define-minor-mode evil-smartparens-mode
@@ -69,11 +87,16 @@
 
 (defun evil-sp--happy-ending (beg end)
   "Find the largest safe region delimited by BEG END"
-  (unless (s-blank? (s-trim (buffer-substring-no-properties beg end)))
-    (cl-letf (((symbol-function 'sp-message) (lambda (msg))))
-      (while (not (or (sp-region-ok-p beg end)
-                      (= beg end)))
-        (cl-decf end))))
+  (let* ((region (s-trim (buffer-substring-no-properties beg end))))
+    (unless (s-blank? region)
+      (if (sp-point-in-empty-sexp)
+          ;; expand region if we're in an empty sexp
+          (setf end (save-excursion (sp-up-sexp) (point)))
+        ;; reduce region if it's unbalanced due to selecting too much
+        (cl-letf (((symbol-function 'sp-message) (lambda (msg))))
+          (while (not (or (sp-region-ok-p beg end)
+                          (= beg end)))
+            (cl-decf end))))))
   (when (= beg end)
     (evil-sp--fail))
   end)
