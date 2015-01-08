@@ -200,12 +200,14 @@
 
 (after-load 'neotree
   (setq projectile-switch-project-action 'neotree-projectile-action
-        neo-theme 'ascii)
+        neo-theme 'ascii
+        setq neo-keymap-style 'concise)
   (add-hook 'neotree-mode-hook
             (lambda ()
               (define-key evil-normal-state-local-map (kbd "TAB") 'neotree-enter)
               (define-key evil-normal-state-local-map (kbd "SPC") 'neotree-enter)
               (define-key evil-normal-state-local-map (kbd "q") 'neotree-hide)
+              (define-key evil-normal-state-local-map (kbd "U") 'neotree-select-up-node)
               (define-key evil-normal-state-local-map (kbd "RET") 'neotree-enter)))
 
   (when neo-persist-show
