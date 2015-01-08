@@ -8,6 +8,7 @@ jedi/
 auto-save-list/
 plugins/.\#*
 *.el~
+*.elc
 clang-complete
 auto-complete-clang-async.el
 ac-comphist.dat
