@@ -116,7 +116,8 @@
              "M-p" 'previous-error
              "C-u" 'evil-scroll-up
              "gs" 'just-one-space
-             "K" misc-map)
+             "K" misc-map
+             "," leader-map)
 
 (fill-keymap evil-insert-state-map
              "C-a" 'smart-line-beginning
