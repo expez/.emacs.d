@@ -15,7 +15,7 @@
   (auto-complete-mode 0)
   (company-mode 1)
   (turn-on-css-eldoc)
-  (fill-keymap sass-mode-map (kbd "C-c C-e" 'edit-or-insert-color-stamp)))
+  (fill-keymap sass-mode-map (kbd "C-c C-e") 'edit-or-insert-color-stamp))
 
 (add-hook 'scss-mode-hook #'my-scss-mode-hook)
 
