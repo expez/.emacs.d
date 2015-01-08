@@ -180,7 +180,7 @@
              "C-x e" 'eval-and-replace
              "C-<tab>" 'hippie-expand
              "<f5>" 'eshell-toggle
-             "<f2>" 'toggle-project-explorer
+             "<f2>" 'neotree-toggle
              "<pause>" 'toggle-debug-on-error
              "C-x r q" 'save-buffers-kill-terminal
              "C-x v t" 'vc-create-tag

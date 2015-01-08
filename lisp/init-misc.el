@@ -6,7 +6,7 @@
 (require-package 'helm)
 (require-package 'info+)
 (require-package 'lorem-ipsum)
-(require-package 'project-explorer)
+(require-package 'neotree)
 (require-package 'rainbow-delimiters)
 (require-package 'regex-tool)
 (require-package 'regex-dsl)
@@ -21,7 +21,6 @@
 (require 'popwin)
 (require 'ibuffer)
 (require 'workgroups2)
-(require 'project-explorer)
 (require 'buffer-move)
 
 (popwin-mode 1)
@@ -183,32 +182,36 @@
               ido-file-completion-map
               ido-file-dir-completion-map)))
 
-(setq pe/omit-regex "^\\.\\|^#\\|~$\\|node_modules\\|bower_components")
-
-(defun toggle-project-explorer ()
-  (interactive)
-  (-if-let* ((pe-buffer (pe/get-current-project-explorer-buffer))
-             (pe-window (get-buffer-window pe-buffer)))
-      (progn (delete-window pe-window)
-             (popwin-mode 1))
-    (project-explorer-open)
-    (popwin-mode 0)))
-
 (after-load 'iedit
   (defun iedit-dwim (arg)
-   "Starts iedit but uses \\[narrow-to-defun] to limit its scope."
-   (interactive "P")
-   (if arg
-       (iedit-mode)
-     (save-excursion
-       (save-restriction
-         (widen)
-         ;; this function determines the scope of `iedit-start'.
-         (if iedit-mode
-             (iedit-done)
-           ;; `current-word' can of course be replaced by other
-           ;; functions.
-           (narrow-to-defun)
-           (iedit-start (current-word) (point-min) (point-max))))))))
+    "Starts iedit but uses \\[narrow-to-defun] to limit its scope."
+    (interactive "P")
+    (if arg
+        (iedit-mode)
+      (save-excursion
+        (save-restriction
+          (widen)
+          ;; this function determines the scope of `iedit-start'.
+          (if iedit-mode
+              (iedit-done)
+            ;; `current-word' can of course be replaced by other
+            ;; functions.
+            (narrow-to-defun)
+            (iedit-start (current-word) (point-min) (point-max))))))))
 
+(after-load 'neotree
+  (setq projectile-switch-project-action 'neotree-projectile-action
+        neo-theme 'ascii)
+  (add-hook 'neotree-mode-hook
+            (lambda ()
+              (define-key evil-normal-state-local-map (kbd "TAB") 'neotree-enter)
+              (define-key evil-normal-state-local-map (kbd "SPC") 'neotree-enter)
+              (define-key evil-normal-state-local-map (kbd "q") 'neotree-hide)
+              (define-key evil-normal-state-local-map (kbd "RET") 'neotree-enter)))
+
+  (when neo-persist-show
+    (add-hook 'popwin:before-popup-hook
+              (lambda () (setq neo-persist-show nil)))
+    (add-hook 'popwin:after-popup-hook
+              (lambda () (setq neo-persist-show t)))))
 (provide 'init-misc)
