@@ -6,7 +6,7 @@
 ;; URL: https://www.github.com/expez/evil-smartparens
 ;; Keywords: evil smartparens
 ;; Version: 0.01
-;; Package-Requires: ((evil "1.0") (cl-lib "0.3") (emacs "24.1"))
+;; Package-Requires: ((evil "1.0") (cl-lib "0.3") (emacs "24.1") (diminish "0.44"))
 
 ;; This file is not part of GNU Emacs.
 
@@ -33,6 +33,7 @@
 
 (require 'evil)
 (require 'smartparens)
+(require 'diminish)
 
 (eval-when-compile
   (require 'cl-lib)
@@ -77,13 +78,27 @@
   (advice-remove 'evil-delete-backward-char
                  #'evil-sp--override-delete-backward-char))
 
+(defun evil-sp--lighter ()
+  (if smartparens-strict-mode
+      " SP/se"
+    " SP/e"))
+
+(defun evil-sp--disable ()
+  (evil-sp--deactivate-advice)
+  (diminish-undo 'smartparens-mode))
+
+(defun evil-sp--enable ()
+  (evil-sp--activate-advice)
+  (diminish 'smartparens-mode))
+
 ;;;###autoload
 (define-minor-mode evil-smartparens-mode
   "Toggle evil-smartparens."
-  :lighter " SP/e"
-  (if (not evil-smartparens-mode)
-      (evil-sp--deactivate-advice)
-    (evil-sp--activate-advice)))
+  :lighter (:eval (evil-sp--lighter))
+  :init-value nil
+  (if evil-smartparens-mode
+      (evil-sp--enable)
+    (evil-sp--disable)))
 
 (defun evil-sp--happy-ending (beg end)
   "Find the largest safe region delimited by BEG END"
@@ -105,5 +120,4 @@
   (error "Can't find a safe region to act on!"))
 
 (provide 'evil-smartparens)
-
 ;;; evil-smartparens.el ends here
