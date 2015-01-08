@@ -1,6 +1,4 @@
 (require-package 'deft)
-(require 'deft)
-(require 'org)
 
 (setq org-src-fontify-natively t
       org-src-preserve-indentation t
@@ -18,9 +16,11 @@
       org-capture-templates
       '(("t" "Todo" entry (file+headline "~/org/todo.org" "Tasks")
          "* TODO %?\n  %i\n  %a")))
-(add-to-list 'org-structure-template-alist
-             '("n" "#+BEGIN_COMMENT\n?\n#+END_COMMENT"
-               "<comment>\n?\n</comment>"))
+
+(after-load 'org
+  (add-to-list 'org-structure-template-alist
+               '("n" "#+BEGIN_COMMENT\n?\n#+END_COMMENT"
+                 "<comment>\n?\n</comment>")))
 
 (defun new-todo ()
   (interactive) (org-capture nil "t"))
@@ -35,8 +35,19 @@
 
 (add-auto-mode 'deft-note-mode "\\.deft$")
 
-(unless (file-exists-p deft-directory)
-  (make-directory deft-directory :create-parents))
+(after-load 'deft
+  (unless (file-exists-p deft-directory)
+    (make-directory deft-directory :create-parents))
+  (fill-keymap deft-mode-map
+               "n" 'deft-new-file
+               "N" 'deft-new-file-named
+               "a" 'deft-archive-file
+               "d" 'deft-delete-file
+               "f" 'deft-find-file
+               "g" 'deft-refresh
+               "q" 'quit-window
+               "r" 'deft-rename-file
+               "t" 'deft-toggle-incremental-search))
 
 (defun kill-all-deft-notes ()
   (interactive)
@@ -56,16 +67,5 @@
         (kill-all-deft-notes)
         (kill-buffer "*Deft*"))
     (deft)))
-
-(fill-keymap deft-mode-map
-             "n" 'deft-new-file
-             "N" 'deft-new-file-named
-             "a" 'deft-archive-file
-             "d" 'deft-delete-file
-             "f" 'deft-find-file
-             "g" 'deft-refresh
-             "q" 'quit-window
-             "r" 'deft-rename-file
-             "t" 'deft-toggle-incremental-search)
 
 (provide 'init-org)

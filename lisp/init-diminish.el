@@ -22,7 +22,10 @@
   '(diminish 'flyspell-mode))
 
 (after-load 'workgroups2
-  (diminish 'workgroups-mode))
+  ;; workgroups mode isn't actually added to minor-mode-alist until
+  ;; the mode is turned on.
+  (when workgroups-mode
+    (diminish 'workgroups-mode)))
 
 (eval-after-load "glasses"
   '(diminish 'glasses-mode))
