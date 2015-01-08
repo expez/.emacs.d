@@ -119,6 +119,14 @@
              "K" misc-map
              "," leader-map)
 
+(fill-keymap evil-window-map
+             "M-h" 'buf-move-left
+             "M-l" 'buf-move-right
+             "M-j" 'buf-move-down
+             "M-k" 'buf-move-up)
+
+(define-key evil-insert-state-map (kbd "C-e") nil)
+
 (fill-keymap evil-insert-state-map
              "C-a" 'smart-line-beginning
              "C-y" 'yank

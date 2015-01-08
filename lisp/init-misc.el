@@ -21,7 +21,6 @@
 (require 'popwin)
 (require 'ibuffer)
 (require 'workgroups2)
-(require 'buffer-move)
 
 (popwin-mode 1)
 (eldoc-in-minibuffer-mode 1)
