@@ -9,20 +9,21 @@ All packages are managed through Emacs' own package manager.  There are some exc
 
 You can also update the packages managed by the rakefile by issuing the command `sh rake update_packages`.  If you want to add packages of your own I strongly suggest you use the built-in package manager.  If you cannot find the packages you want in this manner, modify the rakefile to grab the package you need.  All files below the `vendor` folder will be automagically loaded.
 
-All the customizations, for the various packages, live in files named `init-<package>.el`.  Any file matching this pattern will be automagically loaded.  You can rely on this when installing new packages: add the package to the list of packages to be installed, in the file `init-package.el`, and create your own `init-<my-package>.el` file with the appropriate customizations.
+All the customizations, for the various packages, live in files named `init-<package or mode>.el`.  Any file matching this pattern will be automagically loaded.  You can rely on this when installing new packages: add the package to the list of packages to be installed, in the file `init-package.el`, and create your own `init-<something new>.el` file with the appropriate customizations.
 
-The exception to this rule is the stuff produced by Emacs' customize facilities, they live in the file `customize.el`.  Settings affecting Emacs proper live toward the bottom of the file `init.el`.
+The exception to this rule is the stuff produced by Emacs' customize facilities, they live in the file `customize.el`.
 
 ## Language support
 
+* Clojure
+* Javascript
+* Elisp
 * Haskell
 * Common lisp
 * Ruby
 * C
 * Java
-* Elisp
-* Clojure
-* Javascript
+* Prolog
 
 ## Installation
 Just clone this repository so the file `init.el` ends up at `~/.emacs.d/init.el`.  If you care for the packages found in the rakefile, additionally run ` rake` in the .emacs.d directory and occasionally run `rake update_packages` to update the packages.
