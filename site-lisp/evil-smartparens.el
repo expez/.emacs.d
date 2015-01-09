@@ -63,7 +63,9 @@
   "Enlarge the region bounded by BEG END until it matches
   `paredit-kill' at BEG.'"
   (if (evil-sp--no-sexp-between-point-and-eol?)
-      (apply oldfun rest)
+      (if (looking-at "\n")
+          (evil-join (point) (1+ (point)))
+        (apply oldfun rest))
     (apply oldfun (point) (max (save-excursion (sp-up-sexp) (point))
                                (save-excursion (sp-forward-sexp) (point))
                                (point-at-eol)) nil)))
