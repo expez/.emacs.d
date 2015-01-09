@@ -730,4 +730,10 @@ narrowed."
         ((derived-mode-p 'org-mode) (org-narrow-to-subtree))
         (t (narrow-to-defun))))
 
+(defun toggle-debug (_)
+  (interactive "P")
+  (if current-prefix-arg
+      (toggle-debug-on-quit)
+    (toggle-debug-on-error)))
+
 (provide 'init-util)

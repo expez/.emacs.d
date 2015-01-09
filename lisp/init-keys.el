@@ -191,7 +191,7 @@
              "C-<tab>" 'hippie-expand
              "<f5>" 'eshell-toggle
              "<f2>" 'neotree-toggle
-             "<pause>" 'toggle-debug-on-error
+             "<pause>" 'toggle-debug
              "C-x r q" 'save-buffers-kill-terminal
              "C-x v t" 'vc-create-tag
              "C-x a r" 'align-regexp

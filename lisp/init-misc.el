@@ -18,6 +18,7 @@
 (require-package 'solarized-theme)
 (require-package 'popwin)
 (require-package 'buffer-move)
+(require-package 'mode-line-debug)
 (require 'popwin)
 (require 'ibuffer)
 (require 'workgroups2)
@@ -216,3 +217,5 @@
     (add-hook 'popwin:after-popup-hook
               (lambda () (setq neo-persist-show t)))))
 (provide 'init-misc)
+
+(mode-line-debug-mode 1)
