@@ -113,24 +113,28 @@
 
 (defun evil-sp--point-on-delimiter-in-unbalanced-sexp? (beg end)
   (and (= (abs (- end beg)) 1)
-       (not (sp-get-sexp))))
+       (ignore-errors
+         (save-excursion
+           (sp-backward-up-sexp)
+           (sp-backward-down-sexp)
+           (not (sp-get-sexp))))))
 
 (defun evil-sp--happy-ending (beg end)
   "Find the largest safe region delimited by BEG END"
-  (cl-letf (((symbol-function 'sp-message) (lambda (msg)))
-            (region (s-trim (buffer-substring-no-properties beg end))))
-    (unless (s-blank? region)
-      (cond
-       ((sp-point-in-empty-sexp)
-        ;; expand region if we're in an empty sexp
-        (setf end (save-excursion (sp-up-sexp) (point))))
+  (cl-letf (((symbol-function 'sp-message) (lambda (msg))))
+    (let ((region (s-trim (buffer-substring-no-properties beg end))))
+      (unless (s-blank? region)
+        (cond
+         ((sp-point-in-empty-sexp)
+          ;; expand region if we're in an empty sexp
+          (setf end (save-excursion (sp-up-sexp) (point))))
 
-       ((evil-sp--point-on-delimiter-in-unbalanced-sexp? beg end))
+         ((evil-sp--point-on-delimiter-in-unbalanced-sexp? beg end))
 
-       ;; reduce region if it's unbalanced due to selecting too much
-       (t (while (not (or (sp-region-ok-p beg end)
-                          (= beg end)))
-            (cl-decf end))))))
+         ;; reduce region if it's unbalanced due to selecting too much
+         (t (while (not (or (sp-region-ok-p beg end)
+                            (= beg end)))
+              (cl-decf end)))))))
   (when (= beg end)
     (evil-sp--fail))
   end)
