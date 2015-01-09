@@ -202,7 +202,7 @@
 (after-load 'neotree
   (setq projectile-switch-project-action 'neotree-projectile-action
         neo-theme 'ascii
-        setq neo-keymap-style 'concise)
+        neo-keymap-style 'concise)
   (add-hook 'neotree-mode-hook
             (lambda ()
               (define-key evil-normal-state-local-map (kbd "TAB") 'neotree-enter)
