@@ -64,9 +64,9 @@
   `paredit-kill' at BEG.'"
   (if (evil-sp--no-sexp-between-point-and-eol?)
       (apply oldfun rest)
-    (evil-delete (point) (max (save-excursion (sp-up-sexp) (point))
-                              (save-excursion (sp-forward-sexp) (point))
-                              (point-at-eol)))))
+    (apply oldfun (point) (max (save-excursion (sp-up-sexp) (point))
+                               (save-excursion (sp-forward-sexp) (point))
+                               (point-at-eol)) nil)))
 
 (defun evil-sp--override-delete-backward-char (oldfun beg end &rest rest)
   (if (save-excursion (forward-char) (sp-point-in-empty-sexp))
