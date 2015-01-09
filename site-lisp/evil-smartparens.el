@@ -51,12 +51,22 @@
     (apply oldfun (evil-sp--new-beginning beg)
            (evil-sp--happy-ending beg end) rest)))
 
+(defun evil-sp--no-sexp-between-point-and-eol? ()
+  (and (not (save-excursion
+              (re-search-forward (sp--get-opening-regexp) (point-at-eol)
+                                 :noerror)))
+       (not (save-excursion
+              (re-search-forward (sp--get-closing-regexp) (point-at-eol)
+                                 :noerror)))))
+
 (defun evil-sp--emulate-sp-kill-sexp (oldfun &rest rest)
   "Enlarge the region bounded by BEG END until it matches
   `paredit-kill' at BEG.'"
-  (evil-delete (point) (max (save-excursion (sp-up-sexp) (point))
-                            (save-excursion (sp-forward-sexp) (point))
-                            (point-at-eol))))
+  (if (evil-sp--no-sexp-between-point-and-eol?)
+      (apply oldfun rest)
+    (evil-delete (point) (max (save-excursion (sp-up-sexp) (point))
+                              (save-excursion (sp-forward-sexp) (point))
+                              (point-at-eol)))))
 
 (defun evil-sp--override-delete-backward-char (oldfun beg end &rest rest)
   (if (save-excursion (forward-char) (sp-point-in-empty-sexp))
