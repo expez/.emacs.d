@@ -12,6 +12,14 @@
 (require 'evil-numbers)
 (require-package 'evil-exchange)
 (require-package 'evil-iedit-state)
+(require-package 'evil-indent-textobject)
+(require 'evil-indent-textobject)
+(require-package 'evil-args)
+(require 'evil-args)
+
+;; bind evil-args text objects
+(define-key evil-inner-text-objects-map "a" 'evil-inner-arg)
+(define-key evil-outer-text-objects-map "a" 'evil-outer-arg)
 
 (progn
   (evil-define-state iedit
