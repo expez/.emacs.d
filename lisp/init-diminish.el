@@ -24,8 +24,9 @@
 (after-load 'workgroups2
   ;; workgroups mode isn't actually added to minor-mode-alist until
   ;; the mode is turned on.
-  (when workgroups-mode
-    (diminish 'workgroups-mode)))
+  (run-with-timer 5 nil (lambda ()
+                          (when workgroups-mode
+                            (diminish 'workgroups-mode)))))
 
 (eval-after-load "glasses"
   '(diminish 'glasses-mode))
