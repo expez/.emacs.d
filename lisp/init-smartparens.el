@@ -16,7 +16,7 @@
              "[" (lambda (&optional arg) (interactive "P") (sp-wrap-with-pair "["))
              "{" (lambda (&optional arg) (interactive "P") (sp-wrap-with-pair "{"))
              "(" (lambda (&optional arg) (interactive "P") (sp-wrap-with-pair "(")))
-           (run-with-timer 1 nil
+           (run-with-timer 2 nil
                            (lambda ()
                              (fill-keymap evil-normal-state-local-map
                                           "C-9" 'sp-backward-barf-sexp
