@@ -4,8 +4,8 @@
 (require 'evil-tests)
 
 (defun evil-sp--enable (&rest _)
-  (when evil-smartparens-mode
-    (evil-smartparens-mode)))
+  (unless evil-smartparens-mode
+    (evil-smartparens-mode 1)))
 
 (defun evil-sp--fail ()
   ;; don't error out during tests
@@ -176,10 +176,10 @@
   "Test `evil-delete-line'"
   :tags '(evil-sp)
   (evil-test-buffer
-    "(let [(](foo bar)
+   "(let [(](foo bar)
        (frobnicate bar)))"
-    ("dd" [escape])
-    "(let ((foo bar)
+   ("dd" [escape])
+   "(let ((foo bar)
        (frobnicate bar)))"))
 
 (ert-deftest evil-sp-test-change-whole-line-is-greedy ()
@@ -191,3 +191,45 @@
     ("dd" [escape])
     "(let ((foo bar)
 ))"))
+
+(ert-deftest evil-sp-test-dd-on-line-with-string ()
+  "Test `evil-delete-whole-line'"
+  :tags '(evil-sp)
+  (evil-test-buffer
+    "\"foo\" 'bar"
+    ("dd" [escape])
+    ""))
+
+
+(ert-deftest evil-sp-test-delete-unbalanced-delimiter ()
+  "Test `evil-delete-char'"
+  :tags '(evil-sp)
+  (evil-test-buffer
+    "\"[']\""
+    ("x" [escape])
+    ""))
+
+(ert-deftest evil-sp-test-dd-on-empty-line ()
+  "Test `evil-delete-whole-line'"
+  :tags '(evil-sp)
+  (evil-test-buffer
+    "[]
+"
+    ("dd" [escape])
+    ""))
+
+(ert-deftest evil-sp-test-x-on-string-pair ()
+  "Test `evil-delete-char'"
+  :tags '(evil-sp)
+  (evil-test-buffer
+    "\"[\"]"
+    ("x" [escape])
+    ""))
+
+(ert-deftest evil-sp-test-dd-on-line-with-empty-string ()
+  "Test `evil-delete-whole-line'"
+  :tags '(evil-sp)
+  (evil-test-buffer
+    "\"\"[]"
+    ("dd" [escape])
+    ""))
