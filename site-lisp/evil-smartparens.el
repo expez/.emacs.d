@@ -66,12 +66,27 @@ list of (fn args) to pass to `apply''"
              (evil-sp--point-after 'sp-backward-up-sexp))
            (point-max))))
 
-(defun evil-sp--modify-region (oldfun beg end &rest rest)
+(defun evil-sp--get-endpoint-for-killing ()
+  "Returns the endpoint from POINT upto which `sp-kill-sexp'
+would kill."
+  (if (= (evil-sp--depth-at (point))
+         (evil-sp--depth-at (point-at-eol)))
+      ;; Function as kill line
+      (point-at-eol)
+    (max
+     ;; Greedy killing
+     (1- (evil-sp--point-after 'sp-up-sexp))
+     (evil-sp--point-after 'sp-forward-sexp))))
+
+(defun evil-sp--modify-region (oldfun beg end type &rest rest)
   "Wrapper around OLDFUN which shrinks or enlarges region until
 we're acting on a sensible selection."
   (cl-letf (((symbol-function 'sp-message) (lambda (msg))))
-    (if (evil-sp--point-on-delimiter-in-unbalanced-sexp? beg end)
-        (apply oldfun beg end rest)
+    (if (and type (listp type))
+        (apply oldfun
+               (evil-sp--new-beginning beg)
+               (evil-sp--get-endpoint-for-killing)
+               (second type) rest)
       (apply oldfun (evil-sp--new-beginning beg)
              (evil-sp--new-ending beg end) rest))))
 
@@ -90,10 +105,10 @@ we're acting on a sensible selection."
       (if (looking-at "\n")
           (evil-join (point) (1+ (point)))
         (apply oldfun beg end type rest))
-    (let ((end (max (evil-sp--point-after 'sp-up-sexp)
-                    (evil-sp--point-after 'sp-forward-sexp)
-                    (point-at-eol))))
-      (apply oldfun (point) end type rest))))
+    ;; We can't enlarge region here because `evil-delete-line' calls
+    ;; `evil-delete' itself, overriding our work
+    (apply oldfun (point) end (if (symbolp type) (list :kill-sexp type) type)
+           rest)))
 
 (defun evil-sp--override-delete-backward-char (oldfun beg end &rest rest)
   (if (save-excursion (forward-char) (sp-point-in-empty-sexp))
@@ -140,15 +155,18 @@ we're acting on a sensible selection."
       (evil-sp--enable)
     (evil-sp--disable)))
 
-(defun evil-sp--point-on-delimiter-in-unbalanced-sexp? (beg end)
-  (unless (sp-region-ok-p (evil-sp--point-after 'sp-backward-up-sexp)
-                          (evil-sp--point-after 'sp-up-sexp))
-    (and (= (abs (- end beg)) 1)
-         (ignore-errors
-           (save-excursion
-             (sp-backward-up-sexp)
-             (sp-backward-down-sexp)
-             (not (sp-get-sexp)))))))
+(defun evil-sp--depth-at (&optional point)
+  (push major-mode sp-navigate-consider-stringlike-sexp)
+  (let ((depth 0))
+    (save-excursion
+      (when point
+        (goto-char point))
+      (unwind-protect
+          (while (and (not (sp-point-in-comment))
+                      (sp-backward-up-sexp))
+            (incf depth))
+        (pop sp-navigate-consider-stringlike-sexp) depth))
+    depth))
 
 (defun evil-sp--new-ending (beg end)
   "Find the largest safe region delimited by BEG END"
@@ -158,8 +176,6 @@ we're acting on a sensible selection."
        ((sp-point-in-empty-sexp)
         ;; expand region if we're in an empty sexp
         (setf end (save-excursion (sp-up-sexp) (point))))
-
-       ((evil-sp--point-on-delimiter-in-unbalanced-sexp? beg end))
 
        ;; reduce region if it's unbalanced due to selecting too much
        (t (while (not (or (sp-region-ok-p beg end)
