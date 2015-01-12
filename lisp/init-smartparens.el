@@ -39,7 +39,8 @@
              "M-l" 'sp-forward-sexp
              "M-h" 'sp-backward-sexp
              "M-k" 'sp-splice-sexp-killing-backward-or-around
-             "M-K" 'sp-splice-sexp-killing-forward)
+             "M-K" 'sp-splice-sexp-killing-forward
+             "M-c" 'sp-convolute-sexp)
 
 (defun sp-splice-sexp-killing-backward-or-around (&optional arg)
   (interactive "P")
