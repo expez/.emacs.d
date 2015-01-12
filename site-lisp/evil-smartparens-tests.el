@@ -3,7 +3,7 @@
 (require 'evil-smartparens)
 (require 'evil-tests)
 
-(defun evil-sp--enable (&rest _)
+(defun evil-sp--enable-for-tests (&rest _)
   (unless evil-smartparens-mode
     (evil-smartparens-mode 1)))
 
@@ -11,10 +11,10 @@
   ;; don't error out during tests
   )
 
-(advice-add 'evil-delete :before #'evil-sp--enable)
-(advice-add 'evil-yank :before #'evil-sp--enable)
-(advice-add 'evil-delete-line :before #'evil-sp--enable)
-(advice-add 'evil-change-line :before #'evil-sp--enable)
+(advice-add 'evil-delete :before #'evil-sp--enable-for-tests)
+(advice-add 'evil-yank :before #'evil-sp--enable-for-tests)
+(advice-add 'evil-delete-line :before #'evil-sp--enable-for-tests)
+(advice-add 'evil-change-line :before #'evil-sp--enable-for-tests)
 
 (ert-deftest evil-sp-test-delete-word ()
   "Test `evil-delete-word'"
@@ -132,9 +132,9 @@
   "Test `evil-delete-line'"
   :tags '(evil-sp)
   (evil-test-buffer
-    "([f]oo bar)     ; Useless comment"
+    "([f]oo bar)     ; Important comment"
     ("D" [escape])
-    "()     ; Useless comment"))
+    "()     ; Important comment"))
 
 (ert-deftest evil-sp-test-delete-line-is-sp-kill-sexp-deletes-useless-line ()
   "Test `evil-delete-line'"
@@ -148,7 +148,7 @@
   "Test `evil-delete-line'"
   :tags '(evil-sp)
   (evil-test-buffer
-    "(foo \"bar baz\"
+    "(foo \"[b]ar baz\"
            quux)"
     ("D" [escape])
     "(foo \"\"
@@ -200,15 +200,6 @@
     ("dd" [escape])
     ""))
 
-
-(ert-deftest evil-sp-test-delete-unbalanced-delimiter ()
-  "Test `evil-delete-char'"
-  :tags '(evil-sp)
-  (evil-test-buffer
-    "\"[']\""
-    ("x" [escape])
-    ""))
-
 (ert-deftest evil-sp-test-dd-on-empty-line ()
   "Test `evil-delete-whole-line'"
   :tags '(evil-sp)
@@ -233,3 +224,31 @@
     "\"\"[]"
     ("dd" [escape])
     ""))
+
+(ert-deftest evil-sp-test-delete-line-not-too-greedy ()
+  "Test `evil-delete-whole-line'"
+  :tags '(evil-sp)
+  (evil-test-buffer
+    "(foo [(]bar)
+     bas)"
+    ("D" [escape])
+    "(foo
+     bas)"))
+
+(ert-deftest evil-sp-test-replace-is-conservative ()
+  "Test `evil-replace'"
+  :tags '(evil-sp)
+  (evil-test-buffer
+    "(foo [(]bar)
+     bas)"
+    ("r" [escape])
+    "(foo [(]bar)
+     bas)"))
+
+(ert-deftest evil-sp-test-replace-in-string ()
+  "Test `evil-replace'"
+  :tags '(evil-sp)
+  (evil-test-buffer
+    "\"[x]\""
+    ("ry" [escape])
+    "\"y\""))

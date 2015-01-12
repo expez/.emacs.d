@@ -88,7 +88,7 @@ we're acting on a sensible selection."
                (evil-sp--get-endpoint-for-killing)
                (second type) rest)
       (apply oldfun (evil-sp--new-beginning beg)
-             (evil-sp--new-ending beg end) rest))))
+             (evil-sp--new-ending beg end) type rest))))
 
 (defun evil-sp--no-sexp-between-point-and-eol? ()
   (not (or (save-excursion
