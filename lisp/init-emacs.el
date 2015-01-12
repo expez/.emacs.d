@@ -65,8 +65,6 @@
 
 (fset 'yes-or-no-p 'y-or-n-p)
 
-(show-paren-mode 1)
-
 (put 'set-goal-column 'disabled nil)
 
 (when (eq system-type 'windows-nt)
@@ -94,12 +92,6 @@
     (with-current-buffer "*Async Shell Command*"
       (rename-uniquely))))
 (ad-activate 'shell-command)
-
-(electric-pair-mode 1)
-
-(setq electric-pair-pairs '((?\" . ?\")
-                            (?\{ . ?\})
-                            (?\[ . ?\])))
 
 (setq-default indent-tabs-mode nil)
 
