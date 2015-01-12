@@ -67,10 +67,13 @@ list of (fn args) to pass to `apply''"
            (point-max))))
 
 (defun evil-sp--modify-region (oldfun beg end &rest rest)
-  (if (evil-sp--point-on-delimiter-in-unbalanced-sexp? beg end)
-      (apply oldfun beg end rest)
-    (apply oldfun (evil-sp--new-beginning beg)
-           (evil-sp--new-ending beg end) rest)))
+  "Wrapper around OLDFUN which shrinks or enlarges region until
+we're acting on a sensible selection."
+  (cl-letf (((symbol-function 'sp-message) (lambda (msg))))
+    (if (evil-sp--point-on-delimiter-in-unbalanced-sexp? beg end)
+        (apply oldfun beg end rest)
+      (apply oldfun (evil-sp--new-beginning beg)
+             (evil-sp--new-ending beg end) rest))))
 
 (defun evil-sp--no-sexp-between-point-and-eol? ()
   (and (not (save-excursion
@@ -138,32 +141,30 @@ list of (fn args) to pass to `apply''"
     (evil-sp--disable)))
 
 (defun evil-sp--point-on-delimiter-in-unbalanced-sexp? (beg end)
-  (cl-letf (((symbol-function 'sp-message) (lambda (msg))))
-    (unless (sp-region-ok-p (evil-sp--point-after 'sp-backward-up-sexp)
-                            (evil-sp--point-after 'sp-up-sexp))
-      (and (= (abs (- end beg)) 1)
-           (ignore-errors
-             (save-excursion
-               (sp-backward-up-sexp)
-               (sp-backward-down-sexp)
-               (not (sp-get-sexp))))))))
+  (unless (sp-region-ok-p (evil-sp--point-after 'sp-backward-up-sexp)
+                          (evil-sp--point-after 'sp-up-sexp))
+    (and (= (abs (- end beg)) 1)
+         (ignore-errors
+           (save-excursion
+             (sp-backward-up-sexp)
+             (sp-backward-down-sexp)
+             (not (sp-get-sexp)))))))
 
 (defun evil-sp--new-ending (beg end)
   "Find the largest safe region delimited by BEG END"
-  (cl-letf (((symbol-function 'sp-message) (lambda (msg))))
-    (let ((region (s-trim (buffer-substring-no-properties beg end))))
-      (unless (s-blank? region)
-        (cond
-         ((sp-point-in-empty-sexp)
-          ;; expand region if we're in an empty sexp
-          (setf end (save-excursion (sp-up-sexp) (point))))
+  (let ((region (s-trim (buffer-substring-no-properties beg end))))
+    (unless (s-blank? region)
+      (cond
+       ((sp-point-in-empty-sexp)
+        ;; expand region if we're in an empty sexp
+        (setf end (save-excursion (sp-up-sexp) (point))))
 
-         ((evil-sp--point-on-delimiter-in-unbalanced-sexp? beg end))
+       ((evil-sp--point-on-delimiter-in-unbalanced-sexp? beg end))
 
-         ;; reduce region if it's unbalanced due to selecting too much
-         (t (while (not (or (sp-region-ok-p beg end)
-                            (= beg end)))
-              (cl-decf end)))))))
+       ;; reduce region if it's unbalanced due to selecting too much
+       (t (while (not (or (sp-region-ok-p beg end)
+                          (= beg end)))
+            (cl-decf end))))))
   (when (= beg end)
     (evil-sp--fail))
   end)
