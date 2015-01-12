@@ -35,11 +35,23 @@
 (require 'smartparens)
 (require 'diminish)
 
+(defun evil-sp--point-after (&rest actions)
+  "Returns POINT after performing ACTIONS.
+
+An action is either the symbol of a function or a two element
+list of (fn args) to pass to `apply''"
+  (save-excursion
+    (dolist (fn-and-args actions)
+      (let ((f (if (listp fn-and-args) (car fn-and-args) fn-and-args))
+            (args (if (listp fn-and-args) (cdr fn-and-args) nil)))
+        (apply f args)))
+    (point)))
+
 (defun evil-sp--new-beginning (beg)
   "Return a new value for BEG if POINT is inside an empty sexp."
   (min beg
        (or (when (sp-point-in-empty-sexp)
-             (save-excursion (sp-backward-up-sexp) (point)))
+             (evil-sp--point-after 'sp-backward-up-sexp))
            (point-max))))
 
 (defun evil-sp--modify-region (oldfun beg end &rest rest)
@@ -56,16 +68,17 @@
               (re-search-forward (sp--get-closing-regexp) (point-at-eol)
                                  :noerror)))))
 
-(defun evil-sp--emulate-sp-kill-sexp (oldfun &rest rest)
+(defun evil-sp--emulate-sp-kill-sexp (oldfun beg end type &rest rest)
   "Enlarge the region bounded by BEG END until it matches
-  `paredit-kill' at BEG.'"
+  `sp-kill-sexp' at BEG."
   (if (evil-sp--no-sexp-between-point-and-eol?)
       (if (looking-at "\n")
           (evil-join (point) (1+ (point)))
-        (apply oldfun rest))
-    (apply oldfun (point) (max (save-excursion (sp-up-sexp) (point))
-                               (save-excursion (sp-forward-sexp) (point))
-                               (point-at-eol)) nil)))
+        (apply oldfun beg end type rest))
+    (let ((end (max (evil-sp--point-after 'sp-up-sexp)
+                    (evil-sp--point-after 'sp-forward-sexp)
+                    (point-at-eol))))
+      (apply oldfun (point) end type rest))))
 
 (defun evil-sp--override-delete-backward-char (oldfun beg end &rest rest)
   (if (save-excursion (forward-char) (sp-point-in-empty-sexp))
