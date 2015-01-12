@@ -76,12 +76,12 @@ we're acting on a sensible selection."
              (evil-sp--new-ending beg end) rest))))
 
 (defun evil-sp--no-sexp-between-point-and-eol? ()
-  (and (not (save-excursion
-              (re-search-forward (sp--get-opening-regexp) (point-at-eol)
-                                 :noerror)))
-       (not (save-excursion
-              (re-search-forward (sp--get-closing-regexp) (point-at-eol)
-                                 :noerror)))))
+  (not (or (save-excursion
+             (re-search-forward (sp--get-opening-regexp) (point-at-eol)
+                                :noerror))
+           (save-excursion
+             (re-search-forward (sp--get-closing-regexp) (point-at-eol)
+                                :noerror)))))
 
 (defun evil-sp--emulate-sp-kill-sexp (oldfun beg end type &rest rest)
   "Enlarge the region bounded by BEG END until it matches
