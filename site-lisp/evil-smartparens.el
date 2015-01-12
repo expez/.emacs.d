@@ -5,7 +5,7 @@
 ;; Author: Lars Andersen <expez@expez.com>
 ;; URL: https://www.github.com/expez/evil-smartparens
 ;; Keywords: evil smartparens
-;; Version: 0.01
+;; Version: 0.1
 ;; Package-Requires: ((evil "1.0") (cl-lib "0.3") (emacs "24.1") (diminish "0.44"))
 
 ;; This file is not part of GNU Emacs.
@@ -35,11 +35,8 @@
 (require 'smartparens)
 (require 'diminish)
 
-(eval-when-compile
-  (require 'cl-lib)
-  (require 'cl-macs))
-
 (defun evil-sp--new-beginning (beg)
+  "Return a new value for BEG if POINT is inside an empty sexp."
   (min beg
        (or (when (sp-point-in-empty-sexp)
              (save-excursion (sp-backward-up-sexp) (point)))
@@ -49,7 +46,7 @@
   (if (evil-sp--point-on-delimiter-in-unbalanced-sexp? beg end)
       (apply oldfun beg end rest)
     (apply oldfun (evil-sp--new-beginning beg)
-           (evil-sp--happy-ending beg end) rest)))
+           (evil-sp--new-ending beg end) rest)))
 
 (defun evil-sp--no-sexp-between-point-and-eol? ()
   (and (not (save-excursion
@@ -123,7 +120,7 @@
            (sp-backward-down-sexp)
            (not (sp-get-sexp))))))
 
-(defun evil-sp--happy-ending (beg end)
+(defun evil-sp--new-ending (beg end)
   "Find the largest safe region delimited by BEG END"
   (cl-letf (((symbol-function 'sp-message) (lambda (msg))))
     (let ((region (s-trim (buffer-substring-no-properties beg end))))
