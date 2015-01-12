@@ -35,6 +35,18 @@
 (require 'smartparens)
 (require 'diminish)
 
+(defcustom evil-sp-smartparens-lighter " SP/e"
+  "The lighter used for evil-smartparens when smartparens isn't
+running in strict mode."
+  :group 'evil-smartparens
+  :type 'string)
+
+(defcustom evil-sp-smartparens-strict-lighter " SP/se"
+  "The lighter used for evil-smartparens when smartparens is
+running in strict mode."
+  :group 'evil-smartparens
+  :type 'string)
+
 (defun evil-sp--point-after (&rest actions)
   "Returns POINT after performing ACTIONS.
 
@@ -105,8 +117,8 @@ list of (fn args) to pass to `apply''"
 
 (defun evil-sp--lighter ()
   (if smartparens-strict-mode
-      " SP/se"
-    " SP/e"))
+      evil-sp-smartparens-strict-lighter
+    evil-sp-smartparens-lighter))
 
 (defun evil-sp--disable ()
   (evil-sp--deactivate-advice)
@@ -126,9 +138,9 @@ list of (fn args) to pass to `apply''"
     (evil-sp--disable)))
 
 (defun evil-sp--point-on-delimiter-in-unbalanced-sexp? (beg end)
-  (unless (sp-region-ok-p (evil-sp--point-after 'sp-backward-up-sexp)
-                          (evil-sp--point-after 'sp-up-sexp))
-    (cl-letf (((symbol-function 'sp-message) (lambda (msg))))
+  (cl-letf (((symbol-function 'sp-message) (lambda (msg))))
+    (unless (sp-region-ok-p (evil-sp--point-after 'sp-backward-up-sexp)
+                            (evil-sp--point-after 'sp-up-sexp))
       (and (= (abs (- end beg)) 1)
            (ignore-errors
              (save-excursion
