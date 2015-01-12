@@ -77,6 +77,7 @@
 
 (defun evil-sp--activate-advice ()
   (advice-add 'evil-delete :around #'evil-sp--modify-region)
+  (advice-add 'evil-replace :around #'evil-sp--modify-region)
   (advice-add 'evil-yank :around #'evil-sp--modify-region)
   (advice-add 'evil-delete-line :around #'evil-sp--emulate-sp-kill-sexp)
   (advice-add 'evil-change-line :around #'evil-sp--emulate-sp-kill-sexp)
@@ -85,6 +86,7 @@
 
 (defun evil-sp--deactivate-advice ()
   (advice-remove 'evil-delete #'evil-sp--modify-region)
+  (advice-remove 'evil-replace #'evil-sp--modify-region)
   (advice-remove 'evil-yank #'evil-sp--modify-region)
   (advice-remove 'evil-delete-line #'evil-sp--emulate-sp-kill-sexp)
   (advice-remove 'evil-change-line #'evil-sp--emulate-sp-kill-sexp)
