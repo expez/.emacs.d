@@ -113,12 +113,15 @@
     (evil-sp--disable)))
 
 (defun evil-sp--point-on-delimiter-in-unbalanced-sexp? (beg end)
-  (and (= (abs (- end beg)) 1)
-       (ignore-errors
-         (save-excursion
-           (sp-backward-up-sexp)
-           (sp-backward-down-sexp)
-           (not (sp-get-sexp))))))
+  (unless (sp-region-ok-p (evil-sp--point-after 'sp-backward-up-sexp)
+                          (evil-sp--point-after 'sp-up-sexp))
+    (cl-letf (((symbol-function 'sp-message) (lambda (msg))))
+      (and (= (abs (- end beg)) 1)
+           (ignore-errors
+             (save-excursion
+               (sp-backward-up-sexp)
+               (sp-backward-down-sexp)
+               (not (sp-get-sexp))))))))
 
 (defun evil-sp--new-ending (beg end)
   "Find the largest safe region delimited by BEG END"
