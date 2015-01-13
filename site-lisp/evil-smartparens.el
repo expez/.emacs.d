@@ -35,17 +35,17 @@
 (require 'smartparens)
 (require 'diminish)
 
-(defcustom evil-sp-smartparens-lighter " SP/e"
+(defcustom evil-smartparens-lighter " SP/e"
   "The lighter used for evil-smartparens without strict mode."
   :group 'evil-smartparens
   :type 'string)
 
-(defcustom evil-sp-smartparens-strict-lighter " SP/se"
+(defcustom evil-smartparens-strict-lighter " SP/se"
   "The lighter used for evil-smartparens and strict mode."
   :group 'evil-smartparens
   :type 'string)
 
-(defcustom evil-sp-threshold 5000
+(defcustom evil-smartparens-threshold 5000
   "If the region being operated on is larger than this we cop out.
 
 Quite a bit of work gets done to ensure the region being worked
@@ -108,7 +108,7 @@ list of (fn args) to pass to `apply''"
 
 (defun evil-sp--region-too-expensive-to-check (beg end)
   "When it takes prohobitively long to check region between BEG END we cop out."
-  (> (abs (- beg end)) evil-sp-threshold))
+  (> (abs (- beg end)) evil-smartparens-threshold))
 
 (defun evil-sp--modify-region (oldfun beg end type &rest rest)
   "Wrapper around OLDFUN which shrinks or enlarges region until it's balanced."
@@ -126,10 +126,10 @@ list of (fn args) to pass to `apply''"
                    (evil-sp--new-ending beg end) type rest)
 
           ;; If an error is triggered shrinking END failed.  Shrinking
-          ;; end might not be what we want at all: This case handles
-          ;; when we're deleting backwards using a movement like dB.
-          ;; This is a terrible hack, but I never delete anything
-          ;; backward so this is good enough for now.
+          ;; END might not be what we want at all: e.g. when we're
+          ;; deleting backwards using a movement like dB.  This is a
+          ;; terrible hack, but I never delete anything backward so
+          ;; this is good enough for now.
           ('error (apply oldfun (evil-sp--new-beginning beg end :shrink)
                          end type rest)))))))
 
@@ -168,8 +168,8 @@ list of (fn args) to pass to `apply''"
 We want a different lighter for `smartparens-mode' and
 `smartparens-strict-mode'."
   (if smartparens-strict-mode
-      evil-sp-smartparens-strict-lighter
-    evil-sp-smartparens-lighter))
+      evil-smartparens-strict-lighter
+    evil-smartparens-lighter))
 
 (defun evil-sp--disable ()
   "Deactive advice and restore modeline."
