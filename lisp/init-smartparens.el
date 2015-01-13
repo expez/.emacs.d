@@ -12,7 +12,6 @@
     (progn (evil-smartparens-mode 1)
            (evil-define-key 'normal sp-keymap
              (kbd "C-t") 'sp-transpose-sexp
-             "M-i" 'sp-splice-sexp-killing-forward
              "[" (lambda (&optional arg) (interactive "P") (sp-wrap-with-pair "["))
              "{" (lambda (&optional arg) (interactive "P") (sp-wrap-with-pair "{"))
              "(" (lambda (&optional arg) (interactive "P") (sp-wrap-with-pair "(")))
