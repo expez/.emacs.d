@@ -12,9 +12,11 @@
   )
 
 (advice-add 'evil-delete :before #'evil-sp--enable-for-tests)
+(advice-add 'evil-replace :before #'evil-sp--enable-for-tests)
 (advice-add 'evil-yank :before #'evil-sp--enable-for-tests)
 (advice-add 'evil-delete-line :before #'evil-sp--enable-for-tests)
 (advice-add 'evil-change-line :before #'evil-sp--enable-for-tests)
+(advice-add 'evil-delete-backward-char :before #'evil-sp--enable-for-tests)
 
 (ert-deftest evil-sp-test-delete-word ()
   "Test `evil-delete-word'"
@@ -241,8 +243,8 @@
   (evil-test-buffer
     "(foo [(]bar)
      bas)"
-    ("r" [escape])
-    "(foo [(]bar)
+    ("rx" [escape])
+    "(foo (bar)
      bas)"))
 
 (ert-deftest evil-sp-test-replace-in-string ()
