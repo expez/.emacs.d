@@ -27,6 +27,10 @@
                                           "M-0" 'sp-forward-slurp-sexp))))))
 (add-hook 'smartparens-enabled-hook #'my-smartparens-mode-hook)
 
+(sp-with-modes '(markdown-mode
+                 rst-mode)
+  (sp-local-pair "`" "`"))
+
 (fill-keymap sp-keymap
              "M-;" 'paredit-comment-dwim
              "M-s" 'sp-splice-sexp
