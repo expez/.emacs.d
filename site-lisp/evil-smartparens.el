@@ -6,7 +6,7 @@
 ;; URL: https://www.github.com/expez/evil-smartparens
 ;; Keywords: evil smartparens
 ;; Version: 0.1
-;; Package-Requires: ((evil "1.0") (cl-lib "0.3") (emacs "24.1") (diminish "0.44"))
+;; Package-Requires: ((evil "1.0") (cl-lib "0.3") (emacs "24.1") (diminish "0.44") (smartparens "1.6.3)
 
 ;; This file is not part of GNU Emacs.
 
@@ -47,6 +47,18 @@ running in strict mode."
   :group 'evil-smartparens
   :type 'string)
 
+(defcustom evil-sp-threshold 5000
+  "If the region being operated on is larger than this we cop out.
+
+Quite a bit of work gets done to ensure the region being worked
+is in an safe state, so this lets us sarifice safety for a snappy
+editor on slower computers.
+
+Even on a large computer you shouldn't set this too high or your
+computer will freeze when copying large files out of emacs."
+  :group 'evil-smartparens
+  :type 'string)
+
 (defun evil-sp--point-after (&rest actions)
   "Returns POINT after performing ACTIONS.
 
@@ -78,17 +90,22 @@ would kill."
      (1- (evil-sp--point-after 'sp-up-sexp))
      (evil-sp--point-after 'sp-forward-sexp))))
 
+(defun evil-sp--region-too-expensive-to-check (beg end)
+  (> (abs (- beg end)) evil-sp-threshold))
+
 (defun evil-sp--modify-region (oldfun beg end type &rest rest)
   "Wrapper around OLDFUN which shrinks or enlarges region until
 we're acting on a sensible selection."
-  (cl-letf (((symbol-function 'sp-message) (lambda (msg))))
-    (if (and type (listp type))
-        (apply oldfun
-               (evil-sp--new-beginning beg)
-               (evil-sp--get-endpoint-for-killing)
-               (second type) rest)
-      (apply oldfun (evil-sp--new-beginning beg)
-             (evil-sp--new-ending beg end) type rest))))
+  (if (evil-sp--region-too-expensive-to-check beg end)
+      (apply oldfun beg end type rest)
+    (cl-letf (((symbol-function 'sp-message) (lambda (msg))))
+      (if (and type (listp type))
+          (apply oldfun
+                 (evil-sp--new-beginning beg)
+                 (evil-sp--get-endpoint-for-killing)
+                 (second type) rest)
+        (apply oldfun (evil-sp--new-beginning beg)
+               (evil-sp--new-ending beg end) type rest)))))
 
 (defun evil-sp--no-sexp-between-point-and-eol? ()
   (not (or (save-excursion
