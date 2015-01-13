@@ -165,7 +165,7 @@ we're acting on a sensible selection."
           (while (and (not (sp-point-in-comment))
                       (sp-backward-up-sexp))
             (incf depth))
-        (pop sp-navigate-consider-stringlike-sexp) depth))
+        (pop sp-navigate-consider-stringlike-sexp)))
     depth))
 
 (defun evil-sp--new-ending (beg end)
