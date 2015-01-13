@@ -57,6 +57,32 @@ computer will freeze when copying large files out of Emacs."
   :group 'evil-smartparens
   :type 'string)
 
+;;; Evil-smartparens works by adding advice to regular functions.
+;;; Unfortunately, the advice functionality is a global deal so in
+;;; all the functions we advice we have to check if
+;;; `evil-smartparens-mode' is active and if not just pass through to
+;;; the old function.
+
+(defun evil-sp--activate-advice ()
+  "`evil-smartparens' is fully implemented in terms of advice to `evil'."
+  (advice-add 'evil-delete :around #'evil-sp--modify-region)
+  (advice-add 'evil-replace :around #'evil-sp--modify-region)
+  (advice-add 'evil-yank :around #'evil-sp--modify-region)
+  (advice-add 'evil-delete-line :around #'evil-sp--emulate-sp-kill-sexp)
+  (advice-add 'evil-change-line :around #'evil-sp--emulate-sp-kill-sexp)
+  (advice-add 'evil-delete-backward-char :around
+              #'evil-sp--override-delete-backward-char))
+
+(defun evil-sp--deactivate-advice ()
+  "Stop advising `evil' functions."
+  (advice-remove 'evil-delete #'evil-sp--modify-region)
+  (advice-remove 'evil-replace #'evil-sp--modify-region)
+  (advice-remove 'evil-yank #'evil-sp--modify-region)
+  (advice-remove 'evil-delete-line #'evil-sp--emulate-sp-kill-sexp)
+  (advice-remove 'evil-change-line #'evil-sp--emulate-sp-kill-sexp)
+  (advice-remove 'evil-delete-backward-char
+                 #'evil-sp--override-delete-backward-char))
+
 (defun evil-sp--point-after (&rest actions)
   "Return POINT after performing ACTIONS.
 
@@ -93,7 +119,8 @@ list of (fn args) to pass to `apply''"
 
 (defun evil-sp--modify-region (oldfun beg end type &rest rest)
   "Wrapper around OLDFUN which shrinks or enlarges region until it's balanced."
-  (if (evil-sp--region-too-expensive-to-check beg end)
+  (if (or (not evil-smartparens-mode)
+          (evil-sp--region-too-expensive-to-check beg end))
       (apply oldfun beg end type rest)
     (cl-letf (((symbol-function 'sp-message) (lambda (msg))))
       (if (and type (listp type))
@@ -115,40 +142,23 @@ list of (fn args) to pass to `apply''"
 
 (defun evil-sp--emulate-sp-kill-sexp (oldfun beg end type &rest rest)
   "Enlarge the region bounded by BEG END until it matches `sp-kill-sexp' at BEG."
-  (if (evil-sp--no-sexp-between-point-and-eol?)
-      (if (looking-at "\n")
-          (evil-join (point) (1+ (point)))
-        (apply oldfun beg end type rest))
-    ;; We can't enlarge region here because `evil-delete-line' calls
-    ;; `evil-delete' itself, overriding our work
-    (apply oldfun (point) end (if (symbolp type) (list :kill-sexp type) type)
-           rest)))
+  (if (not evil-smartparens-mode)
+      (apply oldfun beg end type rest)
+    (if (evil-sp--no-sexp-between-point-and-eol?)
+        (if (looking-at "\n")
+            (evil-join (point) (1+ (point)))
+          (apply oldfun beg end type rest))
+      ;; We can't enlarge region here because `evil-delete-line' calls
+      ;; `evil-delete' itself, overriding our work
+      (apply oldfun (point) end (if (symbolp type) (list :kill-sexp type) type)
+             rest))))
 
 (defun evil-sp--override-delete-backward-char (oldfun beg end &rest rest)
   "This is done to ensure empty sexps are deleted."
-  (if (save-excursion (forward-char) (sp-point-in-empty-sexp))
+  (if (and evil-smartparens-mode
+           (save-excursion (forward-char) (sp-point-in-empty-sexp)))
       (apply #'evil-delete beg (incf end) rest)
     (apply oldfun beg end rest)))
-
-(defun evil-sp--activate-advice ()
-  "`evil-smartparens' is fully implemented in terms of advice to `evil'."
-  (advice-add 'evil-delete :around #'evil-sp--modify-region)
-  (advice-add 'evil-replace :around #'evil-sp--modify-region)
-  (advice-add 'evil-yank :around #'evil-sp--modify-region)
-  (advice-add 'evil-delete-line :around #'evil-sp--emulate-sp-kill-sexp)
-  (advice-add 'evil-change-line :around #'evil-sp--emulate-sp-kill-sexp)
-  (advice-add 'evil-delete-backward-char :around
-              #'evil-sp--override-delete-backward-char))
-
-(defun evil-sp--deactivate-advice ()
-  "Stop advising `evil' functions."
-  (advice-remove 'evil-delete #'evil-sp--modify-region)
-  (advice-remove 'evil-replace #'evil-sp--modify-region)
-  (advice-remove 'evil-yank #'evil-sp--modify-region)
-  (advice-remove 'evil-delete-line #'evil-sp--emulate-sp-kill-sexp)
-  (advice-remove 'evil-change-line #'evil-sp--emulate-sp-kill-sexp)
-  (advice-remove 'evil-delete-backward-char
-                 #'evil-sp--override-delete-backward-char))
 
 (defun evil-sp--lighter ()
   "Create the lighter for `evil-smartparens'.
