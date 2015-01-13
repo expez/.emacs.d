@@ -36,14 +36,12 @@
 (require 'diminish)
 
 (defcustom evil-sp-smartparens-lighter " SP/e"
-  "The lighter used for evil-smartparens when smartparens isn't
-running in strict mode."
+  "The lighter used for evil-smartparens without strict mode."
   :group 'evil-smartparens
   :type 'string)
 
 (defcustom evil-sp-smartparens-strict-lighter " SP/se"
-  "The lighter used for evil-smartparens when smartparens is
-running in strict mode."
+  "The lighter used for evil-smartparens and strict mode."
   :group 'evil-smartparens
   :type 'string)
 
@@ -55,12 +53,12 @@ is in an safe state, so this lets us sarifice safety for a snappy
 editor on slower computers.
 
 Even on a large computer you shouldn't set this too high or your
-computer will freeze when copying large files out of emacs."
+computer will freeze when copying large files out of Emacs."
   :group 'evil-smartparens
   :type 'string)
 
 (defun evil-sp--point-after (&rest actions)
-  "Returns POINT after performing ACTIONS.
+  "Return POINT after performing ACTIONS.
 
 An action is either the symbol of a function or a two element
 list of (fn args) to pass to `apply''"
@@ -79,8 +77,7 @@ list of (fn args) to pass to `apply''"
            (point-max))))
 
 (defun evil-sp--get-endpoint-for-killing ()
-  "Returns the endpoint from POINT upto which `sp-kill-sexp'
-would kill."
+  "Return the endpoint from POINT upto which `sp-kill-sexp'would kill."
   (if (= (evil-sp--depth-at (point))
          (evil-sp--depth-at (point-at-eol)))
       ;; Function as kill line
@@ -91,11 +88,11 @@ would kill."
      (evil-sp--point-after 'sp-forward-sexp))))
 
 (defun evil-sp--region-too-expensive-to-check (beg end)
+  "When it takes prohobitively long to check region between BEG END we cop out."
   (> (abs (- beg end)) evil-sp-threshold))
 
 (defun evil-sp--modify-region (oldfun beg end type &rest rest)
-  "Wrapper around OLDFUN which shrinks or enlarges region until
-we're acting on a sensible selection."
+  "Wrapper around OLDFUN which shrinks or enlarges region until it's balanced."
   (if (evil-sp--region-too-expensive-to-check beg end)
       (apply oldfun beg end type rest)
     (cl-letf (((symbol-function 'sp-message) (lambda (msg))))
@@ -108,6 +105,7 @@ we're acting on a sensible selection."
                (evil-sp--new-ending beg end) type rest)))))
 
 (defun evil-sp--no-sexp-between-point-and-eol? ()
+  "Check if the region up to eol contains any opening or closing delimiters."
   (not (or (save-excursion
              (re-search-forward (sp--get-opening-regexp) (point-at-eol)
                                 :noerror))
@@ -116,8 +114,7 @@ we're acting on a sensible selection."
                                 :noerror)))))
 
 (defun evil-sp--emulate-sp-kill-sexp (oldfun beg end type &rest rest)
-  "Enlarge the region bounded by BEG END until it matches
-  `sp-kill-sexp' at BEG."
+  "Enlarge the region bounded by BEG END until it matches `sp-kill-sexp' at BEG."
   (if (evil-sp--no-sexp-between-point-and-eol?)
       (if (looking-at "\n")
           (evil-join (point) (1+ (point)))
@@ -128,11 +125,13 @@ we're acting on a sensible selection."
            rest)))
 
 (defun evil-sp--override-delete-backward-char (oldfun beg end &rest rest)
+  "This is done to ensure empty sexps are deleted."
   (if (save-excursion (forward-char) (sp-point-in-empty-sexp))
       (apply #'evil-delete beg (incf end) rest)
     (apply oldfun beg end rest)))
 
 (defun evil-sp--activate-advice ()
+  "`evil-smartparens' is fully implemented in terms of advice to `evil'."
   (advice-add 'evil-delete :around #'evil-sp--modify-region)
   (advice-add 'evil-replace :around #'evil-sp--modify-region)
   (advice-add 'evil-yank :around #'evil-sp--modify-region)
@@ -142,6 +141,7 @@ we're acting on a sensible selection."
               #'evil-sp--override-delete-backward-char))
 
 (defun evil-sp--deactivate-advice ()
+  "Stop advising `evil' functions."
   (advice-remove 'evil-delete #'evil-sp--modify-region)
   (advice-remove 'evil-replace #'evil-sp--modify-region)
   (advice-remove 'evil-yank #'evil-sp--modify-region)
@@ -151,15 +151,21 @@ we're acting on a sensible selection."
                  #'evil-sp--override-delete-backward-char))
 
 (defun evil-sp--lighter ()
+  "Create the lighter for `evil-smartparens'.
+
+We want a different lighter for `smartparens-mode' and
+`smartparens-strict-mode'."
   (if smartparens-strict-mode
       evil-sp-smartparens-strict-lighter
     evil-sp-smartparens-lighter))
 
 (defun evil-sp--disable ()
+  "Deactive advice and restore modeline."
   (evil-sp--deactivate-advice)
   (diminish-undo 'smartparens-mode))
 
 (defun evil-sp--enable ()
+  "Activate advice and update modeline."
   (evil-sp--activate-advice)
   (diminish 'smartparens-mode))
 
@@ -173,6 +179,9 @@ we're acting on a sensible selection."
     (evil-sp--disable)))
 
 (defun evil-sp--depth-at (&optional point)
+  "Return the depth at POINT.
+
+Strings affect depth."
   (push major-mode sp-navigate-consider-stringlike-sexp)
   (let ((depth 0))
     (save-excursion
@@ -186,7 +195,7 @@ we're acting on a sensible selection."
     depth))
 
 (defun evil-sp--new-ending (beg end)
-  "Find the largest safe region delimited by BEG END"
+  "Find the largest safe region delimited by BEG END."
   (let ((region (s-trim (buffer-substring-no-properties beg end))))
     (unless (s-blank? region)
       (cond
@@ -203,6 +212,7 @@ we're acting on a sensible selection."
   end)
 
 (defun evil-sp--fail ()
+  "Error out with a friendly message."
   (error "Can't find a safe region to act on!"))
 
 (provide 'evil-smartparens)
