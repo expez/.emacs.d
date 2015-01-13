@@ -95,13 +95,6 @@ list of (fn args) to pass to `apply''"
         (apply f args)))
     (point)))
 
-(defun evil-sp--new-beginning (beg)
-  "Return a new value for BEG if POINT is inside an empty sexp."
-  (min beg
-       (or (when (sp-point-in-empty-sexp)
-             (evil-sp--point-after 'sp-backward-up-sexp))
-           (point-max))))
-
 (defun evil-sp--get-endpoint-for-killing ()
   "Return the endpoint from POINT upto which `sp-kill-sexp'would kill."
   (if (= (evil-sp--depth-at (point))
@@ -125,11 +118,20 @@ list of (fn args) to pass to `apply''"
     (cl-letf (((symbol-function 'sp-message) (lambda (msg))))
       (if (and type (listp type))
           (apply oldfun
-                 (evil-sp--new-beginning beg)
+                 (evil-sp--new-beginning beg end)
                  (evil-sp--get-endpoint-for-killing)
                  (second type) rest)
-        (apply oldfun (evil-sp--new-beginning beg)
-               (evil-sp--new-ending beg end) type rest)))))
+        (condition-case nil
+            (apply oldfun (evil-sp--new-beginning beg end)
+                   (evil-sp--new-ending beg end) type rest)
+
+          ;; If an error is triggered shrinking END failed.  Shrinking
+          ;; end might not be what we want at all: This case handles
+          ;; when we're deleting backwards using a movement like dB.
+          ;; This is a terrible hack, but I never delete anything
+          ;; backward so this is good enough for now.
+          ('error (apply oldfun (evil-sp--new-beginning beg end :shrink)
+                         end type rest)))))))
 
 (defun evil-sp--no-sexp-between-point-and-eol? ()
   "Check if the region up to eol contains any opening or closing delimiters."
@@ -220,6 +222,33 @@ Strings affect depth."
   (when (= beg end)
     (evil-sp--fail))
   end)
+
+(defun evil-sp--new-beginning (beg end &optional shrink)
+  "Return a new value for BEG if POINT is inside an empty sexp.
+
+If SHRINK is t we try to shrink the region until it is balanced
+by decrementing BEG."
+  (if (not shrink)
+      (min beg
+           (or (when (sp-point-in-empty-sexp)
+                 (evil-sp--point-after 'sp-backward-up-sexp))
+               (point-max)))
+
+    (let ((region (s-trim (buffer-substring-no-properties beg end))))
+      (unless (s-blank? region)
+        (cond
+         ((sp-point-in-empty-sexp)
+          ;; expand region if we're in an empty sexp
+          (setf end (save-excursion (sp-backward-up-sexp) (point))))
+
+         ;; reduce region if it's unbalanced due to selecting too much
+         (t (while (not (or (sp-region-ok-p beg end)
+                            (= beg end)))
+              (cl-incf beg)))))
+      (when (= beg end)
+        (evil-sp--fail)))
+    beg))
+
 
 (defun evil-sp--fail ()
   "Error out with a friendly message."
