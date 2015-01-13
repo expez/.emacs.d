@@ -126,7 +126,10 @@
              "M-j" 'buf-move-down
              "M-k" 'buf-move-up)
 
-(define-key evil-insert-state-map (kbd "C-e") nil)
+
+(defun add-c-e-to-local-map ()
+  (define-key evil-insert-state-local-map (kbd "C-e") 'move-end-of-line))
+(advice-add 'evil-initialize :after #'add-c-e-to-local-map)
 
 (fill-keymap evil-insert-state-map
              "C-a" 'smart-line-beginning

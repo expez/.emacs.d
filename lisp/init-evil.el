@@ -118,8 +118,7 @@
 ;;; https://bitbucket.org/lyro/evil/issue/432/edebug-mode-map-cant-take-effect-for-the
 (add-hook 'edebug-mode-hook 'evil-normalize-keymaps)
 
-(defadvice ido-hacks-execute-extended-command (before exit-insert-state
-                                                      activate)
+(defadvice ido-hacks-execute-extended-command (before exit-insert-state activate)
   (when (eql evil-state 'insert)
     (evil-normal-state)))
 
