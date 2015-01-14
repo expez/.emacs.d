@@ -210,7 +210,13 @@
               (define-key evil-normal-state-local-map (kbd "q") 'neotree-hide)
               (define-key evil-normal-state-local-map (kbd "G") 'neotree-refresh)
               (define-key evil-normal-state-local-map (kbd "U") 'neotree-select-up-node)
-              (define-key evil-normal-state-local-map (kbd "RET") 'neotree-enter)))
+              (define-key evil-normal-state-local-map (kbd "RET") 'neotree-enter)
+              (define-key evil-normal-state-local-map (kbd "C") 'neotree-change-root)
+              (define-key evil-normal-state-local-map (kbd "c") 'neotree-create-node)
+              (define-key evil-normal-state-local-map (kbd "+") 'neotree-create-node)
+              (define-key evil-normal-state-local-map (kbd "d") 'neotree-delete-node)
+              (define-key evil-normal-state-local-map (kbd "r") 'neotree-rename-node)
+              (define-key evil-normal-state-local-map (kbd "e") 'neotree-enter)))
 
   (when neo-persist-show
     (add-hook 'popwin:before-popup-hook
