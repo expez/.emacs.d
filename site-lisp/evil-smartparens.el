@@ -71,7 +71,9 @@ computer will freeze when copying large files out of Emacs."
   (advice-add 'evil-delete-line :around #'evil-sp--emulate-sp-kill-sexp)
   (advice-add 'evil-change-line :around #'evil-sp--emulate-sp-kill-sexp)
   (advice-add 'evil-delete-backward-char :around
-              #'evil-sp--override-delete-backward-char))
+              #'evil-sp--override-delete-backward-char)
+  (advice-add 'evil-delete-backward-char-and-join :around
+              #'evil-sp--override-delete-backward-char-and-join))
 
 (defun evil-sp--deactivate-advice ()
   "Stop advising `evil' functions."
@@ -81,7 +83,9 @@ computer will freeze when copying large files out of Emacs."
   (advice-remove 'evil-delete-line #'evil-sp--emulate-sp-kill-sexp)
   (advice-remove 'evil-change-line #'evil-sp--emulate-sp-kill-sexp)
   (advice-remove 'evil-delete-backward-char
-                 #'evil-sp--override-delete-backward-char))
+                 #'evil-sp--override-delete-backward-char)
+  (advice-remove 'evil-delete-backward-char
+                 #'evil-sp--override-delete-backward-char-and-join))
 
 (defun evil-sp--point-after (&rest actions)
   "Return POINT after performing ACTIONS.
@@ -161,6 +165,11 @@ list of (fn args) to pass to `apply''"
            (save-excursion (forward-char) (sp-point-in-empty-sexp)))
       (apply #'evil-delete beg (incf end) rest)
     (apply oldfun beg end rest)))
+
+(defun evil-sp--override-delete-backward-char-and-join (oldfun count)
+  "This is done to ensure empty sexps are deleted."
+  (when evil-smartparens-mode
+    (sp-backward-delete-char count)))
 
 (defun evil-sp--lighter ()
   "Create the lighter for `evil-smartparens'.
