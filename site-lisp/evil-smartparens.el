@@ -124,8 +124,7 @@ list of (fn args) to pass to `apply''"
       (if (and type (listp type))
           ;; oldfun is evil-delete-line here, we cannot use that
           ;; because it doesn't use its END argument in all cases.
-          (apply #'evil-delete
-                 (evil-sp--new-beginning beg end)
+          (apply #'evil-delete beg
                  (evil-sp--get-endpoint-for-killing)
                  (second type) rest)
         (apply oldfun (evil-sp--new-beginning beg end)
