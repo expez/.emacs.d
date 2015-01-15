@@ -120,22 +120,16 @@ list of (fn args) to pass to `apply''"
           (evil-sp--region-too-expensive-to-check beg end))
       (apply oldfun beg end type rest)
     (cl-letf (((symbol-function 'sp-message) (lambda (msg))))
+      ;; HACK for communicating through the advice that we're killing
       (if (and type (listp type))
-          (apply oldfun
+          ;; oldfun is evil-delete-line here, we cannot use that
+          ;; because it doesn't use its END argument in all cases.
+          (apply #'evil-delete
                  (evil-sp--new-beginning beg end)
                  (evil-sp--get-endpoint-for-killing)
                  (second type) rest)
-        (condition-case nil
-            (apply oldfun (evil-sp--new-beginning beg end)
-                   (evil-sp--new-ending beg end) type rest)
-
-          ;; If an error is triggered shrinking END failed.  Shrinking
-          ;; END might not be what we want at all: e.g. when we're
-          ;; deleting backwards using a movement like dB.  This is a
-          ;; terrible hack, but I never delete anything backward so
-          ;; this is good enough for now.
-          ('error (apply oldfun (evil-sp--new-beginning beg end :shrink)
-                         end type rest)))))))
+        (apply oldfun (evil-sp--new-beginning beg end)
+               (evil-sp--new-ending beg end) type rest)))))
 
 (defun evil-sp--no-sexp-between-point-and-eol? ()
   "Check if the region up to eol contains any opening or closing delimiters."
