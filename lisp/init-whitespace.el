@@ -72,7 +72,7 @@ With a prefix argument whitespac-mode is turned off."
 (defun change-whitespace-line-column (c)
   (interactive "nHighlight beyond column: ")
   (make-local-variable 'whitespace-line-column)
-  (setq whitespace-line-column c)
+  (setq-local whitespace-line-column c)
   (whitespace-mode 0)
   (whitespace-mode 1)
   (message (format "Highlighting lines longer than %s chars." c)))
