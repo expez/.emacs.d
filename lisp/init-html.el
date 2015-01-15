@@ -59,7 +59,7 @@ With a prefix it creates an ordered list."
           (html-wrap-in-tag "li" (point-at-bol) (point-at-eol))
           (forward-line))))))
 
-(fill-keymaps '(html-mode-map nxml-mode-map web-mode-map)
+(fill-keymaps '(html-mode-map web-mode-map)
               (kbd "RET") 'newline-and-indent
               "C-c l" 'html-create-list)
 
