@@ -81,9 +81,23 @@
               (if (file-exists-p (concat buffer-file-name "c"))
                   (delete-file (concat buffer-file-name "c"))))))
 
-(defun bind-test-to ()
-  (interactive)
-  (let ((fn (read-from-minibuffer "Bind ,t to: ")))
+(defun bind-test-to (_)
+  (interactive "P")
+  (let ((fn (if current-prefix-arg
+                (read-from-minibuffer "Bind ,t to: ")
+              (completing-read "Bind ,t to: " (all-fns)))))
     (define-key leader-map "t" (intern fn))))
+
+(defun all-fns ()
+  (flet ((first-line (text)
+                     (if text
+                         (substring text 0 (string-match "\n" text))
+                       "")))
+    (let ((funclist (list)))
+      (mapatoms
+       (lambda (x)
+         (when (and (fboundp x) (not (subrp (symbol-function x))))
+           (add-to-list 'funclist x))))
+      funclist)))
 
 (provide 'init-elisp)
