@@ -51,17 +51,6 @@
              "C-c t" 'bind-test-to
              "C-c e" 'eval-buffer)
 
-(defun ielm-auto-complete ()
-  "Enables `auto-complete' support in \\[ielm]."
-  (setq ac-sources '(ac-source-functions
-                     ac-source-variables
-                     ac-source-features
-                     ac-source-symbols
-                     ac-source-words-in-same-mode-buffers))
-  (add-to-list 'ac-modes 'inferior-emacs-lisp-mode)
-  (auto-complete-mode 1))
-(add-hook 'ielm-mode-hook 'ielm-auto-complete)
-
 (let ((elisp-programming-major-modes '(emacs-lisp-mode lisp-interaction-mode
                                                        ielm-mode)))
   (dolist (mode elisp-programming-major-modes)
