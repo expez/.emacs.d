@@ -12,7 +12,6 @@
 (require-package 'evil-surround)
 (require-package 'edebug-x)
 (require 'evil-surround)
-(require 'pos-tip)
 
 (set-face-foreground 'paren-face "grey30")
 
@@ -25,10 +24,12 @@
                           (help-mode)
                           (help-xref-interned thing)
                           (buffer-string)))))
-    (if (string-empty-p description)
-        (message "No help available for %s" thing)
-      nil nil nil 300 80 nil nil
-      (pos-tip-show description nil nil nil 300 80 nil nil))))
+    (popup-tip description
+               :point (point)
+               :around t
+               :height 30
+               :scroll-bar t
+               :margin t)))
 
 (defun my-elisp-mode-hook ()
   (turn-on-redshank-mode)
