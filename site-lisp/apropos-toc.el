@@ -64,6 +64,7 @@
     keymap)
   "Keymap used in the apropos-toc buffer.")
 
+;;;###autoload
 (defun apropos-toc (regexp)
   "Show bound symbols whose names match REGEXP."
   (interactive "sapropos-toc (regexp): ")
