@@ -210,10 +210,7 @@
              "M-<backspace>" 'delete-indentation
              "<C-kp-subtract>" 'text-scale-decrease
              "<C-kp-add>" 'text-scale-increase
-             "C-w M-l" 'buf-move-right
-             "C-w M-h" 'buf-move-left
-             "C-w M-k" 'buf-move-up
-             "C-w M-j" 'buf-move-down)
+             "C-w" 'evil-window-map)
 
 (evil-add-hjkl-bindings diff-mode-map 'emacs
   "K" 'diff-hunk-kill
