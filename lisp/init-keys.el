@@ -1,5 +1,5 @@
 (require 'evil)
-(require 'helm-descbinds)
+(require-package 'helm-descbinds)
 (require-package 'key-chord)
 (helm-descbinds-mode)
 
@@ -206,7 +206,6 @@
              "C-x C-r" 'ido-recentf-open
              "<f6>" 'toggle-deft-mode
              "C-w" 'evil-window-map
-             "C-x C-t" 'anchored-transpose
              "M-<backspace>" 'delete-indentation
              "<C-kp-subtract>" 'text-scale-decrease
              "<C-kp-add>" 'text-scale-increase
