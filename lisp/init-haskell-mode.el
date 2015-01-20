@@ -2,7 +2,6 @@
 (require-package 'ghci-completion)
 (require-package 'ghc)
 (require 'haskell-interactive-mode)
-(require 'hpaste)
 
 (defun my-haskell-mode-hook ()
   (turn-on-haskell-doc-mode)
@@ -14,8 +13,7 @@
                "\C-cai" 'haskell-align-imports)
   (add-hook 'after-save-hook 'hasktags nil 't)
 
-  (auto-complete-mode 1)
-  (setq default-hpaste-nick "expez"))
+  (auto-complete-mode 1))
 
 (setq haskell-process-type 'ghci
       haskell-process-args-ghci '()
