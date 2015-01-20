@@ -111,6 +111,7 @@
           cider-popup-buffer-mode
           project-explorer-mode
           paradox-menu-mode
+          neotree-mode
           diff-mode))
 
 (evil-set-initial-state 'man-mode 'motion)

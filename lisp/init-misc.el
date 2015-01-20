@@ -203,35 +203,8 @@
   (setq projectile-switch-project-action 'neotree-projectile-action
         neo-theme 'ascii
         neo-keymap-style 'concise)
-  (add-hook 'neotree-mode-hook
-            (lambda ()
-              (define-key evil-normal-state-local-map (kbd "SPC")     'neotree-enter)
-              (define-key evil-normal-state-local-map (kbd "TAB")     'neotree-enter)
-              (define-key evil-normal-state-local-map (kbd "RET")     'neotree-enter)
-              (define-key evil-normal-state-local-map (kbd "|")       'neotree-enter-vertical-split)
-              (define-key evil-normal-state-local-map (kbd "-")       'neotree-enter-horizontal-split)
-              (define-key evil-normal-state-local-map (kbd "g")       'neotree-refresh)
-              (define-key evil-normal-state-local-map (kbd "q")       'neotree-hide)
-              (define-key evil-normal-state-local-map (kbd "p")       'previous-line)
-              (define-key evil-normal-state-local-map (kbd "n")       'next-line)
-              (define-key evil-normal-state-local-map (kbd "A")       'neotree-stretch-toggle)
-              (define-key evil-normal-state-local-map (kbd "U")       'neotree-select-up-node)
-              (define-key evil-normal-state-local-map (kbd "D")       'neotree-select-down-node)
-              (define-key evil-normal-state-local-map (kbd "H")       'neotree-hidden-file-toggle)
-              (define-key evil-normal-state-local-map (kbd "S")       'neotree-select-previous-sibling-node)
-              (define-key evil-normal-state-local-map (kbd "s")       'neotree-select-next-sibling-node)
-              (define-key evil-normal-state-local-map (kbd "C-x C-f") 'find-file-other-window)
-              (define-key evil-normal-state-local-map (kbd "C-x 1")   'neotree-empty-fn)
-              (define-key evil-normal-state-local-map (kbd "C-x 2")   'neotree-empty-fn)
-              (define-key evil-normal-state-local-map (kbd "C-x 3")   'neotree-empty-fn)
-              (define-key evil-normal-state-local-map (kbd "C-c C-f") 'find-file-other-window)
-              (define-key evil-normal-state-local-map (kbd "C-c C-c") 'neotree-change-root)
-              (define-key evil-normal-state-local-map (kbd "C") 'neotree-change-root)
-              (define-key evil-normal-state-local-map (kbd "c") 'neotree-create-node)
-              (define-key evil-normal-state-local-map (kbd "+") 'neotree-create-node)
-              (define-key evil-normal-state-local-map (kbd "d") 'neotree-delete-node)
-              (define-key evil-normal-state-local-map (kbd "r") 'neotree-rename-node)
-              (define-key evil-normal-state-local-map (kbd "e") 'neotree-enter)))
+  (define-key neotree-mode-map (kbd "j") 'previous-line)
+  (define-key neotree-mode-map (kbd "k") 'next-line)
 
   (when neo-persist-show
     (add-hook 'popwin:before-popup-hook
