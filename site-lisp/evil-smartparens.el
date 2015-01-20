@@ -45,7 +45,7 @@
   :group 'evil-smartparens
   :type 'string)
 
-(defcustom evil-smartparens-threshold 5000
+(defcustom evil-smartparens-threshold 2500
   "If the region being operated on is larger than this we cop out.
 
 Quite a bit of work gets done to ensure the region being worked
