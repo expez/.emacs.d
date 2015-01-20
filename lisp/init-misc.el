@@ -203,8 +203,8 @@
   (setq projectile-switch-project-action 'neotree-projectile-action
         neo-theme 'ascii
         neo-keymap-style 'concise)
-  (define-key neotree-mode-map (kbd "j") 'previous-line)
-  (define-key neotree-mode-map (kbd "k") 'next-line)
+  (define-key neotree-mode-map (kbd "k") 'previous-line)
+  (define-key neotree-mode-map (kbd "j") 'next-line)
 
   (when neo-persist-show
     (add-hook 'popwin:before-popup-hook
