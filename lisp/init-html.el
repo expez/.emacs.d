@@ -4,7 +4,6 @@
 (require-package 'web-mode)
 (require-package 'angular-snippets)
 (require 'sgml-mode)
-(require 'know-your-http-well)
 (require 'web-mode)
 (require 'emmet-mode)
 (require 'angular-snippets)
