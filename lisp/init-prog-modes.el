@@ -1,8 +1,8 @@
 (require-package 'flycheck)
 (require-package 'aggressive-indent)
 (require-package 'flycheck-pos-tip)
+(require-package 'fic-mode)
 (require 'flycheck)
-(require 'fic-mode)
 
 (after-load 'flycheck
   (setq flycheck-display-errors-function #'flycheck-pos-tip-error-messages))
