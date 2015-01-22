@@ -23,7 +23,6 @@
                              (fill-keymap evil-normal-state-local-map
                                           "H" 'sp-backward-up-sexp
                                           "L" 'sp-up-sexp
-                                          "M-O" 'sp-up-sexp
                                           "C-9" 'sp-backward-barf-sexp
                                           "C-0" 'sp-forward-barf-sexp
                                           "M-9" 'sp-backward-slurp-sexp
