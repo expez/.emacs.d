@@ -20,6 +20,8 @@
  '(custom-safe-themes
    (quote
     ("8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" "fc5fcb6f1f1c1bc01305694c59a1a861b008c534cae8d0e48e4d5e81ad718bc6" default)))
+ '(fic-background-color "#002b36")
+ '(fic-foreground-color "Orange")
  '(fringe-mode (cons 8 0) nil (fringe))
  '(glasses-face (quote bold))
  '(glasses-original-separator "")
@@ -27,7 +29,24 @@
  '(glasses-separate-parentheses-p nil)
  '(glasses-separator "")
  '(magit-use-overlays t)
- '(paradox-github-token t))
+ '(paradox-github-token t)
+ '(safe-local-variable-values
+   (quote
+    ((eval push
+           (file-name-directory
+            (buffer-file-name))
+           load-path)
+     (eval font-lock-add-keywords nil
+           (\`
+            (((\,
+               (concat "("
+                       (regexp-opt
+                        (quote
+                         ("sp-do-move-op" "sp-do-move-cl" "sp-do-put-op" "sp-do-put-cl" "sp-do-del-op" "sp-do-del-cl"))
+                        t)
+                       "\\_>"))
+              1
+              (quote font-lock-variable-name-face)))))))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
