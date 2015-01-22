@@ -1,4 +1,3 @@
-;;; WIP, somewhat usable
 (require 'company)
 (require 'pos-tip)
 
@@ -15,7 +14,8 @@
   (company-quickhelp--cancel-timer)
   (let* ((selected (nth company-selection company-candidates))
          (doc-buffer (company-call-backend 'doc-buffer selected))
-         (ovl company-pseudo-tooltip-overlay))
+         (ovl company-pseudo-tooltip-overlay)
+         (x-gtk-use-system-tooltips nil))
     (when (and ovl doc-buffer)
       (with-no-warnings
         (let* ((width (overlay-get ovl 'company-width))

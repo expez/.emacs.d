@@ -55,6 +55,7 @@
  '(ein:cell-input-area ((t (:background "#073642"))))
  '(ethan-wspace-face ((t (:foreground "#882C02" :inverse-video t :weight bold))))
  '(iedit-occurrence ((t (:inherit region))))
+ '(tooltip ((t (:inherit variable-pitch :background "#073642" :foreground "#93a1a1"))))
  '(web-mode-builtin-face ((t (:inherit font-lock-builtin-face :foreground "font-lock-builtin-face"))))
  '(wg-divider-face ((t nil)))
  '(wg-filename-face ((t (:foreground "light sky blue"))))
