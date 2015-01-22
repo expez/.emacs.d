@@ -65,6 +65,15 @@
 (after-load 'skewer
   (diminish 'skewer-mode))
 
+(after-load 'fic-mode
+  (diminish 'fic-mode))
+
+(after-load 'evil-smartparens
+  (diminish 'evil-smartparens-mode "()"))
+
+(after-load 'company
+  (diminish 'company-mode))
+
 (defmacro rename-modeline (package-name mode new-name)
   `(eval-after-load ,package-name
      (defadvice ,mode (after rename-modeline activate)

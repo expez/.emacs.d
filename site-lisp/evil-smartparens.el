@@ -251,7 +251,6 @@ by decrementing BEG."
         (evil-sp--fail)))
     beg))
 
-
 (defun evil-sp--fail ()
   "Error out with a friendly message."
   (error "Can't find a safe region to act on!"))
