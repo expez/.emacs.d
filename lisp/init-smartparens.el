@@ -35,7 +35,6 @@
   (sp-local-pair "`" "`"))
 
 (fill-keymap sp-keymap
-             "M-;" 'paredit-comment-dwim
              "M-s" 'sp-splice-sexp
              "M-S" 'sp-split-sexp
              "M-j" 'sp-join-sexp
