@@ -9,7 +9,8 @@
       company-selection-wrap-around t
       company-selection-changed t
       company-tooltip-flip-when-above t
-      company-require-match nil)
+      company-require-match nil
+      pos-tip-border-width 0)
 
 (add-to-list 'company-dabbrev-code-modes 'clojure-mode)
 
