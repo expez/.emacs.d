@@ -1,7 +1,7 @@
 (require-package 'flycheck)
 (require-package 'aggressive-indent)
 (require-package 'flycheck-pos-tip)
-(require-package 'fic-mode)
+(require-package 'fic-ext-mode)
 (require 'flycheck)
 
 (after-load 'flycheck
@@ -33,7 +33,7 @@
   (add-hook
    (intern (concat (symbol-name mode) "-hook"))
    (lambda ()
-     (fic-mode 1)
+     (fic-ext-mode 1)
      (rainbow-delimiters-mode 1)
      (unless (eq system-type 'windows-nt)
        (flyspell-prog-mode))
