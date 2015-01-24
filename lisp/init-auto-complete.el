@@ -10,7 +10,8 @@
       ac-use-fuzzzy t
       ac-auto-show-menu 0.2)
 
-(global-auto-complete-mode)
+;; (global-auto-complete-mode 1)
+;; (add-hook 'ielm-mode-hook 'ielm-auto-complete)
 
 (ac-flyspell-workaround)
 
@@ -28,6 +29,5 @@
                      ac-source-words-in-same-mode-buffers))
   (add-to-list 'ac-modes 'inferior-emacs-lisp-mode)
   (auto-complete-mode 1))
-(add-hook 'ielm-mode-hook 'ielm-auto-complete)
 
 (provide 'init-auto-complete)

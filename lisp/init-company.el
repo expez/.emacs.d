@@ -12,6 +12,9 @@
       company-require-match nil
       pos-tip-border-width 0)
 
+(company-quickhelp-mode 1)
+(global-company-mode 1)
+
 (add-to-list 'company-dabbrev-code-modes 'clojure-mode)
 
 (fill-keymap company-active-map "C-l" 'company-complete-common)
