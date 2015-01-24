@@ -1,9 +1,7 @@
-(require-package 'ac-inf-ruby)
 (require-package 'yard-mode)
 (require-package 'toml-mode)
 (require-package 'rvm)
 (require-package 'ruby-interpolation)
-(require-package 'ruby-electric)
 (require-package 'ruby-compilation)
 (require-package 'rspec-mode)
 (require-package 'robe)
@@ -19,24 +17,15 @@
 (eval-after-load 'ruby-electric
   '(define-key ruby-electric-mode-map [remap reindent-then-newline-and-indent]
      'ruby-electric-space/return))
-(eval-after-load 'auto-complete
-  '(add-to-list 'ac-modes 'inf-ruby-mode))
 
-(defun my-inf-ruby-mode-hook ()
-  (set (make-local-variable 'ac-auto-start) 2)
-  (set (make-local-variable 'ac-auto-show-menu) t)
-  (ac-inf-ruby-enable)
-  (ruby-electric-mode 1)
-  (auto-complete-mode 1))
-(add-hook 'inf-ruby-mode-hook 'my-inf-ruby-mode-hook)
+(after-load 'company
+  (push 'company-robe company-backends))
 
 (defadvice inf-ruby-console-auto (before activate-rvm-for-robe activate)
   (rvm-activate-corresponding-ruby))
 
 (defun my-ruby-mode-hook ()
   (rvm-activate-corresponding-ruby)
-  (ruby-electric-mode 1)
-  (electric-pair-mode 0)
   (robe-mode 1)
   (fill-keymap evil-normal-state-local-map
                "M-," 'pop-tag-mark
@@ -45,11 +34,7 @@
                (kbd "RET") 'reindent-then-newline-and-indent)
   (yard-mode 1)
   (eldoc-mode 1)
-  (auto-complete-mode 1)
-  (ac-ruby-mode-setup)
   (rinari-minor-mode 1)
-  (setq completion-at-point-functions '(auto-complete))
-  (push 'ac-source-robe ac-sources)
   (setq webjump-api-sites '(("Ruby" . "http://apidock.com/ruby/")
                             ("Rails" . "http://apidock.com/rails/"))))
 
