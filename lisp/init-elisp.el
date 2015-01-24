@@ -19,17 +19,15 @@
   (interactive)
   (let* ((thing (symbol-at-point))
          (help-xref-following t)
+         (x-gtk-use-system-tooltips nil)
          (description (save-window-excursion
                         (with-temp-buffer
                           (help-mode)
                           (help-xref-interned thing)
                           (buffer-string)))))
-    (popup-tip description
-               :point (point)
-               :around t
-               :height 30
-               :scroll-bar t
-               :margin t)))
+    (pos-tip-show description nil nil nil -1)
+    (read-event)
+    (pos-tip-hide)))
 
 (defun my-elisp-mode-hook ()
   (turn-on-redshank-mode)
