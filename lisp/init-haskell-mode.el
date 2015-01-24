@@ -11,9 +11,7 @@
   (fill-keymap haskell-mode-map
                "\C-ch" 'haskell-hoogle
                "\C-cai" 'haskell-align-imports)
-  (add-hook 'after-save-hook 'hasktags nil 't)
-
-  (auto-complete-mode 1))
+  (add-hook 'after-save-hook 'hasktags nil 't))
 
 (setq haskell-process-type 'ghci
       haskell-process-args-ghci '()

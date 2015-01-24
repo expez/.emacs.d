@@ -51,8 +51,6 @@
 
 (defun my-js2-mode-hook ()
   (setq-local yas-after-exit-snippet-hook #'my-js2-exit-snippet-hook)
-  (auto-complete-mode 0)
-  (company-mode 1)
   (js2-imenu-extras-setup)
   (add-test-externs)
   (setq mode-name "JS2")

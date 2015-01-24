@@ -50,8 +50,6 @@
 
 (defun my-clojure-mode-hook ()
   (rainbow-delimiters-mode 0)
-  (auto-complete-mode 0)
-  (company-mode 1)
   (flycheck-mode 1)
   (setq-local evil-symbol-word-search t)
   (clj-refactor-mode 1)

@@ -1,22 +1,14 @@
 ;; (require-package 'company-jedi)
 ;; (require-package 'company-inf-python)
 (require-package 'virtualenvwrapper)
-(require-package 'autopair)
 (require-package 'pymacs)
 (require-package 'ein)
 ;; (require-package 'jedi)
 (setq venv-location "~/.virtualenvs")
 (setq python-shell-virtualenv-path "~/.virtualenvs/ml")
 
-(setq ein:use-auto-complete-superpack t
-      ein:console-executable "/opt/anaconda/bin/ipython")
-
 (defun my-ein-notebook-mode-hook ()
-  (auto-complete-mode 1)
-  (ein:ac-setup)
   (whitespace-mode 0)
-  (setq-local electric-pair-mode nil)
-  (autopair-mode)
   (define-key evil-insert-state-local-map
     (kbd "RET") 'newline-and-indent)
   (define-key ein:notebook-mode-map (kbd "C-c C-d")
