@@ -26,7 +26,7 @@
                           (help-xref-interned thing)
                           (buffer-string)))))
     (pos-tip-show description nil nil nil -1)
-    (read-event)
+    (sit-for 360)
     (pos-tip-hide)))
 
 (defun my-elisp-mode-hook ()
