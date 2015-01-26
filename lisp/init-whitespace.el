@@ -84,4 +84,20 @@ With a prefix argument whitespac-mode is turned off."
   (when whitespace-mode
     (whitespace-mode 1)))
 
+(defvar hosts-where-tabs-are-expected nil)
+
+(defun host-where-tabs-are-expected ()
+  (cl-some (lambda (host) (string= system-name host))
+           hosts-where-tabs-are-expected))
+
+(defun maybe-allow-tabs ()
+  (when (and (host-where-tabs-are-expected)
+             (eq (indentation-style) 'tabs))
+    (allow-tabs)
+    (setq tab-width 2)
+    (setq-local indent-tabs-mode t)
+    (setq-local whitespace-line-column 120)
+    (whitespace-mode 0)
+    (whitespace-mode 1)))
+
 (provide 'init-whitespace)

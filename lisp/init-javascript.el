@@ -28,16 +28,6 @@
 (defun my-js2-exit-snippet-hook ()
   (indent-region yas-snippet-beg yas-snippet-end))
 
-(defun maybe-allow-tabs ()
-  (when (and (string= system-name "NOLD0042")
-             (eq (indentation-style) 'tabs))
-    (allow-tabs)
-    (setq tab-width 2)
-    (setq-local indent-tabs-mode t)
-    (setq whitespace-line-column 120)
-    (whitespace-mode 0)
-    (whitespace-mode 1)))
-
 (add-to-list 'company-backends 'company-tern)
 
 (defun add-test-externs()
@@ -56,7 +46,6 @@
   (setq mode-name "JS2")
   (skewer-mode)
   (tern-mode t)
-  (electric-pair-mode)
   (flycheck-mode t)
   (fill-keymap evil-normal-state-local-map
                "M-." 'tern-find-definition
