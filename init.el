@@ -3,6 +3,7 @@
 (push my-config-dir load-path)
 
 (setq load-prefer-newer t)
+(safe-load-init-files (concat (user-emacs-directory) "hosts"))
 
 ;; Add everything in and below site-lisp to load-path.
 (let ((default-directory "~/.emacs.d/site-lisp/"))
