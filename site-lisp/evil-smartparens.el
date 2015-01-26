@@ -103,7 +103,7 @@ list of (fn args) to pass to `apply''"
   "Return the endpoint from POINT upto which `sp-kill-sexp'would kill."
   (if (= (evil-sp--depth-at (point))
          (evil-sp--depth-at (point-at-eol)))
-      ;; Function as kill line
+      ;; Act like kill line
       (point-at-eol)
     (max
      ;; Greedy killing
@@ -120,7 +120,7 @@ list of (fn args) to pass to `apply''"
           (evil-sp--region-too-expensive-to-check beg end))
       (apply oldfun beg end type rest)
     (cl-letf (((symbol-function 'sp-message) (lambda (msg))))
-      ;; HACK for communicating through the advice that we're killing
+      ;; hack for communicating through the advice that we're killing
       (if (and type (listp type))
           ;; oldfun is evil-delete-line here, we cannot use that
           ;; because it doesn't use its END argument in all cases.
