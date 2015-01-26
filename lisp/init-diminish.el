@@ -65,11 +65,8 @@
 (after-load 'skewer
   (diminish 'skewer-mode))
 
-(after-load 'fic-mode
-  (diminish 'fic-mode))
-
-(after-load 'evil-smartparens
-  (diminish 'evil-smartparens-mode "()"))
+(after-load 'fic-ext-mode
+  (diminish 'fic-ext-mode))
 
 (after-load 'company
   (diminish 'company-mode))

@@ -1,6 +1,7 @@
 (require-package 'company)
 (require 'company)
 (require 'company-dabbrev-code)
+(require 'company-quickhelp)
 
 (setq company-idle-delay 0.2
       company-show-numbers t
