@@ -33,13 +33,11 @@
   (setq show-trailing-whitespace nil)
   (company-mode 1)
   (eldoc-mode)
-  (paredit-mode 1)
   (fill-keymaps '(evil-insert-state-local-map evil-normal-state-local-map)
                 (kbd "C-a") 'cider-repl-bol
                 "M-." 'cider-jump-to-var
                 "M-," 'cider-jump-back)
   (whitespace-mode 0)
-  (evil-paredit-mode 1)
   (evil-force-normal-state))
 (add-hook 'cider-repl-mode-hook #'my-cider-repl-mode-hook)
 (add-hook 'nrepl-connected-hook #'cljr-update-artifact-cache)
@@ -64,8 +62,6 @@
                "C-c c" 'cider-clear-errors
                "C-c M" 'cider-macroexpand-all)
   (cljr-add-keybindings-with-prefix "C-c C-m")
-  (paredit-mode 1)
-  (evil-paredit-mode 1)
   (local-set-key (kbd "RET") 'newline-and-indent)
   (fill-keymap evil-normal-state-local-map
                "M-q" '(lambda () (interactive) (clojure-fill-paragraph))

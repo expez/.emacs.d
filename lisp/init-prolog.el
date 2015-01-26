@@ -5,9 +5,7 @@
                               auto-mode-alist))
 
 (defun my-prolog-mode-hook ()
-  (setq prolog-system 'swi)
-  (paredit-nonlisp)
-  (evil-paredit-mode 1))
+  (setq prolog-system 'swi))
 
 (eval-after-load 'prolog
   '(fill-keymap prolog-mode-map

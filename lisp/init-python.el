@@ -33,11 +33,10 @@
 
 (defun my-python-mode-hook ()
   ;; (jedi:setup)
-  (autopair-mode)
   ;; (company-jedi-start)
   ;; (company-mode-on)
   ;; (define-key evil-normal-state-local-map (kbd "M-.") 'company-jedi-goto-definition)
-  (setq-local electric-pair-mode nil))
+  )
 
 (add-hook 'python-mode-hook #'my-python-mode-hook)
 

@@ -7,7 +7,6 @@
 
 (add-hook 'lisp-mode-hook
           (lambda ()
-            (paredit-mode +1)
             (set (make-local-variable 'lisp-indent-function)
                  'common-lisp-indent-function)
             (slime-mode 1)
@@ -21,7 +20,6 @@
             (fill-keymap evil-normal-state-local-map
                          "M-." 'slime-edit-definition
                          "M-," 'slime-pop-find-definition-stack)
-            (evil-paredit-mode 1)
             (set-face-foreground 'paren-face "grey30")))
 
 (fill-keymap lisp-mode-map "C-c l" 'lispdoc)
@@ -57,11 +55,6 @@
 
 (eval-after-load "auto-complete"
   '(add-to-list 'ac-modes 'slime-repl-mode))
-
-(add-hook 'slime-repl-mode-hook
-          (lambda ()
-            (paredit-mode +1)
-            (evil-paredit-mode 1)))
 
 (defun cliki:start-slime ()
   (unless (slime-connected-p)

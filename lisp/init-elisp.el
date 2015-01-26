@@ -4,9 +4,6 @@
 (require-package 'elisp-slime-nav)
 (require-package 'parenface-plus)
 (require 'parenface-plus)
-(require-package 'paredit)
-(require-package 'evil-paredit)
-(require 'evil-paredit)
 (require-package 'rainbow-delimiters)
 (require-package 'flycheck)
 (require-package 'evil-surround)
@@ -57,8 +54,6 @@
      (intern (concat (symbol-name mode) "-hook"))
      (lambda ()
        (turn-on-eldoc-mode)
-       (paredit-mode 1)
-       (evil-paredit-mode 1)
        (rainbow-delimiters-mode 0)))))
 
 (defun esk-remove-elc-on-save ()
