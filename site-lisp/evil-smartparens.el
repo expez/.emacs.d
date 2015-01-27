@@ -134,8 +134,13 @@ list of (fn args) to pass to `apply''"
           (apply #'evil-delete beg
                  (evil-sp--get-endpoint-for-killing)
                  (second type) rest)
-        (apply oldfun (evil-sp--new-beginning beg end)
-               (evil-sp--new-ending beg end) type rest)))))
+        (condition-case nil
+            (apply oldfun (evil-sp--new-beginning beg end)
+                   (evil-sp--new-ending beg end) type rest)
+          ;; HACK: We might be deleting backwards and shrinking the
+          ;; endpoint might never get us where we want.
+          ('error (apply oldfun (evil-sp--new-beginning beg end :shrink)
+                         end type rest)))))))
 
 (defun evil-sp--no-sexp-between-point-and-eol? ()
   "Check if the region up to eol contains any opening or closing delimiters."
