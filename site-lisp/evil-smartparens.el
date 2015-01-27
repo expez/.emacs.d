@@ -57,6 +57,8 @@ computer will freeze when copying large files out of Emacs."
   :group 'evil-smartparens
   :type 'string)
 
+(defvar evil-sp--override nil)
+
 ;;; Evil-smartparens works by adding advice to regular functions.
 ;;; Unfortunately, the advice functionality is a global deal so in
 ;;; all the functions we advice we have to check if
@@ -114,11 +116,16 @@ list of (fn args) to pass to `apply''"
   "When it takes prohobitively long to check region between BEG END we cop out."
   (> (abs (- beg end)) evil-smartparens-threshold))
 
+(defun evil-sp-override ()
+  (interactive)
+  (setq evil-sp--override t))
+
 (defun evil-sp--modify-region (oldfun beg end type &rest rest)
   "Wrapper around OLDFUN which shrinks or enlarges region until it's balanced."
   (if (or (not evil-smartparens-mode)
+          evil-sp--override
           (evil-sp--region-too-expensive-to-check beg end))
-      (apply oldfun beg end type rest)
+      (prog1 (apply oldfun beg end type rest) (setq evil-sp--override nil))
     (cl-letf (((symbol-function 'sp-message) (lambda (msg))))
       ;; hack for communicating through the advice that we're killing
       (if (and type (listp type))
@@ -141,8 +148,9 @@ list of (fn args) to pass to `apply''"
 
 (defun evil-sp--emulate-sp-kill-sexp (oldfun beg end type &rest rest)
   "Enlarge the region bounded by BEG END until it matches `sp-kill-sexp' at BEG."
-  (if (not evil-smartparens-mode)
-      (apply oldfun beg end type rest)
+  (if (or (not evil-smartparens-mode)
+          evil-sp--override)
+      (prog1 (apply oldfun beg end type rest) (setq evil-sp--override nil))
     (if (evil-sp--no-sexp-between-point-and-eol?)
         (if (looking-at "\n")
             (evil-join (point) (1+ (point)))
@@ -162,7 +170,9 @@ list of (fn args) to pass to `apply''"
 (defun evil-sp--override-delete-backward-char-and-join (oldfun count)
   "This is done to ensure empty sexps are deleted."
   (when evil-smartparens-mode
-    (sp-backward-delete-char count)))
+    (if evil-sp--override
+        (prog1 (funcall oldfun count) (setq evil-sp--override nil))
+      (sp-backward-delete-char count))))
 
 (defun evil-sp--lighter ()
   "Create the lighter for `evil-smartparens'.
@@ -181,7 +191,8 @@ We want a different lighter for `smartparens-mode' and
 (defun evil-sp--enable ()
   "Activate advice and update modeline."
   (evil-sp--activate-advice)
-  (diminish 'smartparens-mode))
+  (diminish 'smartparens-mode)
+  (define-key evil-visual-state-local-map "o" 'evil-sp-override))
 
 ;;;###autoload
 (define-minor-mode evil-smartparens-mode
