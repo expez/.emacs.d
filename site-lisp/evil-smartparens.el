@@ -248,9 +248,9 @@ If SHRINK is t we try to shrink the region until it is balanced
 by decrementing BEG."
   (if (not shrink)
       (min beg
-           (or (when (sp-point-in-empty-sexp)
-                 (evil-sp--point-after 'sp-backward-up-sexp))
-               (point-max)))
+           (if (sp-point-in-empty-sexp)
+               (evil-sp--point-after 'sp-backward-up-sexp)
+             (point-max)))
 
     (let ((region (s-trim (buffer-substring-no-properties beg end))))
       (unless (s-blank? region)
