@@ -3,6 +3,7 @@
 (require-package 'flycheck-pos-tip)
 (require-package 'fic-ext-mode)
 (require 'flycheck)
+(require 'fic-ext-mode)
 
 (after-load 'flycheck
   (setq flycheck-display-errors-function #'flycheck-pos-tip-error-messages))
