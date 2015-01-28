@@ -40,7 +40,12 @@
   (whitespace-mode 0)
   (evil-force-normal-state))
 (add-hook 'cider-repl-mode-hook #'my-cider-repl-mode-hook)
-(add-hook 'nrepl-connected-hook #'cljr-update-artifact-cache)
+
+(defun my-cider-connected-hook ()
+  (cljr-update-artifact-cache)
+  (cljr-warm-ast-cache))
+
+(add-hook 'cider-connected-hook #'my-cider-connected-hook)
 
 (defun cider-clear-errors ()
   (interactive)
