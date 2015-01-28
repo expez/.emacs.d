@@ -4,9 +4,16 @@
 (require-package 'fic-ext-mode)
 (require 'flycheck)
 (require 'fic-ext-mode)
+(require 'flyspell)
 
 (after-load 'flycheck
   (setq flycheck-display-errors-function #'flycheck-pos-tip-error-messages))
+
+(defun hide-tooltip-before-normal-mode (&rest _)
+  (pos-tip-hide))
+
+(after-load 'evil (advice-add 'evil-normal-state :before
+                              #'hide-tooltip-before-normal-mode))
 
 (after-load 'aggressive-indent
   (define-key aggressive-indent-mode-map (kbd "C-c C-q") nil))
