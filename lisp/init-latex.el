@@ -1,15 +1,13 @@
 (require-package 'auctex)
+(require-package 'company-math)
 (require 'tex)
-(require 'auto-complete-latex)
 
 (defun my-LaTeX-mode-hook ()
-  (ac-l-setup)
   (visual-line-mode 1)
   (flyspell-mode 1)
   (LaTeX-math-mode 1)
   (turn-on-reftex)
   (setq fill-column 120)
-  (auto-complete-mode 1)
   (setq-default TeX-command-default "Build"
                 text-master 'dwim)
   (TeX-source-correlate-mode 1)
@@ -23,6 +21,10 @@
         TeX-source-correlate-start-server t
         TeX-newline-function #'reindent-then-newline-and-indent
         refTeX-plug-into-AUCTeX t)
+  (setq-local company-backends
+              (append '(company-math-symbols-latex company-latex-commands)
+                      company-backends)))
+
   (turn-on-orgtbl))
 
 (add-hook 'LaTeX-mode-hook 'my-LaTeX-mode-hook)

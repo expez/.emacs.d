@@ -1,15 +1,9 @@
-(require-package 'auto-complete-nxml)
-(require 'auto-complete-nxml)
 (require 'nxml-mode)
 
-(setq auto-complete-nxml-popup-help-key "C-,")
-
 (defun my-nxml-mode-hook ()
-  (make-local-variable 'whitespace-line-column)
-  (setq whitespace-line-column 120)
+  (setq-local whitespace-line-column 120)
   (whitespace-mode 0)
   (whitespace-mode 1)
-  (flycheck-mode 0)
   (local-set-key (kbd "RET") 'newline-and-indent))
 
 (add-hook 'nxml-mode-hook #'my-nxml-mode-hook)
@@ -21,7 +15,6 @@
           '("xml" "xsd" "sch" "rng" "xslt" "svg" "rss"
             "gpx" "tcx"))
          "\\'"))
-(setq nxml-slash-auto-complete-flag t)
 
 (push (concat user-emacs-directory "schemas/schemas.xml")
       rng-schema-locating-files)

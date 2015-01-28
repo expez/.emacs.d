@@ -1,9 +1,10 @@
 (require-package 'redshank)
-(require-package 'ac-slime)
+(require-package 'company-slime)
 (when (load-if-exists "~/quicklisp/slime-helper.el")
   (require 'slime))
 
 (require 'test-op-mode)
+(slime-setup '(slime-company))
 
 (add-hook 'lisp-mode-hook
           (lambda ()
@@ -13,9 +14,6 @@
             (test-op-mode)
             (turn-on-eldoc-mode)
             (turn-on-redshank-mode)
-            (eldoc-add-command
-             'paredit-backward-delete
-             'paredit-close-round)
             (rainbow-delimiters-mode 0)
             (fill-keymap evil-normal-state-local-map
                          "M-." 'slime-edit-definition
@@ -42,9 +40,7 @@
       slime-autodoc-use-multiline-p t
       lisp-lambda-list-keyword-parameter-alignment t)
 
-(add-hook 'slime-mode-hook 'set-up-slime-ac)
 (add-hook 'slime-mode-hook 'cliki:start-slime)
-(add-hook 'slime-repl-mode-hook 'set-up-slime-ac)
 
 (setq slime-repl-history-trim-whitespaces t
       slime-repl-history-remove-duplicates t)
@@ -52,9 +48,6 @@
 (let ((fasl-dir (expand-file-name "/tmp/slime-fasls/")))
   (make-directory fasl-dir t)
   (setq slime-compile-file-options `(:fasl-directory ,fasl-dir)))
-
-(eval-after-load "auto-complete"
-  '(add-to-list 'ac-modes 'slime-repl-mode))
 
 (defun cliki:start-slime ()
   (unless (slime-connected-p)
