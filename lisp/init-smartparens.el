@@ -18,15 +18,14 @@
              "[" (lambda (&optional arg) (interactive "P") (sp-wrap-with-pair "["))
              "{" (lambda (&optional arg) (interactive "P") (sp-wrap-with-pair "{"))
              "(" (lambda (&optional arg) (interactive "P") (sp-wrap-with-pair "(")))
-           (run-with-timer 2 nil
-                           (lambda ()
-                             (fill-keymap evil-normal-state-local-map
-                                          "H" 'sp-backward-up-sexp
-                                          "L" 'sp-up-sexp
-                                          "C-9" 'sp-backward-barf-sexp
-                                          "C-0" 'sp-forward-barf-sexp
-                                          "M-9" 'sp-backward-slurp-sexp
-                                          "M-0" 'sp-forward-slurp-sexp))))))
+           (when evil-normal-state-local-map
+             (fill-keymap evil-normal-state-local-map
+                         "H" 'sp-backward-up-sexp
+                         "L" 'sp-up-sexp
+                         "C-9" 'sp-backward-barf-sexp
+                         "C-0" 'sp-forward-barf-sexp
+                         "M-9" 'sp-backward-slurp-sexp
+                         "M-0" 'sp-forward-slurp-sexp)))))
 (add-hook 'smartparens-enabled-hook #'my-smartparens-mode-hook)
 
 (sp-with-modes '(markdown-mode
