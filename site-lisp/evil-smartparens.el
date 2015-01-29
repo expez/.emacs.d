@@ -197,7 +197,8 @@ We want a different lighter for `smartparens-mode' and
   "Activate advice and update modeline."
   (evil-sp--activate-advice)
   (diminish 'smartparens-mode)
-  (define-key evil-visual-state-local-map "o" 'evil-sp-override))
+  (when evil-visual-state-local-map
+    (define-key evil-visual-state-local-map "o" 'evil-sp-override)))
 
 ;;;###autoload
 (define-minor-mode evil-smartparens-mode
