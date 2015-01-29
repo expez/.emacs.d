@@ -10,7 +10,7 @@
       company-minimum-prefix-length 2
       company-selection-wrap-around t
       company-selection-changed t
-      company-tooltip-flip-when-above t
+      company-tooltip-flip-when-above nil
       company-require-match nil
       pos-tip-border-width 0)
 
