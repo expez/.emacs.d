@@ -25,8 +25,9 @@
     (if (string-empty-p description)
         (message "No doc found for %s!" thing)
       (pos-tip-show description nil nil nil -1)
-      (sit-for 360)
-      (pos-tip-hide))))
+      (unwind-protect
+          (sit-for 360)
+        (pos-tip-hide)))))
 
 (defun my-elisp-mode-hook ()
   (turn-on-redshank-mode)
