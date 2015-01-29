@@ -56,7 +56,7 @@
     (add-hook
      (intern (concat (symbol-name mode) "-hook"))
      (lambda ()
-       (turn-on-eldoc-mode)
+       (eldoc-mode)
        (rainbow-delimiters-mode 0)))))
 
 (defun esk-remove-elc-on-save ()
