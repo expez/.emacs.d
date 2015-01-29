@@ -205,7 +205,8 @@
              "M-<backspace>" 'delete-indentation
              "<C-kp-subtract>" 'text-scale-decrease
              "<C-kp-add>" 'text-scale-increase
-             "C-w" 'evil-window-map)
+             "C-w" 'evil-window-map
+             "C-;" 'ace-window)
 
 (evil-add-hjkl-bindings diff-mode-map 'emacs
   "K" 'diff-hunk-kill

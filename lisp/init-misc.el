@@ -19,9 +19,12 @@
 (require-package 'popwin)
 (require-package 'buffer-move)
 (require-package 'mode-line-debug)
+(require-package 'ace-window)
 (require 'popwin)
 (require 'ibuffer)
 (require 'workgroups2)
+
+(setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
 
 (popwin-mode 1)
 (eldoc-in-minibuffer-mode 1)
