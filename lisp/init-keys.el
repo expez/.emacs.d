@@ -299,4 +299,19 @@
 (key-chord-define-global "qr" 'query-replace-regexp)
 (key-chord-define-global "qm" 'moccur)
 
+(defun bind-test-to (_)
+  (interactive "P")
+  (let ((fn (if current-prefix-arg
+                (read-from-minibuffer "Bind ,t to: ")
+              (completing-read "Bind ,t to: " (all-fns)))))
+    (define-key leader-map "t" (intern fn))))
+
+(defun all-fns ()
+  (let ((funclist (list)))
+    (mapatoms
+     (lambda (x)
+       (when (and (fboundp x) (not (subrp (symbol-function x))))
+         (add-to-list 'funclist x))))
+    funclist))
+
 (provide 'init-keys)
