@@ -43,7 +43,7 @@
     (interactive "p")
     (dotimes (_ count)
       (evil-insert-newline-above)))
-  (define-key evil-normal-state-map "gO" #'my-insert-line-above)))
+  (define-key evil-normal-state-map "gO" #'my-insert-line-above))
 
 (progn
   (evil-define-state iedit
