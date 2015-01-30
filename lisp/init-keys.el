@@ -109,8 +109,6 @@
              "gu" 'evil-upcase
              "gU" 'evil-downcase
              "M-," 'pop-tag-mark
-             "C-j" 'open-line-below
-             "C-k" 'open-line-above
              "M-n" 'next-error
              "M-p" 'previous-error
              "C-u" 'evil-scroll-up

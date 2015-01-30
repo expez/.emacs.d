@@ -31,7 +31,19 @@
   (define-key evil-motion-state-map "Y" #'evil-yank-to-eol)
 
   ;; Make "y" also work in motion state.
-  (define-key "y" evil-motion-state-map #'evil-yank))
+  (define-key "y" evil-motion-state-map #'evil-yank)
+
+  (defun my-insert-line-below (count)
+    (interactive "p")
+    (dotimes (_ count)
+      (evil-insert-newline-below)))
+  (define-key evil-normal-state-map "go" #'my-insert-line-below)
+
+  (defun my-insert-line-above (count)
+    (interactive "p")
+    (dotimes (_ count)
+      (evil-insert-newline-above)))
+  (define-key evil-normal-state-map "gO" #'my-insert-line-above)))
 
 (progn
   (evil-define-state iedit
