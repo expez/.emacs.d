@@ -649,9 +649,7 @@ indicate failure."
   "Use completing read to open one of the configuration files for
   emacs for editing."
   (interactive)
-  (let ((files (directory-files my-config-dir t "init-.*?\.el\$")))
-    (find-file (ido-read-file-name "Edit file: " my-config-dir nil
-                                   nil "init-"))))
+  (ido-find-file-in-dir my-config-dir))
 
 (defun find-shell-init-file ()
   "Edit the shell init file in another window."
