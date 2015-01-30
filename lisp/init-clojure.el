@@ -35,7 +35,6 @@
   (company-mode 1)
   (eldoc-mode)
   (fill-keymaps '(evil-insert-state-local-map evil-normal-state-local-map)
-                (kbd "C-a") 'cider-repl-bol
                 "M-." 'cider-jump-to-var
                 "M-," 'cider-jump-back)
   (whitespace-mode 0)
