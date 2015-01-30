@@ -4,6 +4,7 @@
 (require-package 'clj-refactor)
 (require-package 'clojure-cheatsheet)
 (require-package 'refheap)
+(require-package 'clojure-snippets)
 
 (add-to-list 'auto-mode-alist '("\\.edn\\'" . clojure-mode))
 
