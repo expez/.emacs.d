@@ -21,6 +21,18 @@
 (define-key evil-inner-text-objects-map "a" 'evil-inner-arg)
 (define-key evil-outer-text-objects-map "a" 'evil-outer-arg)
 
+(after-load 'evil
+  (evil-define-operator evil-yank-to-eol (beg end type register yank-handler)
+    "Yank to end of line."
+    :motion evil-end-of-line
+    (interactive "<R><x><y>")
+    (evil-yank beg end type register yank-handler))
+  (define-key evil-normal-state-map "Y" #'evil-yank-to-eol)
+  (define-key evil-motion-state-map "Y" #'evil-yank-to-eol)
+
+  ;; Make "y" also work in motion state.
+  (define-key "y" evil-motion-state-map #'evil-yank))
+
 (progn
   (evil-define-state iedit
     "`iedit state' interfacing iedit mode."

@@ -92,7 +92,6 @@
 (fill-keymap evil-normal-state-map
              "'" 'evil-use-register
              "\"" 'evil-goto-mark-line
-             "Y"     (kbd "y$")
              "Q" 'evil-execute-last-kbd-macro
              "U" 'universal-argument
              "<kp-add>" 'evil-numbers/inc-at-pt
