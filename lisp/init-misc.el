@@ -20,6 +20,8 @@
 (require-package 'buffer-move)
 (require-package 'mode-line-debug)
 (require-package 'ace-window)
+(require-package 'bind-key)
+(require 'bind-key)
 (require 'popwin)
 (require 'ibuffer)
 (require 'workgroups2)
@@ -184,6 +186,45 @@
               ido-common-completion-map
               ido-file-completion-map
               ido-file-dir-completion-map)))
+
+;;;; stolen from https://github.com/pkkm/.emacs.d/blob/master/conf/minibuffer/ido.el
+
+;; Ido provides the keymaps `ido-common-completion-map', `ido-file-dir-completion-map', `ido-file-completion-map', `ido-buffer-completion-map' for various kinds of completions.
+;; However, it recreates them every time `ido-completing-read' is called, so we need to define custom keys every time too.
+(defun my-ido-bindings ()
+  ;; `ido-completion-map' -- the current completion keymap.
+  ;; `ido-cur-item' -- the type of item that is being read: file, dir, buffer or list.
+
+  ;; Don't complete on SPC.
+  (bind-key "SPC" nil ido-completion-map)
+
+  ;; C-n, C-p -- cycle matches.
+  (bind-key "C-n" #'ido-next-match ido-completion-map)
+  (bind-key "C-p" #'ido-prev-match ido-completion-map)
+
+  ;; C-w, C-backspace -- delete the word before point.
+  (if (memq ido-cur-item '(file dir))
+      (progn
+        (bind-key "C-w" #'ido-delete-backward-word-updir ido-completion-map)
+        (bind-key "<C-backspace>" #'ido-delete-backward-word-updir ido-completion-map))
+    (bind-key "C-w" #'backward-kill-word ido-completion-map))
+
+  ;; C-u -- delete to the beginning of input.
+  (if (memq ido-cur-item '(file dir))
+      (bind-key "C-u" #'ido-delete-backward-line-updir ido-completion-map)
+    (bind-key "C-u" #'backward-kill-line ido-completion-map)))
+(add-hook 'ido-setup-hook #'my-ido-bindings) ; Run on every completion after keymaps have been set up.
+
+;; Function for C-u.
+(defun backward-kill-line ()
+  (interactive)
+  (kill-line 0))
+
+(defun ido-delete-backward-line-updir ()
+  (interactive)
+  (if (= (minibuffer-prompt-end) (point))
+      (ido-up-directory t)
+    (backward-kill-line)))
 
 (after-load 'iedit
   (defun iedit-dwim (arg)
