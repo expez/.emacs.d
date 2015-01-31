@@ -44,4 +44,13 @@ ediff."
 (add-hook 'ediff-after-setup-windows-hook 'my-ediff-ash 'append)
 (add-hook 'ediff-quit-hook 'my-ediff-qh)
 (add-hook 'ediff-cleanup-hook (lambda () (ediff-janitor nil nil)))
+
+;; Don't prompt about saving and closing merge buffer, just do it
+(defun ediff-verify-file-merge-buffer (file)
+  (let ((buff (if (stringp file) (find-buffer-visiting file))))
+    (or (null buff)
+        (with-current-buffer buff
+          (save-buffer)
+          (kill-buffer (current-buffer))))))
+
 (provide 'init-ediff)
