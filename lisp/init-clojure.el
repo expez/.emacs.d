@@ -5,6 +5,7 @@
 (require-package 'clojure-cheatsheet)
 (require-package 'refheap)
 (require-package 'clojure-snippets)
+(require-package 'flycheck-clojure)
 
 (add-to-list 'auto-mode-alist '("\\.edn\\'" . clojure-mode))
 
@@ -51,6 +52,8 @@
   (interactive)
   (remove-overlays (point-min) (point-max) 'cider-note-p t))
 
+(after-load 'flycheck (flycheck-clojure-setup))
+
 (defun my-clojure-mode-hook ()
   (rainbow-delimiters-mode 0)
   (flycheck-mode 1)
@@ -91,6 +94,8 @@
   (evil-normal-state))
 
 (put 'macrolet 'clojure-backtracking-indent '((2) 2))
+
+(add-to-list 'flycheck-disabled-checkers 'clojure-cider-typed)
 
 (after-load 'clojure-mode
   (define-clojure-indent
