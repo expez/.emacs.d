@@ -31,7 +31,6 @@
 
 (defun my-elisp-mode-hook ()
   (turn-on-redshank-mode)
-  (setq-local evil-symbol-word-search t)
   (flycheck-mode 0)
   (lexbind-mode)
   (esk-remove-elc-on-save)
