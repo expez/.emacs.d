@@ -191,4 +191,20 @@ to insert above current line"
   (forward-line 1)
   (indent-for-tab-command))
 
+;; Version with single quotes instead of doubles
+(defun js2r-log-this ()
+  "Log of the node at point, adding a 'console.log()' statement."
+  (interactive)
+  (js2r--guard)
+  (let* ((log-info (js2r--figure-out-what-to-log-where))
+         (stmt (car log-info))
+         (pos (cdr log-info)))
+    (save-excursion
+      (goto-char pos)
+      (when (looking-at "[;{]")
+        (forward-char 1))
+      (newline-and-indent)
+      (insert "console.log('" stmt " = ', " stmt ");"))))
+
+
 (provide 'init-javascript)
