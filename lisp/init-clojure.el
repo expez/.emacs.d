@@ -49,7 +49,9 @@
   (interactive)
   (remove-overlays (point-min) (point-max) 'cider-note-p t))
 
-(after-load 'flycheck (flycheck-clojure-setup))
+(after-load 'flycheck
+  (flycheck-clojure-setup)
+  (add-to-list 'flycheck-disabled-checkers 'clojure-cider-typed))
 
 (defun my-clojure-mode-hook ()
   (rainbow-delimiters-mode 0)
@@ -57,7 +59,6 @@
   (setq-local evil-symbol-word-search t)
   (clj-refactor-mode 1)
   (cider-mode 1)
-  (setq-local flycheck-disabled-checkers '(clojure-cider-typed))
   (fill-keymap cider-mode-map
                "C-c C-e" 'cider-eval-defun-at-point
                "C-c C-m" nil
@@ -91,8 +92,6 @@
   (evil-normal-state))
 
 (put 'macrolet 'clojure-backtracking-indent '((2) 2))
-
-(add-to-list 'flycheck-disabled-checkers 'clojure-cider-typed)
 
 (after-load 'clojure-mode
   (define-clojure-indent
