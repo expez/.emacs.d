@@ -255,6 +255,7 @@
               (lambda () (setq neo-persist-show nil)))
     (add-hook 'popwin:after-popup-hook
               (lambda () (setq neo-persist-show t)))))
-(provide 'init-misc)
 
 (mode-line-debug-mode 1)
+
+(provide 'init-misc)
