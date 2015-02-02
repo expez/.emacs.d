@@ -36,6 +36,7 @@
        (flyspell-prog-mode))
      (yas-minor-mode-on)
      (whitespace-mode 1)
+     (maybe-allow-tabs)
      (aggressive-indent-mode 1)
      (glasses-mode 1))))
 

@@ -60,8 +60,7 @@
                (kbd "M-m") 'js-insert-block
                (kbd "<return>") 'newline-and-indent)
   (fill-keymap js2-mode-map
-               "C-c C-a" 'jshint-annotate)
-  (maybe-allow-tabs))
+               "C-c C-a" 'jshint-annotate))
 
 (add-hook 'js2-mode-hook
           #'my-js2-mode-hook)
