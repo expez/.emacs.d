@@ -34,3 +34,5 @@ request/
 /workgroups~
 /server/
 /bookmarks
+/.mc-lists.el
+/.sx/
