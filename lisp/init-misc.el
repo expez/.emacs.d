@@ -256,6 +256,22 @@
     (add-hook 'popwin:after-popup-hook
               (lambda () (setq neo-persist-show t)))))
 
+(defun neotree-toggle-or-change-root (p)
+  "Toggle neotree, with a prefix call
+`neotree-change-to-buffer-root'."
+  (interactive "P")
+  (if current-prefix-arg
+      (neotree-change-to-buffer-root)
+    (neotree-toggle)))
+
+(defun neotree-change-to-buffer-root ()
+  "Changes the `neotree-root' to be the project root of the
+file the current buffer is visiting.
+
+If no project root can be found use the dir containing the file
+the buffer is visiting."
+  (neo-buffer--change-root (projectile-project-root)))
+
 (mode-line-debug-mode 1)
 
 (provide 'init-misc)

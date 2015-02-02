@@ -185,7 +185,7 @@
              "C-x e" 'eval-and-replace
              "C-<tab>" 'hippie-expand
              "<f5>" 'eshell-toggle
-             "<f2>" 'neotree-toggle
+             "<f2>" 'neotree-toggle-or-change-root
              "<pause>" 'toggle-debug
              "C-x r q" 'save-buffers-kill-terminal
              "C-x v t" 'vc-create-tag
