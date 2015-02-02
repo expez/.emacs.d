@@ -24,7 +24,7 @@
 
 (defun my-html-mode-hook ()
   (skewer-html-mode 1)
-  (setq-local tab-width 2)
+  (maybe-allow-tabs)
   (change-whitespace-line-column 120))
 (add-hook 'html-mode-hook #'my-html-mode-hook)
 
