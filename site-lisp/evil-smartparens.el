@@ -59,6 +59,13 @@ computer will freeze when copying large files out of Emacs."
 
 (defvar evil-sp--override nil)
 
+(defun evil-sp--override ()
+  (prog1 (or (not evil-smartparens-mode)
+             (not smartparens-strict-mode)
+             evil-sp--override
+             (evil-sp--region-too-expensive-to-check beg end))
+    (setq evil-sp--override nil)))
+
 ;;; Evil-smartparens works by adding advice to regular functions.
 ;;; Unfortunately, the advice functionality is a global deal so in
 ;;; all the functions we advice we have to check if
@@ -114,21 +121,25 @@ list of (fn args) to pass to `apply''"
 
 (defun evil-sp--region-too-expensive-to-check (beg end)
   "When it takes prohobitively long to check region between BEG END we cop out."
-  (> (abs (- beg end)) evil-smartparens-threshold))
+  (when (and (numberp beg) (numberp end))
+    (> (abs (- beg end))
+       evil-smartparens-threshold)))
 
 (defun evil-sp-override ()
   (interactive)
   (setq evil-sp--override t))
 
+(defun evil-sp--last-command-was-kill-p (type)
+  (and type (listp type)))
+
 (defun evil-sp--modify-region (oldfun beg end type &rest rest)
   "Wrapper around OLDFUN which shrinks or enlarges region until it's balanced."
-  (if (or (not evil-smartparens-mode)
-          evil-sp--override
-          (evil-sp--region-too-expensive-to-check beg end))
-      (prog1 (apply oldfun beg end type rest) (setq evil-sp--override nil))
+  (if (and (evil-sp--override)
+           (not (evil-sp--last-command-was-kill-p type)))
+      (apply oldfun beg end type rest)
     (cl-letf (((symbol-function 'sp-message) (lambda (msg))))
       ;; hack for communicating through the advice that we're killing
-      (if (and type (listp type))
+      (if (evil-sp--last-command-was-kill-p type)
           ;; oldfun is evil-delete-line here, we cannot use that
           ;; because it doesn't use its END argument in all cases.
           (apply #'evil-delete beg
@@ -153,9 +164,8 @@ list of (fn args) to pass to `apply''"
 
 (defun evil-sp--emulate-sp-kill-sexp (oldfun beg end type &rest rest)
   "Enlarge the region bounded by BEG END until it matches `sp-kill-sexp' at BEG."
-  (if (or (not evil-smartparens-mode)
-          evil-sp--override)
-      (prog1 (apply oldfun beg end type rest) (setq evil-sp--override nil))
+  (if evil-sp--override
+      (apply oldfun beg end type rest)
     (if (evil-sp--no-sexp-between-point-and-eol?)
         (if (looking-at "\n")
             (evil-join (point) (1+ (point)))
@@ -175,8 +185,8 @@ list of (fn args) to pass to `apply''"
 (defun evil-sp--override-delete-backward-char-and-join (oldfun count)
   "This is done to ensure empty sexps are deleted."
   (when evil-smartparens-mode
-    (if evil-sp--override
-        (prog1 (funcall oldfun count) (setq evil-sp--override nil))
+    (if (evil-sp--override)
+        (funcall oldfun count)
       (sp-backward-delete-char count))))
 
 (defun evil-sp--lighter ()
