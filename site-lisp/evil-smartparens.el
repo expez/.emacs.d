@@ -191,14 +191,16 @@ We want a different lighter for `smartparens-mode' and
 (defun evil-sp--disable ()
   "Deactive advice and restore modeline."
   (evil-sp--deactivate-advice)
-  (diminish-undo 'smartparens-mode))
+  (diminish-undo 'smartparens-mode)
+  (remove-hook #' smartparens-disabled-hook #'evil-sp--disable))
 
 (defun evil-sp--enable ()
   "Activate advice and update modeline."
   (evil-sp--activate-advice)
   (diminish 'smartparens-mode)
   (when evil-visual-state-local-map
-    (define-key evil-visual-state-local-map "o" 'evil-sp-override)))
+    (define-key evil-visual-state-local-map "o" 'evil-sp-override))
+  (add-hook #' smartparens-disabled-hook #'evil-sp--disable))
 
 ;;;###autoload
 (define-minor-mode evil-smartparens-mode
