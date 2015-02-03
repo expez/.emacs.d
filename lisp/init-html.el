@@ -3,10 +3,13 @@
 (require-package 'know-your-http-well)
 (require-package 'web-mode)
 (require-package 'angular-snippets)
+(require-package 'company-restclient)
 (require 'sgml-mode)
 (require 'web-mode)
 (require 'emmet-mode)
 (require 'angular-snippets)
+
+(add-to-list 'company-backends 'company-restclient)
 
 (defun my-web-mode-hook ()
   (add-hook 'local-write-file-hooks (lambda () (delete-trailing-whitespace) nil))
