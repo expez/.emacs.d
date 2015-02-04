@@ -63,7 +63,7 @@ computer will freeze when copying large files out of Emacs."
   (prog1 (or (not evil-smartparens-mode)
              (not smartparens-strict-mode)
              evil-sp--override
-             (evil-sp--region-too-expensive-to-check beg end))
+             (evil-sp--region-too-expensive-to-check))
     (setq evil-sp--override nil)))
 
 ;;; Evil-smartparens works by adding advice to regular functions.
@@ -119,10 +119,10 @@ list of (fn args) to pass to `apply''"
      (1- (evil-sp--point-after 'sp-up-sexp))
      (evil-sp--point-after 'sp-forward-sexp))))
 
-(defun evil-sp--region-too-expensive-to-check (beg end)
-  "When it takes prohobitively long to check region between BEG END we cop out."
-  (when (and (numberp beg) (numberp end))
-    (> (abs (- beg end))
+(defun evil-sp--region-too-expensive-to-check ()
+  "When it takes prohobitively long to check region we cop out."
+  (when (region-active-p)
+    (> (abs (- (region-beginning) (region-end)))
        evil-smartparens-threshold)))
 
 (defun evil-sp-override ()

@@ -1,6 +1,7 @@
 (require-package 'smartparens)
 (require 'smartparens-config)
 (require 'evil-smartparens)
+
 (smartparens-global-strict-mode 1)
 (show-smartparens-global-mode 1)
 
