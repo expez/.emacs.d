@@ -50,14 +50,14 @@
   (remove-overlays (point-min) (point-max) 'cider-note-p t))
 
 (after-load 'flycheck
-  (flycheck-clojure-setup)
-  (add-to-list 'flycheck-disabled-checkers 'clojure-cider-typed))
+  (flycheck-clojure-setup))
 
 (defun my-clojure-mode-hook ()
   (rainbow-delimiters-mode 0)
   (flycheck-mode 1)
   (setq evil-symbol-word-search t)
   (clj-refactor-mode 1)
+  (add-to-list 'flycheck-disabled-checkers 'clojure-cider-typed)
   (cider-mode 1)
   (fill-keymap cider-mode-map
                "C-c C-e" 'cider-eval-defun-at-point
