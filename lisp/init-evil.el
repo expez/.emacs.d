@@ -56,7 +56,6 @@
     (if (evil-replace-state-p) (call-interactively 'iedit-mode)))
   (require 'evil-iedit-state))
 
-(setq evil-symbol-word-search t)
 (evil-mode 1)
 (evil-exchange-install)
 

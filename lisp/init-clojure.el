@@ -56,7 +56,7 @@
 (defun my-clojure-mode-hook ()
   (rainbow-delimiters-mode 0)
   (flycheck-mode 1)
-  (setq-local evil-symbol-word-search t)
+  (setq evil-symbol-word-search t)
   (clj-refactor-mode 1)
   (cider-mode 1)
   (fill-keymap cider-mode-map
