@@ -89,33 +89,34 @@
      (list count)))
   (evil-execute-macro count last-kbd-macro))
 
-(fill-keymap evil-normal-state-map
-             "'" 'evil-use-register
-             "\"" 'evil-goto-mark-line
-             "Q" 'evil-execute-last-kbd-macro
-             "U" 'universal-argument
-             "<kp-add>" 'evil-numbers/inc-at-pt
-             "<kp-subtract>" 'evil-numbers/dec-at-pt
-             "C-SPC" 'evil-ace-jump-char-mode
-             "SPC" 'evil-ace-jump-word-mode
-             "S-SPC" 'evil-ace-jump-line-mode
-             ":" 'evil-repeat-find-char-reverse
-             "C-e" 'move-end-of-line
-             "C-a" 'smart-line-beginning
-             "gc" 'goto-char
-             "gf" 'ispell-word
-             "gp" 'flyspell-check-previous-highlighted-word
-             "gn" 'flyspell-check-next-highlighted-word
-             "gu" 'evil-upcase
-             "gU" 'evil-downcase
-             "M-," 'pop-tag-mark
-             "M-n" 'next-error
-             "M-p" 'previous-error
-             "C-u" 'evil-scroll-up
-             "gs" 'just-one-space
-             "gS" 'delete-blank-lines
-             "K" misc-map
-             "," leader-map)
+(after-load 'evil
+  (fill-keymap evil-normal-state-map
+              "'" 'evil-use-register
+              "\"" 'evil-goto-mark-line
+              "Q" 'evil-execute-last-kbd-macro
+              "U" 'universal-argument
+              "<kp-add>" 'evil-numbers/inc-at-pt
+              "<kp-subtract>" 'evil-numbers/dec-at-pt
+              "C-SPC" 'evil-ace-jump-char-mode
+              "SPC" 'evil-ace-jump-word-mode
+              "S-SPC" 'evil-ace-jump-line-mode
+              ":" 'evil-repeat-find-char-reverse
+              "C-e" 'move-end-of-line
+              "C-a" 'smart-line-beginning
+              "gc" 'goto-char
+              "gf" 'ispell-word
+              "gp" 'flyspell-check-previous-highlighted-word
+              "gn" 'flyspell-check-next-highlighted-word
+              "gu" 'evil-upcase
+              "gU" 'evil-downcase
+              "M-," 'pop-tag-mark
+              "M-n" 'next-error
+              "M-p" 'previous-error
+              "C-u" 'evil-scroll-up
+              "gs" 'just-one-space
+              "gS" 'delete-blank-lines
+              "K" misc-map
+              "," leader-map)
 
 (fill-keymap evil-window-map
              "M-h" 'buf-move-left
@@ -149,7 +150,9 @@
 
 (fill-keymap evil-motion-state-map
              "K" misc-map
-             "," leader-map)
+             "," leader-map
+             "C-e" 'move-end-of-line
+             "C-a" 'smart-line-beginning)
 
 (defadvice evil-visual-line (before spc-for-line-jump activate)
   (define-key evil-motion-state-map (kbd "SPC") #'evil-ace-jump-line-mode))
@@ -160,14 +163,26 @@
 (defadvice evil-visual-block (before spc-for-char-jump activate)
   (define-key evil-motion-state-map (kbd "SPC") #'evil-ace-jump-char-mode))
 
-(fill-keymap evil-motion-state-map
-             "C-e" 'move-end-of-line
-             "C-a" 'smart-line-beginning)
-
 (define-key visual-line-mode-map
   [remap evil-next-line] 'evil-next-visual-line)
 (define-key visual-line-mode-map
   [remap evil-previous-line] 'evil-previous-visual-line)
+
+(evil-add-hjkl-bindings diff-mode-map 'emacs
+  "K" 'diff-hunk-kill
+  "C-x C-k" 'diff-file-kill
+  "h" 'describe-mode
+  "C-d" 'evil-scroll-down
+  "C-u" 'evil-scroll-up
+  "C-f" 'evil-scroll-page-down
+  "C-b" 'evil-scroll-page-up
+  "u" 'diff-undo
+  "/" 'evil-search-forward
+  "?" 'evil-search-backward
+  "q" (lambda () (interactive) (kill-buffer)))
+
+(evil-add-hjkl-bindings package-menu-mode-map 'emacs
+  "h" 'package-menu-quick-help))
 
 (fill-keymap 'global
              "C-h h" nil
@@ -204,22 +219,6 @@
              "<C-kp-add>" 'text-scale-increase
              "C-w" 'evil-window-map
              "C-;" 'ace-window)
-
-(evil-add-hjkl-bindings diff-mode-map 'emacs
-  "K" 'diff-hunk-kill
-  "C-x C-k" 'diff-file-kill
-  "h" 'describe-mode
-  "C-d" 'evil-scroll-down
-  "C-u" 'evil-scroll-up
-  "C-f" 'evil-scroll-page-down
-  "C-b" 'evil-scroll-page-up
-  "u" 'diff-undo
-  "/" 'evil-search-forward
-  "?" 'evil-search-backward
-  "q" (lambda () (interactive) (kill-buffer)))
-
-(evil-add-hjkl-bindings package-menu-mode-map 'emacs
-  "h" 'package-menu-quick-help)
 
 (after-load 'workgroups
   (fill-keymap 'global "C-x w" wg-map))
