@@ -147,8 +147,11 @@
   (save-some-buffers)
   (with-current-buffer (cider-current-repl-buffer)
     (goto-char (point-max))
-    (insert "(user/reset)")
-    (cider-repl-return)))
+    (let (ns (cider-current-ns))
+      (cider-repl-set-ns "user")
+      (insert "(reset)")
+      (cider-repl-return)
+      (cider-repl-set-ns ns))))
 
 (defun toggle-spy (p)
   (interactive "P")
