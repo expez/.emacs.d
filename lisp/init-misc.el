@@ -274,4 +274,7 @@ the buffer is visiting."
 
 (mode-line-debug-mode 1)
 
+(add-auto-mode 'restclient-mode "\\.restclient")
+(add-hook 'restclient-response-loaded-hook #'view-mode)
+
 (provide 'init-misc)
