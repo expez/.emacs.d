@@ -184,10 +184,9 @@ list of (fn args) to pass to `apply''"
 
 (defun evil-sp--override-delete-backward-char-and-join (oldfun count)
   "This is done to ensure empty sexps are deleted."
-  (when evil-smartparens-mode
-    (if (evil-sp--override)
-        (funcall oldfun count)
-      (sp-backward-delete-char count))))
+  (if (evil-sp--override)
+      (funcall oldfun count)
+    (sp-backward-delete-char count)))
 
 (defun evil-sp--lighter ()
   "Create the lighter for `evil-smartparens'.
