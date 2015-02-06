@@ -44,10 +44,11 @@
 (add-hook 'emacs-lisp-mode-hook #'my-elisp-mode-hook)
 
 (fill-keymap emacs-lisp-mode-map
-             "C-c C-e" 'eval-defun
+             "C-c C-c" 'eval-defun
              "C-c C-d" 'describe-thing-in-popup
              "C-c t" 'bind-test-to
-             "C-c e" 'eval-buffer)
+             "C-c C-e" 'pp-eval-last-sexp
+             "C-c C-k" 'eval-buffer)
 
 (let ((elisp-programming-major-modes '(emacs-lisp-mode lisp-interaction-mode
                                                        ielm-mode)))
