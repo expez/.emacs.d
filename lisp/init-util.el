@@ -316,7 +316,8 @@ the current position of point, then move it to the beginning of the line."
        ((overlayp position)
         (goto-char (overlay-start position)))
        (t
-        (goto-char position)))))
+        (goto-char position))))
+    (evil-scroll-line-to-center nil))
    ((listp symbol-list)
     (dolist (symbol symbol-list)
       (let (name position)
