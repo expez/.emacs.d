@@ -6,6 +6,7 @@
 (require-package 'refheap)
 (require-package 'clojure-snippets)
 (require-package 'flycheck-clojure)
+(clojure-snippets-initialize)
 
 (add-to-list 'auto-mode-alist '("\\.edn\\'" . clojure-mode))
 
@@ -20,7 +21,9 @@
                    ("log" . "taoensso.timbre")))))
 
 (defun my-cider-mode-hook ()
-  (eldoc-mode))
+  (eldoc-mode)
+  (setq next-error-function #'flycheck-next-error-function))
+
 (add-hook 'cider-mode-hook 'my-cider-mode-hook)
 
 (defun my-cider-browse-ns-mode-hook ()
