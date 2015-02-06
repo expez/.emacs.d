@@ -80,7 +80,7 @@
 
 (add-hook 'clojure-mode-hook #'my-clojure-mode-hook)
 
-(setq nrepl-hide-special-buffers t
+(setq nrepl-hide-special-buffers nil
       nrepl-auto-select-error-buffer t
       cider-repl-popup-stacktraces nil
       cider-popup-stacktraces t
