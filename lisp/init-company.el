@@ -19,8 +19,10 @@
 
 (add-to-list 'company-dabbrev-code-modes 'clojure-mode)
 
-(fill-keymap company-active-map "C-l" 'company-complete-common)
-(define-key global-map (kbd "C-l") 'company-complete)
+(fill-keymap company-active-map
+             "C-l" 'company-complete-common
+             "C-j" 'company-complete-selection
+             "TAB" 'yas-expand)
 
 (defun company-complete-dabbrev ()
   (interactive)
