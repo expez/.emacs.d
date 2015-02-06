@@ -278,8 +278,9 @@ the buffer is visiting."
 
 (defun my-restclient-mode-hook ()
   (view-mode)
-  (define-key evil-normal-state-local-map (kbd "q")
-    (lambda () (interactive) (view-mode-exit))))
+  (when evil-normal-state-local-map
+    (define-key evil-normal-state-local-map (kbd "q")
+      (lambda () (interactive) (view-mode-exit)))))
 
 (add-auto-mode 'restclient-mode "\\.restclient")
 (add-hook 'restclient-response-loaded-hook #'my-restclient-mode-hook)
