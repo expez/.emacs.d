@@ -144,10 +144,13 @@
 (defun cider-component-reset ()
   "The reset to go along with Component."
   (interactive)
-  (save-some-buffers)
+  (save-some-buffers :no-prompt
+                     (lambda ()
+                       (and (buffer-file-name)
+                            (s-ends-with-p "\.clj" (buffer-file-name)))))
   (with-current-buffer (cider-current-repl-buffer)
     (goto-char (point-max))
-    (let (ns (cider-current-ns))
+    (let ((ns (cider-current-ns)))
       (cider-repl-set-ns "user")
       (insert "(reset)")
       (cider-repl-return)
