@@ -83,7 +83,7 @@
 
 (add-hook 'clojure-mode-hook #'my-clojure-mode-hook)
 
-(setq nrepl-hide-special-buffers nil
+(setq nrepl-hide-special-buffers t
       nrepl-auto-select-error-buffer t
       cider-repl-popup-stacktraces nil
       cider-popup-stacktraces t
@@ -193,5 +193,26 @@ Called by `imenu--generic-function'."
               (setq found? t)
               (set-match-data (list def-beg def-end)))))
         (goto-char start)))))
+
+(defun nrepl-server-filter (process string)
+  "Process server PROCESS output contained in STRING."
+  (with-current-buffer (process-buffer process)
+    (let ((moving (= (point) (process-mark process))))
+      (save-excursion
+        (goto-char (process-mark process))
+        (insert string)
+        (set-marker (process-mark process) (point)))
+      (when moving
+        (goto-char (process-mark process))
+        (-when-let (win (get-buffer-window))
+          (set-window-point win (point))))))
+  (when (string-match "nREPL server started on port \\([0-9]+\\)" string)
+    (let ((port (string-to-number (match-string 1 string))))
+      (message (format "nREPL server started on %s" port))
+      (with-current-buffer (process-buffer process)
+        (let ((client-proc (nrepl-start-client-process nil port t process)))
+          ;; FIXME: Bad connection tracking system. There can be multiple client
+          ;; connections per server
+          (setq nrepl-connection-buffer (buffer-name (process-buffer client-proc))))))))
 
 (provide 'init-clojure)
