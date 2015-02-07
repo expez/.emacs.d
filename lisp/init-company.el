@@ -22,7 +22,7 @@
 (fill-keymap company-active-map
              "C-l" 'company-complete-common
              "C-j" 'company-complete-selection
-             "TAB" 'yas-expand)
+             (kbd "TAB") 'yas-expand)
 
 (defun company-complete-dabbrev ()
   (interactive)
