@@ -14,9 +14,6 @@
 
 (eval-after-load 'rspec-mode
   '(rspec-install-snippets))
-(eval-after-load 'ruby-electric
-  '(define-key ruby-electric-mode-map [remap reindent-then-newline-and-indent]
-     'ruby-electric-space/return))
 
 (after-load 'company
   (push 'company-robe company-backends))
@@ -149,9 +146,5 @@ process. "
   (insert "end")
   (ruby-indent-line t)
   (end-of-line))
-
-(defadvice ruby-electric-space/return (after ident-ffs activate)
-  (when (eq major-mode 'ruby-mode)
-    (ruby-indent-line)))
 
 (provide 'init-ruby-mode)
