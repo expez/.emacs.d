@@ -2,8 +2,8 @@
 (require-package 'dropdown-list)
 
 (yas-global-mode)
-(setq yas-snippet-dirs (concat user-emacs-directory "snippets")
-      yas-also-auto-indent-first-line t
+(add-to-list 'yas-snippet-dirs (concat user-emacs-directory "snippets"))
+(setq yas-also-auto-indent-first-line t
       yas-prompt-functions '(yas-ido-prompt
                              yas-dropdown-prompt
                              yas-completing-prompt))
