@@ -54,4 +54,19 @@
       (sp-splice-sexp-killing-around 1)
     (sp-splice-sexp-killing-backward 1)))
 
+(cl-defun sp--cleanup-killed-funcall (count &rest args)
+  "`sp-splice-sexp-killing-backward' on 'foo(|bar)' => 'bar'."
+  (save-excursion
+    (dotimes (_ count)
+      (sp-backward-up-sexp)
+      (let ((sexp-start (point)))
+        (ignore-errors
+          (while (looking-back "\\w\\|\\\.")
+            (backward-char))
+          (if (looking-at "\\(\\w\\|\\\.\\)+(")
+              (delete-region (point) sexp-start)
+            (cl-return)))))))
+
+(advice-add 'sp-splice-sexp-killing-backward :before #'sp--cleanup-killed-funcall)
+
 (provide 'init-smartparens)
