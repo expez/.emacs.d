@@ -57,44 +57,15 @@ computer will freeze when copying large files out of Emacs."
   :group 'evil-smartparens
   :type 'string)
 
-(defvar evil-sp--override nil)
+(defvar evil-sp--override nil
+  "Should the next command skip region checks?")
+
+(defvar evil-smartparens-mode-map (make-sparse-keymap))
 
 (defun evil-sp--override ()
-  (prog1 (or (not evil-smartparens-mode)
-             (not smartparens-strict-mode)
-             evil-sp--override
+  (prog1 (or evil-sp--override
              (evil-sp--region-too-expensive-to-check))
     (setq evil-sp--override nil)))
-
-;;; Evil-smartparens works by adding advice to regular functions.
-;;; Unfortunately, the advice functionality is a global deal so in
-;;; all the functions we advice we have to check if
-;;; `evil-smartparens-mode' is active and if not just pass through to
-;;; the old function.
-
-(defun evil-sp--activate-advice ()
-  "`evil-smartparens' is fully implemented in terms of advice to `evil'."
-  (advice-add 'evil-delete :around #'evil-sp--modify-region)
-  (advice-add 'evil-replace :around #'evil-sp--modify-region)
-  (advice-add 'evil-yank :around #'evil-sp--modify-region)
-  (advice-add 'evil-delete-line :around #'evil-sp--emulate-sp-kill-sexp)
-  (advice-add 'evil-change-line :around #'evil-sp--emulate-sp-kill-sexp)
-  (advice-add 'evil-delete-backward-char :around
-              #'evil-sp--override-delete-backward-char)
-  (advice-add 'evil-delete-backward-char-and-join :around
-              #'evil-sp--override-delete-backward-char-and-join))
-
-(defun evil-sp--deactivate-advice ()
-  "Stop advising `evil' functions."
-  (advice-remove 'evil-delete #'evil-sp--modify-region)
-  (advice-remove 'evil-replace #'evil-sp--modify-region)
-  (advice-remove 'evil-yank #'evil-sp--modify-region)
-  (advice-remove 'evil-delete-line #'evil-sp--emulate-sp-kill-sexp)
-  (advice-remove 'evil-change-line #'evil-sp--emulate-sp-kill-sexp)
-  (advice-remove 'evil-delete-backward-char
-                 #'evil-sp--override-delete-backward-char)
-  (advice-remove 'evil-delete-backward-char
-                 #'evil-sp--override-delete-backward-char-and-join))
 
 (defun evil-sp--point-after (&rest actions)
   "Return POINT after performing ACTIONS.
@@ -132,27 +103,6 @@ list of (fn args) to pass to `apply''"
 (defun evil-sp--last-command-was-kill-p (type)
   (and type (listp type)))
 
-(defun evil-sp--modify-region (oldfun beg end type &rest rest)
-  "Wrapper around OLDFUN which shrinks or enlarges region until it's balanced."
-  (if (and (evil-sp--override)
-           (not (evil-sp--last-command-was-kill-p type)))
-      (apply oldfun beg end type rest)
-    (cl-letf (((symbol-function 'sp-message) (lambda (msg))))
-      ;; hack for communicating through the advice that we're killing
-      (if (evil-sp--last-command-was-kill-p type)
-          ;; oldfun is evil-delete-line here, we cannot use that
-          ;; because it doesn't use its END argument in all cases.
-          (apply #'evil-delete beg
-                 (evil-sp--get-endpoint-for-killing)
-                 (second type) rest)
-        (condition-case nil
-            (apply oldfun (evil-sp--new-beginning beg end)
-                   (evil-sp--new-ending beg end) type rest)
-          ;; HACK: We might be deleting backwards and shrinking the
-          ;; endpoint might never get us where we want.
-          ('error (apply oldfun (evil-sp--new-beginning beg end :shrink)
-                         end type rest)))))))
-
 (defun evil-sp--no-sexp-between-point-and-eol? ()
   "Check if the region up to eol contains any opening or closing delimiters."
   (not (or (save-excursion
@@ -161,32 +111,6 @@ list of (fn args) to pass to `apply''"
            (save-excursion
              (re-search-forward (sp--get-closing-regexp) (point-at-eol)
                                 :noerror)))))
-
-(defun evil-sp--emulate-sp-kill-sexp (oldfun beg end type &rest rest)
-  "Enlarge the region bounded by BEG END until it matches `sp-kill-sexp' at BEG."
-  (if evil-sp--override
-      (apply oldfun beg end type rest)
-    (if (evil-sp--no-sexp-between-point-and-eol?)
-        (if (looking-at "\n")
-            (evil-join (point) (1+ (point)))
-          (apply oldfun beg end type rest))
-      ;; We can't enlarge region here because `evil-delete-line' calls
-      ;; `evil-delete' itself, overriding our work
-      (apply oldfun (point) end (if (symbolp type) (list :kill-sexp type) type)
-             rest))))
-
-(defun evil-sp--override-delete-backward-char (oldfun beg end &rest rest)
-  "This is done to ensure empty sexps are deleted."
-  (if (and evil-smartparens-mode
-           (save-excursion (forward-char) (sp-point-in-empty-sexp)))
-      (apply #'evil-delete beg (incf end) rest)
-    (apply oldfun beg end rest)))
-
-(defun evil-sp--override-delete-backward-char-and-join (oldfun count)
-  "This is done to ensure empty sexps are deleted."
-  (if (evil-sp--override)
-      (funcall oldfun count)
-    (sp-backward-delete-char count)))
 
 (defun evil-sp--lighter ()
   "Create the lighter for `evil-smartparens'.
@@ -199,16 +123,91 @@ We want a different lighter for `smartparens-mode' and
 
 (defun evil-sp--disable ()
   "Deactive advice and restore modeline."
-  (evil-sp--deactivate-advice)
   (diminish-undo 'smartparens-mode)
   (remove-hook #' smartparens-disabled-hook #'evil-sp--disable))
 
+(defun evil-sp--add-bindings ()
+  (when smartparens-strict-mode
+    (evil-define-key 'normal evil-smartparens-mode-map
+      (kbd "d") #'evil-sp-delete
+      (kbd "c") #'evil-sp-change
+      (kbd "y") #'evil-sp-yank
+      (kbd "S") #'evil-sp-change-whole-line
+      (kbd "Y") #'evil-sp-yank-line
+      (kbd "X") #'sp-backward-delete-char
+      (kbd "x") #'sp-delete-char))
+  (evil-define-key 'normal evil-smartparens-mode-map
+    (kbd "D") #'evil-sp-delete-line
+    (kbd "C") #'evil-sp-change-line)
+  (evil-define-key 'visual evil-smartparens-mode-map
+    (kbd "o") #'evil-sp-override))
+
+(evil-define-operator evil-sp-delete (beg end type register yank-handler)
+  "Call `evil-delete' with a balanced region"
+  (interactive "<R><x><y>")
+  (if (evil-sp-override)
+      (evil-delete beg end type register yank-handler)
+    (let* ((beg (evil-sp--new-beginning beg end))
+           (end (evil-sp--new-ending beg end)))
+      (evil-delete beg end type register yank-handler))))
+
+(evil-define-operator evil-sp-change (beg end type register yank-handler)
+  "Call `evil-change' with a balanced region"
+  (interactive "<R><x><y>")
+  (if (evil-sp-override)
+      (evil-change beg end type yank-handler)
+    (let* ((beg (evil-sp--new-beginning beg end))
+           (end (evil-sp--new-ending beg end)))
+      (evil-change beg end type yank-handler))))
+
+(evil-define-operator evil-sp-yank (beg end type register yank-handler)
+  :move-point nil
+  :repeat nil
+  (interactive "<R><x><y>")
+  (if (evil-sp--override)
+      (evil-yank beg end type register yank-handler)
+      (let* ((beg (evil-sp--new-beginning beg end))
+             (end (evil-sp--new-ending beg end)))
+        (evil-yank beg end type register yank-handler))))
+
+(evil-define-operator evil-sp-change-whole-line
+  (beg end type register yank-handler)
+  "Emulate `sp-kill-sexp' and enter `evil-insert-state'."
+  :motion nil
+  (interactive "<R><x>")
+  (evil-first-non-blank)
+  (let ((beg (evil-sp--new-beginning (point) end))
+        (end (evil-sp--get-endpoint-for-killing)))
+    (evil-change beg end 'inclusive register yank-handler)))
+
+(evil-define-operator evil-sp-yank-line (beg end type register yank-handler)
+  "Emulate `sp-kill-sexp' but copy to yank-ring instead of killing."
+  :motion evil-line
+  :move-point nil
+  (evil-yank (point) (evil-sp--get-endpoint-for-killing) 'inclusive
+             register yank-handler))
+
+(evil-define-operator evil-sp-delete-line (beg end type register yank-handler)
+  "Emulate `sp-kill-sexp'."
+  :motion nil
+  (interactive "<R><x>")
+  (if (looking-at "\n")
+      (evil-join (point) (1+ (point)))
+    (evil-delete (point) (evil-sp--get-endpoint-for-killing)
+                 'inclusive register yank-handler)))
+
+(evil-define-operator evil-sp-change-line (beg end type register yank-handler)
+  "Emulate `sp-kill-sexp'."
+  :motion nil
+  (interactive "<R><x>")
+  (evil-change (point) (evil-sp--get-endpoint-for-killing)
+               type
+               register yank-handler))
+
 (defun evil-sp--enable ()
   "Activate advice and update modeline."
-  (evil-sp--activate-advice)
   (diminish 'smartparens-mode)
-  (when evil-visual-state-local-map
-    (define-key evil-visual-state-local-map "o" 'evil-sp-override))
+  (evil-sp--add-bindings)
   (add-hook #' smartparens-disabled-hook #'evil-sp--disable))
 
 ;;;###autoload
@@ -216,6 +215,7 @@ We want a different lighter for `smartparens-mode' and
   "Toggle evil-smartparens."
   :lighter (:eval (evil-sp--lighter))
   :init-value nil
+  :keymap evil-smartparens-mode-map
   (if evil-smartparens-mode
       (evil-sp--enable)
     (evil-sp--disable)))
