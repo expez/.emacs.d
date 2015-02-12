@@ -1,5 +1,5 @@
 (require 'cl)
-(require 's)
+(require-package 's)
 
 (defun add-auto-mode (mode &rest patterns)
   "Associate every pattern in `PATTERNS' with `MODE'."
@@ -255,11 +255,6 @@ the current position of point, then move it to the beginning of the line."
     (when (eq pt (point))
       (beginning-of-line))))
 
-(defun string/ends-with (s ending)
-  "Return non-nil if string S ends with ENDING."
-  (let ((elength (length ending)))
-    (string= (substring s (- 0 elength)) ending)))
-
 (defun open-all-files-with-extension (dir extension)
   "Open all files below dir with the given extension."
   (interactive "DBase directory: \nsExtension: ")
@@ -267,7 +262,7 @@ the current position of point, then move it to the beginning of the line."
          (files (remove-if 'file-directory-p list))
          (dirs (remove-if-not 'file-directory-p list)))
     (dolist (file files)
-      (if (string/ends-with file extension)
+      (if (s-suffix-p file extension)
           (find-file-noselect file)))
     (dolist (dir dirs)
       (find-file-noselect dir)
@@ -564,16 +559,6 @@ user."
               (message "Compilation succesful!"))))
     (message "Bury buffer: ON.")))
 
-(defun chop (string)
-  "Returns a new string with the last char removed."
-  (subseq string 0 -1))
-
-(defun chomp (string)
-  "Returns a new string removing zero or one newline from `string'."
-  (if (string/ends-with string "\n")
-      (chop string)
-    string))
-
 (defun open-with ()
   "Simple function that allows us to open the underlying
 file of a buffer in an external program."
@@ -589,7 +574,7 @@ file of a buffer in an external program."
 (defun path-to-executable (program)
   "Returns the path to `program' or NIL.  Relies on which, so
 only works on *nix."
-  (let* ((which (chomp (shell-command-to-string (concat "which " program))))
+  (let* ((which (s-chomp (shell-command-to-string (concat "which " program))))
          (executable (if (or (string-match "not found" which)
                              (string-match "no \\w+ in" which))
                          nil
