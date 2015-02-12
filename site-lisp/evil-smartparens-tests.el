@@ -178,9 +178,9 @@
   (evil-test-buffer
     "(let ((foo bar)
        (f[r]obnicate bar)))"
-    ("dd" [escape])
+    ("cc" [escape])
     "(let ((foo bar)
-))"))
+|))"))
 
 (ert-deftest evil-sp-test-dd-on-line-with-string ()
   "Test `evil-delete-whole-line'"
