@@ -81,10 +81,10 @@ list of (fn args) to pass to `apply''"
 
 (defun evil-sp--get-endpoint-for-killing ()
   "Return the endpoint from POINT upto which `sp-kill-sexp'would kill."
-  (if (= (evil-sp--depth-at (point))
-         (evil-sp--depth-at (point-at-eol)))
-      ;; Act like kill line
-      (point-at-eol)
+  (if (and (= (evil-sp--depth-at (point))
+              (evil-sp--depth-at (point-at-eol)))
+           (sp-region-ok-p (point) (point-at-eol)))
+      (point-at-eol) ; Act like kill line
     (max
      ;; Greedy killing
      (1- (evil-sp--point-after 'sp-up-sexp))
@@ -166,9 +166,9 @@ We want a different lighter for `smartparens-mode' and
   (interactive "<R><x><y>")
   (if (evil-sp--override)
       (evil-yank beg end type register yank-handler)
-      (let* ((beg (evil-sp--new-beginning beg end))
-             (end (evil-sp--new-ending beg end)))
-        (evil-yank beg end type register yank-handler))))
+    (let* ((beg (evil-sp--new-beginning beg end))
+           (end (evil-sp--new-ending beg end)))
+      (evil-yank beg end type register yank-handler))))
 
 (evil-define-operator evil-sp-change-whole-line
   (beg end type register yank-handler)
