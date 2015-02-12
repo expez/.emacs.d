@@ -6,7 +6,7 @@
 ;; URL: https://www.github.com/expez/evil-smartparens
 ;; Keywords: evil smartparens
 ;; Version: 0.1
-;; Package-Requires: ((evil "1.0") (cl-lib "0.3") (emacs "24.1") (diminish "0.44") (smartparens "1.6.3)
+;; Package-Requires: ((evil "1.0") (cl-lib "0.3") (emacs "24.4") (diminish "0.44") (smartparens "1.6.3)
 
 ;; This file is not part of GNU Emacs.
 
@@ -34,6 +34,10 @@
 (require 'evil)
 (require 'smartparens)
 (require 'diminish)
+
+(defgroup company-quickhelp nil
+  "`evil-mode' compat for `smartparens-mode'"
+  :group 'smartparens)
 
 (defcustom evil-smartparens-lighter " SP/e"
   "The lighter used for evil-smartparens without strict mode."
@@ -147,23 +151,26 @@ We want a different lighter for `smartparens-mode' and
   (interactive "<R><x><y>")
   (if (evil-sp--override)
       (evil-delete beg end type register yank-handler)
-    (let* ((beg (evil-sp--new-beginning beg end))
-           (end (evil-sp--new-ending beg end)))
-      (evil-delete beg end type register yank-handler))))
-
-(defun evil-sp--on-same-line-p (p1 p2)
-  (= (line-number-at-pos p1) (line-number-at-pos p2)))
+    (condition-case nil
+        (let* ((beg (evil-sp--new-beginning beg end))
+               (end (evil-sp--new-ending beg end)))
+          (evil-delete beg end type register yank-handler)))
+    ('error (let* ((beg (evil-sp--new-beginning beg end :shrink))
+                   (end (evil-sp--new-ending beg end)))
+              (evil-delete beg end type yank-handler)))))
 
 (evil-define-operator evil-sp-change (beg end type register yank-handler)
   "Call `evil-change' with a balanced region"
   (interactive "<R><x><y>")
   (if (evil-sp--override)
       (evil-change beg end type yank-handler)
-    (let* ((beg (evil-sp--new-beginning beg end))
-           (end (evil-sp--new-ending beg end)))
-      (if (evil-sp--on-same-line-p beg end)
-          (evil-change beg end 'inclusive yank-handler)
-        (evil-change beg end type yank-handler)))))
+    (condition-case nil
+        (let* ((beg (evil-sp--new-beginning beg end))
+               (end (evil-sp--new-ending beg end)))
+          (evil-change beg end 'inclusive yank-handler))
+      ('error (let* ((beg (evil-sp--new-beginning beg end :shrink))
+                     (end (evil-sp--new-ending beg end)))
+                (evil-change beg end 'inclusive yank-handler))))))
 
 (evil-define-operator evil-sp-yank (beg end type register yank-handler)
   :move-point nil
@@ -171,9 +178,13 @@ We want a different lighter for `smartparens-mode' and
   (interactive "<R><x><y>")
   (if (evil-sp--override)
       (evil-yank beg end type register yank-handler)
-    (let* ((beg (evil-sp--new-beginning beg end))
-           (end (evil-sp--new-ending beg end)))
-      (evil-yank beg end type register yank-handler))))
+    (condition-case nil
+        (let* ((beg (evil-sp--new-beginning beg end))
+               (end (evil-sp--new-ending beg end)))
+          (evil-yank beg end type register yank-handler))
+      ('error (let* ((beg (evil-sp--new-beginning beg end :shrink))
+                     (end (evil-sp--new-ending beg end)))
+                (evil-yank beg end type yank-handler))))))
 
 (evil-define-operator evil-sp-change-whole-line
   (beg end type register yank-handler)
