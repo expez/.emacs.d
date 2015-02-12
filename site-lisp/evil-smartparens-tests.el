@@ -1,30 +1,18 @@
 (require 'ert)
-(require 's)
 (require 'evil-smartparens)
 (require 'evil-tests)
-
-(defun evil-sp--enable-for-tests (&rest _)
-  (unless evil-smartparens-mode
-    (evil-smartparens-mode 1)))
 
 (defun evil-sp--fail ()
   ;; don't error out during tests
   )
 
-(advice-add 'evil-delete :before #'evil-sp--enable-for-tests)
-(advice-add 'evil-replace :before #'evil-sp--enable-for-tests)
-(advice-add 'evil-yank :before #'evil-sp--enable-for-tests)
-(advice-add 'evil-delete-line :before #'evil-sp--enable-for-tests)
-(advice-add 'evil-change-line :before #'evil-sp--enable-for-tests)
-(advice-add 'evil-delete-backward-char :before #'evil-sp--enable-for-tests)
-
 (ert-deftest evil-sp-test-delete-word ()
   "Test `evil-delete-word'"
   :tags '(evil-sp)
   (evil-test-buffer
-    "([T]his)"
-    ("dw" [escape])
-    "()"))
+   "([T]his)"
+   ("dw" [escape])
+   "()"))
 
 (ert-deftest evil-sp-test-delete-2-word ()
   "Test `evil-delete-word' with repeat count"
@@ -178,10 +166,10 @@
   "Test `evil-delete-line'"
   :tags '(evil-sp)
   (evil-test-buffer
-   "(let [(](foo bar)
+    "(let [(](foo bar)
        (frobnicate bar)))"
-   ("dd" [escape])
-   "(let ((foo bar)
+    ("dd" [escape])
+    "(let ((foo bar)
        (frobnicate bar)))"))
 
 (ert-deftest evil-sp-test-change-whole-line-is-greedy ()
