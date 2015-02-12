@@ -1,5 +1,6 @@
 (require 'cl)
 (require-package 's)
+(require 's)
 
 (defun add-auto-mode (mode &rest patterns)
   "Associate every pattern in `PATTERNS' with `MODE'."
