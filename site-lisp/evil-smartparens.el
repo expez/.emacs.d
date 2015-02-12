@@ -145,7 +145,7 @@ We want a different lighter for `smartparens-mode' and
 (evil-define-operator evil-sp-delete (beg end type register yank-handler)
   "Call `evil-delete' with a balanced region"
   (interactive "<R><x><y>")
-  (if (evil-sp-override)
+  (if (evil-sp--override)
       (evil-delete beg end type register yank-handler)
     (let* ((beg (evil-sp--new-beginning beg end))
            (end (evil-sp--new-ending beg end)))
@@ -154,7 +154,7 @@ We want a different lighter for `smartparens-mode' and
 (evil-define-operator evil-sp-change (beg end type register yank-handler)
   "Call `evil-change' with a balanced region"
   (interactive "<R><x><y>")
-  (if (evil-sp-override)
+  (if (evil-sp--override)
       (evil-change beg end type yank-handler)
     (let* ((beg (evil-sp--new-beginning beg end))
            (end (evil-sp--new-ending beg end)))
