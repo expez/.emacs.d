@@ -32,6 +32,7 @@
    (lambda ()
      (fic-ext-mode 1)
      (rainbow-delimiters-mode 1)
+     (smartparens-strict-mode 1)
      (unless (eq system-type 'windows-nt)
        (flyspell-prog-mode))
      (yas-minor-mode-on)
