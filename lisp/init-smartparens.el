@@ -6,13 +6,15 @@
 (show-smartparens-global-mode 1)
 
 (setq sp-highlight-pair-overlay nil
-      sp-highlight-wrap-overlay nil
-      sp-navigate-consider-stringlike-sexp
-      (concatenate 'list sp-navigate-consider-stringlike-sexp
-                   '(prog-mode nxml-mode sgml-mode)))
+      sp-highlight-wrap-overlay nil)
+
+(defun turn-on-sp-navigate-consider-stringlike ()
+  (unless (memq major-mode sp-navigate-consider-stringlike-sexp)
+    (add-to-list 'sp-navigate-consider-stringlike-sexp major-mode)))
 
 (defun my-smartparens-mode-hook ()
   (when smartparens-mode
+    (turn-on-sp-navigate-consider-stringlike)
     (evil-smartparens-mode 1)
     (evil-define-key 'normal sp-keymap
       (kbd "C-t") 'sp-transpose-sexp
