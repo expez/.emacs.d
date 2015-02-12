@@ -441,13 +441,6 @@ If the file is emacs lisp, run the byte compiled version if appropriate."
             (shell-command cmdStr "*run-current-file output*" ))
         (message "No recognized program file suffix for this file.")))))
 
-(defun load-if-exists (file)
-  "Calls LOAD on FILE if FILE exists."
-  (let ((file-exists (file-exists-p (expand-file-name file))))
-    (when file-exists
-      (load (expand-file-name file)))
-    file-exists))
-
 (defun directory-dirs (dir)
   "Find all directories in DIR."
   (unless (file-directory-p dir)
