@@ -133,11 +133,11 @@ We want a different lighter for `smartparens-mode' and
       (kbd "c") #'evil-sp-change
       (kbd "y") #'evil-sp-yank
       (kbd "S") #'evil-sp-change-whole-line
-      (kbd "Y") #'evil-sp-yank-line
       (kbd "X") #'sp-backward-delete-char
       (kbd "x") #'sp-delete-char))
   (evil-define-key 'normal evil-smartparens-mode-map
     (kbd "D") #'evil-sp-delete-line
+    (kbd "Y") #'evil-sp-yank-line
     (kbd "C") #'evil-sp-change-line)
   (evil-define-key 'visual evil-smartparens-mode-map
     (kbd "o") #'evil-sp-override))
