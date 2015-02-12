@@ -379,13 +379,6 @@ A `spec' can be a `read-kbd-macro'-readable string or a vector."
     (cofi/set-key map (car mapping) (cadr mapping)))
   map)
 
-(defun pretty-lambdas ()
-  (font-lock-add-keywords
-   nil `(("(?\\(lambda\\>\\)"
-          (0 (progn (compose-region (match-beginning 1) (match-end 1)
-                                    ,(make-char 'greek-iso8859-7 107))
-                    nil))))))
-
 (defun indent-buffer ()
   "Indent the currently visited buffer."
   (interactive)
