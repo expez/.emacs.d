@@ -7,17 +7,9 @@
 (defun my-c-mode-hook ()
   (google-set-c-style)
   (google-make-newline-indent)
-  (c-turn-on-eldoc-mode)
-  (ac-c-mode-setup))
+  (c-turn-on-eldoc-mode))
 
 (add-hook 'c-mode-hook #'my-c-mode-hook)
-
-(defun ac-c-mode-setup ()
-  (setq clang-complete-executable
-        (concat user-emacs-directory
-                "vendor/emacs-clang-complete-async/clang-complete"))
-  (setq ac-sources '(ac-source-clang-async))
-  (ac-clang-launch-completion-process))
 
 (setq ctypes-write-types-at-exit t)
 (ctypes-read-file nil nil t t)

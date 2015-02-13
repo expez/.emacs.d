@@ -5,13 +5,14 @@ This is my Emacs config.  It is--at all times--just the way I like it.  If you f
 If you find something that is broken--I do not use all parts of this configuration at all times!--you can create an issue and watch me solve your problem like it is my own, because tomorrow it might be.
 
 ## Usage
-All packages are managed through Emacs' own package manager.  There are some exceptions, but I try to keep them to a minimum.  These exceptional packages are managed using the `Rakefile` included in this repository.  Simply run `rake` in the `.emacs.d` directory and the packages will be installed in the `vendor` folder.
 
-You can also update the packages managed by the rakefile by issuing the command `sh rake update_packages`.  If you want to add packages of your own I strongly suggest you use the built-in package manager.  If you cannot find the packages you want in this manner, modify the rakefile to grab the package you need.  All files below the `vendor` folder will be automagically loaded.
+All packages are managed through Emacs' own package manager.  There are some exceptions, but I try to keep them to a minimum.  These exceptional packages are included in the `site-lisp` folder, either because they weren't available through the package manager or beacuse I wanted to vendor them so I could make minor changes.
 
-All the customizations, for the various packages, live in files named `init-<package or mode>.el`.  Any file matching this pattern will be automagically loaded.  You can rely on this when installing new packages: add the package to the list of packages to be installed, in the file `init-package.el`, and create your own `init-<something new>.el` file with the appropriate customizations.
+All the customizations, for the various packages, live in files named `init-<package or mode>.el` in the folder `lisp`.  Any file matching this pattern will be automagically loaded.  You can rely on this when installing new packages: create your own `init-<something-new>.el` file with a `(require-package 'something-new)` followed by whatever customizations.
 
 The exception to this rule is the stuff produced by Emacs' customize facilities, they live in the file `customize.el`.
+
+I recommend you start Emacs using `emacs --daemon` and connect to this daemon using `emacsclient`.
 
 ## Language support
 
@@ -24,8 +25,8 @@ The exception to this rule is the stuff produced by Emacs' customize facilities,
 * C
 * Java
 * Prolog
+* The various web languages like HTML/CSS/less/sass
 
 ## Installation
-Just clone this repository so the file `init.el` ends up at `~/.emacs.d/init.el`.  If you care for the packages found in the rakefile, additionally run ` rake` in the .emacs.d directory and occasionally run `rake update_packages` to update the packages.
 
-I recommend you start Emacs using `emacs --daemon` and connect to this daemon using `emacsclient`.
+Just clone this repository so the file `init.el` ends up at `~/.emacs.d/init.el`.

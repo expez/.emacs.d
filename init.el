@@ -19,4 +19,3 @@
 (require 'init-util)
 
 (safe-load-init-files my-config-dir)
-(load-from-vendor-dir)
