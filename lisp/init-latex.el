@@ -1,8 +1,8 @@
 (require-package 'auctex)
 (require-package 'company-math)
-(require 'tex)
 
 (defun my-LaTeX-mode-hook ()
+  (turn-on-orgtbl)
   (visual-line-mode 1)
   (flyspell-mode 1)
   (LaTeX-math-mode 1)
@@ -25,13 +25,12 @@
               (append '(company-math-symbols-latex company-latex-commands)
                       company-backends)))
 
-  (turn-on-orgtbl))
-
 (add-hook 'LaTeX-mode-hook 'my-LaTeX-mode-hook)
 
-(dolist (cmd '("Print" "Queue" "Index" "File"))
-  (setq TeX-command-list (remove* cmd TeX-command-list
-                                  :test #'equal :key #'car)))
+(after-load 'tex
+  (dolist (cmd '("Print" "Queue" "Index" "File"))
+    (setq TeX-command-list (remove* cmd TeX-command-list
+                                    :test #'equal :key #'car))))
 
 (defun makeglossaries()
   "Runs the perl script makeglossaries on the current latex file."
