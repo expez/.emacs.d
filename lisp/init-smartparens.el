@@ -1,5 +1,7 @@
 (require-package 'smartparens)
 (require 'smartparens-config)
+(require 'smartparens-python)
+(require 'smartparens-ruby)
 (require-package 'evil-smartparens)
 
 (show-smartparens-global-mode 1)
