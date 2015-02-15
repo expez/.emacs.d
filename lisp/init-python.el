@@ -1,45 +1,21 @@
-;; (require-package 'company-jedi)
-;; (require-package 'company-inf-python)
-(require-package 'virtualenvwrapper)
-(require-package 'pymacs)
 (require-package 'ein)
-;; (require-package 'jedi)
-(setq venv-location "~/.virtualenvs")
-(setq python-shell-virtualenv-path "~/.virtualenvs/ml")
+(require-package 'elpy)
+(require 'elpy)
+
+(setq elpy-rpc-backend "jedi"
+      elpy-modules '(elpy-module-company
+                     elpy-module-eldoc
+                     elpy-module-pyvenv))
 
 (defun my-ein-notebook-mode-hook ()
   (whitespace-mode 0)
   (define-key evil-insert-state-local-map
     (kbd "RET") 'newline-and-indent)
   (define-key ein:notebook-mode-map (kbd "C-c C-d")
-    'ein:pytools-request-tooltip-or-help)
-  (setq autopair-extra-pairs '(:code ((?' . ?')))))
+    'ein:pytools-request-tooltip-or-help))
 (add-hook 'ein:notebook-mode-hook #'my-ein-notebook-mode-hook)
 
-;; (autoload 'pymacs-apply "pymacs")
-;; (autoload 'pymacs-call "pymacs")
-;; (autoload 'pymacs-eval "pymacs" nil t)
-;; (autoload 'pymacs-exec "pymacs" nil t)
-;; (autoload 'pymacs-load "pymacs" nil t)
-;; (pymacs-load "ropemacs" "rope-")
-
-;; (add-to-list 'company-backends 'company-jedi)
-;; (add-to-list 'company-backends 'company-inf-python)
-;; (setq company-backends (delq 'company-ropemacs company-backends))
-
-;; (setq ropemacs-enable-autoimport t
-;;       company-jedi-python-bin "python")
-;; (setq jedi:complete-on-dot t)
-
-(defun my-python-mode-hook ()
-  ;; (jedi:setup)
-  ;; (company-jedi-start)
-  ;; (company-mode-on)
-  ;; (define-key evil-normal-state-local-map (kbd "M-.") 'company-jedi-goto-definition)
-  )
-
-(add-hook 'python-mode-hook #'my-python-mode-hook)
-
+(elpy-enable)
 
 (defun absolute-dirname (path)
   "Return the directory name portion of a path.
@@ -79,8 +55,6 @@ If PATH is remote, return the remote diretory portion of the path."
 (add-hook 'inferior-python-mode-hook #'my-inferior-python-mode-hook)
 
 (defun my-inferior-python-mode-hook ()
-  (rename-buffer (python-generate-repl-name))
-  ;; (company-mode-on)
-  )
+  (rename-buffer (python-generate-repl-name)))
 
 (provide 'init-python)
