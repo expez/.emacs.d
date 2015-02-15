@@ -7,6 +7,7 @@
 (setq company-idle-delay 0.2
       company-show-numbers t
       company-tooltip-limit 10
+      company-tooltip-align-annotations t
       company-minimum-prefix-length 2
       company-selection-wrap-around t
       company-selection-changed t
