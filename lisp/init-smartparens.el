@@ -1,6 +1,6 @@
 (require-package 'smartparens)
 (require 'smartparens-config)
-(require 'evil-smartparens)
+(require-package 'evil-smartparens)
 
 (show-smartparens-global-mode 1)
 
@@ -28,7 +28,7 @@
                "M-0" 'sp-forward-slurp-sexp))
 ;; When this hook was set on smartparens `evil-normal-state-local-map'
 ;; would sometimes be nil, causing a most annoying race-condition.
-(add-hook 'smartparens-mode-hook #'my-smartparens-mode-hook)
+(add-hook 'smartparens-enabled-hook #'my-smartparens-mode-hook)
 
 (sp-with-modes '(markdown-mode
                  rst-mode)
