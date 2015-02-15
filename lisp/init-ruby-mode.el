@@ -9,6 +9,8 @@
 (require-package 'inf-ruby)
 (require-package 'bundler)
 (require-package 'projectile-rails)
+(require-package 'feature-mode)
+(add-to-list 'auto-mode-alist '("\.feature$" . feature-mode))
 
 (add-hook 'projectile-mode-hook 'projectile-rails-on)
 
