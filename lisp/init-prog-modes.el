@@ -3,6 +3,7 @@
 (require 'flycheck)
 (require 'fic-ext-mode)
 (require 'flyspell)
+(require 'init-whitespace)
 
 (after-load 'aggressive-indent
   (define-key aggressive-indent-mode-map (kbd "C-c C-q") nil))
