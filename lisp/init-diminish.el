@@ -71,6 +71,9 @@
 (after-load 'company
   (diminish 'company-mode))
 
+(after-load 'evil-smartparens
+  (diminish 'evil-smartparens-mode))
+
 (defmacro rename-modeline (package-name mode new-name)
   `(eval-after-load ,package-name
      (defadvice ,mode (after rename-modeline activate)
