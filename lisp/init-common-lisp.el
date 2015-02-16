@@ -1,7 +1,8 @@
 (require-package 'redshank)
 (require-package 'slime-company)
-(when (load-if-exists "~/quicklisp/slime-helper.el")
-  (require 'slime))
+(if (load-if-exists "~/quicklisp/slime-helper.el")
+    (require 'slime)
+  (require-package 'slime))
 
 (require 'test-op-mode)
 (slime-setup '(slime-company))
