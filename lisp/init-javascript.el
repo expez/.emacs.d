@@ -4,7 +4,6 @@
 (require-package 'js2-refactor)
 (require-package 'js2-mode)
 (require-package 'skewer-mode)
-(require-package 'restclient)
 (require 'js-lookup)
 
 ;;; bookmarklet to load skewer:
