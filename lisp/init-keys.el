@@ -273,6 +273,11 @@
   (global-set-key (kbd "C-x v s") 'git-gutter:stage-hunk)
   (global-set-key (kbd "C-x v r") 'git-gutter:revert-hunk))
 
+(after-load 'edebug
+  (fill-keymap edebug-mode-map
+               "C-c C-c" nil
+               "C-c C-d" nil))
+
 (define-key query-replace-map [return] 'act)
 (define-key query-replace-map [?\C-m] 'act)
 
