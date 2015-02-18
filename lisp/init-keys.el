@@ -276,6 +276,10 @@
   (global-set-key (kbd "C-x v s") 'git-gutter:stage-hunk)
   (global-set-key (kbd "C-x v r") 'git-gutter:revert-hunk))
 
+(fill-keymap minibuffer-local-map
+             "C-w" 'backward-kill-word
+             "C-u" 'backward-kill-line)
+
 (after-load 'edebug
   (fill-keymap edebug-mode-map
                "C-c C-c" nil
