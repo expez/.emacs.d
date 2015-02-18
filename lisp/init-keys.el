@@ -252,10 +252,13 @@
 
     (kbd "TAB") 'macrostep-next-macro
     "n" 'macrostep-next-macro
+    "J" 'macrostep-next-macro
     (kbd "S-TAB") 'macrostep-prev-macro
+    (kbd "M-TAB") 'macrostep-prev-macro
+    "K" 'macrostep-prev-macro
     "p" 'macrostep-prev-macro
     "q" 'macrostep-collapse-all
-    (kbd "C-c C-c") 'macrostep-collapse-all))
+    kbd "C" 'macrostep-collapse-all))
 
 (after-load 'undo-tree
   (fill-keymap undo-tree-visualizer-mode-map
