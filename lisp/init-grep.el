@@ -2,6 +2,15 @@
 (require-package 'ag)
 (require-package 'wgrep-ag)
 
+(defun ag-regexp (string directory)
+  "Search using ag in a given directory for a given regexp.
+The regexp should be in PCRE syntax, not Emacs regexp syntax.
+
+If called with a prefix, prompts for flags to pass to ag."
+  (interactive (list (read-from-minibuffer "Search regexp: " (ag/dwim-at-point))
+                     (read-directory-name "Directory: ")))
+  (ag/search string directory :regexp t))
+
 (after-load 'ag
   (fill-keymap ag-mode-map
                (kbd "k") 'compilation-previous-error
