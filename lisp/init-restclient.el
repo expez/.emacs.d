@@ -1,6 +1,6 @@
 (require-package 'restclient)
 (require-package 'company-restclient)
-(require-package 'company-restclient)
+(require 'restclient)
 
 (add-to-list 'company-backends 'company-restclient)
 
