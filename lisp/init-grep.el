@@ -1,6 +1,7 @@
 (require-package 'wgrep-ack)
 (require-package 'ag)
 (require-package 'wgrep-ag)
+(require 'ag)
 
 (defun ag-regexp (string directory)
   "Search using ag in a given directory for a given regexp.
@@ -11,12 +12,11 @@ If called with a prefix, prompts for flags to pass to ag."
                      (read-directory-name "Directory: ")))
   (ag/search string directory :regexp t))
 
-(after-load 'ag
-  (fill-keymap ag-mode-map
-               (kbd "k") 'compilation-previous-error
-               (kbd "j") 'compilation-next-error
-               (kbd "q") '(lambda () (interactive)
-                            (let (kill-buffer-query-functions) (kill-buffer)))))
+(fill-keymap ag-mode-map
+             (kbd "k") 'compilation-previous-error
+             (kbd "j") 'compilation-next-error
+             (kbd "q") '(lambda () (interactive)
+                          (let (kill-buffer-query-functions) (kill-buffer))))
 (setq ag-reuse-buffers 't)
 
 (defun rgrep-fullscreen (regexp &optional files dir confirm)
