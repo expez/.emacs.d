@@ -33,6 +33,7 @@
 
 (defun my-cider-repl-mode-hook ()
   (setq show-trailing-whitespace nil)
+  (smartparens-strict-mode 1)
   (company-mode 1)
   (eldoc-mode)
   (fill-keymaps '(evil-insert-state-local-map evil-normal-state-local-map)
