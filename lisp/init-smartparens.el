@@ -20,16 +20,13 @@
     (kbd "C-t") 'sp-transpose-sexp
     "[" (lambda (&optional arg) (interactive "P") (sp-wrap-with-pair "["))
     "{" (lambda (&optional arg) (interactive "P") (sp-wrap-with-pair "{"))
-    "(" (lambda (&optional arg) (interactive "P") (sp-wrap-with-pair "(")))
-  (fill-keymap evil-normal-state-local-map
-               "H" 'sp-backward-up-sexp
-               "L" 'sp-up-sexp
-               "C-9" 'sp-backward-barf-sexp
-               "C-0" 'sp-forward-barf-sexp
-               "M-9" 'sp-backward-slurp-sexp
-               "M-0" 'sp-forward-slurp-sexp))
-;; When this hook was set on smartparens `evil-normal-state-local-map'
-;; would sometimes be nil, causing a most annoying race-condition.
+    "(" (lambda (&optional arg) (interactive "P") (sp-wrap-with-pair "("))
+    "H" 'sp-backward-up-sexp
+    "L" 'sp-up-sexp
+    "C-9" 'sp-backward-barf-sexp
+    "C-0" 'sp-forward-barf-sexp
+    "M-9" 'sp-backward-slurp-sexp
+    "M-0" 'sp-forward-slurp-sexp))
 (add-hook 'smartparens-enabled-hook #'my-smartparens-mode-hook)
 
 (sp-with-modes '(markdown-mode
