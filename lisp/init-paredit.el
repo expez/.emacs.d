@@ -8,7 +8,7 @@
     'paredit-backward-delete
     'paredit-close-round))
 
-(add-hook 'minibuffer-setup-hook 'conditionally-enable-paredit-mode)
+;; (add-hook 'minibuffer-setup-hook 'conditionally-enable-paredit-mode)
 
 (defun paredit-nonlisp ()
   "Turn on paredit mode for non-lisps."
