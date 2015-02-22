@@ -1,4 +1,5 @@
-(setq custom-file (concat user-emacs-directory "customize.el"))
+(setq custom-file (concat user-emacs-directory "customize.el")
+      solarized-use-more-italic t)
 (load custom-file)
 
 (require 'uniquify)
