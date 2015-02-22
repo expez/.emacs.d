@@ -68,4 +68,14 @@
 
 (advice-add 'sp-splice-sexp-killing-backward :before #'sp--cleanup-killed-funcall)
 
+(defun conditionally-enable-smartparens-mode ()
+  "Enable paredit during lisp-related minibuffer commands."
+  (if (memq this-command  '(eval-expression
+                            pp-eval-expression
+                            eval-expression-with-eldoc
+                            ibuffer-do-eval ibuffer-do-view-and-eval))
+      (smartparens-strict-mode 1)))
+
+(add-hook 'minibuffer-setup-hook 'conditionally-enable-smartparens-mode)
+
 (provide 'init-smartparens)
