@@ -151,6 +151,7 @@
   (save-some-buffers :no-prompt
                      (lambda ()
                        (and (buffer-file-name)
+                            (not (s-contains-p "jar:" (buffer-file-name)))
                             (s-ends-with-p "\.clj" (buffer-file-name)))))
   (with-current-buffer (cider-current-repl-buffer)
     (goto-char (point-max))
