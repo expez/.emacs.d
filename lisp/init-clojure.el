@@ -112,7 +112,8 @@
     (DELETE 2)
     (HEAD 2)
     (ANY 2)
-    (context 2)))
+    (context 2)
+    (for-all 1)))
 
 (defun austin-connnect ()
   (interactive)
