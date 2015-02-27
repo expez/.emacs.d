@@ -19,23 +19,27 @@
 (global-ethan-wspace-mode 1)
 (setq ethan-wspace-face-customized t)
 
-(defun toggle-tabs ()
-  "Whether we should be cleaning tabs or not. "
-  (interactive)
-  (if (not (memq 'tabs whitespace-style))
+(defun toggle-tabs (force)
+  "Whether we should be cleaning tabs or not.
+
+force forces tabs to ON."
+  (interactive "P")
+  (if (or force
+          (not (memq 'tabs whitespace-style)))
       (progn
         (ethan-wspace-type-deactivate 'tabs)
         (setq-local whitespace-style (remq 'tabs whitespace-style))
+        (setq-local tab-width 2)
+        (setq-local indent-tabs-mode t)
+        (setq-local whitespace-line-column 120)
+        (whitespace-mode 0)
+        (whitespace-mode 1)
         (message "Tabs are OK!"))
     (ethan-wspace-type-activate 'tabs)
     (setq-local whitespace-style (cons 'tabs whitespace-style))
     (message "Tabs are not OK!"))
   (whitespace-mode 0)
   (whitespace-mode 1))
-
-(defun allow-tabs ()
-  (ethan-wspace-type-deactivate 'tabs)
-  (setq-local whitespace-style (remq 'tabs whitespace-style)))
 
 (defvar whitespace-show-all-mode nil)
 
@@ -91,13 +95,9 @@ With a prefix argument whitespac-mode is turned off."
            hosts-where-tabs-are-expected))
 
 (defun maybe-allow-tabs ()
+  (interactive)
   (when (and (host-where-tabs-are-expected)
              (eq (indentation-style) 'tabs))
-    (allow-tabs)
-    (setq tab-width 2)
-    (setq-local indent-tabs-mode t)
-    (setq-local whitespace-line-column 120)
-    (whitespace-mode 0)
-    (whitespace-mode 1)))
+    (toggle-tabs :on)))
 
 (provide 'init-whitespace)
