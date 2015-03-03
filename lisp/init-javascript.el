@@ -165,11 +165,8 @@ to insert above current line"
 (defun js-insert-block-and-semi ()
   "Insert a block, and semicolon and line end. "
   (interactive)
-  (save-excursion
-    (goto-char (point-at-eol))
-    (insert ";"))
-  (insert "{}")
-  (backward-char)
+  (insert "{};")
+  (backward-char 2)
   (open-line 2)
   (save-excursion
     (forward-line 2)
