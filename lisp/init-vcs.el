@@ -7,6 +7,7 @@
 (require-package 'magit-gh-pulls)
 (require-package 'magit)
 (require-package 'git-gutter-fringe)
+(require-package 'git-wip-timemachine)
 (global-git-gutter-mode t)
 
 (add-hook 'magit-mode-hook 'turn-on-magit-gh-pulls)
