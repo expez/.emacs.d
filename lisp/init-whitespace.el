@@ -34,10 +34,12 @@ force forces tabs to ON."
         (setq-local whitespace-line-column 120)
         (whitespace-mode 0)
         (whitespace-mode 1)
-        (message "Tabs are OK!"))
+        (when called-interactively-p
+          (message "Tabs are OK!")))
     (ethan-wspace-type-activate 'tabs)
     (setq-local whitespace-style (cons 'tabs whitespace-style))
-    (message "Tabs are not OK!"))
+    (when called-interactively-p
+      (message "Tabs are not OK!")))
   (whitespace-mode 0)
   (whitespace-mode 1))
 
