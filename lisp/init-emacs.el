@@ -42,8 +42,6 @@
       ";; scratch buffer created -- happy hacking\n"
       initial-major-mode 'emacs-lisp-mode
 
-      show-paren-delay 0
-      show-paren-style 'parenthesis
       reb-re-syntax 'string
       delete-by-moving-to-trash t
 
