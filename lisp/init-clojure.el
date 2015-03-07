@@ -62,6 +62,7 @@
   (setq evil-symbol-word-search t)
   (clj-refactor-mode 1)
   (add-to-list 'flycheck-disabled-checkers 'clojure-cider-typed)
+  (add-to-list 'flycheck-disabled-checkers 'clojure-cider-kibit)
   (cider-mode 1)
   (fill-keymap cider-mode-map
                "C-c C-e" 'cider-eval-defun-at-point
