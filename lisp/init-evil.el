@@ -118,10 +118,12 @@
 
 (mapcar 'set-mode-to-default-emacs
         '(dired
-          cider-stacktrace-mode
-          cider-test-report-mode
+          cider-classpath-mode
           cider-doc-mode
           cider-docview-mode
+          cider-popup-buffer-mode
+          cider-stacktrace-mode
+          cider-test-report-mode
           deft-mode
           occur-mode
           term-mode
@@ -131,7 +133,6 @@
           magit-log-mode
           git-rebase-mode
           log-view-mode
-          cider-popup-buffer-mode
           project-explorer-mode
           paradox-menu-mode
           neotree-mode
