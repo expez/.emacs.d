@@ -41,7 +41,8 @@
 (setq rspec-use-rvm 't
       rspec-use-bundler-when-possible 't)
 
-(define-key ruby-mode-map (kbd "C-c , ,") 'ruby-open-spec-other-buffer)
+(after-load 'ruby-mode
+  (define-key ruby-mode-map (kbd "C-c , ,") 'ruby-open-spec-other-buffer))
 
 (autoload 'run-ruby "inf-ruby" "Run an inferior Ruby process" t)
 (autoload 'inf-ruby-setup-keybindings "inf-ruby" "" t)
