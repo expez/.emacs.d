@@ -218,7 +218,9 @@
              "<C-kp-subtract>" 'text-scale-decrease
              "<C-kp-add>" 'text-scale-increase
              "C-w" 'evil-window-map
-             "C-;" 'ace-window)
+             "C-;" 'ace-window
+             "C-x C-k" 'ido-kill-buffer
+             "C-x C-(" 'kmacro-keymap)
 
 (after-load 'workgroups
   (fill-keymap 'global "C-x w" wg-map))
