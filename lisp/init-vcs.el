@@ -11,7 +11,7 @@
 (global-git-gutter-mode t)
 
 (add-hook 'magit-mode-hook 'turn-on-magit-gh-pulls)
-(global-magit-wip-save-mode 0)
+(global-magit-wip-save-mode 1)
 
 (setq vc-follow-symlinks t)
 
