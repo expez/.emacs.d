@@ -321,6 +321,7 @@
          (add-to-list 'funclist x))))
     funclist))
 
-(define-key archive-mode-map "q" '(lambda () (interactive) (kill-buffer nil)))
+(after-load 'archive-mode
+  (define-key archive-mode-map "q" '(lambda () (interactive) (kill-buffer nil))))
 
 (provide 'init-keys)
