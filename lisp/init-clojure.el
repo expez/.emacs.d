@@ -6,9 +6,8 @@
 (require-package 'refheap)
 (require-package 'clojure-snippets)
 (require-package 'flycheck-clojure)
-(clojure-snippets-initialize)
 
-(add-to-list 'auto-mode-alist '("\\.edn\\'" . clojure-mode))
+(clojure-snippets-initialize)
 
 (defadvice cider-load-current-buffer (before save-first activate)
   (save-buffer))
