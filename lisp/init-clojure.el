@@ -9,7 +9,7 @@
 
 (clojure-snippets-initialize)
 
-(defadvice cider-load-current-buffer (before save-first activate)
+(defadvice cider-load-buffer (before save-first activate)
   (save-buffer))
 
 (after-load 'clj-refactor
