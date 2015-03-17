@@ -13,6 +13,17 @@
 (add-hook 'magit-mode-hook 'turn-on-magit-gh-pulls)
 (global-magit-wip-save-mode 1)
 
+(eval-after-load 'projectile
+  (setq magit-repo-dirs
+        (mapcar
+         (lambda (dir)
+           (substring dir 0 -1))
+         (cl-remove-if-not
+          (lambda (project)
+            (unless (file-remote-p project)
+              (file-directory-p (concat project "/.git/"))))
+          (projectile-relevant-known-projects)))))
+
 (setq vc-follow-symlinks t)
 
 (add-auto-mode 'gitconfig-mode "gitconfig$")
