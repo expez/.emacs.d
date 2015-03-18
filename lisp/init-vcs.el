@@ -24,6 +24,19 @@
               (file-directory-p (concat project "/.git/"))))
           (projectile-relevant-known-projects)))))
 
+(when (fboundp 'magit-gh-pulls-mode)
+  (eval-after-load 'magit
+    '(define-key magit-mode-map "#gg"
+       #'endless/load-gh-pulls-mode))
+
+  (defun endless/load-gh-pulls-mode ()
+    "Start `magit-gh-pulls-mode' only after a manual request."
+    (interactive)
+    (require 'magit-gh-pulls)
+    (add-hook 'magit-mode-hook #'turn-on-magit-gh-pulls)
+    (magit-gh-pulls-mode 1)
+    (magit-gh-pulls-reload)))
+
 (setq vc-follow-symlinks t)
 
 (add-auto-mode 'gitconfig-mode "gitconfig$")
