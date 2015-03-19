@@ -30,9 +30,11 @@
         (pos-tip-hide)))))
 
 (defun my-elisp-mode-hook ()
+  (rainbow-delimiters-mode 0)
   (turn-on-redshank-mode)
   (flycheck-mode 0)
   (lexbind-mode)
+  (eldoc-mode)
   (esk-remove-elc-on-save)
   (checkdoc-minor-mode)
   (setq evil-symbol-word-search t)
@@ -51,13 +53,13 @@
              "C-c C-e" 'pp-eval-last-sexp
              "C-c C-k" 'eval-buffer)
 
-(let ((elisp-programming-major-modes '(emacs-lisp-mode lisp-interaction-mode
-                                                       ielm-mode)))
+(let ((elisp-programming-major-modes '(lisp-interaction-mode ielm-mode)))
   (dolist (mode elisp-programming-major-modes)
     (add-hook
      (intern (concat (symbol-name mode) "-hook"))
      (lambda ()
-       (eldoc-mode)
+       (after-load 'smartparens
+         (smartparens-strict-mode 1))
        (rainbow-delimiters-mode 0)))))
 
 (defun esk-remove-elc-on-save ()
