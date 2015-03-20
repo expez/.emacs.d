@@ -260,7 +260,8 @@
     "K" 'macrostep-prev-macro
     "p" 'macrostep-prev-macro
     "q" 'macrostep-collapse-all
-    kbd "C" 'macrostep-collapse-all))
+    (kbd "C") 'macrostep-collapse-all)
+  (add-hook 'macrostep-mode-hook #'evil-normalize-keymaps))
 
 (after-load 'undo-tree
   (fill-keymap undo-tree-visualizer-mode-map
