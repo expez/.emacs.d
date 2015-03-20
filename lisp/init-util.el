@@ -214,13 +214,18 @@ This is to update existing buffers after a Git pull of their underlying files."
   (message (buffer-file-name)))
 
 (defun copy-file-name-to-clipboard ()
-  "Copy the current buffer file name to the clipboard."
+  "Copy the current buffer file name to the clipboard.
+
+With a prefix puts a string on the clipboard for easy insertion
+in code."
   (interactive)
   (let ((filename (if (equal major-mode 'dired-mode)
                       default-directory
                     (buffer-file-name))))
     (when filename
-      (kill-new filename)
+      (if current-prefix-arg
+          (kill-new (format "\"%s\"" filename))
+        (kill-new filename))
       (message "Copied buffer file name '%s' to the clipboard." filename))))
 
 (defun ido-recentf-open ()
