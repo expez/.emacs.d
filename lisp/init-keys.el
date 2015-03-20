@@ -302,6 +302,7 @@
 
 (defalias 'gl 'gist-list)
 (defalias 'grb 'gist-region-or-buffer)
+(defalias 'cf 'copy-file-name-to-clipboard)
 
 (key-chord-define-global "qr" 'query-replace-regexp)
 (key-chord-define-global "qm" 'moccur)
