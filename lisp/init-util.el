@@ -30,8 +30,6 @@
                     url
                   (concat url (webjump-url-encode name))))))
 
-(defvar normal-local-function-key-map nil)
-
 (defun rename-file-and-buffer ()
   "Rename the current buffer and the file it is visiting."
   (interactive)
