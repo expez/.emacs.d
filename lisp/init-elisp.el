@@ -9,6 +9,7 @@
 (require-package 'evil-surround)
 (require-package 'edebug-x)
 (require 'evil-surround)
+(require 'ert)
 
 (set-face-foreground 'paren-face "grey30")
 
@@ -51,6 +52,7 @@
              "C-c C-d" 'describe-thing-in-popup
              "C-c t" 'bind-test-to
              "C-c C-e" 'pp-eval-last-sexp
+             "<f3>" 'ert-silently
              "C-c C-k" 'eval-buffer)
 
 (let ((elisp-programming-major-modes '(lisp-interaction-mode ielm-mode)))
@@ -69,5 +71,18 @@
             (lambda ()
               (if (file-exists-p (concat buffer-file-name "c"))
                   (delete-file (concat buffer-file-name "c"))))))
+
+(defun ert-silently ()
+  (interactive)
+  "Run all the tests silently and pop to test buffer only on failure.
+
+With a prefix just runs `ert'"
+  (if current-prefix-arg
+      (call-interactively #'ert)
+    (let ((unexpected (ert-stats-completed-unexpected
+                       (ert-run-tests t (lambda (&rest _))))))
+      (if (> unexpected 0)
+          (ert t)
+        (message "%s" (propertize "Passed!" 'face '(:foreground "green")))))))
 
 (provide 'init-elisp)
