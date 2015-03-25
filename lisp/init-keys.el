@@ -181,6 +181,8 @@
   "?" 'evil-search-backward
   "q" (lambda () (interactive) (kill-buffer)))
 
+(add-hook 'diff-mode-hook #'evil-normalize-keymaps)
+
 (evil-add-hjkl-bindings package-menu-mode-map 'emacs
   "h" 'package-menu-quick-help))
 
