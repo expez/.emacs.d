@@ -13,7 +13,7 @@
 (add-hook 'magit-mode-hook 'turn-on-magit-gh-pulls)
 (global-magit-wip-save-mode 1)
 
-(eval-after-load 'projectile
+(after-load 'projectile
   (setq magit-repo-dirs
         (mapcar
          (lambda (dir)
