@@ -75,13 +75,15 @@ With a prefix argument whitespac-mode is turned off."
     (whitespace-mode 1)
     (message "Highlighting all whitespace")))
 
-(defun change-whitespace-line-column (c)
+(defun change-whitespace-line-column (column)
+  "Sets the `whitespace-line-column' to COLUMN in this buffer."
   (interactive "nHighlight beyond column: ")
   (make-local-variable 'whitespace-line-column)
-  (setq-local whitespace-line-column c)
+  (setq-local whitespace-line-column column)
   (whitespace-mode 0)
   (whitespace-mode 1)
-  (message (format "Highlighting lines longer than %s chars." c)))
+  (when (called-interactively-p)
+    (message (format "Highlighting lines longer than %s chars." c))))
 
 (defadvice popup-tip (around disable-ethan-wspace activate)
   (let ((whitespace-mode whitespace-mode))
