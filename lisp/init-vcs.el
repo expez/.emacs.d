@@ -181,4 +181,11 @@
 
      (define-key vc-annotate-mode-map (kbd "q") 'vc-annotate-quit)))
 
+(defun github-repo? ()
+  "T if the current buffer is visiting a file in a git repository
+  with github as upstream."
+  (when (magit-git-repo-p (locate-dominating-file (buffer-file-name) ".git"))
+    (when-let (origin (magit-get "remote" "origin" "url"))
+      (string-match "github" origin ))))
+
 (provide 'init-vcs)
