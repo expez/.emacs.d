@@ -246,6 +246,9 @@
                                         ;"J" 'org-agenda-goto-date
                "K" 'org-agenda-capture))
 
+(fill-keymap dired-mode-map
+             "q" (lambda () (interactive) (kill-buffer)))
+
 (after-load 'macrostep
   (evil-define-key 'normal macrostep-keymap
     (kbd "RET") 'macrostep-expand
