@@ -42,12 +42,6 @@
   (evil-force-normal-state))
 (add-hook 'cider-repl-mode-hook #'my-cider-repl-mode-hook)
 
-(defun my-cider-connected-hook ()
-  (cljr-update-artifact-cache)
-  (cljr-warm-ast-cache))
-
-(add-hook 'cider-connected-hook #'my-cider-connected-hook)
-
 (defun cider-clear-errors ()
   (interactive)
   (remove-overlays (point-min) (point-max) 'cider-note-p t))
