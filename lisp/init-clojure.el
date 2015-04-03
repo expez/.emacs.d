@@ -36,7 +36,8 @@
   (company-mode 1)
   (eldoc-mode)
   (fill-keymaps '(evil-insert-state-local-map evil-normal-state-local-map)
-                "M-." 'cider-jump-to-var
+                "M-." 'cider-find-var
+                "C-c M-." 'my-cider-find-resource
                 "M-," 'cider-jump-back)
   (whitespace-mode 0)
   (evil-force-normal-state))
@@ -69,7 +70,8 @@
   (local-set-key (kbd "RET") 'newline-and-indent)
   (fill-keymap evil-normal-state-local-map
                "M-q" '(lambda () (interactive) (clojure-fill-paragraph))
-               "M-." 'cider-jump-to-var
+               "M-." 'cider-find-var
+               "C-c M-." 'my-cider-find-resource
                "M-," 'cider-jump-back
                "M->" 'cljr-thread
                "M-<" 'cljr-unwind
@@ -234,4 +236,16 @@ Called by `imenu--generic-function'."
       (cljr--add-ns-if-blank-clj-file)
       (save-buffer))))
 
+;; Uses prefix to open in other window
+(defun my-cider-find-resource (path)
+  "Jump to the resource at the resource-relative PATH.
+When called interactively, this operates on point."
+  (interactive (list (thing-at-point 'filename)))
+  (cider-ensure-op-supported "resource")
+  (-if-let* ((resource (cider-sync-request:resource path))
+             (buffer (cider-find-file resource)))
+      (if current-prefix-arg
+          (cider-jump-to buffer 0 :other-window)
+        (cider-jump-to buffer))
+    (error "Cannot find resource %s" path)))
 (provide 'init-clojure)
