@@ -266,9 +266,9 @@ opposite of what that option dictates."
   (cider-ensure-op-supported "info")
   (if var
       (cider--jump-to-var var line)
-    (let ((symbol (cider-prompt-for-symbol-function arg)))
-      (if current-prefix
-          (cider--find-var symbol)
-        (cider--find-var symbol nil :other-window)))))
+    (let ((symbol (cider-read-symbol-name "Symbol: " #'identity)))
+      (if current-prefix-arg
+          (my-cider--find-var symbol nil :other-window)
+        (my-cider--find-var symbol)))))
 
 (provide 'init-clojure)
