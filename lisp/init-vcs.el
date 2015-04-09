@@ -79,6 +79,7 @@
       magit-diff-refine-hunk nil
       magit-wip-echo-area-message "Wrote %r"
       magit-repo-dirs '("~/git")
+      magit-last-seen-setup-instructions "1.4.0"
       magit-completing-read-function 'magit-ido-completing-read
       magit-remote-ref-format 'remote-slash-name
       magit-commit-all-when-nothing-staged nil
