@@ -6,6 +6,7 @@
 (require-package 'refheap)
 (require-package 'clojure-snippets)
 (require-package 'flycheck-clojure)
+(require 'clj-refactor-mode)
 
 (clojure-snippets-initialize)
 
