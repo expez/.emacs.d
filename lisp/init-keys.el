@@ -187,6 +187,7 @@
   "h" 'package-menu-quick-help))
 
 (fill-keymap 'global
+             "<print> " 'toggle-window-dedicated
              "C-h h" nil
              "C-h g" nil
              "C-h c" nil
