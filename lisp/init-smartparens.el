@@ -13,6 +13,11 @@
   (unless (memq major-mode sp-navigate-consider-stringlike-sexp)
     (add-to-list 'sp-navigate-consider-stringlike-sexp major-mode)))
 
+(add-hook 'cider-repl-mode-hook
+          (lambda ()
+            (setq sp-backward-bound-fn (lambda ()
+                                         cider-repl-input-start-mark))))
+
 (defun my-smartparens-mode-hook ()
   (turn-on-sp-navigate-consider-stringlike)
   (evil-smartparens-mode 1)
