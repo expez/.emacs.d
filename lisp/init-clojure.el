@@ -74,8 +74,6 @@
                "M-." 'my-cider-find-var
                "C-c M-." 'my-cider-find-resource
                "M-," 'cider-jump-back
-               "M->" 'cljr-thread
-               "M-<" 'cljr-unwind
                "M-n" 'flycheck-next-error
                "M-p" 'flycheck-previous-error
                "C-c s" 'toggle-spy
