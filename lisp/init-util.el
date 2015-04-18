@@ -603,9 +603,12 @@ indicate failure."
     (find-file (expand-file-name shell-init-file (getenv "HOME")))))
 
 (defun make-current-buffer-executable ()
+  "Make `buffer-file-name' executable."
   (interactive)
-  "Runs chmod u+x on the current buffer."
-  (chmod (buffer-file-name) (file-modes-rights-to-number "+x" ?u)))
+  (when (not (file-executable-p buffer-file-name))
+    (set-file-modes buffer-file-name
+                    (logior (file-modes buffer-file-name) #o100))
+    (message "Made %s executable" buffer-file-name)))
 
 (defun clean-and-save-buffer ()
   "Reindents the buffer and cleans up any whitespace errors.
