@@ -210,7 +210,7 @@ Called by `imenu--generic-function'."
     (let ((port (string-to-number (match-string 1 string))))
       (message (format "nREPL server started on %s" port))
       (with-current-buffer (process-buffer process)
-        (let ((client-proc (nrepl-start-client-process nil port t process)))
+        (let ((client-proc (nrepl-start-client-process nil port process)))
           ;; FIXME: Bad connection tracking system. There can be multiple client
           ;; connections per server
           (setq nrepl-connection-buffer (buffer-name (process-buffer client-proc))))))))
