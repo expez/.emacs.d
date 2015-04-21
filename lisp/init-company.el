@@ -4,7 +4,7 @@
 (require-package 'company-quickhelp)
 (require 'company-quickhelp)
 
-(setq company-idle-delay 0.2
+(setq company-idle-delay nil
       company-show-numbers t
       company-tooltip-limit 10
       company-tooltip-align-annotations t
