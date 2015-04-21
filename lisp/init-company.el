@@ -38,16 +38,4 @@
   (when company-candidates
     (company-abort)))
 
-(defun company-quickhelp--doc (selected)
-  (cl-letf (((symbol-function 'cider--var-choice) (lambda (_) (error "Ambiguous candidate!"))))
-    (let* ((doc-buffer (company-call-backend 'doc-buffer selected))
-           (doc-and-meta (when doc-buffer
-                           (company-quickhelp--doc-and-meta doc-buffer)))
-           (truncated (plist-get doc-and-meta :truncated))
-           (doc (plist-get doc-and-meta :doc)))
-      (unless (string= doc "")
-        (if truncated
-            (concat doc "\n\n[...]")
-          doc)))))
-
 (provide 'init-company)
