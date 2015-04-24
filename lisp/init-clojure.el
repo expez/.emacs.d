@@ -3,7 +3,6 @@
 (require-package 'cider)
 (require-package 'clj-refactor)
 (require-package 'clojure-cheatsheet)
-(require-package 'refheap)
 (require-package 'clojure-snippets)
 (require-package 'flycheck-clojure)
 (require 'clj-refactor)
