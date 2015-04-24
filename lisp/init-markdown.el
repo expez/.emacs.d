@@ -1,8 +1,11 @@
 (require-package 'markdown-mode)
+(require-package  'visual-fill-column)
 (require 'markdown-mode)
 
 (add-auto-mode 'markdown-mode "\\.md\\'")
 (add-auto-mode 'gfm-mode "README\\.md\\'")
+
+(global-visual-fill-column-mode)
 
 (fill-keymap markdown-mode-map
              "C-c C-f" 'nil

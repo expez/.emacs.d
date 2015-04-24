@@ -48,7 +48,7 @@
       auto-save-file-name-transforms '((".*" "~/.emacs.d/autosaves/\\1" t))
       backup-directory-alist '((".*" . "~/.emacs.d/backups/"))
       tramp-backup-directory-alist backup-directory-alist
-      browse-url-browser-function 'browse-url-generic
+      browse-url-browser-function 'eww-browse-url
       browse-url-generic-program "conkeror"
       vc-make-backup-files t
       backup-by-copying t
