@@ -263,7 +263,7 @@ opposite of what that option dictates."
   (interactive "P")
   (cider-ensure-op-supported "info")
   (if var
-      (cider--jump-to-var var line)
+      (cider--find-var var line)
     (let ((symbol (cider-read-symbol-name "Symbol: " #'identity)))
       (if current-prefix-arg
           (my-cider--find-var symbol nil :other-window)
