@@ -5,7 +5,9 @@
 (require-package 'clojure-cheatsheet)
 (require-package 'clojure-snippets)
 (require-package 'flycheck-clojure)
-(require 'clj-refactor)
+
+;; Error requiring init-clojure: (file-error Cannot open load file no such file or directory overlay)
+(add-hook 'after-init-hook (lambda ()(require 'clj-refactor)))
 
 (clojure-snippets-initialize)
 
