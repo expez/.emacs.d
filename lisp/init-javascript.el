@@ -38,6 +38,13 @@
             "beforeEach" "runs" "waits" "waitsFor" "afterEach"
             "xdescribe" "element" "by" "browser" "yasmine" "inject"))))
 
+(defun my-maybe-jsx-mode-hook ()
+  (when (and (buffer-file-name)
+             (string= (file-name-extension (buffer-file-name)) "jsx"))
+    (modify-syntax-entry ?< "(>")
+    (modify-syntax-entry ?> ")<")
+    (sp-local-pair 'js2-mode "<" "/>")))
+
 (defun my-js2-mode-hook ()
   (setq-local yas-after-exit-snippet-hook #'my-js2-exit-snippet-hook)
   (js2-imenu-extras-setup)
@@ -46,6 +53,7 @@
   (skewer-mode)
   (tern-mode t)
   (flycheck-mode t)
+  (my-maybe-jsx-mode-hook)
   (fill-keymap evil-normal-state-local-map
                "M-." 'tern-find-definition
                "M-," 'tern-pop-find-definition
@@ -200,6 +208,5 @@ to insert above current line"
         (forward-char 1))
       (newline-and-indent)
       (insert "console.log('" stmt " = ', " stmt ");"))))
-
 
 (provide 'init-javascript)
