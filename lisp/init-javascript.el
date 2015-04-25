@@ -100,9 +100,6 @@
 
 (define-key js2-mode-map (kbd "TAB") 'js2-tab-properly)
 
-(defun my-aget (key map)
-  (cdr (assoc key map)))
-
 (defun cjsp--eldoc-innards (beg)
   (save-excursion
     (goto-char beg)
