@@ -4,7 +4,6 @@
 (require-package 'js2-refactor)
 (require-package 'js2-mode)
 (require-package 'skewer-mode)
-(require 'js-lookup)
 
 ;;; bookmarklet to load skewer:
 ;;; javascript:(function(){var d=document;var s=d.createElement('script');s.src='http://localhost:8023/skewer';d.body.appendChild(s);})()
@@ -60,8 +59,7 @@
                "C-M-." 'tern-find-definition-by-name
                "M-p" 'flycheck-previous-error
                "M-n" 'flycheck-next-error
-               "C-c b" 'web-beautify-js
-               (kbd "<f1>") 'js-lookup)
+               "C-c b" 'web-beautify-js)
   (fill-keymap evil-insert-state-local-map
                (kbd "C-m") 'js-insert-block-and-semi
                (kbd "M-m") 'js-insert-block
