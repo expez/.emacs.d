@@ -4,6 +4,7 @@
 (require-package 'js2-refactor)
 (require-package 'js2-mode)
 (require-package 'skewer-mode)
+(require 'flycheck)
 
 ;;; bookmarklet to load skewer:
 ;;; javascript:(function(){var d=document;var s=d.createElement('script');s.src='http://localhost:8023/skewer';d.body.appendChild(s);})()
@@ -42,7 +43,17 @@
              (string= (file-name-extension (buffer-file-name)) "jsx"))
     (modify-syntax-entry ?< "(>")
     (modify-syntax-entry ?> ")<")
-    (sp-local-pair 'js2-mode "<" "/>")))
+    (sp-local-pair 'js2-mode "<" "/>")
+    (flycheck-select-checker 'jsxhint-checker)))
+
+(flycheck-define-checker jsxhint-checker
+  "A JSX syntax and style checker based on JSXHint."
+
+  :command ("jsxhint" source)
+  :error-patterns
+  ((error line-start (1+ nonl) ": line " line ", col " column ", " (message) line-end))
+  :modes (js2-mode))
+
 
 (defun my-js2-mode-hook ()
   (setq-local yas-after-exit-snippet-hook #'my-js2-exit-snippet-hook)
