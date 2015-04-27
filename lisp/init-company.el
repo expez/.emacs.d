@@ -13,6 +13,7 @@
       company-selection-changed t
       company-tooltip-flip-when-above nil
       company-require-match nil
+      company-quickhelp-max-lines 60
       pos-tip-border-width 0)
 
 (company-quickhelp-mode 1)
