@@ -83,7 +83,7 @@ With a prefix argument whitespac-mode is turned off."
   (whitespace-mode 0)
   (whitespace-mode 1)
   (when (called-interactively-p)
-    (message (format "Highlighting lines longer than %s chars." c))))
+    (message (format "Highlighting lines longer than %s chars." column))))
 
 (defadvice popup-tip (around disable-ethan-wspace activate)
   (let ((whitespace-mode whitespace-mode))
