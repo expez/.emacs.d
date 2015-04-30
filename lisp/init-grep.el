@@ -14,6 +14,11 @@
                                         (projectile-ignored-files)))))
     (ag/search string directory :regexp regexp)))
 
+;;; `ag-regexp' and `ag' have been altered to take
+;;; `projectile-ignored-directories' and `projectile-ignored-files'
+;;; into account when searching.
+
+;; This version has a prompt seeded with thing at point
 (defun ag-regexp (string directory)
   "Search using ag in a given directory for a given regexp.
 The regexp should be in PCRE syntax, not Emacs regexp syntax.
