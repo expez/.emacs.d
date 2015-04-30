@@ -39,11 +39,13 @@ If called with a prefix, prompts for flags to pass to ag."
 
 (add-hook 'ag-mode-hook 'wgrep-ag-setup)
 
-(fill-keymap ag-mode-map
-             (kbd "k") 'compilation-previous-error
-             (kbd "j") 'compilation-next-error
-             (kbd "q") '(lambda () (interactive)
-                          (let (kill-buffer-query-functions) (kill-buffer))))
+(evil-define-key 'motion ag-mode-map
+  (kbd "k") 'compilation-previous-error
+  (kbd "j") 'compilation-next-error
+  (kbd "C-j") 'compile-goto-error
+  (kbd "q") '(lambda () (interactive)
+               (let (kill-buffer-query-functions) (kill-buffer))))
+
 (setq ag-reuse-buffers 't)
 
 (defun rgrep-fullscreen (regexp &optional files dir confirm)
