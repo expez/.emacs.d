@@ -1,6 +1,6 @@
 (require-package 'wgrep-ack)
 (require-package 'ag)
-(require-package 'wgrep-ag)
+(require 'wgrep)
 (require 'ag)
 
 (defun project-relative-path (path)
@@ -41,6 +41,7 @@ If called with a prefix, prompts for flags to pass to ag."
 
 (evil-define-key 'motion ag-mode-map
   (kbd "k") 'compilation-previous-error
+  (kbd "C-c C-p") 'wgrep-change-to-wgrep-mode
   (kbd "j") 'compilation-next-error
   (kbd "C-j") 'compile-goto-error
   (kbd "q") '(lambda () (interactive)
