@@ -63,6 +63,7 @@
   (skewer-mode)
   (tern-mode t)
   (flycheck-mode t)
+  (aggressive-indent-mode 0)
   (my-maybe-jsx-mode-hook)
   (fill-keymap evil-normal-state-local-map
                "M-." 'tern-find-definition
