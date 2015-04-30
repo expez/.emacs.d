@@ -13,14 +13,15 @@
 
 (defun my-scss-mode-hook ()
   (turn-on-css-eldoc)
-  (fill-keymap sass-mode-map (kbd "C-c C-e") 'edit-or-insert-color-stamp))
+  (fill-keymap sass-mode-map
+               "C-c C-e" 'edit-or-insert-color-stamp
+               "C-c b" 'web-beautify-dwim))
 
 (add-hook 'scss-mode-hook #'my-scss-mode-hook)
 
 (dolist (hook '(css-mode-hook sass-mode-hook haml-mode-hook scss-mode-hook))
   (add-hook hook 'rainbow-mode))
 
-(add-hook 'css-mode-hook 'ac-emmet-css-setup)
 (add-hook 'css-mode-hook  'emmet-mode)
 
 (setq css-indent-offset 2

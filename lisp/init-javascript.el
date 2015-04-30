@@ -5,9 +5,22 @@
 (require-package 'js2-mode)
 (require-package 'skewer-mode)
 (require 'flycheck)
+(require-package 'web-beautify)
 
 ;;; bookmarklet to load skewer:
 ;;; javascript:(function(){var d=document;var s=d.createElement('script');s.src='http://localhost:8023/skewer';d.body.appendChild(s);})()
+
+(defun web-beautify-dwim ()
+  (interactive)
+  (cond
+   ((string= (file-name-extension (buffer-file-name)) "html") (web-beautify-html))
+   ((string= (file-name-extension (buffer-file-name)) "css") (web-beautify-css))
+   ((string= (file-name-extension (buffer-file-name)) "scss") (web-beautify-css))
+   ((string= (file-name-extension (buffer-file-name)) "less") (web-beautify-css))
+   ((string= (file-name-extension (buffer-file-name)) "sass") (web-beautify-css))
+   ((string= (file-name-extension (buffer-file-name)) "js") (web-beautify-js))
+   (t (message "Not sure how to beautify file ending with '%s'"
+               (file-name-extension (buffer-file-name))))))
 
 (defun skewer-start ()
   (interactive)
