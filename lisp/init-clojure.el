@@ -78,6 +78,7 @@
                "M-n" 'flycheck-next-error
                "M-p" 'flycheck-previous-error
                "C-c s" 'toggle-spy
+               "C-c f" 'toggle-foo
                "C-c R" 'cider-component-reset))
 
 (add-hook 'clojure-mode-hook #'my-clojure-mode-hook)
@@ -157,6 +158,44 @@
     (goto-char (point-max))
     (insert "(user/reset)")
     (cider-repl-return)))
+
+(defun toggle-print-foo ()
+  "Insert a single print-foo, around point, or remove all existing print-foos.
+
+With a prefix add print-foo throughout the function."
+  (interactive)
+  (save-excursion
+    (save-restriction
+      (narrow-to-defun)
+      (let* ((foo-regexp
+              (rx (and "print-" (or ">" ">>" "if" "let" "cond->"
+                                    "cond->> ""cond" "defn-" "defn"))))
+             (replacement-regexp (rx (or "->" "->>" "if" "let" "cond->"
+                                         "cond->> ""cond" "defn-" "defn")))
+             (found (save-excursion (goto-char (point-min))
+                                    (re-search-forward foo-regexp nil :no-error))))
+        (if found
+            (progn
+              (goto-char (point-min))
+              (while (re-search-forward foo-regexp nil :no-error)
+                (paredit-backward)
+                (delete-char 6) ; delete print-
+                (when (looking-at-p ">")
+                  (insert "-"))))
+          (if current-prefix-arg
+              (progn
+                (goto-char (point-min))
+                (while (not (eobp))
+                  (if (not (looking-at-p replacement-regexp))
+                      (forward-char)
+                    (if (looking-at-p "->")
+                        (insert "print")
+                      (insert "print-"))
+                    (paredit-forward))))
+            (re-search-backward replacement-regexp nil :no-error)
+            (if (looking-at-p "->")
+                (insert "print")
+              (insert "print-"))))))))
 
 (defun toggle-spy (p)
   (interactive "P")
