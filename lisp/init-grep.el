@@ -3,6 +3,17 @@
 (require-package 'wgrep-ag)
 (require 'ag)
 
+(defun project-relative-path (path)
+  "Returns a path relative to the project root"
+  (let ((root (or (projectile-project-root) "")))
+    (s-chop-prefix root path)))
+
+(defun my-ag (string dir &optional regexp)
+  (let ((ag-ignore-list (mapcar #'project-relative-path
+                                (append (projectile-ignored-directories)
+                                        (projectile-ignored-files)))))
+    (ag/search string directory :regexp regexp)))
+
 (defun ag-regexp (string directory)
   "Search using ag in a given directory for a given regexp.
 The regexp should be in PCRE syntax, not Emacs regexp syntax.
@@ -10,7 +21,18 @@ The regexp should be in PCRE syntax, not Emacs regexp syntax.
 If called with a prefix, prompts for flags to pass to ag."
   (interactive (list (read-from-minibuffer "Search regexp: " (ag/dwim-at-point))
                      (read-directory-name "Directory: ")))
-  (ag/search string directory :regexp t))
+  (my-ag string directory :regexp))
+
+(defun ag (string directory)
+  "Search using ag in a given DIRECTORY for a given search STRING,
+with STRING defaulting to the symbol under point.
+
+If called with a prefix, prompts for flags to pass to ag."
+  (interactive (list (read-from-minibuffer "Search string: " (ag/dwim-at-point))
+                     (read-directory-name "Directory: ")))
+  (my-ag string directory))
+
+(add-hook 'ag-mode-hook 'wgrep-ag-setup)
 
 (fill-keymap ag-mode-map
              (kbd "k") 'compilation-previous-error
