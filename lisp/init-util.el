@@ -643,7 +643,7 @@ Then saves the buffer."
 
 (defun buffer-to-utf8 ()
   (interactive)
-  (set-buffer-file-coding-system 'utf-8 t)
+  (set-buffer-file-coding-system 'utf-8-unix t)
   (save-buffer))
 
 (defun run-term (&optional arg)
