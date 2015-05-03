@@ -88,6 +88,8 @@
       cider-repl-popup-stacktraces nil
       cider-popup-stacktraces t
       cider-repl-popup-stacktraces t
+      cider-repl-use-pretty-printing t
+      cider-prompt-save-file-on-load nil
       cider-interactive-eval-result-prefix ";; => "
       cider-repl-history-file "~/.emacs.d/nrepl-history")
 
