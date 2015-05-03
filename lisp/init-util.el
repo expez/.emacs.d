@@ -139,7 +139,7 @@ For Mac OS X, use “'unix”."
 (defun insert-date ()
   "Insert a time-stamp according to locale's date and time format."
   (interactive)
-  (insert (format-time-string "%c" (current-time))))
+  (insert (format-time-string "%F" (current-time))))
 
 (defun how-many-in-region (begin end regexp &optional interactive)
   "Print number of non-trivial matches for REGEXP in region.
