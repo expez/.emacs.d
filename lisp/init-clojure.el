@@ -78,7 +78,7 @@
                "M-n" 'flycheck-next-error
                "M-p" 'flycheck-previous-error
                "C-c s" 'toggle-spy
-               "C-c f" 'toggle-foo
+               "C-c f" 'toggle-print-foo
                "C-c R" 'cider-component-reset))
 
 (add-hook 'clojure-mode-hook #'my-clojure-mode-hook)
