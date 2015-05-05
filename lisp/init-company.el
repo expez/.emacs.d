@@ -28,7 +28,7 @@
 
 (defun company-complete-dabbrev ()
   (interactive)
-  (let ((company-backends '(company-dabbrev-code)))
+  (let ((company-backends (cons 'company-dabbrev company-backends)))
     (company-complete)))
 
 (after-load 'evil
