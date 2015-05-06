@@ -28,8 +28,11 @@
 (add-hook 'cider-mode-hook 'my-cider-mode-hook)
 
 (defun my-cider-browse-ns-mode-hook ()
-  (fill-keymap evil-normal-state-local-map (kbd "q")
-               'cider-popup-buffer-quit-function))
+  (fill-keymap evil-normal-state-local-map
+               (kbd "q") #'cider-popup-buffer-quit-function
+               (kbd "d") #'cider-browse-ns--doc-at-point
+               (kbd "s") #'cider-browse-ns--var-at-point))
+
 (add-hook 'cider-browse-ns-mode-hook 'my-cider-browse-ns-mode-hook)
 
 (defun my-cider-repl-mode-hook ()
