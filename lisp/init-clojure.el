@@ -174,9 +174,9 @@ With a prefix add print-foo throughout the function."
       (narrow-to-defun)
       (let* ((foo-regexp
               (rx (and "print-" (or ">" ">>" "if" "let" "cond->"
-                                    "cond->> ""cond" "defn-" "defn"))))
-             (replacement-regexp (rx (or "->" "->>" "if" "let" "cond->"
-                                         "cond->> ""cond" "defn-" "defn")))
+                                    "cond->>""cond" "defn-" "defn"))))
+             (replacement-regexp (rx (or "(->" "(->>" "(if" "(let" "(cond->"
+                                         "(cond->>" "(cond" "(defn-" "(defn")))
              (found (save-excursion (goto-char (point-min))
                                     (re-search-forward foo-regexp nil :no-error))))
         (if found
@@ -198,9 +198,11 @@ With a prefix add print-foo throughout the function."
                       (insert "print-"))
                     (paredit-forward))))
             (re-search-backward replacement-regexp nil :no-error)
+            (forward-char)
             (if (looking-at-p "->")
                 (insert "print")
-              (insert "print-"))))))))
+              (insert "print-")))))))
+  (save-buffer))
 
 (defun toggle-spy (p)
   (interactive "P")
