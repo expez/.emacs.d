@@ -51,17 +51,22 @@
             "beforeEach" "runs" "waits" "waitsFor" "afterEach"
             "xdescribe" "element" "by" "browser" "yasmine" "inject"))))
 
+(defun find-jshintrc ()
+  (expand-file-name ".jshintrc"
+                    (locate-dominating-file
+                     (or (buffer-file-name) default-directory) ".jshintrc")))
+
 (defun my-maybe-jsx-mode-hook ()
   (when (and (buffer-file-name)
              (string= (file-name-extension (buffer-file-name)) "jsx"))
     (modify-syntax-entry ?< "(>")
     (modify-syntax-entry ?> ")<")
     (sp-local-pair 'js2-mode "<" "/>")
+    (setq-local jshint-configuration-path (find-jshintrc))
     (flycheck-select-checker 'jsxhint-checker)))
 
 (flycheck-define-checker jsxhint-checker
   "A JSX syntax and style checker based on JSXHint."
-
   :command ("jsxhint" source)
   :error-patterns
   ((error line-start (1+ nonl) ": line " line ", col " column ", " (message) line-end))
