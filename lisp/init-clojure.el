@@ -216,29 +216,6 @@ With a prefix add print-foo throughout the function."
           (end (progn (paredit-forward) (point))))
       (replace-regexp "#spy/d " "" nil start end))))
 
-;;; modified to place s/def{,} into the imenu, when using Schemas
-(defun clojure-match-next-def ()
-  "Scans the buffer backwards for the next top-level definition.
-Called by `imenu--generic-function'."
-  (when (re-search-backward "^(\\(s/\\)?def\\sw*" nil t)
-    (save-excursion
-      (let (found?
-            (start (point)))
-        (down-list)
-        (forward-sexp)
-        (while (not found?)
-          (forward-sexp)
-          (or (if (char-equal ?[ (char-after (point)))
-                              (backward-sexp))
-                  (if (char-equal ?) (char-after (point)))
-                (backward-sexp)))
-          (destructuring-bind (def-beg . def-end) (bounds-of-thing-at-point 'sexp)
-            (if (char-equal ?^ (char-after def-beg))
-                (progn (forward-sexp) (backward-sexp))
-              (setq found? t)
-              (set-match-data (list def-beg def-end)))))
-        (goto-char start)))))
-
 (defun nrepl-server-filter (process string)
   "Process server PROCESS output contained in STRING."
   (with-current-buffer (process-buffer process)
