@@ -80,9 +80,7 @@
                 (?> . ("<" . ">"))
                 (?t . evil-surround-read-tag)
                 (?< . evil-surround-read-tag)
-                (?f . evil-surround-function)
-                ;; workaround to get esc to cancel surround
-                (?\C-\[ . ("" . ""))))
+                (?f . evil-surround-function)))
 
 (setq evil-insert-state-cursor '("red" hbar)
       evil-normal-state-cursor '("white" box)
