@@ -89,6 +89,7 @@
       evil-want-visual-char-semi-exclusive t
       evil-move-cursor-back nil
       evil-want-C-u-scroll t
+      evil-want-fine-undo nil
       evil-ex-hl-update-delay 0.01)
 
 (evil-ex-define-cmd "n[ew]" 'evil-window-new)
