@@ -238,7 +238,7 @@ being turned into a string."
 the current position of point, then move it to the beginning of the line."
   (interactive)
   (let ((pt (point)))
-    (beginning-of-line-text)
+    (back-to-indentation)
     (when (eq pt (point))
       (beginning-of-line))))
 
