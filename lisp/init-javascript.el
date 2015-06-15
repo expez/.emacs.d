@@ -51,10 +51,16 @@
             "beforeEach" "runs" "waits" "waitsFor" "afterEach"
             "xdescribe" "element" "by" "browser" "yasmine" "inject"))))
 
-(defun find-jshintrc ()
-  (expand-file-name ".jshintrc"
-                    (locate-dominating-file
-                     (or (buffer-file-name) default-directory) ".jshintrc")))
+(defun find-eslint ()
+  (let ((local-eslint (concat (file-name-directory
+                               (expand-file-name "package.json"
+                                                 (locate-dominating-file
+                                                  (buffer-file-name)
+                                                  "package.json")))
+                              "node_modules/.bin/eslint")))
+    (if (file-exists-p local-eslint)
+        local-eslint
+      (path-to-executable "eslint"))))
 
 (defun my-maybe-jsx-mode-hook ()
   (when (and (buffer-file-name)
@@ -62,16 +68,8 @@
     (modify-syntax-entry ?< "(>")
     (modify-syntax-entry ?> ")<")
     (sp-local-pair 'js2-mode "<" "/>")
-    (setq-local jshint-configuration-path (find-jshintrc))
-    (flycheck-select-checker 'jsxhint-checker)))
-
-(flycheck-define-checker jsxhint-checker
-  "A JSX syntax and style checker based on JSXHint."
-  :command ("jsxhint" source)
-  :error-patterns
-  ((error line-start (1+ nonl) ": line " line ", col " column ", " (message) line-end))
-  :modes (js2-mode))
-
+    (setq-local flycheck-javascript-eslint-executable (find-eslint))
+    (flycheck-select-checker 'javascript-eslint)))
 
 (defun my-js2-mode-hook ()
   (setq-local yas-after-exit-snippet-hook #'my-js2-exit-snippet-hook)
@@ -97,8 +95,7 @@
   (fill-keymap js2-mode-map
                "C-c C-a" 'jshint-annotate))
 
-(add-hook 'js2-mode-hook
-          #'my-js2-mode-hook)
+(add-hook 'js2-mode-hook #'my-js2-mode-hook)
 
 (setq-default js2-use-font-lock-faces t
               js2-bounce-indent-p nil
