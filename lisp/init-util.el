@@ -543,12 +543,13 @@ file of a buffer in an external program."
 (defun path-to-executable (program)
   "Returns the path to `program' or NIL.  Relies on which, so
 only works on *nix."
-  (let* ((which (s-chomp (shell-command-to-string (concat "which " program))))
-         (executable (if (or (string-match "not found" which)
-                             (string-match "no \\w+ in" which))
-                         nil
-                       which)))
-    executable))
+  (ignore-errors
+    (let* ((which (s-chomp (shell-command-to-string (concat "which " program))))
+           (executable (if (or (string-match "not found" which)
+                               (string-match "no \\w+ in" which))
+                           nil
+                         which)))
+      executable)))
 
 (defun inside-string-p ()
   "T if point is inside a string, NIL otherwise."
