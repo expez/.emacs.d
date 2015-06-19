@@ -292,4 +292,16 @@ opposite of what that option dictates."
           (my-cider--find-var symbol nil :other-window)
         (my-cider--find-var symbol)))))
 
+(defun cljr-guard-with-reader-conditional (cljs?)
+  (interactive "P")
+  (unless (looking-back "\\s-+")
+    (paredit-backward))
+  (paredit-wrap-round)
+  (forward-char -1)
+  (insert "#?")
+  (paredit-forward-down)
+  (if cljs?
+      (insert ":cljs ")
+    (insert ":clj ")))
+
 (provide 'init-clojure)
