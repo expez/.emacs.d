@@ -233,26 +233,6 @@ With a prefix add print-foo throughout the function."
           ;; connections per server
           (setq nrepl-connection-buffer (buffer-name (process-buffer client-proc))))))))
 
-(defun cljr--create-missing-test-file (oldfun &rest args)
-  (condition-case nil
-      (funcall oldfun)
-    ('error (save-window-excursion (cljr-create-test-file)) (funcall oldfun))))
-
-(advice-add 'projectile-toggle-between-implementation-and-test :around
-            #'cljr--create-missing-test-file)
-
-(defun cljr-create-test-file ()
-  (interactive)
-  (when (eq major-mode 'clojure-mode)
-    (let* ((test-file (s-replace-all '(("/src/" . "/test/") (".clj" . "_test.clj"))
-                                     (buffer-file-name)))
-           (test-dir (file-name-directory test-file))
-           (test-name (file-name-nondirectory test-file)))
-      (make-directory test-dir :create-parents)
-      (find-file-other-window test-file)
-      (cljr--add-ns-if-blank-clj-file)
-      (save-buffer))))
-
 (defun cljr-guard-with-reader-conditional (cljs?)
   (interactive "P")
   (unless (looking-back "\\s-+")
