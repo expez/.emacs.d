@@ -41,8 +41,6 @@
   (company-mode 1)
   (eldoc-mode)
   (fill-keymaps '(evil-insert-state-local-map evil-normal-state-local-map)
-                "M-." 'my-cider-find-var
-                "C-c M-." 'my-cider-find-resource
                 "M-," 'cider-jump-back)
   (whitespace-mode 0)
   (evil-force-normal-state))
@@ -75,8 +73,6 @@
   (local-set-key (kbd "RET") 'newline-and-indent)
   (fill-keymap evil-normal-state-local-map
                "M-q" '(lambda () (interactive) (clojure-fill-paragraph))
-               "M-." 'my-cider-find-var
-               "C-c M-." 'my-cider-find-resource
                "M-," 'cider-jump-back
                "M-n" 'flycheck-next-error
                "M-p" 'flycheck-previous-error
@@ -237,59 +233,16 @@ With a prefix add print-foo throughout the function."
           ;; connections per server
           (setq nrepl-connection-buffer (buffer-name (process-buffer client-proc))))))))
 
-(defun cljr--create-missing-test-file (oldfun &rest args)
-  (condition-case nil
-      (funcall oldfun)
-    ('error (save-window-excursion (cljr-create-test-file)) (funcall oldfun))))
-
-(advice-add 'projectile-toggle-between-implementation-and-test :around
-            #'cljr--create-missing-test-file)
-
-(defun cljr-create-test-file ()
-  (interactive)
-  (when (eq major-mode 'clojure-mode)
-    (let* ((test-file (s-replace-all '(("/src/" . "/test/") (".clj" . "_test.clj"))
-                                     (buffer-file-name)))
-           (test-dir (file-name-directory test-file))
-           (test-name (file-name-nondirectory test-file)))
-      (make-directory test-dir :create-parents)
-      (find-file-other-window test-file)
-      (cljr--add-ns-if-blank-clj-file)
-      (save-buffer))))
-
-;; Uses prefix to open in other window
-(defun my-cider-find-resource (path)
-  "Jump to the resource at the resource-relative PATH.
-When called interactively, this operates on point."
-  (interactive (list (thing-at-point 'filename)))
-  (cider-ensure-op-supported "resource")
-  (-if-let* ((resource (cider-sync-request:resource path))
-             (buffer (cider-find-file resource)))
-      (if current-prefix-arg
-          (cider-jump-to buffer 0 :other-window)
-        (cider-jump-to buffer))
-    (error "Cannot find resource %s" path)))
-
-(defun my-cider--find-var (var &optional line other-window)
-  "Jump to the definition of VAR, optionally at a specific LINE."
-  (-if-let (info (cider-var-info var))
-      (progn
-        (if line (setq info (nrepl-dict-put info "line" line)))
-        (cider--jump-to-loc-from-info info other-window))
-    (error "Symbol %s not resolved" var)))
-
-(defun my-cider-find-var (&optional arg var line)
-  "Jump to the definition of VAR, optionally at a specific LINE.
-Prompts for the symbol to use, or uses the symbol at point, depending on
-the value of `cider-prompt-for-symbol'. With prefix arg ARG, does the
-opposite of what that option dictates."
+(defun cljr-guard-with-reader-conditional (cljs?)
   (interactive "P")
-  (cider-ensure-op-supported "info")
-  (if var
-      (cider--find-var var line)
-    (let ((symbol (cider-read-symbol-name "Symbol: " #'identity)))
-      (if current-prefix-arg
-          (my-cider--find-var symbol nil :other-window)
-        (my-cider--find-var symbol)))))
+  (unless (looking-back "\\s-+")
+    (paredit-backward))
+  (paredit-wrap-round)
+  (forward-char -1)
+  (insert "#?")
+  (paredit-forward-down)
+  (if cljs?
+      (insert ":cljs ")
+    (insert ":clj ")))
 
 (provide 'init-clojure)
