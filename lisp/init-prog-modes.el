@@ -71,4 +71,23 @@ clean buffer we're an order of magnitude laxer about checking."
                                             idle-change
                                             mode-enabled))
 
+(setq compilation-ask-about-save nil
+      compilation-scroll-output 'next-error
+      compilation-skip-threshold 2)
+
+(defcustom endless/compile-window-size 60
+  "Width given to the compilation window."
+  :type 'integer
+  :group 'endless)
+
+(defun endless/compile-please ()
+  "Compile without confirmation."
+  (interactive)
+  (save-window-excursion
+    (compile compile-command))
+  (pop-to-buffer (get-buffer "*compilation*"))
+  (enlarge-window
+   (- endless/compile-window-size (window-width))
+   'horizontal))
+
 (provide 'init-prog-modes)

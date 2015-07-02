@@ -12,7 +12,7 @@
   "A" 'align-regexp
   "a" 'ag-regexp
   "b" 'projectile-switch-to-buffer
-  "c" 'compile
+  "c" 'endless/compile-please
   "C" 'toggle-bury-compilation-buffer
   "d" 'dired-jump
   "f" 'projectile-find-file
