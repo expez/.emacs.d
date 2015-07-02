@@ -84,39 +84,6 @@
       magit-stage-all-confirm nil
       magit-unstage-all-confirm nil)
 
-(evil-add-hjkl-bindings magit-commit-mode-map 'emacs
-  "h" 'magit-key-mode-popup-diff-options
-  "l" 'magit-key-mode-popup-logging
-  (kbd "C-w") 'evil-window-map)
-
-(fill-keymap magit-log-mode-map
-             "j" 'magit-goto-next-section
-             "k" 'magit-goto-previous-section
-             "C-w" 'evil-window-map)
-
-(evil-add-hjkl-bindings magit-diff-mode-map 'emacs)
-
-(evil-add-hjkl-bindings git-rebase-mode-map 'emacs
-  "K" 'git-rebase-kill-line
-  "h" 'describe-mode)
-
-(evil-add-hjkl-bindings magit-status-mode-map 'emacs
-  "C" 'magit-key-mode-popup-committing
-  "c" 'magit-commit
-  "W" 'magit-toggle-whitespace
-  (kbd "C-w") 'evil-window-map
-  "M-w" 'magit-copy-item-as-kill
-  "K" 'magit-discard-item
-  (kbd "C-x C-k") 'magit-kill-file-on-line
-  (kbd "C-c C-a") 'magit-commit-extend
-  "l" 'magit-key-mode-popup-logging
-  ":" 'magit-git-command
-  "h" 'magit-toggle-diff-refine-hunk)
-
-(evil-add-hjkl-bindings magit-branch-manager-mode-map 'emacs
-  "K" 'magit-discard-item
-  "L" 'magit-key-mode-popup-logging)
-
 (defun magit-toggle-whitespace ()
   (interactive)
   (if (member "-w" magit-diff-options)
