@@ -54,16 +54,16 @@
   "Visit the current branch's PR on Github."
   (interactive)
   (browse-url
-   (format "https://github.com/%s/compare/%s"
-     (replace-regexp-in-string
-      "\\`.+github\\.com:\\(.+\\)\\.git\\'" "\\1"
-      (magit-get "remote"
-                 (magit-get-current-remote)
-                 "url"))
-     (magit-get-current-branch))))
+   (format "https://github.com/%s/pull/new/%s"
+           (replace-regexp-in-string
+            "\\`.+github\\.com:\\(.+\\)\\.git\\'" "\\1"
+            (magit-get "remote"
+                       (magit-get-remote)
+                       "url"))
+           (cdr (magit-get-remote-branch)))))
 
 (eval-after-load 'magit
-  '(define-key magit-mode-map "V"
+  '(define-key magit-mode-map "v"
      #'endless/visit-pull-request-url))
 
 (add-hook 'magit-mode-hook #'endless/add-PR-fetch)
@@ -85,7 +85,6 @@
       magit-commit-all-when-nothing-staged nil
       magit-stage-all-confirm nil
       magit-unstage-all-confirm nil)
-
 
 (evil-add-hjkl-bindings magit-commit-mode-map 'emacs
   "h" 'magit-key-mode-popup-diff-options
