@@ -9,7 +9,10 @@
 (global-git-gutter-mode t)
 
 (add-hook 'magit-mode-hook 'turn-on-magit-gh-pulls)
-(global-magit-wip-save-mode 1)
+
+(magit-wip-after-apply-mode 1)
+(magit-wip-after-save-mode 1)
+(magit-wip-before-change-mode 1)
 
 (after-load 'projectile
   (setq magit-repo-dirs

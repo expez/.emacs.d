@@ -131,7 +131,7 @@
           magit-branch-manager-mode
           magit-commit-mode
           magit-log-mode
-          git-rebase-mode
+          magit-popup-mode
           log-view-mode
           project-explorer-mode
           paradox-menu-mode
