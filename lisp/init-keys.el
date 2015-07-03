@@ -192,6 +192,8 @@
              "C-h g" nil
              "C-h c" nil
              "C-x v p" 'git-messenger:popup-message
+             "C-x m" 'ido-hacks-execute-extended-command
+             "C-x C-m" 'ido-hacks-execute-extended-command
              "C-x c" 'compile
              "C-x C-c" 'compile
              "C-x s" '(lambda ()(interactive)(ansi-term "/bin/zsh"))
@@ -221,10 +223,7 @@
              "C-w" 'evil-window-map
              "C-;" 'ace-window
              "C-x C-k" 'ido-kill-buffer
-             "C-x C-(" 'kmacro-keymap
-             "M-x" 'smex
-             "C-x m" 'smex
-             "C-x C-m" 'smex)
+             "C-x C-(" 'kmacro-keymap)
 
 (after-load 'workgroups
   (fill-keymap 'global "C-x w" wg-map))
