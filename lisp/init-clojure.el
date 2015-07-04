@@ -90,7 +90,8 @@
       cider-repl-use-pretty-printing t
       cider-prompt-save-file-on-load nil
       cider-interactive-eval-result-prefix ";; => "
-      cider-repl-history-file "~/.emacs.d/nrepl-history")
+      cider-repl-history-file "~/.emacs.d/nrepl-history"
+      cljr-use-multiple-cursors nil)
 
 (defadvice cider-repl-return (before normal-mode activate)
   (evil-normal-state))
