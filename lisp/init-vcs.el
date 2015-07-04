@@ -14,6 +14,8 @@
 (magit-wip-after-save-mode 1)
 (magit-wip-before-change-mode 1)
 
+(global-git-commit-mode 1)
+
 (after-load 'projectile
   (setq magit-repo-dirs
         (mapcar
