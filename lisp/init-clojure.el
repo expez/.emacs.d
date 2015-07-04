@@ -61,24 +61,24 @@
   (add-to-list 'flycheck-disabled-checkers 'clojure-cider-typed)
   (add-to-list 'flycheck-disabled-checkers 'clojure-cider-kibit)
   (cider-mode 1)
-  (fill-keymap cider-mode-map
+  (cljr-add-keybindings-with-prefix "C-c C-m")
+  (local-set-key (kbd "RET") 'newline-and-indent)
+  (fill-keymap evil-normal-state-local-map
+               "M-q" '(lambda () (interactive) (clojure-fill-paragraph))
+               "M-," 'cider-jump-back
+               "M-." 'cider-find-var
+               "M-n" 'flycheck-next-error
+               "M-p" 'flycheck-previous-error
+               "C-c s" 'toggle-spy
+               "C-c f" 'toggle-print-foo
+               "C-c R" 'cider-component-reset
                "C-c C-e" 'cider-eval-defun-at-point
                "C-c C-m" nil
                "C-c h" 'clojure-cheatsheet
                "C-c M-b" 'cider-browse-ns-all
                "C-c m" 'cider-macroexpand-1
                "C-c c" 'cider-clear-errors
-               "C-c M" 'cider-macroexpand-all)
-  (cljr-add-keybindings-with-prefix "C-c C-m")
-  (local-set-key (kbd "RET") 'newline-and-indent)
-  (fill-keymap evil-normal-state-local-map
-               "M-q" '(lambda () (interactive) (clojure-fill-paragraph))
-               "M-," 'cider-jump-back
-               "M-n" 'flycheck-next-error
-               "M-p" 'flycheck-previous-error
-               "C-c s" 'toggle-spy
-               "C-c f" 'toggle-print-foo
-               "C-c R" 'cider-component-reset))
+               "C-c M" 'cider-macroexpand-all))
 
 (add-hook 'clojure-mode-hook #'my-clojure-mode-hook)
 
@@ -157,7 +157,7 @@
   (with-current-buffer (cider-current-repl-buffer)
     (cider-repl-set-ns "user")
     (goto-char (point-max))
-    (insert "(user/reset)")
+    (insert "(reloaded.repl/reset)")
     (cider-repl-return)))
 
 (defun toggle-print-foo ()
