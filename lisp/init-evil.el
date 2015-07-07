@@ -132,6 +132,7 @@
           magit-commit-mode
           magit-log-mode
           magit-popup-mode
+          magit-popup-sequence-mode
           log-view-mode
           project-explorer-mode
           paradox-menu-mode
