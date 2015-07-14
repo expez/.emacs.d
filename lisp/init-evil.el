@@ -133,6 +133,7 @@
           magit-log-mode
           magit-popup-mode
           magit-popup-sequence-mode
+          git-rebase-mode
           log-view-mode
           project-explorer-mode
           paradox-menu-mode
