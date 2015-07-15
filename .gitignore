@@ -36,3 +36,6 @@ request/
 /bookmarks
 /.mc-lists.el
 /.sx/
+/company-statistics-cache.el
+/smex-items
+tmp/
