@@ -53,6 +53,13 @@
 (after-load 'flycheck
   (flycheck-clojure-setup))
 
+(after-load 'cider
+  (fill-keymap cider-mode-map
+               "C-c m" 'cider-macroexpand-1
+               "C-c c" 'cider-clear-errors
+               "C-c M" 'cider-macroexpand-all
+               "C-c M-b" 'cider-browse-ns-all))
+
 (defun my-clojure-mode-hook ()
   (rainbow-delimiters-mode 0)
   (flycheck-mode 1)
@@ -74,11 +81,7 @@
                "C-c R" 'cider-component-reset
                "C-c C-e" 'cider-eval-defun-at-point
                "C-c C-m" nil
-               "C-c h" 'clojure-cheatsheet
-               "C-c M-b" 'cider-browse-ns-all
-               "C-c m" 'cider-macroexpand-1
-               "C-c c" 'cider-clear-errors
-               "C-c M" 'cider-macroexpand-all))
+               "C-c h" 'clojure-cheatsheet))
 
 (add-hook 'clojure-mode-hook #'my-clojure-mode-hook)
 
