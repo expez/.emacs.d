@@ -38,4 +38,4 @@ request/
 /.sx/
 /company-statistics-cache.el
 /smex-items
-tmp/
+/tmp/
