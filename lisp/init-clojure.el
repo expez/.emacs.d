@@ -87,6 +87,7 @@
 
 (setq nrepl-hide-special-buffers nil
       nrepl-auto-select-error-buffer t
+      nrepl-log-messages t
       cider-repl-popup-stacktraces nil
       cider-popup-stacktraces t
       cider-repl-popup-stacktraces t
