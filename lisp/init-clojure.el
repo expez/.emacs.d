@@ -41,6 +41,7 @@
   (company-mode 1)
   (eldoc-mode)
   (fill-keymaps '(evil-insert-state-local-map evil-normal-state-local-map)
+                "M-." 'cider-find-var
                 "M-," 'cider-jump-back)
   (whitespace-mode 0)
   (evil-force-normal-state))
