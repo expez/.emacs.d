@@ -96,7 +96,9 @@
       cider-prompt-save-file-on-load nil
       cider-interactive-eval-result-prefix ";; => "
       cider-repl-history-file "~/.emacs.d/nrepl-history"
-      cljr-use-multiple-cursors nil)
+      cljr-use-multiple-cursors nil
+      cider-cljs-repl "(do (require 'cljs.repl.nashorn)
+(cemerick.piggieback/cljs-repl (cljs.repl.nashorn/repl-env)))")
 
 (defadvice cider-repl-return (before normal-mode activate)
   (evil-normal-state))
@@ -134,12 +136,6 @@
                   "(cemerick.piggieback/cljs-repl :repl-env"
                   "(weasel.repl.websocket/repl-env"
                   ":ip \"0.0.0.0\" :port 9001))"))))
-
-(setq repls-cljs-setup
-"(require 'weasel.repl.websocket)
- (cemerick.piggieback/cljs-repl
-   :repl-env
-   (weasel.repl.websocket/repl-env :ip \"0.0.0.0\" :port 9001))")
 
 (defun insert-weasel-and-fighweel-client-code ()
   (insert
