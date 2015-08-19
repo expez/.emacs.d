@@ -77,17 +77,8 @@
 
 (add-hook 'git-commit-mode-hook 'turn-on-flyspell)
 
-(setq magit-commit-signoff nil
-      magit-save-some-buffers nil
-      magit-diff-refine-hunk nil
-      magit-wip-echo-area-message "Wrote %r"
-      magit-repo-dirs '("~/git")
-      magit-last-seen-setup-instructions "1.4.0"
-      magit-completing-read-function 'magit-ido-completing-read
-      magit-remote-ref-format 'remote-slash-name
-      magit-commit-all-when-nothing-staged nil
-      magit-stage-all-confirm nil
-      magit-unstage-all-confirm nil)
+(setq magit-diff-refine-hunk nil
+      magit-completing-read-function 'magit-ido-completing-read)
 
 (defun magit-toggle-whitespace ()
   (interactive)
