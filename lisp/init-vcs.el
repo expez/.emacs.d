@@ -78,6 +78,8 @@
 (add-hook 'git-commit-mode-hook 'turn-on-flyspell)
 
 (setq magit-diff-refine-hunk nil
+      magit-repository-directories (list "~/git")
+      magit-save-repository-buffers 'dontask
       magit-completing-read-function 'magit-ido-completing-read)
 
 (defun magit-toggle-whitespace ()
