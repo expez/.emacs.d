@@ -99,14 +99,6 @@
   (setq magit-diff-options (remove "-w" magit-diff-options))
   (magit-refresh))
 
-(defadvice magit-status (around magit-fullscreen activate)
-  (window-configuration-to-register :magit-fullscreen)
-  ad-do-it
-  (delete-other-windows))
-
-(defadvice magit-mode-quit-window (after magit-restore-screen activate)
-  (jump-to-register :magit-fullscreen))
-
 (defadvice gist-region-or-buffer (around url-to-clipboard activate)
   "gist region or buffer does not play well with Evil-mode.  Advice it
   to put the URL into the clipboard, where previously
