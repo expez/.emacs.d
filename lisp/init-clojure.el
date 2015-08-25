@@ -87,14 +87,11 @@
 (add-hook 'clojure-mode-hook #'my-clojure-mode-hook)
 
 (setq nrepl-hide-special-buffers nil
-      nrepl-auto-select-error-buffer t
       nrepl-log-messages t
-      cider-repl-popup-stacktraces nil
       cider-popup-stacktraces t
       cider-repl-popup-stacktraces t
       cider-repl-use-pretty-printing t
       cider-prompt-save-file-on-load nil
-      cider-interactive-eval-result-prefix ";; => "
       cider-repl-history-file "~/.emacs.d/nrepl-history"
       cljr-use-multiple-cursors nil
       cider-cljs-repl "(do (require 'cljs.repl.nashorn)
