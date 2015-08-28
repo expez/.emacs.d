@@ -39,3 +39,4 @@ request/
 /company-statistics-cache.el
 /smex-items
 /tmp/
+/async-bytecomp.log
