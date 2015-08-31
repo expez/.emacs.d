@@ -1,5 +1,6 @@
 (require-package 'flycheck)
 (require-package 'aggressive-indent)
+(require-package 'form-feed)
 (require 'flycheck)
 (require 'fic-ext-mode)
 (require 'flyspell)
@@ -12,10 +13,10 @@
                               "HACK" "HACK:" "NOTE" "NOTE:"
                               "BUG" "BUG:" "REFACTOR" "REFACTOR:"))
 
-(defcustom programming-language-major-modes
+(defvar programming-language-major-modes
   '(prog-mode     ; This is the mode perl, makefile, lisp-mode, scheme-mode,
-                  ; emacs-lisp-mode, sh-mode, java-mode, c-mode, c++-mode,
-                  ; python-mode inherits from.
+                                        ; emacs-lisp-mode, sh-mode, java-mode, c-mode, c++-mode,
+                                        ; python-mode inherits from.
     lua-mode
     cmake-mode
     tex-mode                            ; LaTeX inherits
@@ -27,20 +28,22 @@
     rst-mode)
   "What to consider as programming languages.")
 
+(defun my-prog-mode-hook ()
+  (fic-ext-mode 1)
+  (rainbow-delimiters-mode 1)
+  (smartparens-strict-mode 1)
+  (form-feed-mode)
+  (unless (eq system-type 'windows-nt)
+    (flyspell-prog-mode))
+  (yas-minor-mode-on)
+  (whitespace-mode 1)
+  (maybe-allow-tabs)
+  (aggressive-indent-mode 1)
+  (glasses-mode 1))
+
 (dolist (mode programming-language-major-modes)
-  (add-hook
-   (intern (concat (symbol-name mode) "-hook"))
-   (lambda ()
-     (fic-ext-mode 1)
-     (rainbow-delimiters-mode 1)
-     (smartparens-strict-mode 1)
-     (unless (eq system-type 'windows-nt)
-       (flyspell-prog-mode))
-     (yas-minor-mode-on)
-     (whitespace-mode 1)
-     (maybe-allow-tabs)
-     (aggressive-indent-mode 1)
-     (glasses-mode 1))))
+  (add-hook (intern (concat (symbol-name mode) "-hook"))
+            #'my-prog-mode-hook))
 
 (setq compilation-ask-about-save nil
       compilation-window-height 30)
