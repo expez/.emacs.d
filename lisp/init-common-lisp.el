@@ -7,28 +7,29 @@
 (require 'test-op-mode)
 (slime-setup '(slime-company))
 
-(add-hook 'lisp-mode-hook
-          (lambda ()
-            (set (make-local-variable 'lisp-indent-function)
-                 'common-lisp-indent-function)
-            (slime-mode 1)
-            (test-op-mode)
-            (turn-on-eldoc-mode)
-            (turn-on-redshank-mode)
-            (rainbow-delimiters-mode 0)
-            (fill-keymap evil-normal-state-local-map
-                         "M-." 'slime-edit-definition
-                         "M-," 'slime-pop-find-definition-stack)
-            (set-face-foreground 'paren-face "grey30")))
+(defun my-common-lisp-mode-hook ()
+  (set (make-local-variable 'lisp-indent-function)
+       'common-lisp-indent-function)
+  (slime-mode 1)
+  (test-op-mode)
+  (turn-on-eldoc-mode)
+  (turn-on-redshank-mode)
+  (rainbow-delimiters-mode 0)
+  (fill-keymap evil-normal-state-local-map
+               "M-." 'slime-edit-definition
+               "M-," 'slime-pop-find-definition-stack)
+  (set-face-foreground 'paren-face "grey30"))
 
-(fill-keymap lisp-mode-map "C-c l" 'lispdoc)
+(add-hook 'slime-mode-hook #'my-common-lisp-mode-hook)
+
 (eval-after-load "slime"
   '(progn
      (slime-setup '(slime-fancy slime-asdf))
      (fill-keymaps '(slime-mode-map slime-repl-mode-map)
                    "C-c sl" 'slime-load-system
                    "C-c sb" 'slime-browse-system
-                   "C-c so" 'slime-open-system)
+                   "C-c so" 'slime-open-system
+                   "C-c l" 'lispdoc)
      (defslime-repl-shortcut slime-quickload ("quickload" "ql")
        (:handler #'cofi/slime-repl-quickload)
        (:one-liner "Load system from quickload distribution"))))
