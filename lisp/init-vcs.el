@@ -47,8 +47,9 @@
     (unless (member
              fetch-address
              (magit-get-all "remote" "origin" "fetch"))
-      (when (string-match
-             "github" (magit-get "remote" "origin" "url"))
+      (when (and (magit-get "remote" "origin" "url")
+                 (string-match
+                  "github" (magit-get "remote" "origin" "url")))
         (magit-git-string
          "config" "--add" "remote.origin.fetch"
          fetch-address)))))
