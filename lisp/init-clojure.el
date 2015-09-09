@@ -120,11 +120,6 @@
     (context 2)
     (for-all 1)))
 
-(defun austin-connnect ()
-  (interactive)
-  "Call to use from the cider repl to connect to a bREPL"
-  (cider-eval-sync "(cemerick.piggieback/cljs-repl :repl-env (cemerick.austin/exec-env))"))
-
 (defun weasel-connect ()
   (interactive)
   "Connect the repl to weasel"
