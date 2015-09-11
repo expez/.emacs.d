@@ -12,11 +12,12 @@
 (require 'edit-color-stamp)
 
 (defun my-scss-mode-hook ()
-  (turn-on-css-eldoc)
-  (fill-keymap sass-mode-map
-               "C-c C-e" 'edit-or-insert-color-stamp
-               "C-c b" 'web-beautify-dwim))
+  (turn-on-css-eldoc))
 
+(fill-keymap sass-mode-map
+             "C-c C-e" 'edit-or-insert-color-stamp
+             "C-m" 'js-insert-block
+             "C-c b" 'web-beautify-dwim)
 (add-hook 'scss-mode-hook #'my-scss-mode-hook)
 
 (dolist (hook '(css-mode-hook sass-mode-hook haml-mode-hook scss-mode-hook))
