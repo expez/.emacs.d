@@ -16,9 +16,8 @@
 
 (defun bury-compilation-buffer-on-success (buf res)
   (when (string-equal res "finished\n")
-    (quit-window (get-buffer-window buf))
-    (message "%s" (propertize "Compilation successful!" 'face
-                              '(:foreground "#859900")))))
+    (delete-window (get-buffer-window "*compilation*"))
+    (message "%s" (propertize "Compilation successful!" 'face 'success-face))))
 
 (defun scss-bury-compilation-buffer-on-success (oldfun &rest args)
   (let ((finish-fns compilation-finish-functions))

@@ -83,6 +83,6 @@ With a prefix just runs `ert'"
                        (ert-run-tests t (lambda (&rest _))))))
       (if (> unexpected 0)
           (ert t)
-        (message "%s" (propertize "Passed!" 'face '(:foreground "green")))))))
+        (message "%s" (propertize "Passed!" 'face 'success-face))))))
 
 (provide 'init-elisp)
