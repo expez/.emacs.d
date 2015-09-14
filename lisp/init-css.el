@@ -14,6 +14,22 @@
 (defun my-scss-mode-hook ()
   (turn-on-css-eldoc))
 
+(defun bury-compilation-buffer-on-success (buf res)
+  (when (string-equal res "finished\n")
+    (progn (delete-window (get-buffer-window buf))
+           (message "%s" (propertize "Compilation successful!" 'face
+                                     '(:foreground "#859900"))))))
+
+(defun scss-bury-compilation-buffer-on-success (oldfun &rest args)
+  (let ((finish-fns compilation-finish-functions))
+    (setq compilation-finish-functions
+          (add-to-list 'compilation-finish-functions
+                       #'bury-compilation-buffer-on-success))
+    (apply oldfun args)
+    (setq compilation-finish-functions finish-fns)))
+
+(advice-add 'scss-compile :around #'scss-bury-compilation-buffer-on-success)
+
 (fill-keymap sass-mode-map
              "C-c C-e" 'edit-or-insert-color-stamp
              "C-m" 'js-insert-block
