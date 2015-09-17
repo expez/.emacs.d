@@ -7,6 +7,7 @@
 (require-package 'edit-color-stamp)
 (require 'css-eldoc)
 (require 'sass-mode)
+(require 'scss-mode)
 (require 'css-mode)
 (require 'emmet-mode)
 (require 'edit-color-stamp)
@@ -29,10 +30,10 @@
 
 (advice-add 'scss-compile :around #'scss-bury-compilation-buffer-on-success)
 
-(fill-keymap sass-mode-map
-             "C-c C-e" 'edit-or-insert-color-stamp
-             "C-m" 'js-insert-block
-             "C-c b" 'web-beautify-dwim)
+(fill-keymaps '(sass-mode-map scss-mode-map)
+              "C-c C-e" 'edit-or-insert-color-stamp
+              "C-m" 'js-insert-block
+              "C-c b" 'web-beautify-dwim)
 (add-hook 'scss-mode-hook #'my-scss-mode-hook)
 
 (dolist (hook '(css-mode-hook sass-mode-hook haml-mode-hook scss-mode-hook))
