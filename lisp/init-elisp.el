@@ -13,9 +13,16 @@
 
 (set-face-foreground 'paren-face "grey30")
 
+(defun elisp-slime-nav-read-symbol-from-mini-buffer (oldfun &rest args)
+  (funcall oldfun (read-from-minibuffer "Jump to: "
+                                        (format "%s" (symbol-at-point)))))
+
+(advice-add 'elisp-slime-nav-find-elisp-thing-at-point :around
+            #'elisp-slime-nav-read-symbol-from-mini-buffer)
+
 (defun describe-thing-in-popup ()
   (interactive)
-  (let* ((thing (read-from-minibuffer "Describe: " (format "%s" (symbol-at-point))))
+  (let* ((thing (intern-soft (read-from-minibuffer "Describe: " (format "%s" (symbol-at-point)))))
          (help-xref-following t)
          (x-gtk-use-system-tooltips nil)
          (description (save-window-excursion
