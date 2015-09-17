@@ -15,7 +15,7 @@
 
 (defun describe-thing-in-popup ()
   (interactive)
-  (let* ((thing (symbol-at-point))
+  (let* ((thing (read-from-minibuffer "Describe: " (format "%s" (symbol-at-point))))
          (help-xref-following t)
          (x-gtk-use-system-tooltips nil)
          (description (save-window-excursion
