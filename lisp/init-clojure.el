@@ -15,11 +15,7 @@
   (save-buffer))
 
 (after-load 'clj-refactor
-  (setq cljr-magic-require-namespaces
-        (-concat cljr-magic-require-namespaces
-                 '(("component" . "com.stuartsierra.component")
-                   ("s" . "schema.core")
-                   ("log" . "taoensso.timbre")))))
+  (setq cljr-magic-require-namespaces nil))
 
 (defun my-cider-mode-hook ()
   (eldoc-mode)
