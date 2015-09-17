@@ -15,18 +15,15 @@
 (defun my-scss-mode-hook ()
   (turn-on-css-eldoc))
 
-(defun bury-compilation-buffer-on-success (buf res)
-  (when (string-equal res "finished\n")
-    (delete-window (get-buffer-window "*compilation*"))
-    (message "%s" (propertize "Compilation successful!" 'face 'success-face))))
+(defun bury-compilation-buffer (buf res)
+  (if (string-equal res "finished\n")
+      (progn (bury-buffer "*compilation*")
+             (message "%s" (propertize "Compilation successful!" 'face 'success-face)))
+    (message "%s" (propertize "Compilation failed!" 'face 'font-lock-warning-face))))
 
 (defun scss-bury-compilation-buffer-on-success (oldfun &rest args)
-  (let ((finish-fns compilation-finish-functions))
-    (setq compilation-finish-functions
-          (add-to-list 'compilation-finish-functions
-                       #'bury-compilation-buffer-on-success))
-    (apply oldfun args)
-    (setq compilation-finish-functions finish-fns)))
+  (let ((compilation-finish-functions (list #'bury-compilation-buffer-on-success)))
+    (save-window-excursion (apply oldfun args))))
 
 (advice-add 'scss-compile :around #'scss-bury-compilation-buffer-on-success)
 
