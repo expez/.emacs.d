@@ -55,7 +55,7 @@
                "C-c m" 'cider-macroexpand-1
                "C-c c" 'cider-clear-errors
                "C-c M" 'cider-macroexpand-all
-               "C-c M-b" 'cider-browse-ns-all))
+               "C-c M-b" 'cider-browse-ns))
 
 (defun my-clojure-mode-hook ()
   (rainbow-delimiters-mode 0)
