@@ -66,7 +66,7 @@
   "l" 'gist-list
   "i" 'indent-region-or-buffer
   "o" 'other-frame
-  "p" 'pretty-mode
+  "p" 'helm-pages
   "s" 'flyspell-buffer
   "R" 'rainbow-mode
   "r" 'rename-file-and-buffer

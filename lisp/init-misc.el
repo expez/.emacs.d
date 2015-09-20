@@ -21,6 +21,7 @@
 (require-package 'mode-line-debug)
 (require-package 'ace-window)
 (require-package 'bind-key)
+(require-package 'helm-pages)
 (require 'bind-key)
 (require 'popwin)
 (require 'ibuffer)
