@@ -3,6 +3,8 @@
 (require 'wgrep)
 (require 'ag)
 
+(setq wgrep-auto-save-buffer t)
+
 (defun project-relative-path (path)
   "Returns a path relative to the project root"
   (let ((root (or (projectile-project-root) "")))
