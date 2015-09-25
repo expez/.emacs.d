@@ -30,18 +30,20 @@
                     url
                   (concat url (webjump-url-encode name))))))
 
-(defun rename-file-and-buffer ()
+(defun rename-file-and-buffer (new-name)
   "Rename the current buffer and the file it is visiting."
-  (interactive)
-  (let ((filename (buffer-file-name)))
-    (if (not (and filename (file-exists-p filename)))
-        (message "Buffer is not visiting a file!")
-      (let ((new-name (read-file-name "New name: " filename)))
-        (cond
-         ((vc-backend filename) (vc-rename-file filename new-name))
-         (t
-          (rename-file filename new-name t)
-          (set-visited-file-name new-name t t)))))))
+  (interactive
+   (if  (not (and (buffer-file-name) (file-exists-p (buffer-file-name))))
+       (user-error "Buffer not visiting a file!")
+     (read-file-name "New path: "
+                     nil
+                     nil nil
+                     (file-name-nondirectory (buffer-file-name)))))
+  (cond
+   ((vc-backend filename) (vc-rename-file filename new-name))
+   (t
+    (rename-file filename new-name t)
+    (set-visited-file-name new-name t t))))
 
 (defun move-buffer-file (dir)
   "Moves both current buffer and file it's visiting to DIR."
