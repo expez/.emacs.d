@@ -690,4 +690,10 @@ narrowed."
      "Window '%s' is normal")
    (current-buffer)))
 
+(defun kill-buffer-dont-ask ()
+  "Kill the current buffer without a prompt."
+  (interactive)
+  (let (kill-buffer-query-functions)
+    (kill-buffer)))
+
 (provide 'init-util)

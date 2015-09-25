@@ -42,12 +42,11 @@ If called with a prefix, prompts for flags to pass to ag."
 (add-hook 'ag-mode-hook 'wgrep-ag-setup)
 
 (evil-define-key 'motion ag-mode-map
-  (kbd "k") 'compilation-previous-error
-  (kbd "C-c C-p") 'wgrep-change-to-wgrep-mode
-  (kbd "j") 'compilation-next-error
-  (kbd "C-j") 'compile-goto-error
-  (kbd "q") '(lambda () (interactive)
-               (let (kill-buffer-query-functions) (kill-buffer))))
+  (kbd "C-c C-e") #'wgrep-change-to-wgrep-mode
+  (kbd "k") #'compilation-previous-error
+  (kbd "j") #'compilation-next-error
+  (kbd "C-j") #'compile-goto-error
+  (kbd "q") #'kill-buffer-dont-ask)
 
 (setq ag-reuse-buffers 't)
 
