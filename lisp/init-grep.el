@@ -41,6 +41,8 @@ If called with a prefix, prompts for flags to pass to ag."
 
 (add-hook 'ag-mode-hook 'wgrep-ag-setup)
 
+(advice-add 'wgrep-change-to-wgrep-mode :after #'evil-normal-state)
+
 (evil-define-key 'motion ag-mode-map
   (kbd "C-c C-e") #'wgrep-change-to-wgrep-mode
   (kbd "k") #'compilation-previous-error
