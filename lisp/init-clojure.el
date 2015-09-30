@@ -78,7 +78,8 @@
                "C-c R" 'cider-component-reset
                "C-c C-e" 'cider-eval-defun-at-point
                "C-c C-m" nil
-               "C-c h" 'clojure-cheatsheet))
+               "C-c h" 'clojure-cheatsheet)
+  (fill-keymap misc-map "r" 'cljr-rename-file))
 
 (add-hook 'clojure-mode-hook #'my-clojure-mode-hook)
 
