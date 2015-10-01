@@ -2,8 +2,7 @@
 (require-package 'lexbind-mode)
 (require-package 'pretty-mode-plus)
 (require-package 'elisp-slime-nav)
-(require-package 'parenface-plus)
-(require 'parenface-plus)
+(require-package 'paren-face)
 (require-package 'rainbow-delimiters)
 (require-package 'flycheck)
 (require-package 'evil-surround)
@@ -11,7 +10,8 @@
 (require 'evil-surround)
 (require 'ert)
 
-(set-face-foreground 'paren-face "grey30")
+;; (set-face-foreground 'paren-face "grey30")
+(global-paren-face-mode)
 
 (defun elisp-slime-nav-read-symbol-from-mini-buffer (oldfun &rest args)
   (funcall oldfun (read-from-minibuffer "Jump to: "
