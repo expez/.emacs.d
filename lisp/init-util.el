@@ -41,6 +41,8 @@
                            (file-name-nondirectory (buffer-file-name))))))
   (let ((filename (buffer-file-name)))
     (cond
+     ((and (fboundp 'cljr-rename-file) clj-refactor-mode)
+      (cljr-rename-file new-name))
      ((vc-backend filename) (vc-rename-file filename new-name))
      (t
       (rename-file filename new-name t)
