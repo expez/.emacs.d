@@ -235,4 +235,36 @@ With a prefix add print-foo throughout the function."
       (insert ":cljs ")
     (insert ":clj ")))
 
+(defun cljr--symbol->keyword (symbol)
+  (intern (format ":%s" symbol)))
+
+(defun cljr--plist-to-hash (plist)
+  (let ((h (make-hash-table)))
+    (dolist (k (-filter #'keywordp plist))
+      (puthash k (plist-get plist k) h))
+    h))
+
+(defun nrepl-message-to-kill-ring (op)
+  "Add the last nrepl messages issuing op OP to the kill ring."
+  (interactive
+   (list
+    (completing-read "OP: " (-concat
+                             cljr--nrepl-ops cider-required-nrepl-ops))))
+  (with-current-buffer "*nrepl-messages*"
+    (goto-char (point-max))
+    (re-search-backward (format "op +\"%s\"" op))
+    (paredit-backward-up)
+    (let ((msg (cljr--extract-sexp)))
+      (with-temp-buffer
+        (insert msg)
+        (goto-char (point-min))
+        (paredit-forward-down)
+        (delete-region (point) (point-at-eol))
+        (goto-char (point-min))
+        (->> (edn-read)
+             (mapcar (lambda (e) (if (symbolp e) (cljr--symbol->keyword e) e)))
+             cljr--plist-to-hash
+             edn-print-string
+             kill-new)))))
+
 (provide 'init-clojure)
