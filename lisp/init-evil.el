@@ -121,6 +121,7 @@
           cider-classpath-mode
           cider-doc-mode
           cider-docview-mode
+          cider-inspector-mode
           cider-popup-buffer-mode
           cider-stacktrace-mode
           cider-test-report-mode
