@@ -123,6 +123,7 @@
           cider-docview-mode
           cider-inspector-mode
           cider-popup-buffer-mode
+          cider-macroexpansion-mode
           cider-stacktrace-mode
           cider-test-report-mode
           deft-mode
