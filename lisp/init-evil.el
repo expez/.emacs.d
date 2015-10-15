@@ -126,6 +126,7 @@
           cider-macroexpansion-mode
           cider-stacktrace-mode
           cider-test-report-mode
+          cljr--change-signature-mode
           deft-mode
           occur-mode
           term-mode
