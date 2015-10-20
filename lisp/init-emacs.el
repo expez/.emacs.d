@@ -86,7 +86,7 @@
 
 (defadvice save-buffers-kill-emacs (around no-query-kill-emacs activate)
   "Prevent annoying \"Active processes exist\" query when you quit Emacs."
-  (flet ((process-list ())) ad-do-it))
+  (cl-letf (((symbol-function 'process-list) (lambda () (list)))) ad-do-it))
 
 (defadvice shell-command (after shell-in-new-buffer (command &optional output-buffer error-buffer))
   (when (get-buffer "*Async Shell Command*")
