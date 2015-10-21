@@ -38,7 +38,10 @@
   (eldoc-mode)
   (fill-keymaps '(evil-insert-state-local-map evil-normal-state-local-map)
                 "M-." 'cider-find-var
-                "M-," 'cider-jump-back)
+                "M-," 'cider-jump-back
+                "M-n" 'cider-repl-next-input
+                "M-p" 'cider-repl-previous-input
+                "C-c m" 'cider-macroexpand-1)
   (whitespace-mode 0)
   (evil-force-normal-state))
 (add-hook 'cider-repl-mode-hook #'my-cider-repl-mode-hook)
@@ -204,8 +207,6 @@ With a prefix add print-foo throughout the function."
 
 (defun cljr-guard-with-reader-conditional (cljs?)
   (interactive "P")
-  (unless (looking-back "\\s-+")
-    (paredit-backward))
   (paredit-wrap-round)
   (forward-char -1)
   (insert "#?")
