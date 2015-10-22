@@ -3,6 +3,9 @@
 (require 'company-dabbrev-code)
 (require-package 'company-quickhelp)
 (require 'company-quickhelp)
+(require-package 'company-flx)
+
+(company-flx-mode 1)
 
 (setq company-idle-delay 0.01
       company-show-numbers t
