@@ -56,9 +56,6 @@
 (after-load 'git-gutter
   (diminish 'git-gutter-mode))
 
-(after-load 'skewer
-  (diminish 'skewer-mode))
-
 (after-load 'fic-ext-mode
   (diminish 'fic-ext-mode))
 

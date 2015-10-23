@@ -23,7 +23,6 @@
 (add-auto-mode 'web-mode "\\.erb")
 
 (defun my-html-mode-hook ()
-  (skewer-html-mode 1)
   (change-whitespace-line-column 120)
   (aggressive-indent-mode 0))
 (add-hook 'html-mode-hook #'my-html-mode-hook)

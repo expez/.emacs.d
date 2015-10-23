@@ -36,8 +36,6 @@
 (dolist (hook '(css-mode-hook sass-mode-hook haml-mode-hook scss-mode-hook))
   (add-hook hook 'rainbow-mode))
 
-(add-hook 'css-mode-hook  'emmet-mode)
-
 (setq css-indent-offset 2
       scss-compile-at-save t)
 
@@ -50,38 +48,10 @@
     (edit-color-stamp)))
 
 (defun my-css-mode-hook ()
-  (skewer-css-mode)
-  (fill-keymap skewer-css-mode-map
-               "C-c C-c" 'nil
-               "C-c C-r" 'skewer-css-clear-all)
+  (emmet-mode 1)
   (local-set-key (kbd "<return>") 'newline-and-indent))
 (add-hook 'css-mode-hook 'my-css-mode-hook)
 (define-key emmet-preview-keymap (kbd "C-j") 'emmet-preview-accept)
-
-(defvar sanityinc/skewer-less-mode-map
-  (let ((m (make-sparse-keymap)))
-    (define-key m (kbd "C-c C-k") 'sanityinc/skewer-less-save-and-reload)
-    m)
-  "Keymap for `sanityinc/skewer-less-mode'.")
-
-(define-minor-mode sanityinc/skewer-less-mode
-  "Minor mode allowing LESS stylesheet manipulation via `skewer-mode'."
-  nil
-  " LessSkew"
-  sanityinc/skewer-less-mode-map
-  (progn
-    (add-hook 'after-save-hook 'sanityinc/skewer-less-reload nil t)))
-
-(defun sanityinc/skewer-less-save-and-reload ()
-  "When skewer appears to be active, ask for a reload."
-  (interactive)
-  (save-buffer)
-  (sanityinc/skewer-less-reload))
-
-(defun sanityinc/skewer-less-reload ()
-  "When skewer appears to be active, ask for a reload."
-  (interactive)
-  (skewer-eval "less.refresh();"))
 
 (defvar rainbow-hexadecimal-colors-font-lock-keywords
   '(("[^&]\\(#\\(?:[0-9a-fA-F]\\{3\\}\\)+\\{1,4\\}\\)[^\\w-]"

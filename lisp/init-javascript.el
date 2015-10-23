@@ -3,12 +3,8 @@
 (require-package 'json)
 (require-package 'js2-refactor)
 (require-package 'js2-mode)
-(require-package 'skewer-mode)
 (require 'flycheck)
 (require-package 'web-beautify)
-
-;;; bookmarklet to load skewer:
-;;; javascript:(function(){var d=document;var s=d.createElement('script');s.src='http://localhost:8023/skewer';d.body.appendChild(s);})()
 
 (defun web-beautify-dwim ()
   (interactive)
@@ -21,19 +17,6 @@
    ((string= (file-name-extension (buffer-file-name)) "js") (web-beautify-js))
    (t (message "Not sure how to beautify file ending with '%s'"
                (file-name-extension (buffer-file-name))))))
-
-(defun skewer-start ()
-  (interactive)
-  (let ((httpd-port 8023)
-        (browse-url-generic-program "chromium"))
-    (httpd-start)
-    (message "Ready to skewer the browser. Now jack in with the bookmarklet.")))
-
-(defun skewer-demo ()
-  (interactive)
-  (let ((httpd-port 8024))
-    (run-skewer)
-    (skewer-repl)))
 
 (add-auto-mode 'js2-mode "\\.js")
 
@@ -76,8 +59,6 @@
   (js2-imenu-extras-setup)
   (add-test-externs)
   (setq mode-name "JS2")
-  (skewer-mode)
-  (tern-mode t)
   (flycheck-mode t)
   (aggressive-indent-mode 0)
   (my-maybe-jsx-mode-hook)
