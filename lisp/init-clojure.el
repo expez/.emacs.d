@@ -38,7 +38,7 @@
   (eldoc-mode)
   (fill-keymaps '(evil-insert-state-local-map evil-normal-state-local-map)
                 "M-." 'cider-find-var
-                "M-," 'cider-jump-back
+                "M-," 'cider-pop-back
                 "M-n" 'cider-repl-next-input
                 "M-p" 'cider-repl-previous-input
                 "C-c m" 'cider-macroexpand-1)
@@ -72,7 +72,7 @@
   (local-set-key (kbd "RET") 'newline-and-indent)
   (fill-keymap evil-normal-state-local-map
                "M-q" '(lambda () (interactive) (clojure-fill-paragraph))
-               "M-," 'cider-jump-back
+               "M-," 'cider-pop-back
                "M-." 'cider-find-var
                "M-n" 'flycheck-next-error
                "M-p" 'flycheck-previous-error
