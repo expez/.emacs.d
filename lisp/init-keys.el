@@ -1,6 +1,7 @@
 (require 'evil)
 (require-package 'helm-descbinds)
 (require-package 'key-chord)
+(require-package 'hydra)
 (helm-descbinds-mode)
 
 (defkeymap leader-map
@@ -338,5 +339,16 @@
 
 (after-load 'archive-mode
   (define-key archive-mode-map "q" '(lambda () (interactive) (kill-buffer nil))))
+
+
+;;; hydras
+
+(key-chord-define-global "qz"
+                         (defhydra hydra-zoom ()
+                           "zoom"
+                           ("+" text-scale-increase "in")
+                           ("-" text-scale-decrease "out")
+                           ("0" (text-scale-adjust 0) "reset")
+                           ("q" nil "quit" :color blue)))
 
 (provide 'init-keys)
