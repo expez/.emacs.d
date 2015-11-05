@@ -32,7 +32,9 @@
  '(paradox-github-token t)
  '(safe-local-variable-values
    (quote
-    ((eval push
+    ((nameless-current-name . "cider")
+     (nameless-affect-indentation-and-filling)
+     (eval push
            (file-name-directory
             (buffer-file-name))
            load-path)
