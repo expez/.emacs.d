@@ -99,26 +99,6 @@
 (defadvice cider-repl-return (before normal-mode activate)
   (evil-normal-state))
 
-(put 'macrolet 'clojure-backtracking-indent '((2) 2))
-
-(after-load 'clojure-mode
-  (define-clojure-indent
-    (apply 1)
-    (are 'defun)
-    (go-loop 1)
-    (run* 1)
-    (fresh 1)
-    (match 1)
-    (defroutes 'defun)
-    (GET 2)
-    (POST 2)
-    (PUT 2)
-    (DELETE 2)
-    (HEAD 2)
-    (ANY 2)
-    (context 2)
-    (for-all 1)))
-
 (defun weasel-connect ()
   (interactive)
   "Connect the repl to weasel"
