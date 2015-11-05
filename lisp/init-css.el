@@ -48,8 +48,7 @@
     (edit-color-stamp)))
 
 (defun my-css-mode-hook ()
-  (emmet-mode 1)
-  (local-set-key (kbd "<return>") 'newline-and-indent))
+  (emmet-mode 1))
 (add-hook 'css-mode-hook 'my-css-mode-hook)
 (define-key emmet-preview-keymap (kbd "C-j") 'emmet-preview-accept)
 

@@ -3,8 +3,7 @@
 (defun my-nxml-mode-hook ()
   (setq-local whitespace-line-column 120)
   (whitespace-mode 0)
-  (whitespace-mode 1)
-  (local-set-key (kbd "RET") 'newline-and-indent))
+  (whitespace-mode 1))
 
 (add-hook 'nxml-mode-hook #'my-nxml-mode-hook)
 

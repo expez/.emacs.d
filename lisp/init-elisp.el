@@ -44,7 +44,6 @@
   (esk-remove-elc-on-save)
   (checkdoc-minor-mode)
   (setq evil-symbol-word-search t)
-  (local-set-key (kbd "RET") 'newline-and-indent)
   (push '(?` . ("`" . "'")) evil-surround-pairs-alist)
   (define-key evil-normal-state-local-map (kbd "M-.")
     'elisp-slime-nav-find-elisp-thing-at-point))

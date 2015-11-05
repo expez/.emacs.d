@@ -9,8 +9,7 @@
 
 (defun my-ein-notebook-mode-hook ()
   (whitespace-mode 0)
-  (define-key evil-insert-state-local-map
-    (kbd "RET") 'newline-and-indent)
+  (define-key evil-insert-state-local-map)
   (define-key ein:notebook-mode-map (kbd "C-c C-d")
     'ein:pytools-request-tooltip-or-help))
 (add-hook 'ein:notebook-mode-hook #'my-ein-notebook-mode-hook)

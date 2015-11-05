@@ -58,7 +58,6 @@ With a prefix it creates an ordered list."
           (forward-line))))))
 
 (fill-keymaps '(html-mode-map web-mode-map)
-              (kbd "RET") 'newline-and-indent
               "C-c b" 'web-beautify-dwim
               "C-c l" 'html-create-list)
 

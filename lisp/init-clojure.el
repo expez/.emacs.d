@@ -69,7 +69,6 @@
   (add-to-list 'flycheck-disabled-checkers 'clojure-cider-kibit)
   (cider-mode 1)
   (cljr-add-keybindings-with-prefix "C-c C-m")
-  (local-set-key (kbd "RET") 'newline-and-indent)
   (fill-keymap evil-normal-state-local-map
                "M-q" '(lambda () (interactive) (clojure-fill-paragraph))
                "M-," 'cider-pop-back

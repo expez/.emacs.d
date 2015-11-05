@@ -36,6 +36,7 @@
   (rainbow-delimiters-mode 1)
   (smartparens-strict-mode 1)
   (form-feed-mode)
+  (define-key evil-insert-state-local-map (kbd "RET") 'newline-and-indent)
   (unless (eq system-type 'windows-nt)
     (flyspell-prog-mode))
   (yas-minor-mode-on)
