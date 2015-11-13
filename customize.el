@@ -32,7 +32,8 @@
  '(paradox-github-token t)
  '(safe-local-variable-values
    (quote
-    ((nameless-current-name . "cider")
+    ((bug-reference-bug-regexp . "#\\(?2:[[:digit:]]+\\)")
+     (nameless-current-name . "cider")
      (nameless-affect-indentation-and-filling)
      (eval push
            (file-name-directory
