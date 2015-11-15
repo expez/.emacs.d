@@ -18,6 +18,12 @@
             (setq sp-backward-bound-fn (lambda ()
                                          cider-repl-input-start-mark))))
 
+(sp-with-modes '(clojure-mode clojure-script-mode clojurec-mode-clojurex-mode
+                              cider-repl-mode)
+  (sp-local-pair "`" "'" :actions nil)
+  (sp-local-pair "`" "`" :actions '(insert navigate)
+                 :when '(sp-in-comment-p sp-in-string-p)))
+
 (defun my-smartparens-mode-hook ()
   (turn-on-sp-navigate-consider-stringlike)
   (evil-smartparens-mode 1)
