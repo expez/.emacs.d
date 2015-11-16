@@ -226,4 +226,9 @@ With a prefix add print-foo throughout the function."
              edn-print-string
              kill-new)))))
 
+
+;;; indentation
+(eval-after-load 'clojure-mode
+  (put-clojure-indent 'prop/for-all 1))
+
 (provide 'init-clojure)
