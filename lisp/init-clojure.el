@@ -229,6 +229,6 @@ With a prefix add print-foo throughout the function."
 
 ;;; indentation
 (eval-after-load 'clojure-mode
-  (put-clojure-indent 'prop/for-all 1))
+  '(put-clojure-indent 'prop/for-all 1))
 
 (provide 'init-clojure)
