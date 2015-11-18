@@ -701,4 +701,11 @@ narrowed."
   (let (kill-buffer-query-functions)
     (kill-buffer)))
 
+(defun load-elisp-files-in-dir (dir)
+  "Load all elisp files in DIR."
+  (interactive "D")
+  (mapcar #'load
+          (-remove (lambda (f) (s-ends-with? "dir-locals.el" f))
+                   (directory-files dir t "\.el\$"))))
+
 (provide 'init-util)
