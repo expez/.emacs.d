@@ -1,4 +1,3 @@
-(require-package 'javap-mode)
 (require-package 'clojure-mode)
 (require-package 'cider)
 (require-package 'clj-refactor)
@@ -9,7 +8,8 @@
 ;; Error requiring init-clojure: (file-error Cannot open load file no such file or directory overlay)
 (add-hook 'after-init-hook (lambda ()(require 'clj-refactor)))
 
-(clojure-snippets-initialize)
+(eval-after-load 'clojure-snippets
+  '(clojure-snippets-initialize))
 
 (defadvice cider-load-buffer (before save-first activate)
   (save-buffer))
