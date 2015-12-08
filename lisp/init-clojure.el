@@ -79,6 +79,7 @@
                "C-c f" 'toggle-print-foo
                "C-c R" 'cider-component-reset
                "C-c C-e" 'cider-eval-defun-at-point
+               "C-M-;" #'comment-or-uncomment-sexp
                "C-c C-m" nil
                "C-c h" 'clojure-cheatsheet))
 

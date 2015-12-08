@@ -305,9 +305,6 @@
 (evil-define-key 'normal compilation-minor-mode-map "RET" 'compile-goto-error)
 (evil-define-key 'normal compilation-minor-mode-map "q" 'quit-window)
 
-(fill-keymaps '(clojure-mode-map emacs-lisp-mode-map slime-mode-map)
-              "C-M-;" #'comment-or-uncomment-sexp)
-
 (defalias 'rfb 'rename-file-and-buffer)
 (defalias 'mbf 'move-buffer-file)
 (defalias 'rb 'revert-buffer)

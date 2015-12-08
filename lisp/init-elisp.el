@@ -57,6 +57,7 @@
              "C-c t" 'bind-test-to
              "C-c C-e" 'pp-eval-last-sexp
              "<f3>" 'ert-silently
+             "C-M-;" #'comment-or-uncomment-sexp
              "C-c C-k" 'eval-buffer)
 
 (let ((elisp-programming-major-modes '(lisp-interaction-mode ielm-mode)))
