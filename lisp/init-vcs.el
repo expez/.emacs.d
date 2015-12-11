@@ -123,13 +123,6 @@
   ad-do-it
   (evil-normal-state))
 
-(defun magit-kill-file-on-line ()
-  "Show file on current magit line and prompt for deletion."
-  (interactive)
-  (magit-visit-item)
-  (delete-current-buffer-file)
-  (magit-refresh))
-
 (defun vc-annotate-quit ()
   "Restores the previous window configuration and kills the vc-annotate buffer"
   (interactive)
