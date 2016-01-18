@@ -22,4 +22,5 @@
 
 (when (memq window-system '(mac ns))
   (exec-path-from-shell-initialize))
+
 (safe-load-init-files my-config-dir)
