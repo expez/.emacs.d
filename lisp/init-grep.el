@@ -1,4 +1,4 @@
-(require-package 'wgrep-ack)
+(require-package 'wgrep-ag)
 (require-package 'ag)
 (require 'wgrep)
 (require 'ag)
