@@ -223,7 +223,7 @@ directory."
     (ignore-errors (search-forward "list of commands:"))
     (let (commands
           (bound (save-excursion
-                   (re-search-forward "^[[:alpha:]]")
+                   (re-search-forward "^[[:alpha:]]" nil :no-error)
                    (forward-line 0)
                    (point))))
       (while (re-search-forward
