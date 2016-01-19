@@ -1,9 +1,9 @@
 (require-package 'dired+)
-(require 'wdired)
 
-(setq wdired-allow-to-change-permissions t
-      wdired-confirm-overwrite t
-      wdired-use-interactive-rename t)
+(eval-after-load 'wdired
+  '(setq wdired-allow-to-change-permissions t
+         wdired-confirm-overwrite t
+         wdired-use-interactive-rename t))
 
 (put 'dired-find-alternate-file 'disabled nil)
 (setq dired-recursive-copies 'always
@@ -14,7 +14,8 @@
                 '("\\.zip\\'" ".zip" "unzip")))
 
 
-(toggle-diredp-find-file-reuse-dir 1)
+(eval-after-load 'dired+
+  '(toggle-diredp-find-file-reuse-dir 1))
 (setq dired-dwim-target t)
 
 (defun dired-2unix-eol-marked-files ()
