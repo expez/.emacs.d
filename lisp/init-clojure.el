@@ -39,8 +39,6 @@
   (fill-keymaps '(evil-insert-state-local-map evil-normal-state-local-map)
                 "M-." 'cider-find-var
                 "M-," 'cider-pop-back
-                "M-n" 'cider-repl-next-input
-                "M-p" 'cider-repl-previous-input
                 "C-c m" 'cider-macroexpand-1)
   (whitespace-mode 0)
   (evil-force-normal-state))
