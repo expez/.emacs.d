@@ -232,4 +232,15 @@ With a prefix add print-foo throughout the function."
 (eval-after-load 'clojure-mode
   '(put-clojure-indent 'prop/for-all 1))
 
+
+;;; debugger
+
+
+(defun my-debugger-change-state (&rest _)
+  (if cider--debug-mode
+      (evil-emacs-state)
+    (evil-normal-state)))
+
+(advice-add 'cider--debug-mode :after #'my-debugger-change-state)
+
 (provide 'init-clojure)
