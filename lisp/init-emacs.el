@@ -68,7 +68,8 @@
 
 (put 'set-goal-column 'disabled nil)
 
-(when (eq system-type 'windows-nt)
+(when (or (eq system-type 'windows-nt)
+          (eq system-type 'darwin))
   (set-frame-font
    "-outline-Consolas-normal-r-normal-normal-14-97-96-96-c-*-iso8859-1"))
 
