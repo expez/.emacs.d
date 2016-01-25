@@ -24,6 +24,9 @@
 
 (defun my-html-mode-hook ()
   (change-whitespace-line-column 120)
+  (fill-keymaps '(evil-insert-state-local-map evil-normal-state-local-map)
+                (kbd "M-n") #'flycheck-next-error
+                (kbd "M-p") #'flycheck-previous-error)
   (aggressive-indent-mode 0))
 (add-hook 'html-mode-hook #'my-html-mode-hook)
 
