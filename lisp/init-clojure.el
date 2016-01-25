@@ -15,7 +15,8 @@
   (save-buffer))
 
 (after-load 'clj-refactor
-  (setq cljr-magic-require-namespaces nil))
+  (setq cljr-magic-require-namespaces nil
+        cljr-warn-on-eval nil))
 
 (defun my-cider-mode-hook ()
   (eldoc-mode)
@@ -39,6 +40,7 @@
   (fill-keymaps '(evil-insert-state-local-map evil-normal-state-local-map)
                 "M-." 'cider-find-var
                 "M-," 'cider-pop-back
+                "C-c R" 'cider-component-reset
                 "C-c m" 'cider-macroexpand-1)
   (whitespace-mode 0)
   (evil-force-normal-state))
@@ -54,6 +56,7 @@
 (after-load 'cider
   (fill-keymap cider-mode-map
                "C-c m" 'cider-macroexpand-1
+               "C-c R" 'cider-component-reset
                "C-c c" 'cider-clear-errors
                "C-c M" 'cider-macroexpand-all
                "C-c M-b" 'cider-browse-ns))
@@ -75,7 +78,6 @@
                "M-p" 'flycheck-previous-error
                "C-c s" 'toggle-spy
                "C-c f" 'toggle-print-foo
-               "C-c R" 'cider-component-reset
                "C-c C-e" 'cider-eval-defun-at-point
                "C-M-;" #'comment-or-uncomment-sexp
                "C-c C-m" nil
@@ -128,7 +130,7 @@
   (with-current-buffer (cider-current-repl-buffer)
     (cider-repl-set-ns "user")
     (goto-char (point-max))
-    (insert "(reloaded.repl/reset)")
+    (insert "(reset)")
     (cider-repl-return)))
 
 (defun toggle-print-foo ()
