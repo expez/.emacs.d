@@ -174,7 +174,8 @@
       (split-window-vertically-and-switch))
      ((equal ido-exit-minibuffer-target-window 'frame)
       (make-frame)))
-    (switch-to-buffer this-buffer) ;; why? Some ido commands, such as textmate.el's textmate-goto-symbol don't switch the current buffer
+    ;; why? Some ido commands, such as textmate.el's textmate-goto-symbol don't switch the current buffer
+    (switch-to-buffer this-buffer)
     result))
 
 (eval-after-load 'ido
@@ -192,8 +193,11 @@
 
 ;;;; stolen from https://github.com/pkkm/.emacs.d/blob/master/conf/minibuffer/ido.el
 
-;; Ido provides the keymaps `ido-common-completion-map', `ido-file-dir-completion-map', `ido-file-completion-map', `ido-buffer-completion-map' for various kinds of completions.
-;; However, it recreates them every time `ido-completing-read' is called, so we need to define custom keys every time too.
+;; Ido provides the keymaps `ido-common-completion-map',
+;; `ido-file-dir-completion-map', `ido-file-completion-map',
+;; `ido-buffer-completion-map' for various kinds of completions.
+;; However, it recreates them every time `ido-completing-read' is
+;; called, so we need to define custom keys every time too.
 (defun my-ido-bindings ()
   ;; `ido-completion-map' -- the current completion keymap.
   ;; `ido-cur-item' -- the type of item that is being read: file, dir, buffer or list.
