@@ -42,4 +42,7 @@
   (when company-candidates
     (company-abort)))
 
+(eval-after-load 'company
+  '(define-key company-active-map (kbd "M-h") #'company-quickhelp-manual-begin))
+
 (provide 'init-company)
