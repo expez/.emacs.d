@@ -104,6 +104,12 @@
 (defadvice cider-repl-return (before normal-mode activate)
   (evil-normal-state))
 
+(defun my-recenter (&rest ignore)
+  (recenter))
+
+(advice-add 'cider-jump-to :after #'my-recenter)
+(advice-add 'cider-pop-back :after #'my-recenter)
+
 (defun weasel-connect ()
   (interactive)
   "Connect the repl to weasel"
