@@ -187,11 +187,10 @@
            (define-key map (kbd "C-5") 'ido-invoke-in-new-frame))
          (list ido-buffer-completion-map
                ido-common-completion-map
-               ido-completion-map
                ido-file-completion-map
                ido-file-dir-completion-map)))
 
-;;;; stolen from https://github.com/pkkm/.emacs.d/blob/master/conf/minibuffer/ido.el
+;; stolen from https://github.com/pkkm/.emacs.d/blob/master/conf/minibuffer/ido.el
 
 ;; Ido provides the keymaps `ido-common-completion-map',
 ;; `ido-file-dir-completion-map', `ido-file-completion-map',
