@@ -92,6 +92,7 @@
 
 (setq nrepl-hide-special-buffers nil
       nrepl-log-messages t
+      cider-repl-display-help-banner nil
       cider-popup-stacktraces t
       cider-repl-popup-stacktraces t
       cider-repl-use-pretty-printing t
