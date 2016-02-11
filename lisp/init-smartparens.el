@@ -87,6 +87,8 @@
                               eval-expression-with-eldoc
                               ibuffer-do-eval ibuffer-do-view-and-eval))
     (smartparens-strict-mode 1)
+    (evil-mode 1)
+    (evil-insert-state)
     (sp-local-pair 'minibuffer-inactive-mode "'" nil :actions nil)))
 
 (add-hook 'minibuffer-setup-hook 'conditionally-enable-smartparens-mode)
