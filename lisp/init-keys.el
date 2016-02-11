@@ -201,7 +201,7 @@
              "C-x C-m" 'ido-hacks-execute-extended-command
              "C-x c" 'compile
              "C-x C-c" 'compile
-             "C-x s" '(lambda ()(interactive)(ansi-term "/bin/zsh"))
+             "C-x s" '(lambda () (interactive) (ansi-term "/bin/zsh"))
              "C-x F" 'find-file-as-root
              "C-x C-b" 'ibuffer
              "C-x r v" 'register-list
