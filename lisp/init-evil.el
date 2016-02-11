@@ -2,7 +2,6 @@
 (require-package 'evil-surround)
 (require 'evil-surround)
 (require-package 'evil-visualstar)
-(require-package 'evil-paredit)
 (require-package 'evil-numbers)
 (require-package 'evil-jumper)
 (require-package 'evil)
