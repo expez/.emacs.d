@@ -19,9 +19,7 @@ I recommend you start Emacs using `emacs --daemon` and connect to this daemon us
 * Clojure
 * Javascript
 * Elisp
-* Ruby
 * C
-* Prolog
 * The various web languages like HTML/CSS/less/sass
 
 ## Installation
