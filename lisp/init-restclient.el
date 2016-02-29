@@ -7,20 +7,19 @@
 (add-auto-mode 'restclient-mode "\\.restclient")
 
 (defun my-restclient-response-loaded-hook ()
-  (view-mode)
+  (flycheck-mode 0)
   (when evil-normal-state-local-map
     (define-key evil-normal-state-local-map (kbd "q")
-      (lambda () (interactive) (view-mode-exit)))))
+      (lambda () (interactive) (kill-buffer-and-window)))))
 
 (defun my-restclient-mode-hook ()
+  (fill-keymap evil-normal-state-local-map
+               "M-n" 'restclient-jump-next
+               "M-p" 'restclient-jump-prev)
   (flycheck-mode 0))
 
 (add-hook 'restclient-response-loaded-hook #'my-restclient-response-loaded-hook)
 (add-hook 'restclient-mode-hook #'my-restclient-mode-hook)
-
-(fill-keymap restclient-mode-map
-             "M-n" 'restclient-jump-next
-             "M-p" 'restclient-jump-prev)
 
 (defun override-proxy-settings-for-localhost (oldfun method url &rest args)
   (if (or (s-contains-p "localhost" url)
