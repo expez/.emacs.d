@@ -69,9 +69,6 @@
                "M-p" 'flycheck-previous-error
                "M-n" 'flycheck-next-error
                "C-c b" 'web-beautify-js)
-  (fill-keymap evil-insert-state-local-map
-               (kbd "C-m") 'js-insert-block-and-semi
-               (kbd "M-m") 'js-insert-block)
   (fill-keymap js2-mode-map
                "C-c C-a" 'jshint-annotate))
 
