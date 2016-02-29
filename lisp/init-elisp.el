@@ -6,8 +6,8 @@
 (require-package 'flycheck)
 (require-package 'evil-surround)
 (require-package 'edebug-x)
+(require-package 'feature-mode) ; cucumber features for elisp
 (require 'evil-surround)
-(require 'ert)
 
 (global-paren-face-mode)
 
@@ -77,17 +77,18 @@
               (if (file-exists-p (concat buffer-file-name "c"))
                   (delete-file (concat buffer-file-name "c"))))))
 
-(defun ert-silently ()
-  (interactive)
-  "Run all the tests silently and pop to test buffer only on failure.
+(after-load 'ert
+  (defun ert-silently ()
+    (interactive)
+    "Run all the tests silently and pop to test buffer only on failure.
 
 With a prefix just runs `ert'"
-  (if current-prefix-arg
-      (call-interactively #'ert)
-    (let ((unexpected (ert-stats-completed-unexpected
-                       (ert-run-tests t (lambda (&rest _))))))
-      (if (> unexpected 0)
-          (ert t)
-        (message "%s" (propertize "Passed!" 'face 'success-face))))))
+    (if current-prefix-arg
+        (call-interactively #'ert)
+      (let ((unexpected (ert-stats-completed-unexpected
+                         (ert-run-tests t (lambda (&rest _))))))
+        (if (> unexpected 0)
+            (ert t)
+          (message "%s" (propertize "Passed!" 'face 'success-face)))))))
 
 (provide 'init-elisp)
