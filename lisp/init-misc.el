@@ -1,8 +1,6 @@
 (require-package 'unbound)
 (require-package 'eldoc-eval)
 (require-package 'key-chord)
-(require-package 'mediawiki)
-(require-package 'bookmark+)
 (require-package 'helm)
 (require-package 'info+)
 (require-package 'lorem-ipsum)
@@ -53,16 +51,6 @@
 
 ;;Ultra twice as slow as ispell, fast twice as slow as ultra, normal 10x slower than fast.
 ;;(setq ispell-extra-args '("--sug-mode=ultra"))
-
-(setq mediawiki-mode-hook
-      (lambda ()
-        (visual-line-mode 1)
-        (turn-off-auto-fill)
-        (define-key mediawiki-mode-map (kbd "C-c o") 'mediawiki-browse)
-        (define-key mediawiki-mode-map (kbd "C-c g") 'mediawiki-reload)
-        (define-key mediawiki-mode-map (kbd "C-c <ret>") 'mediawiki-open-page-at-point)
-        (define-key mediawiki-mode-map (kbd "C-c C-f C-h") 'mediawiki-insert-header)
-        (define-key mediawiki-mode-map (kbd "C-c C-f C-e") 'mediawiki-insert-sub-header)))
 
 (add-to-list 'auto-mode-alist '( "\\.?cron\\(tab\\)?\\'" . crontab-mode))
 (autoload 'crontab-mode "crontab-mode" "Mode for editing crontab files" t)
