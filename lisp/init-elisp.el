@@ -24,10 +24,11 @@
          (help-xref-following t)
          (x-gtk-use-system-tooltips nil)
          (description (save-window-excursion
-                        (with-temp-buffer
-                          (help-mode)
-                          (help-xref-interned thing)
-                          (buffer-string)))))
+                        (save-excursion
+                          (with-temp-buffer
+                            (help-mode)
+                            (help-xref-interned thing)
+                            (buffer-string))))))
     (if (string-empty-p description)
         (message "No doc found for %s!" thing)
       (pos-tip-show description nil nil nil -1)
