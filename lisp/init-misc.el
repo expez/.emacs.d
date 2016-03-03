@@ -246,6 +246,17 @@
                (kbd "k") 'previous-line
                (kbd "j") 'next-line)
 
+  ;; The version upstream didn't eval the body in the right context
+  (defmacro neo-buffer--with-editing-buffer (&rest body)
+    "Execute BODY in neotree buffer without read-only restriction."
+    `(let (rlt)
+       (neo-global--with-buffer
+         (setq buffer-read-only nil)
+         (setq rlt (progn ,@body)))
+       (neo-global--with-buffer
+         (setq buffer-read-only t))
+       rlt))
+
   (when neo-persist-show
     (add-hook 'popwin:before-popup-hook
               (lambda () (setq neo-persist-show nil)))
