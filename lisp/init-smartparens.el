@@ -7,7 +7,8 @@
 (show-smartparens-global-mode 1)
 
 (setq sp-highlight-pair-overlay nil
-      sp-highlight-wrap-overlay nil)
+      sp-highlight-wrap-overlay nil
+      sp-show-pair-from-inside nil)
 
 (defun turn-on-sp-navigate-consider-stringlike ()
   (unless (memq major-mode sp-navigate-consider-stringlike-sexp)
