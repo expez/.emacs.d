@@ -41,3 +41,4 @@ request/
 /tmp/
 /async-bytecomp.log
 /ido.last
+/lisp/init-secrets.el
