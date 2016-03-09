@@ -8,9 +8,6 @@
         (newline-mark 10 [36 10])
         (tab-mark 9 [9655 9] [92 9])))
 
-(setq require-final-newline nil
-      mode-require-final-newline nil)
-
 (eval-after-load "ethan-wspace"
   '(progn
      (define-minor-mode ethan-wspace-highlight-tabs-mode

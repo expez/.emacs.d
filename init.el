@@ -23,4 +23,10 @@
 (when (memq window-system '(mac ns))
   (exec-path-from-shell-initialize))
 
+;; This has to be all the way up here or ethan-wspace will warn about
+;; `mode-require-final-newline' due to bad interactions with
+;; `workgroups-mode'
+(setq require-final-newline nil
+      mode-require-final-newline nil)
+
 (safe-load-init-files my-config-dir)
