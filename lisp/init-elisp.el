@@ -10,6 +10,7 @@
 (require 'evil-surround)
 
 (global-paren-face-mode)
+(setq redshank-prefix-key "C-c C-r")
 
 (defun elisp-slime-nav-read-symbol-from-mini-buffer (oldfun &rest args)
   (funcall oldfun (read-from-minibuffer "Jump to: "
