@@ -16,6 +16,7 @@
 
 (after-load 'clj-refactor
   (setq cljr-magic-require-namespaces nil
+        cljr-clojure-test-declaration  "[clojure.test :refer :all]"
         cljr-warn-on-eval nil))
 
 (defun my-cider-mode-hook ()
@@ -92,6 +93,10 @@
 
 (setq nrepl-hide-special-buffers nil
       nrepl-log-messages t
+      cider-use-fringe-indicators nil
+      cider-use-tooltips nil
+      cider-refresh-before-fn "user/stop"
+      cider-refresh-after-fn "user/start"
       cider-repl-display-help-banner nil
       cider-popup-stacktraces t
       cider-repl-popup-stacktraces t
