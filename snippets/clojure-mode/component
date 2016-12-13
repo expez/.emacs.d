@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: component
+# key: component
+# --
+(defrecord $1 [config])
+
+(defn ${1:$(s-dashed-words yas-text)} [config]
+  (map->$1 {:config config}))
+
+$0
