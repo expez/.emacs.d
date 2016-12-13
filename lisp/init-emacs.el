@@ -166,15 +166,14 @@
 
 (defadvice message (after message-tail activate)
   "Go to point max after a message"
-  (with-current-buffer "*Messages*"
-    (goto-char (point-max))
-    (skip-syntax-backward " ")
-    (let ((p (point)))
-      (walk-windows
-       (lambda (window)
-         (if (string-equal (buffer-name (window-buffer window)) "*Messages*")
-             (set-window-point window p)))
-       nil
-       t))))
-
-(provide 'init-emacs)
+  (unless (string= (buffer-name (current-buffer)) "*Message*")
+    (with-current-buffer "*Messages*"
+      (goto-char (point-max))
+      (skip-syntax-backward " ")
+      (let ((p (point)))
+        (walk-windows
+         (lambda (window)
+           (if (string-equal (buffer-name (window-buffer window)) "*Messages*")
+               (set-window-point window p)))
+         nil
+         t)))))
