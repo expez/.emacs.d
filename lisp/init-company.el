@@ -2,6 +2,7 @@
 (require 'company)
 (require 'company-dabbrev-code)
 (require-package 'company-quickhelp)
+(require-package 'company-ansible)
 (require 'company-quickhelp)
 
 (setq company-idle-delay 0.01
