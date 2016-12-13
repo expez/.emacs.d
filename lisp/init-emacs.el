@@ -180,3 +180,18 @@
 
 (setq split-height-threshold 120
       split-width-threshold 120)
+
+(after-load 'windmove
+  (defun windmove-find-other-window (dir &optional arg window)
+    "Return the window object in direction DIR.
+DIR, ARG, and WINDOW are handled as by `windmove-other-window-loc'."
+    (window-in-direction
+     (cond
+      ((eq dir 'up) 'above)
+      ((eq dir 'down) 'below)
+      (t dir))
+     ;; Different from the original only in the use of t as the IGNORE argument
+     ;; to include otherwise ignored buffers
+     window t arg windmove-wrap-around t)))
+
+(provide 'init-emacs)
