@@ -1,5 +1,6 @@
 (setq custom-file (concat user-emacs-directory "customize.el")
-      solarized-use-more-italic t)
+      solarized-use-more-italic t
+      blink-cursor-mode nil)
 (load custom-file)
 
 (require 'uniquify)
