@@ -177,3 +177,6 @@
                (set-window-point window p)))
          nil
          t)))))
+
+(setq split-height-threshold 120
+      split-width-threshold 120)
