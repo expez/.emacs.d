@@ -39,7 +39,6 @@
 
 (defun my-elisp-mode-hook ()
   (rainbow-delimiters-mode 0)
-  (turn-on-redshank-mode)
   (flycheck-mode 0)
   (lexbind-mode)
   (eldoc-mode)

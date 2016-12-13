@@ -31,9 +31,6 @@
 (eval-after-load "glasses"
   '(diminish 'glasses-mode))
 
-(eval-after-load "redshank"
-  '(diminish 'redshank-mode))
-
 (eval-after-load "elisp-slime-nav"
   '(diminish 'elisp-slime-nav-mode))
 
