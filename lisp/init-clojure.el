@@ -244,11 +244,19 @@ With a prefix add print-foo throughout the function."
              edn-print-string
              kill-new)))))
 
+(defun refresh-only-advice (oldfun mode)
+  (if (< mode 0)
+      (let ((cider-refresh-before-fn nil)
+            (cider-refresh-after-fn nil))
+        (funcall oldfun mode))
+    (funcall oldfun mode)))
+
+(advice-add 'cider-refresh :around #'refresh-only-advice)
+
 
 ;;; indentation
 (eval-after-load 'clojure-mode
   '(put-clojure-indent 'prop/for-all 1))
-
 
 ;;; debugger
 
