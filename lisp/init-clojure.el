@@ -21,6 +21,7 @@
 
 (defun my-cider-mode-hook ()
   (eldoc-mode)
+  (cider-company-enable-fuzzy-completion)
   (setq next-error-function #'flycheck-next-error-function))
 
 (add-hook 'cider-mode-hook 'my-cider-mode-hook)
@@ -44,7 +45,8 @@
                 "C-c R" 'cider-component-reset
                 "C-c m" 'cider-macroexpand-1)
   (whitespace-mode 0)
-  (evil-force-normal-state))
+  (evil-force-normal-state)
+  (cider-company-enable-fuzzy-completion))
 (add-hook 'cider-repl-mode-hook #'my-cider-repl-mode-hook)
 
 (defun cider-clear-errors ()
