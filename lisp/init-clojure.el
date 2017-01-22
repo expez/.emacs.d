@@ -97,6 +97,7 @@
       nrepl-log-messages t
       cider-use-fringe-indicators nil
       cider-use-tooltips nil
+      cider-repl-pop-to-buffer-on-connect 'display-only
       cider-refresh-before-fn "user/stop"
       cider-refresh-after-fn "user/start"
       cider-repl-display-help-banner nil
