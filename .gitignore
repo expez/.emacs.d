@@ -43,3 +43,4 @@ request/
 /ido.last
 /lisp/init-secrets.el
 /secrets.el
+/network-security.data
