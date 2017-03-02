@@ -1,4 +1,11 @@
 ;;; init.el --- user init file  -*- no-byte-compile: t -*-
+
+;; Added by Package.el.  This must come before configurations of
+;; installed packages.  Don't delete this line.  If you don't want it,
+;; just comment it out by adding a semicolon to the start of the line.
+;; You may delete these explanatory comments.
+(package-initialize)
+
 (defvar my-config-dir (concat user-emacs-directory "lisp"))
 (push my-config-dir load-path)
 
@@ -30,3 +37,7 @@
       mode-require-final-newline nil)
 
 (safe-load-init-files my-config-dir)
+
+(let ((secrets-file (concat user-emacs-directory "secrets.el")))
+  (when (file-exists-p secrets-file)
+    (load secrets-file)))
