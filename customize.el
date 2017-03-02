@@ -31,7 +31,7 @@
  '(magit-use-overlays t)
  '(package-selected-packages
    (quote
-    (yard-mode yaml-mode workgroups2 window-numbering wgrep-ag wgrep-ack web-mode web-beautify visual-fill-column unbound transpose-frame toml-mode sqlup-mode sql-indent solarized-theme slime-company scss-mode sass-mode rvm ruby-interpolation rspec-mode robe rinari regex-tool regex-dsl redshank rainbow-mode rainbow-delimiters projectile-rails popwin paren-face neotree mode-line-debug mediawiki markdown-mode magit-gh-pulls macrostep lorem-ipsum lexbind-mode less-css-mode key-chord js2-refactor info+ ido-vertical-mode ido-hacks ido-completing-read+ helm-pages helm-descbinds google-c-style gitignore-mode gitconfig-mode git-wip-timemachine git-messenger git-gutter-fringe gist ghci-completion ghc form-feed flycheck-clojure flx-ido feature-mode exec-path-from-shell evil-visualstar evil-surround evil-smartparens evil-paredit evil-numbers evil-jumper evil-indent-textobject evil-iedit-state evil-exchange evil-args ethan-wspace eshell-manual elpy elisp-slime-nav eldoc-eval ein edit-color-stamp edebug-x dropdown-list dired+ diminish deft ctypes css-eldoc crontab-mode company-tern company-restclient company-quickhelp company-math company-flx color-moccur clojure-snippets clojure-cheatsheet clj-refactor c-eldoc bundler buffer-move bookmark+ bind-key auctex angular-snippets aggressive-indent ag ace-window ace-jump-mode ac-emmet)))
+    (company-ansible cider clojure-mode smartparens restclient projectile know-your-http-well emmet-mode yard-mode yaml-mode workgroups2 window-numbering wgrep-ag wgrep-ack web-mode web-beautify visual-fill-column unbound transpose-frame toml-mode sqlup-mode sql-indent solarized-theme slime-company scss-mode sass-mode rvm ruby-interpolation rspec-mode robe rinari regex-tool regex-dsl redshank rainbow-mode rainbow-delimiters projectile-rails popwin paren-face neotree mode-line-debug mediawiki markdown-mode magit-gh-pulls macrostep lorem-ipsum lexbind-mode less-css-mode key-chord js2-refactor info+ ido-vertical-mode ido-hacks ido-completing-read+ helm-pages helm-descbinds google-c-style gitignore-mode gitconfig-mode git-wip-timemachine git-messenger git-gutter-fringe gist ghci-completion ghc form-feed flycheck-clojure flx-ido feature-mode exec-path-from-shell evil-visualstar evil-surround evil-smartparens evil-paredit evil-numbers evil-jumper evil-indent-textobject evil-iedit-state evil-exchange evil-args ethan-wspace eshell-manual elpy elisp-slime-nav eldoc-eval ein edit-color-stamp edebug-x dropdown-list dired+ diminish deft ctypes css-eldoc crontab-mode company-tern company-restclient company-quickhelp company-math company-flx color-moccur clojure-snippets clojure-cheatsheet clj-refactor c-eldoc bundler buffer-move bookmark+ bind-key auctex angular-snippets aggressive-indent ag ace-window ace-jump-mode ac-emmet)))
  '(paradox-github-token t)
  '(safe-local-variable-values
    (quote
@@ -39,20 +39,20 @@
      (nameless-current-name . "cider")
      (nameless-affect-indentation-and-filling)
      (eval push
-           (file-name-directory
-            (buffer-file-name))
-           load-path)
+	   (file-name-directory
+	    (buffer-file-name))
+	   load-path)
      (eval font-lock-add-keywords nil
-           (\`
-            (((\,
-               (concat "("
-                       (regexp-opt
-                        (quote
-                         ("sp-do-move-op" "sp-do-move-cl" "sp-do-put-op" "sp-do-put-cl" "sp-do-del-op" "sp-do-del-cl"))
-                        t)
-                       "\\_>"))
-              1
-              (quote font-lock-variable-name-face)))))))))
+	   (\`
+	    (((\,
+	       (concat "("
+		       (regexp-opt
+			(quote
+			 ("sp-do-move-op" "sp-do-move-cl" "sp-do-put-op" "sp-do-put-cl" "sp-do-del-op" "sp-do-del-cl"))
+			t)
+		       "\\_>"))
+	      1
+	      (quote font-lock-variable-name-face)))))))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
