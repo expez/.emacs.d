@@ -22,8 +22,9 @@
 
 (defun my-cider-mode-hook ()
   (eldoc-mode)
+  (setq-local company-dabbrev-char-regexp "\\sw\\|-")
   (cider-company-enable-fuzzy-completion)
-  (setq next-error-function #'flycheck-next-error-function))
+  (setq-local next-error-function #'flycheck-next-error-function))
 
 (add-hook 'cider-mode-hook 'my-cider-mode-hook)
 
