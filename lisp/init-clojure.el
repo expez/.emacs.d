@@ -272,4 +272,8 @@ With a prefix add print-foo throughout the function."
 
 (advice-add 'cider--debug-mode :after #'my-debugger-change-state)
 
+(custom-theme-set-faces
+ 'solarized-dark
+ '(cider-deprecated-face ((t (:strike-through t)))))
+
 (provide 'init-clojure)
