@@ -17,6 +17,7 @@
 (after-load 'clj-refactor
   (setq cljr-magic-require-namespaces nil
         cljr-clojure-test-declaration  "[clojure.test :refer :all]"
+        cljr-favor-prefix-notation nil
         cljr-warn-on-eval nil))
 
 (defun my-cider-mode-hook ()
