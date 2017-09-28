@@ -137,7 +137,8 @@
           project-explorer-mode
           paradox-menu-mode
           neotree-mode
-          diff-mode))
+          diff-mode
+          org-present-mode))
 
 (evil-set-initial-state 'man-mode 'motion)
 
@@ -174,5 +175,9 @@
 (evil-define-key 'insert comint-mode-map
   (kbd "<up>") 'comint-previous-input
   (kbd "<down>") 'comint-next-input)
+
+;; Fix: https://github.com/emacs-evil/evil/issues/847
+(defun evil-abort-macro ()
+  "This function is overridden locally because upstream messed up.")
 
 (provide 'init-evil)
