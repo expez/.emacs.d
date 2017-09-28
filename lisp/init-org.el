@@ -1,4 +1,5 @@
 (require-package 'deft)
+(require-package 'org-present)
 
 (setq org-src-fontify-natively t
       org-src-preserve-indentation t
@@ -67,5 +68,24 @@
         (kill-all-deft-notes)
         (kill-buffer "*Deft*"))
     (deft)))
+
+(defun my-org-present-mode-hook ()
+  (org-present-big)
+  (org-display-inline-images)
+  (org-present-hide-cursor)
+  (evil-emacs-state)
+  (org-present-read-only))
+
+(defun my-org-present-mode-quit-hook ()
+  (org-present-small)
+  (org-remove-inline-images)
+  (org-present-show-cursor)
+  (evil-normal-state)
+  (org-present-read-write))
+
+(eval-after-load "org-present"
+  '(progn
+     (add-hook 'org-present-mode-hook #'my-org-present-mode-hook)
+     (add-hook 'org-present-mode-quit-hook #'my-org-present-mode-quit-hook)))
 
 (provide 'init-org)
