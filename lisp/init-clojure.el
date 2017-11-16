@@ -258,6 +258,17 @@ With a prefix add print-foo throughout the function."
 
 (advice-add 'cider-refresh :around #'refresh-only-advice)
 
+(defun clojure-pp ()
+  (interactive)
+  (clojure-mode)
+  (save-excursion
+    (while (re-search-forward ",")
+      (backward-char)
+      (delete-char 1)
+      (insert "\n")))
+  (indent-buffer)
+  (ethan-wspace-clean-all))
+
 
 ;;; indentation
 (eval-after-load 'clojure-mode
