@@ -59,6 +59,8 @@
   (js2-imenu-extras-setup)
   (add-test-externs)
   (setq mode-name "JS2")
+  (when (find-eslint)
+    (setq-local flycheck-javascript-eslint-executable (find-eslint)))
   (flycheck-mode t)
   (aggressive-indent-mode 0)
   (my-maybe-jsx-mode-hook)
