@@ -26,7 +26,7 @@
 (require 'ibuffer)
 (require 'workgroups2)
 
-(setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
+(setq wg-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
 
 (popwin-mode 1)
 (eldoc-in-minibuffer-mode 1)
