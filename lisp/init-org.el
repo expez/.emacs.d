@@ -21,7 +21,9 @@
 (after-load 'org
   (add-to-list 'org-structure-template-alist
                '("n" "#+BEGIN_COMMENT\n?\n#+END_COMMENT"
-                 "<comment>\n?\n</comment>")))
+                 "<comment>\n?\n</comment>"))
+  (fill-keymap org-mode-map
+               "C-c r" 'org-present))
 
 (defun new-todo ()
   (interactive) (org-capture nil "t"))
