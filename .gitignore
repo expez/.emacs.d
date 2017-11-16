@@ -44,3 +44,5 @@ request/
 /lisp/init-secrets.el
 /secrets.el
 /network-security.data
+/ido.last~
+/dump.rdb
