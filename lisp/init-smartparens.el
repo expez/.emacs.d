@@ -10,10 +10,6 @@
       sp-highlight-wrap-overlay nil
       sp-show-pair-from-inside nil)
 
-(defun turn-on-sp-navigate-consider-stringlike ()
-  (unless (memq major-mode sp-navigate-consider-stringlike-sexp)
-    (add-to-list 'sp-navigate-consider-stringlike-sexp major-mode)))
-
 (add-hook 'cider-repl-mode-hook
           (lambda ()
             (setq sp-backward-bound-fn (lambda ()
@@ -26,7 +22,6 @@
                  :when '(sp-in-comment-p sp-in-string-p)))
 
 (defun my-smartparens-mode-hook ()
-  (turn-on-sp-navigate-consider-stringlike)
   (evil-smartparens-mode 1)
   (fill-keymap evil-normal-state-local-map
                (kbd "C-t") 'sp-transpose-sexp
