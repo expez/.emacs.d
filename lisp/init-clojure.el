@@ -65,6 +65,7 @@
                 "C-c R" 'cider-component-reset
                 "C-c c" 'cider-clear-errors
                 "C-c M" 'cider-macroexpand-all
+                "C-c C-x" 'cider-ns-refresh
                 "C-c M-b" 'cider-browse-ns))
 
 (defun add-cider-quit-key ()
