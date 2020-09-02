@@ -35,15 +35,16 @@
             "xdescribe" "element" "by" "browser" "yasmine" "inject"))))
 
 (defun find-eslint ()
-  (let ((local-eslint (concat (file-name-directory
-                               (expand-file-name "package.json"
-                                                 (locate-dominating-file
-                                                  (buffer-file-name)
-                                                  "package.json")))
-                              "node_modules/.bin/eslint")))
-    (if (file-exists-p local-eslint)
-        local-eslint
-      (path-to-executable "eslint"))))
+  (ignore-errors
+    (let ((local-eslint (concat (file-name-directory
+                                 (expand-file-name "package.json"
+                                                   (locate-dominating-file
+                                                    (buffer-file-name)
+                                                    "package.json")))
+                                "node_modules/.bin/eslint")))
+      (if (file-exists-p local-eslint)
+          local-eslint
+        (path-to-executable "eslint")))))
 
 (defun my-maybe-jsx-mode-hook ()
   (when (and (buffer-file-name)
