@@ -43,7 +43,8 @@
   (whitespace-mode 1)
   (maybe-allow-tabs)
   (aggressive-indent-mode 1)
-  (glasses-mode 1))
+  (glasses-mode 1)
+  (evil-exchange-install))
 
 (dolist (mode programming-language-major-modes)
   (add-hook (intern (concat (symbol-name mode) "-hook"))
