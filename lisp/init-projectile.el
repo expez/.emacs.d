@@ -11,6 +11,8 @@
                 ".cljs_rhino_repl" ".cljs_nashorn_repl" ".nashorn_code_cache")
               projectile-globally-ignored-directories))
 
+(define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+
 (eval-after-load 'projectile
   '(defun projectile-toggle-between-implementation-and-test (same-window)
      "Toggle between an implementation file and its test file."
