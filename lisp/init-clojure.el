@@ -17,6 +17,8 @@
   (setq cljr-magic-require-namespaces nil
         cljr-clojure-test-declaration  "[clojure.test :refer :all]"
         cljr-favor-prefix-notation nil
+        cljr-eagerly-build-asts-on-startup nil
+        cljr-use-multiple-cursors nil
         cljr-warn-on-eval nil))
 
 (defun my-cider-mode-hook ()
@@ -107,7 +109,6 @@
       cider-repl-use-pretty-printing t
       cider-prompt-save-file-on-load nil
       cider-repl-history-file "~/.emacs.d/nrepl-history"
-      cljr-use-multiple-cursors nil
       cider-cljs-repl "(do (require 'cljs.repl.nashorn)
 (cemerick.piggieback/cljs-repl (cljs.repl.nashorn/repl-env)))")
 
