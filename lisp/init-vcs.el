@@ -2,14 +2,11 @@
 (require-package 'gitignore-mode)
 (require-package 'gitconfig-mode)
 (require-package 'gist)
-(require-package 'magit-gh-pulls)
 (require-package 'magit)
 (require-package 'git-gutter-fringe)
 (require-package 'git-wip-timemachine)
 (require-package 'ido-completing-read+)
 (global-git-gutter-mode t)
-
-(add-hook 'magit-mode-hook 'turn-on-magit-gh-pulls)
 
 (magit-wip-after-apply-mode 1)
 (magit-wip-after-save-mode 1)
@@ -27,19 +24,6 @@
             (unless (file-remote-p project)
               (file-directory-p (concat project "/.git/"))))
           (projectile-relevant-known-projects)))))
-
-(when (fboundp 'magit-gh-pulls-mode)
-  (eval-after-load 'magit
-    '(define-key magit-mode-map "#gg"
-       #'endless/load-gh-pulls-mode))
-
-  (defun endless/load-gh-pulls-mode ()
-    "Start `magit-gh-pulls-mode' only after a manual request."
-    (interactive)
-    (require 'magit-gh-pulls)
-    (add-hook 'magit-mode-hook #'turn-on-magit-gh-pulls)
-    (magit-gh-pulls-mode 1)
-    (magit-gh-pulls-reload)))
 
 (defun endless/add-PR-fetch ()
   "If refs/pull is not defined on a GH repo, define it."
