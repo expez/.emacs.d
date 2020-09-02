@@ -1,9 +1,9 @@
 (require-package 'ethan-wspace)
 
-(setq my-whitespace-style '(face tabs lines-tail))
-(setq whitespace-style my-whitespace-style)
-
-(setq whitespace-display-mappings
+(setq my-whitespace-style '(face tabs lines-tail)
+      whitespace-style my-whitespace-style
+      whitespace-line-column 100
+      whitespace-display-mappings
       '((space-mark 32 [183] [46])
         (newline-mark 10 [36 10])
         (tab-mark 9 [9655 9] [92 9])))
