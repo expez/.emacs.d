@@ -2,9 +2,6 @@
 (require-package 'cider)
 (require-package 'clj-refactor)
 (require-package 'clojure-snippets)
-
-;; Error requiring init-clojure: (file-error Cannot open load file no such file or directory overlay)
-;; (add-hook 'after-init-hook (lambda ()(require 'clj-refactor)))
 (require-package 'flycheck-clj-kondo)
 
 (eval-after-load 'clojure-snippets
