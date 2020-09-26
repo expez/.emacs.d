@@ -19,6 +19,17 @@
 (define-key evil-inner-text-objects-map "a" 'evil-inner-arg)
 (define-key evil-outer-text-objects-map "a" 'evil-outer-arg)
 
+;; Text object taken from doom-emas
+(evil-define-text-object +evil:defun-txtobj (count &optional _beg _end type)
+  "Text object to select the top-level Lisp form or function definition at
+point."
+  (cl-destructuring-bind (beg . end)
+      (bounds-of-thing-at-point 'defun)
+    (evil-range beg end type)))
+
+(define-key evil-outer-text-objects-map "f" '+evil:defun-txtobj)
+(define-key evil-inner-text-objects-map "f" '+evil:defun-txtobj)
+
 (after-load 'evil
   (evil-define-operator evil-yank-to-eol (beg end type register yank-handler)
     "Yank to end of line."
