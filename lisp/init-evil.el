@@ -187,8 +187,4 @@ point."
   (kbd "<up>") 'comint-previous-input
   (kbd "<down>") 'comint-next-input)
 
-;; Fix: https://github.com/emacs-evil/evil/issues/847
-(defun evil-abort-macro ()
-  "This function is overridden locally because upstream messed up.")
-
 (provide 'init-evil)
