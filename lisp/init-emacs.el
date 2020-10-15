@@ -178,7 +178,7 @@
          nil
          t)))))
 
-(setq split-height-threshold 120
+(setq split-height-threshold 600
       split-width-threshold 120)
 
 (after-load 'windmove
