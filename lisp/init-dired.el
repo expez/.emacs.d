@@ -1,6 +1,3 @@
-(require-package 'dired+)
-(require 'dired+)
-
 (eval-after-load 'wdired
   '(setq wdired-allow-to-change-permissions t
          wdired-confirm-overwrite t

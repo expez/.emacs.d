@@ -2,7 +2,6 @@
 (require-package 'eldoc-eval)
 (require-package 'key-chord)
 (require-package 'helm)
-(require-package 'info+)
 (require-package 'lorem-ipsum)
 (require-package 'neotree)
 (require-package 'rainbow-delimiters)
