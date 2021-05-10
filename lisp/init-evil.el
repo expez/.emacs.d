@@ -71,7 +71,8 @@ point."
 (global-evil-visualstar-mode)
 
 (global-evil-surround-mode 1)
-(setq evil-exchange-highlight-face 'region)
+(setq evil-exchange-highlight-face 'region
+      evil-undo-system 'undo-tree)
 
 (setq-default evil-surround-pairs-alist
               '((?\( . ("(" . ")"))
