@@ -5,6 +5,7 @@
 (require 'fic-ext-mode)
 (require 'flyspell)
 (require 'init-whitespace)
+;(require-package 'groovy-mode)
 
 (after-load 'aggressive-indent
   (define-key aggressive-indent-mode-map (kbd "C-c C-q") nil))
@@ -30,6 +31,8 @@
     haskell-mode
     rst-mode)
   "What to consider as programming languages.")
+
+(add-to-list 'auto-mode-alist '("\\.painless$" . groovy-mode))
 
 (defun my-prog-mode-hook ()
   (fic-ext-mode 1)
