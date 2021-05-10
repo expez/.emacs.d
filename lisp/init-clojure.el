@@ -194,7 +194,8 @@ With a prefix add print-foo throughout the function."
   (interactive "P")
   (if current-prefix-arg
       (unspy)
-    (insert "#spy/d ")))
+    (insert "#spy/d "))
+  (cider-eval-defun-at-point))
 
 (defun unspy ()
   (save-excursion
