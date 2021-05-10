@@ -10,8 +10,7 @@
 
 (eval-after-load "ethan-wspace"
   '(progn
-     (define-minor-mode ethan-wspace-highlight-tabs-mode
-       :init-value nil :lighter nil :keymap nil)))
+     (define-minor-mode ethan-wspace-highlight-tabs-mode nil)))
 
 (global-ethan-wspace-mode 1)
 (setq ethan-wspace-face-customized t)
