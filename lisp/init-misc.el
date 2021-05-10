@@ -1,31 +1,19 @@
-(require-package 'unbound)
 (require-package 'eldoc-eval)
 (require-package 'key-chord)
 (require-package 'helm)
 (require-package 'lorem-ipsum)
-(require-package 'neotree)
 (require-package 'rainbow-delimiters)
 (require-package 'regex-tool)
 (require-package 'regex-dsl)
 (require-package 'yaml-mode)
-(require-package 'crontab-mode)
-(require-package 'color-moccur)
-(require-package 'workgroups2)
 (require-package 'window-numbering)
 (require-package 'solarized-theme)
 (require-package 'popwin)
 (require-package 'buffer-move)
-(require-package 'mode-line-debug)
-(require-package 'ace-window)
 (require-package 'bind-key)
-(require-package 'helm-pages)
-(require-package 'transpose-frame)
 (require 'bind-key)
 (require 'popwin)
 (require 'ibuffer)
-(require 'workgroups2)
-
-(setq wg-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
 
 (popwin-mode 1)
 (eldoc-in-minibuffer-mode 1)
@@ -69,11 +57,6 @@
 (window-numbering-mode 1)
 
 (setq helm-ff-default-directory "~/git")
-
-(setq wg-use-default-session-file t
-      wg-default-session-file (concat user-emacs-directory "workgroups"))
-(setq wg-prefix-key (kbd "C-x w"))
-(workgroups-mode 1)
 
 (defadvice undo-tree-undo (around keep-region activate)
   "Keep region when undoing in region"
@@ -235,49 +218,5 @@
             ;; functions.
             (narrow-to-defun)
             (iedit-start (current-word) (point-min) (point-max))))))))
-
-(after-load 'neotree
-  (setq projectile-switch-project-action 'neotree-projectile-action
-        neo-theme 'ascii
-        neo-keymap-style 'concise)
-  (fill-keymap neotree-mode-map
-               (kbd ",") 'leader
-               (kbd "k") 'previous-line
-               (kbd "j") 'next-line)
-
-  ;; The version upstream didn't eval the body in the right context
-  (defmacro neo-buffer--with-editing-buffer (&rest body)
-    "Execute BODY in neotree buffer without read-only restriction."
-    `(let (rlt)
-       (neo-global--with-buffer
-         (setq buffer-read-only nil)
-         (setq rlt (progn ,@body)))
-       (neo-global--with-buffer
-         (setq buffer-read-only t))
-       rlt))
-
-  (when neo-persist-show
-    (add-hook 'popwin:before-popup-hook
-              (lambda () (setq neo-persist-show nil)))
-    (add-hook 'popwin:after-popup-hook
-              (lambda () (setq neo-persist-show t)))))
-
-(defun neotree-toggle-or-change-root (p)
-  "Toggle neotree, with a prefix call
-`neotree-change-to-buffer-root'."
-  (interactive "P")
-  (if current-prefix-arg
-      (neotree-change-to-buffer-root)
-    (neotree-toggle)))
-
-(defun neotree-change-to-buffer-root ()
-  "Changes the `neotree-root' to be the project root of the
-file the current buffer is visiting.
-
-If no project root can be found use the dir containing the file
-the buffer is visiting."
-  (neo-buffer--change-root (projectile-project-root)))
-
-(mode-line-debug-mode 1)
 
 (provide 'init-misc)
