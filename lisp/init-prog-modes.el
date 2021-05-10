@@ -43,6 +43,8 @@
   (whitespace-mode 1)
   (maybe-allow-tabs)
   (aggressive-indent-mode 1)
+  (setq-local fill-column 100)
+  (toggle-truncate-lines 1)
   (glasses-mode 1)
   (evil-exchange-install))
 
