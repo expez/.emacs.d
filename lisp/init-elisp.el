@@ -46,20 +46,18 @@
   (checkdoc-minor-mode)
   (setq evil-symbol-word-search t)
   (push '(?` . ("`" . "'")) evil-surround-pairs-alist)
-  (define-key evil-normal-state-local-map (kbd "M-.")
-    'elisp-slime-nav-find-elisp-thing-at-point))
+  (fill-keymap evil-normal-state-local-map
+               "C-c e" 'macrostep-expand
+               "C-c C-c" 'eval-defun
+               "C-c C-d" 'describe-thing-in-popup
+               "C-c t" 'bind-test-to
+               "C-c C-e" 'pp-eval-last-sexp
+               "<f3>" 'ert-silently
+               "C-M-;" #'comment-or-uncomment-sexp
+               "M-." 'elisp-slime-nav-find-elisp-thing-at-point
+               "C-c C-k" 'eval-buffer))
 
 (add-hook 'emacs-lisp-mode-hook #'my-elisp-mode-hook)
-
-(fill-keymap emacs-lisp-mode-map
-             "C-c e" 'macrostep-expand
-             "C-c C-c" 'eval-defun
-             "C-c C-d" 'describe-thing-in-popup
-             "C-c t" 'bind-test-to
-             "C-c C-e" 'pp-eval-last-sexp
-             "<f3>" 'ert-silently
-             "C-M-;" #'comment-or-uncomment-sexp
-             "C-c C-k" 'eval-buffer)
 
 (let ((elisp-programming-major-modes '(lisp-interaction-mode ielm-mode)))
   (dolist (mode elisp-programming-major-modes)
