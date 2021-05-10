@@ -9,7 +9,6 @@
 
 (when (not package-archive-contents)
   (package-refresh-contents))
-(package-initialize)
 
 (defun require-package (package &optional min-version no-refresh)
   "Install given PACKAGE, optionally requiring MIN-VERSION.
