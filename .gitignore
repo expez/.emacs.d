@@ -47,3 +47,4 @@ request/
 /ido.last~
 /dump.rdb
 /transient
+/session.*
