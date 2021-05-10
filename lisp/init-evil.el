@@ -1,23 +1,12 @@
 (require-package 'undo-tree)
 (require-package 'evil-surround)
 (require 'evil-surround)
-(require-package 'evil-visualstar)
-(require-package 'evil-numbers)
 (require-package 'evil)
 (require-package 'ace-jump-mode)
 (require 'ace-jump-mode)
 (require-package 'goto-chg)
-(require 'evil-numbers)
 (require-package 'evil-exchange)
 (require-package 'evil-iedit-state)
-(require-package 'evil-indent-textobject)
-(require 'evil-indent-textobject)
-(require-package 'evil-args)
-(require 'evil-args)
-
-;; bind evil-args text objects
-(define-key evil-inner-text-objects-map "a" 'evil-inner-arg)
-(define-key evil-outer-text-objects-map "a" 'evil-outer-arg)
 
 ;; Text object taken from doom-emas
 (evil-define-text-object +evil:defun-txtobj (count &optional _beg _end type)
@@ -67,8 +56,6 @@ point."
 
 (evil-mode 1)
 (evil-exchange-install)
-
-(global-evil-visualstar-mode)
 
 (global-evil-surround-mode 1)
 (setq evil-exchange-highlight-face 'region
