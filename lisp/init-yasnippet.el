@@ -1,6 +1,6 @@
 (require-package 'yasnippet)
 
-(yas-global-mode)
+(yas-global-mode 1)
 (add-to-list 'yas-snippet-dirs (concat user-emacs-directory "snippets"))
 (setq yas-also-auto-indent-first-line t
       yas-prompt-functions '(yas-ido-prompt
