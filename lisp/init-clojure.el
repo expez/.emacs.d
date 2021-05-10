@@ -3,6 +3,7 @@
 (require-package 'clj-refactor)
 (require-package 'clojure-snippets)
 (require-package 'flycheck-clj-kondo)
+(require 'flycheck-clj-kondo)
 
 (eval-after-load 'clojure-snippets
   '(clojure-snippets-initialize))
