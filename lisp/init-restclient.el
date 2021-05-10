@@ -16,7 +16,9 @@
   (fill-keymap evil-normal-state-local-map
                "M-n" 'restclient-jump-next
                "M-p" 'restclient-jump-prev)
-  (flycheck-mode 0))
+  (flycheck-mode 0)
+  (setq-local fill-column 100)
+  (toggle-truncate-lines 1))
 
 (add-hook 'restclient-response-loaded-hook #'my-restclient-response-loaded-hook)
 (add-hook 'restclient-mode-hook #'my-restclient-mode-hook)
