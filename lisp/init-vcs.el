@@ -1,6 +1,4 @@
-(require-package 'git-messenger)
-(require-package 'gitignore-mode)
-(require-package 'gitconfig-mode)
+(require-package 'git-modes)
 (require-package 'gist)
 (require-package 'magit)
 (require-package 'git-gutter-fringe)
