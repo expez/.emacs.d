@@ -83,6 +83,9 @@
 (make-directory (concat user-emacs-directory "autosaves/") t)
 
 (global-undo-tree-mode 1)
+(setq undo-tree-auto-save-history t
+      undo-tree-history-directory-alist
+      (list (cons "." (concat user-emacs-directory "autosaves/"))))
 
 (auto-image-file-mode 1)
 
