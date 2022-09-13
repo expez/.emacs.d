@@ -1,5 +1,5 @@
 (require-package 'markdown-mode)
-(require-package  'visual-fill-column)
+(require-package 'visual-fill-column)
 (require 'markdown-mode)
 
 (add-auto-mode 'markdown-mode "\\.md\\'")
