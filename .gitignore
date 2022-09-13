@@ -48,3 +48,4 @@ request/
 /dump.rdb
 /transient
 /session.*
+/eln-cache/
