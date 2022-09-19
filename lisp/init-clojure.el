@@ -87,8 +87,7 @@
                "C-c f" 'toggle-print-foo
                "C-c C-e" 'cider-eval-defun-at-point
                "C-M-;" #'comment-or-uncomment-sexp
-               "C-c C-m" nil
-               "C-c h" 'clojure-cheatsheet))
+               "C-c C-m" nil))
 
 (add-hook 'clojure-mode-hook #'my-clojure-mode-hook)
 
