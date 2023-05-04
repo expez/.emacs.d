@@ -75,7 +75,7 @@
    "-outline-Consolas-normal-r-normal-normal-14-97-96-96-c-*-iso8859-1"))
 
 (when (eq system-type 'gnu/linux)
-  (set-frame-font "Inconsolata-12"))
+  (set-frame-font "Inconsolata-13"))
 
 (add-hook 'comint-output-filter-functions
           'comint-strip-ctrl-m)
