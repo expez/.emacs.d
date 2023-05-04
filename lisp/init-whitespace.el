@@ -54,7 +54,7 @@ With a prefix argument whitespac-mode is turned off."
           (message "Whitespace mode off"))
       (whitespace-mode 1)
       (message "Whitespace mode on"))
-    (return-from toggle-whitespace-mode))
+    (cl-return-from toggle-whitespace-mode))
   (if whitespace-show-all-mode
       (progn
         (setq whitespace-style my-whitespace-style)
