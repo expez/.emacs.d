@@ -75,9 +75,9 @@
   (clj-refactor-mode 1)
   (cider-mode 1)
   (cljr-add-keybindings-with-prefix "C-c C-m")
-  (change-whitespace-line-column 120)
-  (setq-local fill-column 120
-              clojure-docstring-fill-column 100)
+  (change-whitespace-line-column 100)
+  (setq-local fill-column 100
+              clojure-docstring-fill-column 95)
   (fill-keymap evil-normal-state-local-map
                "M-q" '(lambda () (interactive) (clojure-fill-paragraph))
                "M-," 'cider-pop-back
