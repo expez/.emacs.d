@@ -6,6 +6,7 @@
 (require 'company-quickhelp)
 
 (setq company-idle-delay 0.01
+      company-dabbrev-downcase nil
       company-show-numbers t
       company-tooltip-limit 10
       company-tooltip-align-annotations t
